@@ -7,12 +7,31 @@
 //
 
 #import "BFTAppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
+#import "BFTLoginhandler.h"
+#import "BFTDataHandler.h"
 
 @implementation BFTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    //BFTDataHandler *handler = [[BFTDataHandler alloc]init];
+    if(self.locationManager == nil){
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = 500;
+        self.locationManager = _locationManager;
+    }
+    
+    if([CLLocationManager locationServicesEnabled]){
+        [_locationManager startUpdatingLocation];
+    }
+    
+    //Check Facebook Session
+    [FBLoginView class];
+    
     return YES;
 }
 							
@@ -41,6 +60,34 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+    
+    NSDate* eventDate = newLocation.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) <= 15.0)
+    {
+        //Location timestamp is within the last 15.0 seconds, let's use it!
+        if(newLocation.horizontalAccuracy <= 35.0){
+            //Location seems pretty accurate, let's use it!
+            NSLog(@"latitude %+.6f, longitude %+.6f\n",
+                  newLocation.coordinate.latitude,
+                  newLocation.coordinate.longitude);
+            NSLog(@"Horizontal Accuracy:%f", newLocation.horizontalAccuracy);
+            
+            [[BFTDataHandler sharedInstance] setLatitude:newLocation.coordinate.latitude];
+            [[BFTDataHandler sharedInstance] setLongitude:newLocation.coordinate.longitude];
+            
+            //Optional: turn off location services once we've gotten a good location
+            [manager stopUpdatingLocation];
+        }
+    }
+    
 }
 
 @end

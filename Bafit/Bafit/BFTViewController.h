@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import "BFTDataHandler.h"
 
-@interface BFTViewController : UIViewController
+@interface BFTViewController : UIViewController<UIAlertViewDelegate, FBLoginViewDelegate, UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *PolicyButton;
+@property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
+@property (strong, nonatomic) BFTDataHandler *data;
 
+- (IBAction)PolicyAlert:(id)sender;
 @end

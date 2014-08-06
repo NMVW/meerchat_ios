@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A96402B8-D791-482A-A0F1-8C0A0FE7E63E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Bafit</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DB2011E0-8477-444D-AA49-359C00C6B894</key>
+		<string>https://bitbucket.org/team_bafit/backforthit-b-fit.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Bafit/Bafit.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DB2011E0-8477-444D-AA49-359C00C6B894</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/team_bafit/backforthit-b-fit.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DB2011E0-8477-444D-AA49-359C00C6B894</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DB2011E0-8477-444D-AA49-359C00C6B894</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Bafit</string>
+		</dict>
+	</array>
+</dict>
+</plist>
