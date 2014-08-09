@@ -25,6 +25,19 @@
     //Facebook
     _loginButton.delegate = self;
     
+    _thumbURLS = [[NSMutableArray alloc] initWithObjects:@"http://bafit.mobi/userPosts/thumb/v1.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v2.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v3.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v4.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v5.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v6.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v7.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v8.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v9.jpeg",
+                  @"http://bafit.mobi/userPosts/thumb/v10.jpeg", nil];
+    
+//    [self saveImagesToArray];
+    
     
 }
 
@@ -39,6 +52,21 @@
     UIAlertView *policyAlert = [[UIAlertView alloc] initWithTitle:@"Privacy Policy" message:@"We never post anything to your Facebook \n\nWe never display any of your personal information besides the screen name you choose \n\nWe use Facebook to see friends, age, and interests" delegate:self cancelButtonTitle:@"Disagree" otherButtonTitles:@"Agree", nil];
     [policyAlert show];
 }
+
+//-(void)saveImagesToArray {
+//       for (int i = 0; i < [_thumbURLS count]; i++) {
+//            NSURL *imageURL = [NSURL URLWithString:[_thumbURLS objectAtIndex:i]];
+//          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//                NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+//               dispatch_async(dispatch_get_main_queue(), ^{
+//                   UIImage *newImageObject = [[UIImage alloc] initWithData:imageData];
+//                   NSMutableArray *images = [[NSMutableArray alloc] init];
+//                   images = [[BFTDataHandler sharedInstance] images];
+//                   [images addObject:newImageObject];
+//                });
+//            });
+//        }
+//}
 
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{

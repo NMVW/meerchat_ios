@@ -29,6 +29,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
+    _initialUsername.delegate = self;
+    _schoolEmail.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -103,7 +105,34 @@
     
     NSDictionary* info = [notification userInfo];
     
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+}
+
+- (void)keyboardWillBeHidden:(NSNotification *)notification {
+    
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+    
+}
+
+//keyboard end
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    NSLog(@"Getting Return");
+    [_schoolEmail resignFirstResponder];
+    return NO;
+}
+
+
+- (IBAction)editr:(id)sender {
+    [sender resignFirstResponder];
+}
+
+- (IBAction)editreturn:(id)sender {
+    [sender resignFirstResponder];
+}
+
+- (IBAction)didBeginEdit:(id)sender {
+    
+    CGSize keyboardSize = CGSizeMake(320, 216);
     
     CGPoint buttonOrigin = _checkMark.frame.origin;
     
@@ -120,24 +149,5 @@
         [self.scrollView setContentOffset:scrollPoint animated:YES];
         
     }
-    
-}
-
-- (void)keyboardWillBeHidden:(NSNotification *)notification {
-    
-    [self.scrollView setContentOffset:CGPointZero animated:YES];
-    
-}
-
-
-//keyboard end
-
-
-- (IBAction)editr:(id)sender {
-    [sender resignFirstResponder];
-}
-
-- (IBAction)editreturn:(id)sender {
-    [sender resignFirstResponder];
 }
 @end

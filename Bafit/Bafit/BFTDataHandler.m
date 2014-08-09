@@ -24,6 +24,7 @@
         _initialLogin = true;
         _PPAccepted = false;
         _numberMessages = [[NSArray alloc] initWithObjects:nil];
+        _images = [[NSMutableArray alloc] init];
     }
     return self;
 }

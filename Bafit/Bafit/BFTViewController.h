@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *PolicyButton;
 @property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
 @property (strong, nonatomic) BFTDataHandler *data;
+@property (strong, nonatomic) NSMutableArray *thumbURLS;
 
 - (IBAction)PolicyAlert:(id)sender;
 @end

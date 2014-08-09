@@ -8,19 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
 
-@interface BFTPostViewController : UIViewController <UIImagePickerControllerDelegate>
+@interface BFTPostViewController : UIViewController <UIImagePickerControllerDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UIToolbar *bottomToolbar;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIView *recordView;
 @property (strong, nonatomic) MPMoviePlayerController *player;
-@property (strong, nonatomic) IBOutlet UIButton *recordButton;
+@property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (nonatomic) UIImagePickerController *picker;
+@property (strong, nonatomic) IBOutlet UIView *userVideoView;
+@property (strong, nonatomic) IBOutlet UIView *recordView;
+@property (strong, nonatomic) AVPlayer *player1;
+
+
 
 
 - (IBAction)captureVideo:(id)sender;
+- (IBAction)playButtonPress:(id)sender;
 
 @end

@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BFTInitialLoginViewController : UIViewController
+@interface BFTInitialLoginViewController : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *schoolEmail;
 @property (weak, nonatomic) IBOutlet UITextField *initialUsername;
 @property (weak, nonatomic) IBOutlet UIButton *checkMark;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField;
+
 -(IBAction)checkUser:(id)sender;
 - (IBAction)editr:(id)sender;
 - (IBAction)editreturn:(id)sender;
+- (IBAction)didBeginEdit:(id)sender;
 
 @end

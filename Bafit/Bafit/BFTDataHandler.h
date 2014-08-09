@@ -21,5 +21,6 @@
 @property(assign) double Longitude;
 @property(assign) double Latitude;
 @property(nonatomic,retain) NSArray *numberMessages;
+@property (nonatomic, retain) NSMutableArray *images;
 
 @end

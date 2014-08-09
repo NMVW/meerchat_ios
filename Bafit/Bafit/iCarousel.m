@@ -495,7 +495,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         }
         case iCarouselTypeLinear:
         {
-            CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0f];
+            CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.1f];
             if (_vertical)
             {
                 return CATransform3DTranslate(transform, 0.0f, offset * _itemWidth * spacing, 0.0f);

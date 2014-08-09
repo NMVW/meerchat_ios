@@ -75,8 +75,6 @@
 		807F5B6A198AFDF400528829 /* splashlogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B69198AFDF400528829 /* splashlogo.png */; };
 		807F5B6C198D96D100528829 /* play-icon-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B6B198D96D100528829 /* play-icon-white.png */; };
 		807F5B6F198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5B6E198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m */; };
-		807F5B72198DD3D600528829 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B70198DD3D600528829 /* Default.png */; };
-		807F5B73198DD3D600528829 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B71198DD3D600528829 /* Default-568h@2x.png */; };
 		807F5B75198DE84600528829 /* dividerbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B74198DE84600528829 /* dividerbar.png */; };
 		807F5B77198E18CA00528829 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B76198E18CA00528829 /* Media.xcassets */; };
 		807F5B89198E1B5A00528829 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B79198E1B5A00528829 /* Icon-40.png */; };
@@ -96,6 +94,10 @@
 		807F5B97198E1B5A00528829 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B87198E1B5A00528829 /* iTunesArtwork.png */; };
 		807F5B98198E1B5A00528829 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B88198E1B5A00528829 /* iTunesArtwork@2x.png */; };
 		807F5B9C198F1D5000528829 /* BFTPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5B9B198F1D5000528829 /* BFTPostViewController.m */; };
+		807F5BA2199329BC00528829 /* BFTVideoMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5BA1199329BC00528829 /* BFTVideoMain.m */; };
+		807F5BB91995216600528829 /* Thumbs in Resources */ = {isa = PBXBuildFile; fileRef = 807F5BB81995216600528829 /* Thumbs */; };
+		807F5BBD19954CED00528829 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5BBB19954CED00528829 /* Default-568h@2x.png */; };
+		807F5BBE19954CED00528829 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5BBC19954CED00528829 /* Default.png */; };
 		80F650E1197EBEC300443673 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E0197EBEC300443673 /* FacebookSDK.framework */; };
 		80F650E31980814B00443673 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E21980814B00443673 /* AssetsLibrary.framework */; };
 		80F650E51980815300443673 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E41980815300443673 /* AVFoundation.framework */; };
@@ -207,8 +209,6 @@
 		807F5B6B198D96D100528829 /* play-icon-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-icon-white.png"; sourceTree = "<group>"; };
 		807F5B6D198DBF8E00528829 /* BFTForthThreadControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTForthThreadControllerTableViewController.h; sourceTree = "<group>"; };
 		807F5B6E198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTForthThreadControllerTableViewController.m; sourceTree = "<group>"; };
-		807F5B70198DD3D600528829 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		807F5B71198DD3D600528829 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		807F5B74198DE84600528829 /* dividerbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dividerbar.png; sourceTree = "<group>"; };
 		807F5B76198E18CA00528829 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		807F5B79198E1B5A00528829 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
@@ -229,6 +229,11 @@
 		807F5B88198E1B5A00528829 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		807F5B9A198F1D5000528829 /* BFTPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPostViewController.h; sourceTree = "<group>"; };
 		807F5B9B198F1D5000528829 /* BFTPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPostViewController.m; sourceTree = "<group>"; };
+		807F5BA0199329BC00528829 /* BFTVideoMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTVideoMain.h; sourceTree = "<group>"; };
+		807F5BA1199329BC00528829 /* BFTVideoMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoMain.m; sourceTree = "<group>"; };
+		807F5BB81995216600528829 /* Thumbs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Thumbs; sourceTree = "<group>"; };
+		807F5BBB19954CED00528829 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		807F5BBC19954CED00528829 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		80F650E0197EBEC300443673 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		80F650E21980814B00443673 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		80F650E41980815300443673 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -369,10 +374,11 @@
 		8040E9A4197C9032000D66C7 /* ImageResources */ = {
 			isa = PBXGroup;
 			children = (
+				807F5BB81995216600528829 /* Thumbs */,
 				807F5B78198E1B4B00528829 /* icons */,
+				807F5BBB19954CED00528829 /* Default-568h@2x.png */,
+				807F5BBC19954CED00528829 /* Default.png */,
 				807F5B74198DE84600528829 /* dividerbar.png */,
-				807F5B70198DD3D600528829 /* Default.png */,
-				807F5B71198DD3D600528829 /* Default-568h@2x.png */,
 				807F5B6B198D96D100528829 /* play-icon-white.png */,
 				807F5B69198AFDF400528829 /* splashlogo.png */,
 				807F5B67198AFB0A00528829 /* checkmarkusernameblue.png */,
@@ -502,6 +508,8 @@
 				80F650FB1980979700443673 /* BFTVideoPost.m */,
 				8058E1B4198855A600DF2F4F /* BFTMessage.h */,
 				8058E1B5198855A600DF2F4F /* BFTMessage.m */,
+				807F5BA0199329BC00528829 /* BFTVideoMain.h */,
+				807F5BA1199329BC00528829 /* BFTVideoMain.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -594,6 +602,7 @@
 				807F5B241988DFF000528829 /* background.png in Resources */,
 				807F5B261988DFF000528829 /* placeholder.png in Resources */,
 				807F5B8A198E1B5A00528829 /* Icon-40@2x.png in Resources */,
+				807F5BB91995216600528829 /* Thumbs in Resources */,
 				807F5B5D198A0CC100528829 /* study-btn-inactive@2x.png in Resources */,
 				807F5B201988970300528829 /* ChatBox-To.png in Resources */,
 				807F5B90198E1B5A00528829 /* Icon-76@2x.png in Resources */,
@@ -605,6 +614,7 @@
 				807F5B68198AFB0A00528829 /* checkmarkusernameblue.png in Resources */,
 				807F5B96198E1B5A00528829 /* Icon@2x.png in Resources */,
 				807F5B53198A0CC100528829 /* love-btn-inactive@2x.png in Resources */,
+				807F5BBD19954CED00528829 /* Default-568h@2x.png in Resources */,
 				80F650F31980907100443673 /* shape_rounded-512.png in Resources */,
 				807F5B75198DE84600528829 /* dividerbar.png in Resources */,
 				807F5B97198E1B5A00528829 /* iTunesArtwork.png in Resources */,
@@ -626,6 +636,7 @@
 				807F5B60198A0CC100528829 /* upper-trap.png in Resources */,
 				807F5B8B198E1B5A00528829 /* Icon-60.png in Resources */,
 				807F5B38198A0CAD00528829 /* nav-bar@2x.png in Resources */,
+				807F5BBE19954CED00528829 /* Default.png in Resources */,
 				807F5B89198E1B5A00528829 /* Icon-40.png in Resources */,
 				807F5B4D198A0CC100528829 /* grub-btn-active@2x.png in Resources */,
 				807F5B5E198A0CC100528829 /* study-btn-inactive.png in Resources */,
@@ -638,7 +649,6 @@
 				807F5B55198A0CC100528829 /* lower-trap@2x.png in Resources */,
 				807F5B6A198AFDF400528829 /* splashlogo.png in Resources */,
 				807F5B34198A0CAD00528829 /* forth-btn@2x.png in Resources */,
-				807F5B72198DD3D600528829 /* Default.png in Resources */,
 				807F5B31198A0CAD00528829 /* back-btn.png in Resources */,
 				807F5B52198A0CC100528829 /* love-btn-active.png in Resources */,
 				807F5B56198A0CC100528829 /* lower-trap.png in Resources */,
@@ -649,7 +659,6 @@
 				807F5B64198A1E8C00528829 /* UINavigationBar@2x.png in Resources */,
 				807F5B37198A0CAD00528829 /* nav-bar.png in Resources */,
 				80F650F41980907100443673 /* star-full-icon.png in Resources */,
-				807F5B73198DD3D600528829 /* Default-568h@2x.png in Resources */,
 				80F650F91980940800443673 /* gradient.jpeg in Resources */,
 				807F5B5F198A0CC100528829 /* upper-trap@2x.png in Resources */,
 				807F5B50198A0CC100528829 /* grub-btn-inactive.png in Resources */,
@@ -720,6 +729,7 @@
 				803EE0F51984CD1600B86ACE /* BFTInitialLoginViewController.m in Sources */,
 				8058E1B3198843ED00DF2F4F /* BFTICarouselViewController.m in Sources */,
 				801AE87A1985C023006EA19B /* BFTBackThreadTableViewController.m in Sources */,
+				807F5BA2199329BC00528829 /* BFTVideoMain.m in Sources */,
 				807F5B6F198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m in Sources */,
 				8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */,
 				80FD6DF31980CDF5005AD023 /* BFTHTTPCLIENT.m in Sources */,

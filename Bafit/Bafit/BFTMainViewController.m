@@ -22,6 +22,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _imageObjects = [[NSMutableArray alloc] init];
+        //UISwipeGestureRecognizer* _swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpFrom:)];
+        //_swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
     }
     return self;
 }
@@ -29,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //[self.view addGestureRecognizer:_swipeUpGestureRecognizer];
     _videoURLS = [[NSMutableArray alloc] initWithObjects:@"http://bafit.mobi/userPosts/v1.mp4",
                   @"http://bafit.mobi/userPosts/v2.mp4",
                   @"http://bafit.mobi/userPosts/v3.mp4",
@@ -39,21 +43,36 @@
                   @"http://bafit.mobi/userPosts/v8.mp4",
                   @"http://bafit.mobi/userPosts/v9.mp4",
                   @"http://bafit.mobi/userPosts/v10.mp4", nil];
-    //[self setCarouselVideoObjects:_videoURLS];
+    
+//    NSLog(@"%@", [[BFTDataHandler sharedInstance] images]);
+    
+//    NSError *error = nil;
+//    NSString *folderPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Thumbs"];
+//    _images = [[NSArray alloc]init];
+//    _images = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:folderPath error:&error];
+    
+    
+//    for (int i = 0; i < [_thumbURLS count]; i++) {
+//        NSURL *imageURL = [NSURL URLWithString:[_thumbURLS objectAtIndex:i]];
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//            NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                //imageView.image = [UIImage imageWithData:imageData];
+//                [_imageObjects addObject:[UIImage imageWithData:imageData]];
+//            });
+//            NSLog(@"Set image: %lu", (unsigned long)[_imageObjects count]);
+//        });
+//    }
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 
     
     _items = [NSMutableArray array];
     
-    //Carousel Testing Data
-    for (int i = 0; i < 1; i++)
-    {
-        [_items addObject:@(i)];
-        NSLog(@"%lu", (unsigned long)[self.items count]);
-    }
     //configure carousel
     _carousel.delegate = self;
     _carousel.dataSource = self;
-    //_carousel.type = iCarouselTypeRotary;
+    _carousel.type = iCarouselTypeLinear;
     
     //Show value for testing
     NSLog(@"Initial Login From Main: %d",[[BFTDataHandler sharedInstance] initialLogin]);
@@ -72,6 +91,15 @@
     //After calls to server
     [self checkMessages];
     
+}
+
+- (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer {
+    [self performSegueWithIdentifier:@"topostview" sender:self];
+
+}
+
+- (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer {
+    NSLog(@"Swipe Down Done");
 }
 
 -(void)setCarouselVideoObjects:(NSMutableArray *)array {
@@ -138,7 +166,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError");
-    NSLog([NSString stringWithFormat:@"Connection failed: %@", [error description]]);
+    NSLog(@"Connection failed: %@", [error description]);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -166,16 +194,9 @@
     NSLog(@"Array is: %@", _mutableArray);
     
     // show all values
-    //for(id key in res) {
-        
-       // id value = [res objectForKey:key];
-        
-       // NSString *keyAsString = (NSString *)key;
-        //NSString *valueAsString = (NSString *)value;
-        
-        //NSLog(@"key: %@", keyAsString);
-        //NSLog(@"value: %@", valueAsString);
-    //}
+    for (int i = 0; i < 10; i++) {
+        NSLog(@"Instance: %d", i);
+    }
     
     // extract specific value...
     //NSArray *results = [res objectForKey:@"results"];
@@ -187,19 +208,19 @@
     
 }
 
--(void)setDataForPostView:(NSURL *)url {
-    
-    //NSString *filePath = _filePaths[0];
-    if (url != nil) {
-         _player = [[MPMoviePlayerController alloc] initWithContentURL:url];
-        [_player.view setFrame:_videoView.bounds];
-        [_player prepareToPlay];
-        [_player setShouldAutoplay:NO];
-    }else{
-        NSLog(@"File Not Saved Quick Enough!");
-    }
-    
-}
+//-(void)setDataForPostView:(NSURL *)url {
+//    
+//    //NSString *filePath = _filePaths[0];
+//    if (url != nil) {
+//         _player = [[MPMoviePlayerController alloc] initWithContentURL:url];
+//        [_player.view setFrame:_videoView.bounds];
+//        [_player prepareToPlay];
+//        [_player setShouldAutoplay:NO];
+//    }else{
+//        NSLog(@"File Not Saved Quick Enough!");
+//    }
+//    
+//}
 
 /*
 #pragma mark - Navigation
@@ -230,41 +251,27 @@
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     //return the total number of items in the carousel
-    //return [_items count];
     return 1;
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    //UILabel *label = nil;
     UILabel *usernameLabel = nil;
     UILabel *pointLabel = nil;
     UIButton *reportUser = nil;
     UILabel *postTimeLabel = nil;
     UILabel *distanceLabel = nil;
     BFTDataHandler *handler = [BFTDataHandler sharedInstance];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:[_videoURLS objectAtIndex:index]] options:nil];
     
-    //video settings v1.0
-    //for (int i = 0; i < [_mutableArray count]; i++) {
-    //for (int i = 0; i < 1; i++) {
-        //[self setDataForPostView:[NSURL URLWithString:[_mutableArray objectAtIndex:index]]];
-        //[self setDataForPostView:[NSURL URLWithString:@"http://bafit.mobi/userPosts/v1.mp4"]];
-    //}
     
     //create new view if no view is available for recycling
-    if (view == nil)
-    {
+//    if (view == nil)
+//    {
         //don't do anything specific to the index within
         //this `if (view == nil) {...}` statement because the view will be
         //recycled and used with other index values later
-        //view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200.0f, 200.0f)];
-        //((UIImageView *)view).image = [UIImage imageNamed:@"page.png"];
-        //view.contentMode = UIViewContentModeCenter;
-        
-        //UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 230.0f, 255.0f)];
-        //imageView.image = [UIImage imageNamed:@"gradient.jpeg"];
-        UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200.0f, 370.0f)];
-        //mainView.backgroundColor = [UIColor colorWithWhite:-100.0f alpha:1.0];
+        UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200.0f, 370.0f)];	
         view = mainView;
         CGFloat mainViewWidth = mainView.bounds.size.width;
         
@@ -287,21 +294,32 @@
         [mainView addSubview:dividerTop];
         
         //Video Player View
-        _videoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainViewWidth, 220)];
+        _videoView = [[UIView alloc] initWithFrame:CGRectMake(0,0, mainViewWidth, 220)];
         _videoView.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
-        _videoView.center = CGPointMake(100, 170);
+        _videoView.center = CGPointMake(100, 170);//170
         _videoView.tag = 20;
         [view addSubview:_videoView];
         
-        //video
-        _player = [[MPMoviePlayerController alloc] init];
-        [_player.view setFrame:_videoView.bounds];
-        [_player prepareToPlay];
-        [_player setShouldAutoplay:NO];
-        _player.scalingMode = MPMovieScalingModeAspectFit;
-        _player.controlStyle = MPMovieControlStyleNone;
-        [_videoView addSubview:_player.view];
         
+//        //AV Asset Player
+//        AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
+//        _player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
+//        AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+//        playerLayer.frame = _videoView.bounds;
+//        //        [playerLayer setFrame:_videoView.frame];
+//        [_videoView.layer addSublayer:playerLayer];
+//        [_player seekToTime:kCMTimeZero];
+        
+//        //Thumb Views
+//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, mainViewWidth, 220)];
+//        imageView.center = CGPointMake(100, 170);
+//        //[imageView setBackgroundColor:[UIColor colorWithWhite:100 alpha:1.0]];
+//        imageView.tag = 200;
+//        [imageView setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"v%lu", index + 1] ofType:@"jpg"]]];
+//        [_videoView addSubview:imageView];
+        
+        
+    
         
         //Username Display
         usernameLabel = [[UILabel alloc] initWithFrame:_videoView.bounds];
@@ -314,14 +332,14 @@
         
         
 
-        //Play Button
-        _playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60.0f, 60.0f)];
-        [_playButton setBackgroundImage:[UIImage imageNamed:@"play-icon-grey.png"] forState:UIControlStateNormal];
-        [_playButton addTarget:self.view.superview action:@selector(postThread:) forControlEvents:UIControlEventTouchUpInside];
-        _playButton.center = CGPointMake(100, 160);
-        //_playButton.tag = index;
-        [view addSubview:_playButton];
-        
+//        //Play Button
+//        _playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60.0f, 60.0f)];
+//        [_playButton setBackgroundImage:[UIImage imageNamed:@"play-icon-grey.png"] forState:UIControlStateNormal];
+//        [_playButton addTarget:self action:@selector(postThread:) forControlEvents:UIControlEventTouchUpInside];
+//        _playButton.center = CGPointMake(100, 160);
+//        _playButton.tag = index;
+//        [view addSubview:_playButton];
+    
         
         //footer
         UIImageView *bottomTrapazoid = [[UIImageView alloc] initWithFrame:CGRectMake(0, 280, mainViewWidth, 90)];
@@ -376,16 +394,17 @@
         [mainView addSubview:reportUser];
         
         
-    }
-    else
-    {
-        //get a reference to the label in the recycled view
-        _playButton = (UIButton *) [view viewWithTag:1];
-        //label = (UILabel *)[view viewWithTag:1];
-        usernameLabel = (UILabel *) [view viewWithTag:10];
-        pointLabel = (UILabel *) [view viewWithTag:12];
-        _videoView = (UIView *) [view viewWithTag:20];
-    }
+//    }
+//    else
+//    {
+//        //get a reference to the label in the recycled view
+//        _playButton = (UIButton *) [view viewWithTag:index];
+//        //label = (UILabel *)[view viewWithTag:1];
+//        usernameLabel = (UILabel *) [view viewWithTag:10];
+//        pointLabel = (UILabel *) [view viewWithTag:12];
+//        //imageView = (UIImageView *) [view viewWithTag:200];
+//        _videoView = (UIView *) [view viewWithTag:20];
+//    }
     
     //set item label
     //remember to always set any properties of your carousel item
@@ -394,19 +413,36 @@
     //in the wrong place in the carousel
     //[playButton setBackgroundImage:[UIImage imageNamed:@"play-icon-grey.png"] forState:UIControlStateNormal];
     //label.text = [_items[index] stringValue];
+    
+    //AV Asset Player
+    AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
+    _player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+    playerLayer.frame = _videoView.bounds;
+    //        [playerLayer setFrame:_videoView.frame];
+    [_videoView.layer addSublayer:playerLayer];
+    [_player seekToTime:kCMTimeZero];
+    
     usernameLabel.text = handler.Username[index];
     pointLabel.text = @"32 points";
     postTimeLabel.text = @"3 hours ago";
     distanceLabel.text = @"4 miles away";
     
-    for (int i = 0; i < 1; i++) {
-      [_player setContentURL:[NSURL URLWithString:[_videoURLS objectAtIndex:index]]];
-        //NSLog(@"Object Link: %@",[_videoURLS objectAtIndex:index]);
-    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying:) name:MPMoviePlayerPlaybackDidFinishNotification object:_player];
 
     return view;
+}
+
+-(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
+    if (index == _carousel.currentItemIndex) {
+        [_player play];
+    }
+}
+
+- (NSUInteger)numberOfVisibleItemsInCarousel:(iCarousel *)carousel
+{
+    return 1;
 }
 
 - (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
@@ -434,14 +470,24 @@
     }
 }
 
+-(void)playAtIndex:(NSInteger)index
+{
+}
+
 -(IBAction)postThread:(id)sender {
-    //[self performSegueWithIdentifier:@"topostview" sender:self];
-    if (_playButton.isHidden) {
-        [_playButton setHidden:NO];
-    }else{
-        [_playButton setHidden:YES];
-        [_player play];
-    }
+    
+    NSLog(@"Index Button Number: %ld", (long)[sender tag]);
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:[_videoURLS objectAtIndex:[sender tag]]] options:nil];
+    //AV Asset Player
+    AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
+    _player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
+    playerLayer.frame = _videoView.bounds;
+    //        [playerLayer setFrame:_videoView.frame];
+    [_videoView.layer addSublayer:playerLayer];
+    [_player seekToTime:kCMTimeZero];
+    [_player play];
+    
 }
 
 - (IBAction)backToThread:(id)sender {
