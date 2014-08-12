@@ -14,6 +14,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate>
+
+@property (strong, nonatomic) UIView *videoPlayback;
+
 @property (weak, nonatomic) IBOutlet UIButton *notToday;
 @property (weak, nonatomic) IBOutlet UIButton *respondButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
@@ -23,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loveCatButton;
 @property (weak, nonatomic) IBOutlet UIButton *grubCatButton;
 @property (weak, nonatomic) IBOutlet UIButton *MessageCountLabel;
-@property (strong, nonatomic) IBOutlet UIView *videoView;
+@property (strong, nonatomic) IBOutlet UIImageView *videoView;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) NSArray *messages;
 
@@ -35,7 +38,6 @@
 @property (weak, nonatomic) NSMutableArray *filePaths;
 @property (strong, nonatomic) NSMutableArray *mutableArray;
 @property (strong, nonatomic) NSArray *images;
-//@property (strong, nonatomic) MPMoviePlayerController *player;//old
 @property (retain, nonatomic) AVPlayer *player;
 @property (strong, nonatomic)UISwipeGestureRecognizer* swipeUpGestureRecognizer;
 
