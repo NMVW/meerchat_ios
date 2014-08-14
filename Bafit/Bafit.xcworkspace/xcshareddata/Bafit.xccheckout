@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>DF6B5C04-B1D1-4970-97C7-C391FC64C5F2</string>
+	<string>B693C7D6-4AFD-46DC-B8AA-5E61B0E8E3A7</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Bafit</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -28,6 +28,14 @@
 	<string>0ACE6F30-306C-4A23-ABBA-D514A0BEE454</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0ACE6F30-306C-4A23-ABBA-D514A0BEE454</string>
+			<key>IDESourceControlWCCName</key>
+			<string>B&amp;Fit</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
