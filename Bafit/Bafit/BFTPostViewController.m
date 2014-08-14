@@ -26,10 +26,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.replyURL = self.replyURL;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     // Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:@"http://bafit.mobi/userPosts/v1.mp4"] options:nil];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
         //AV Asset Player
         AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
         _player1 = [[AVPlayer alloc] initWithPlayerItem:playerItem];

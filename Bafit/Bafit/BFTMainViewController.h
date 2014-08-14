@@ -29,6 +29,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *videoView;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) NSArray *messages;
+@property (nonatomic) BOOL swipeUp;
 
 @property (retain, nonatomic) IBOutlet iCarousel *carousel;
 @property (retain, nonatomic) NSMutableArray *items;
@@ -37,6 +38,7 @@
 @property (retain, nonatomic) NSMutableArray *imageObjects;
 @property (weak, nonatomic) NSMutableArray *filePaths;
 @property (strong, nonatomic) NSMutableArray *mutableArray;
+@property (strong, nonatomic) UILabel *usernameLabel;
 @property (strong, nonatomic) NSArray *images;
 @property (retain, nonatomic) AVPlayer *player;
 @property (strong, nonatomic)UISwipeGestureRecognizer* swipeUpGestureRecognizer;

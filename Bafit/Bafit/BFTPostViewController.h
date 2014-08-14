@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIView *userVideoView;
 @property (strong, nonatomic) IBOutlet UIView *recordView;
 @property (strong, nonatomic) AVPlayer *player1;
+@property (weak, nonatomic) NSString *replyURL;
 
 
 

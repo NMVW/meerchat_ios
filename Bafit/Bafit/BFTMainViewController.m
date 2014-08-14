@@ -10,6 +10,7 @@
 #import "BFTHTTPCLIENT.h"
 #import "BFTDataHandler.h"
 #import "BFTAppDelegate.h"
+#import "BFTPostViewController.h"
 
 @interface BFTMainViewController ()
 
@@ -74,6 +75,7 @@
 }
 
 - (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer {
+    [self setSwipeUp:YES];
     [self performSegueWithIdentifier:@"topostview" sender:self];
 
 }
@@ -212,7 +214,7 @@
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    UILabel *usernameLabel = nil;
+    _usernameLabel = nil;
     UILabel *pointLabel = nil;
     UIButton *reportUser = nil;
     UILabel *postTimeLabel = nil;
@@ -249,6 +251,7 @@
     _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, mainViewWidth, 220)];
     _videoView.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
     _videoView.center = CGPointMake(100, 170);
+    [_videoView setContentMode:UIViewContentModeScaleAspectFit];
     [_videoView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[_thumbURLS objectAtIndex:index]]]]];
     
     //video Thumbs
@@ -256,12 +259,12 @@
         
         
     //Username Display
-    usernameLabel = [[UILabel alloc] initWithFrame:_videoView.bounds];
-    usernameLabel.font = [usernameLabel.font fontWithSize:15];
-    usernameLabel.textColor = [UIColor colorWithWhite:100 alpha:1.0];
-    usernameLabel.center = CGPointMake(_videoView.center.x + 65, 270);
-    usernameLabel.tag = 10;
-    [mainView addSubview:usernameLabel];
+    _usernameLabel = [[UILabel alloc] initWithFrame:_videoView.bounds];
+    _usernameLabel.font = [_usernameLabel.font fontWithSize:15];
+    _usernameLabel.textColor = [UIColor colorWithWhite:100 alpha:1.0];
+    _usernameLabel.center = CGPointMake(_videoView.center.x + 65, 270);
+    _usernameLabel.tag = 10;
+    [mainView addSubview:_usernameLabel];
     
     
         
@@ -319,7 +322,7 @@
     
     
     //Assign Item to Labels
-    usernameLabel.text = handler.Username[index];
+    _usernameLabel.text = handler.Username[index];
     pointLabel.text = @"32 points";
     postTimeLabel.text = @"3 hours ago";
     distanceLabel.text = @"4 miles away";
@@ -330,41 +333,22 @@
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
     
     NSLog(@"Inside select object at index");
-    
-  
     AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:[_videoURLS objectAtIndex:carousel.currentItemIndex]]];
     AVPlayer *avPlayer = [[AVPlayer alloc] initWithPlayerItem:avPlayeritem];
     AVPlayerLayer *avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:avPlayer];
-    [avPlayerLayer setFrame:_videoView.bounds];
+    [avPlayerLayer setFrame:_videoView.frame];
+    avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    [avPlayerLayer setNeedsLayout];
     [carousel.currentItemView.layer addSublayer:avPlayerLayer];
+    [carousel.currentItemView bringSubviewToFront:_usernameLabel];
     //Assign to notication to check for end of playback
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayeritem];
-    
     [avPlayer seekToTime:kCMTimeZero];
     [avPlayer play];
     
-    
-    
-//    AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
-//    _player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
-//    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-//    playerLayer.frame = _videoView.bounds;
-//    //        [playerLayer setFrame:_videoView.frame];
-//    [_videoView.layer addSublayer:playerLayer];
-//    [_player seekToTime:kCMTimeZero];
-    
 }
 
--(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
-//    AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
-//    _player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
-//    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
-//    playerLayer.frame = _videoView.bounds;
-//    //        [playerLayer setFrame:_videoView.frame];
-//    [_videoView.layer addSublayer:playerLayer];
-//    [_player seekToTime:kCMTimeZero];
-    
-}
+-(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {}
 
 - (NSUInteger)numberOfVisibleItemsInCarousel:(iCarousel *)carousel
 {
@@ -395,6 +379,24 @@
 -(void)playAtIndex:(NSInteger)index
 {
 }
+
+/* Segue Preperation */
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if([segue.identifier isEqualToString:@"topostview"])
+    {
+        if (!_swipeUp) {
+            //Regularly handle post message
+        }else{
+            //swipe up to post
+            [self setSwipeUp:NO];
+            BFTPostViewController *postView = segue.destinationViewController;
+            postView.replyURL = [_videoURLS objectAtIndex:_carousel.currentItemIndex];
+        }
+    }
+    
+}
+
 
 -(IBAction)postThread:(id)sender {
     
