@@ -13,10 +13,13 @@
 @property (weak, nonatomic) IBOutlet UITextField *initialUsername;
 @property (weak, nonatomic) IBOutlet UIButton *checkMark;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UILabel *usernameErrorLabel;
+
+@property (assign) BOOL usernameIsUnique;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField;
 
--(IBAction)checkUser:(id)sender;
+- (IBAction)checkUser:(id)sender;
 - (IBAction)editr:(id)sender;
 - (IBAction)editreturn:(id)sender;
 - (IBAction)didBeginEdit:(id)sender;

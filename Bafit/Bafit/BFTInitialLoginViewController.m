@@ -8,6 +8,7 @@
 
 #import "BFTInitialLoginViewController.h"
 #import "BFTDataHandler.h"
+#import "BFTDatabaseRequest.h"
 
 @interface BFTInitialLoginViewController ()
 
@@ -15,22 +16,18 @@
 
 @implementation BFTInitialLoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self registerForKeyboardNotifications];
     _initialUsername.delegate = self;
     _schoolEmail.delegate = self;
+    
+    //Initialize username error label
+    _usernameErrorLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.initialUsername.frame, 0, 32)];
+    _usernameErrorLabel.textAlignment = NSTextAlignmentCenter;
+    _usernameErrorLabel.textColor = [UIColor redColor];
+    _usernameErrorLabel.font = [UIFont systemFontOfSize:13];
+    [self.scrollView addSubview:_usernameErrorLabel];
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,94 +39,59 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:(BOOL)animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [self deregisterFromKeyboardNotifications];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)checkUser:(id)sender {
-    //NSLog(@"Initial Login: %@",[[BFTDataHandler sharedInstance] initialLogin]);
     if ([[_schoolEmail text] length] >= 3) {
         //Passed School email focus on getting username
-        if ([[_initialUsername text]length] >= 3) {
+        if (self.usernameIsUnique) {
             //passed username and email, focus on navigation
             BFTDataHandler *handler = [BFTDataHandler sharedInstance];
             [handler setInitialLogin:false];
             [self performSegueWithIdentifier:@"tomain" sender:self];
-        }else{
+        } else{
             //username incorrect
+            NSLog(@"Username is not unique");
         }
-    }else {
+    } else {
         //email incorrect
+        NSLog(@"Email is incorrect");
     }
 }
 
-//Keyboard start
-
-- (void)registerForKeyboardNotifications {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
+-(void)verifyUniqueUsername {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"uniqueUN.php?BUN=%@", self.initialUsername.text] trueOrFalseBlock:^(BOOL isUnique) {
+        self.usernameIsUnique = isUnique;
+        if (!isUnique) {
+            self.initialUsername.layer.borderColor=[[UIColor redColor]CGColor];
+            self.initialUsername.layer.borderWidth= 2.0f;
+            [_usernameErrorLabel setText:@"Username Must Be Unique"];
+        }
+        else {
+            [_usernameErrorLabel setText:@""];
+            self.initialUsername.layer.borderWidth = 0.0f;
+        }
+    }] startConnection];
 }
-
-- (void)deregisterFromKeyboardNotifications {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardDidHideNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
-    
-}
-
-- (void)keyboardWasShown:(NSNotification *)notification {
-    
-    NSDictionary* info = [notification userInfo];
-    
-}
-
-- (void)keyboardWillBeHidden:(NSNotification *)notification {
-    
-    [self.scrollView setContentOffset:CGPointZero animated:YES];
-    
-}
-
-//keyboard end
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    NSLog(@"Getting Return");
-    [_schoolEmail resignFirstResponder];
+    [textField resignFirstResponder];
     return NO;
 }
 
-
+//this is called when the email text field returns
 - (IBAction)editr:(id)sender {
     [sender resignFirstResponder];
 }
 
+//this is called when the username text field returns
 - (IBAction)editreturn:(id)sender {
     [sender resignFirstResponder];
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+    [self verifyUniqueUsername];
 }
 
+//adjust view for keyabord to edit the username textfield
 - (IBAction)didBeginEdit:(id)sender {
     
     CGSize keyboardSize = CGSizeMake(320, 216);
@@ -150,4 +112,17 @@
         
     }
 }
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+
 @end
