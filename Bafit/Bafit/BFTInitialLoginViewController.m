@@ -22,12 +22,19 @@
     _initialUsername.delegate = self;
     _schoolEmail.delegate = self;
     
+    //Tap gesture recognizer to end editing of the textfields when the background is tapped
+    UITapGestureRecognizer *keyboardDismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [_scrollView addGestureRecognizer:keyboardDismissTap];
+    
     //Initialize username error label
     _usernameErrorLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.initialUsername.frame, 0, 32)];
     _usernameErrorLabel.textAlignment = NSTextAlignmentCenter;
-    _usernameErrorLabel.textColor = [UIColor redColor];
-    _usernameErrorLabel.font = [UIFont systemFontOfSize:13];
+    _usernameErrorLabel.textColor = [UIColor colorWithRed:255/255.0f green:50/255.0f blue:0 alpha:1];
+    _usernameErrorLabel.font = [UIFont boldSystemFontOfSize:14];
     [self.scrollView addSubview:_usernameErrorLabel];
+    
+    _initialUsername.layer.borderColor=[[UIColor redColor]CGColor];
+    _initialUsername.layer.cornerRadius = 7.0f;
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,19 +43,29 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:(BOOL)animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+-(BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (IBAction)checkUser:(id)sender {
     if ([[_schoolEmail text] length] >= 3) {
-        //Passed School email focus on getting username
+        //Passed School email
+        BFTDataHandler *handler = [BFTDataHandler sharedInstance];
+        [handler setEDEmail:[NSString stringWithFormat:@"%@@ufl.edu", self.schoolEmail.text]];
         if (self.usernameIsUnique) {
             //passed username and email, focus on navigation
-            BFTDataHandler *handler = [BFTDataHandler sharedInstance];
             [handler setInitialLogin:false];
-            [self performSegueWithIdentifier:@"tomain" sender:self];
+            [handler setBUN:self.initialUsername.text];
+            //email and username are good, so we need to send them a verification email
+            [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful) {}] startConnection];
+            
+            //go to email confirmation page
+            [self performSegueWithIdentifier:@"emailConfirm" sender:self];
         } else{
             //username incorrect
             NSLog(@"Username is not unique");
@@ -63,7 +80,6 @@
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"uniqueUN.php?BUN=%@", self.initialUsername.text] trueOrFalseBlock:^(BOOL isUnique) {
         self.usernameIsUnique = isUnique;
         if (!isUnique) {
-            self.initialUsername.layer.borderColor=[[UIColor redColor]CGColor];
             self.initialUsername.layer.borderWidth= 2.0f;
             [_usernameErrorLabel setText:@"Username Must Be Unique"];
         }
@@ -72,6 +88,12 @@
             self.initialUsername.layer.borderWidth = 0.0f;
         }
     }] startConnection];
+}
+
+#pragma mark TextField
+
+-(void)dismissKeyboard {
+    [_scrollView endEditing:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
