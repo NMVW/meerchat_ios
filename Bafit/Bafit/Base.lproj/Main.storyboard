@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< .merge_file_3g3xGT
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="JyZ-0a-e6Y">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8sT-Dz-QP5">
+>>>>>>> .merge_file_cD6RHx
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -17,7 +21,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5XZ-gc-U6L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3012" y="-179"/>
+            <point key="canvasLocation" x="-3188" y="-179"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -46,13 +50,13 @@
                     <navigationItem key="navigationItem" id="vvz-Ba-UND"/>
                     <connections>
                         <outlet property="loginButton" destination="b7j-eo-Vuc" id="CZJ-B4-RaY"/>
-                        <segue destination="2cd-to-cO3" kind="push" identifier="mainview" id="tF0-4K-syC"/>
                         <segue destination="po8-c2-nTd" kind="push" identifier="initiallogin" id="Los-Ko-dpt"/>
+                        <segue destination="2cd-to-cO3" kind="push" identifier="mainview" id="3k4-TZ-wLg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2437" y="-179"/>
+            <point key="canvasLocation" x="-2661" y="-179"/>
         </scene>
         <!--Initial Login View Controller-->
         <scene sceneID="8fp-NH-HT2">
@@ -70,7 +74,7 @@
                                 <rect key="frame" x="-20" y="-20" width="360" height="608"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Nm-XH-X0e" customClass="BFT">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Nm-XH-X0e">
                                         <rect key="frame" x="20" y="20" width="320" height="568"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -173,12 +177,12 @@
                         <outlet property="initialUsername" destination="X0r-vj-ifv" id="ner-5P-c6B"/>
                         <outlet property="schoolEmail" destination="eey-tS-Vtj" id="vL7-NX-Krb"/>
                         <outlet property="scrollView" destination="Rhy-hT-DMP" id="4WF-2H-hvA"/>
-                        <segue destination="2cd-to-cO3" kind="push" identifier="tomain" id="4eA-TF-BYR"/>
+                        <segue destination="fdV-vP-xcf" kind="modal" identifier="emailConfirm" id="hmw-A7-sAG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bni-QR-9rB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1761" y="-172"/>
+            <point key="canvasLocation" x="-2093" y="-179"/>
         </scene>
         <!--Post View Controller-->
         <scene sceneID="ZTm-ND-d7r">
@@ -470,6 +474,90 @@
             </objects>
             <point key="canvasLocation" x="-1129" y="-179"/>
         </scene>
+        <!--Email Confirmation View Controller-->
+        <scene sceneID="fBO-oe-D4v">
+            <objects>
+                <viewController id="fdV-vP-xcf" customClass="BFTEmailConfirmationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Euq-iS-nt2"/>
+                        <viewControllerLayoutGuide type="bottom" id="Btw-6M-uUX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uuP-rM-gvT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRR-9n-Jbj">
+                                <rect key="frame" x="0.0" y="86" width="320" height="181"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verify Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07i-rf-qyx">
+                                        <rect key="frame" x="99" y="20" width="122" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="0Af-Im-i1a">
+                                        <rect key="frame" x="20" y="35" width="75" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.082352943720000002" green="0.26274511220000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
+                                    </progressView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please enter the verification number sent to your email address" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="258" translatesAutoresizingMaskIntoConstraints="NO" id="UmR-YX-Sr1">
+                                        <rect key="frame" x="42" y="59" width="258" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verification Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ban-aT-gSE">
+                                        <rect key="frame" x="55" y="131" width="142" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="tIi-nY-cez">
+                                        <rect key="frame" x="220" y="35" width="75" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.082352943720000002" green="0.26274511220000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
+                                    </progressView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEN-P8-ZP0">
+                                        <rect key="frame" x="197" y="131" width="69" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Verify">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="createUser:" destination="fdV-vP-xcf" eventType="touchUpInside" id="QBX-tq-Lra"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="181" id="8m1-Od-Rwz"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2364615501" green="0.38161226170000001" blue="0.52297911350000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cRR-9n-Jbj" secondAttribute="trailing" id="fbI-iI-73c"/>
+                            <constraint firstItem="cRR-9n-Jbj" firstAttribute="leading" secondItem="uuP-rM-gvT" secondAttribute="leading" id="tZ7-Ac-1lg"/>
+                            <constraint firstItem="cRR-9n-Jbj" firstAttribute="top" secondItem="Euq-iS-nt2" secondAttribute="bottom" constant="66" id="xvr-pv-UrL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailSentTextLabel" destination="UmR-YX-Sr1" id="Htt-en-ctM"/>
+                        <outlet property="verificationNumberTextField" destination="ban-aT-gSE" id="Kha-Cc-sue"/>
+                        <segue destination="2cd-to-cO3" kind="modal" identifier="tomain" id="jaP-dt-f3g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ufk-NK-jdy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1615" y="-179"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="5b4-kw-Bc9">
             <objects>
@@ -574,6 +662,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4eA-TF-BYR"/>
+        <segue reference="jaP-dt-f3g"/>
     </inferredMetricsTieBreakers>
 </document>

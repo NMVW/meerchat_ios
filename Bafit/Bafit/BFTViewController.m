@@ -9,6 +9,7 @@
 #import "BFTViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTLoginhandler.h"
+#import "BFTDatabaseRequest.h"
 
 @interface BFTViewController ()
 
@@ -20,10 +21,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _data = [[BFTDataHandler alloc]init];
+    _data = [[BFTDataHandler alloc] init];
     
     //Facebook
     _loginButton.delegate = self;
+    [self openFBSession];
     
     _thumbURLS = [[NSMutableArray alloc] initWithObjects:@"http://bafit.mobi/userPosts/thumb/v1.jpeg",
                   @"http://bafit.mobi/userPosts/thumb/v2.jpeg",
@@ -37,8 +39,15 @@
                   @"http://bafit.mobi/userPosts/thumb/v10.jpeg", nil];
     
 //    [self saveImagesToArray];
-    
-    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+-(BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,7 +57,6 @@
 }
 
 - (IBAction)PolicyAlert:(id)sender {
-    
     UIAlertView *policyAlert = [[UIAlertView alloc] initWithTitle:@"Privacy Policy" message:@"We never post anything to your Facebook \n\nWe never display any of your personal information besides the screen name you choose \n\nWe use Facebook to see friends, age, and interests" delegate:self cancelButtonTitle:@"Disagree" otherButtonTitles:@"Agree", nil];
     [policyAlert show];
 }
@@ -70,8 +78,6 @@
 
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    
-    
     switch (buttonIndex) {
         case 0:
             //clicked disagree
@@ -87,27 +93,104 @@
     }
 }
 
--(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView
-{
+#pragma mark FBLoginView Delegate
+
+-(void)openFBSession {
+    //[[FBSession activeSession] closeAndClearTokenInformation];
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"] allowLoginUI:YES completionHandler:nil];
+}
+
+-(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logged in " message:@"You are logged in" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
     //[alert show];
     //[[BFTDataHandler sharedInstance] setPPAccepted:YES];
     
+    //moved this check to the
     //check initial or Not and Facebook
-    if([BFTLoginhandler initialLogin] == 1){
+    /*
+    if([BFTLoginhandler initialLogin] == YES){
         [self performSegueWithIdentifier:@"initiallogin" sender:self];
     }else{
-        
-    [self performSegueWithIdentifier:@"mainview" sender:self];
-    }
+        [self performSegueWithIdentifier:@"mainview" sender:self];
+    }*/
     
     //NSLog(@"%@", [[BFTDataHandler sharedInstance] PPAccepted]);
+}
+
+-(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
+    NSString *email = [user objectForKey:@"email"]; //@"poppyc@ufl.edu";
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"userExists.php?FBemail=%@", email] completionBlock:^(NSMutableData *data, NSError *error) {
+        //NOTE: Response is UID,BUN
+        NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSArray *values = [response componentsSeparatedByString:@","];
+        if (![values[0] isEqualToString:@""]) {
+            //if the response is successful, we set the uid to the datahandler, and go to mainview, otherwise, we go to the loginview
+            NSString *uid = values[0];
+            [[BFTDataHandler sharedInstance] setUID:uid];
+            NSString *BUN = values[1];
+            [[BFTDataHandler sharedInstance] setBUN:BUN];
+            [[BFTDataHandler sharedInstance] setFBEmail:email];
+            [self performSegueWithIdentifier:@"mainview" sender:self];
+        }
+        else {
+            [self sendFBDemographicInfo:user];
+            [[BFTDataHandler sharedInstance] setFBEmail:email];
+            [self performSegueWithIdentifier:@"initiallogin" sender:self];
+        }
+    }] startConnection];
+}
+
+//Facebook recommends handling a bunch of different types of errors
+-(void)loginView:(FBLoginView *)loginView handleError:(NSError *)error {
+    NSString *alertMessage, *alertTitle;
+    // If the user should perform an action outside of you app to recover,
+    // the SDK will provide a message for the user, you just need to surface it.
+    // This conveniently handles cases like Facebook password change or unverified Facebook accounts.
+    if ([FBErrorUtility shouldNotifyUserForError:error]) {
+        alertTitle = @"Facebook error";
+        alertMessage = [FBErrorUtility userMessageForError:error];
+        
+        // This code will handle session closures that happen outside of the app
+        // You can take a look at our error handling guide to know more about it
+        // https://developers.facebook.com/docs/ios/errors
+    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
+        alertTitle = @"Session Error";
+        alertMessage = @"Your current session is no longer valid. Please log in again.";
+        
+        // If the user has cancelled a login, we will do nothing.
+        // You can also choose to show the user a message if cancelling login will result in
+        // the user not being able to complete a task they had initiated in your app
+        // (like accessing FB-stored information or posting to Facebook)
+    } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
+        NSLog(@"user cancelled login");
+        
+        // For simplicity, this sample handles other errors with a generic message
+        // You can checkout our error handling guide for more detailed information
+        // https://developers.facebook.com/docs/ios/errors
+    } else {
+        alertTitle  = @"Something went wrong";
+        alertMessage = @"Please try again later.";
+        NSLog(@"Unexpected error:%@", error);
+    }
+    
+    if (alertMessage) {
+        [[[UIAlertView alloc] initWithTitle:alertTitle
+                                    message:alertMessage
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+}
+
+-(void)sendFBDemographicInfo:(id<FBGraphUser>)user {
     
 }
+
 
 -(BOOL)checkPP {
    // NSLog(@"%s", [[BFTDataHandler sharedInstance] PPAccepted]);
     //return *[[BFTDataHandler sharedInstance]PPAccepted];
     return false;
 }
+
 @end

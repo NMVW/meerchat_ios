@@ -15,12 +15,14 @@
 @property(nonatomic) BOOL initialLogin;
 @property BOOL PPAccepted;
 @property(nonatomic, retain) NSMutableArray *Username;
-@property(nonatomic, retain) NSString *Password;
-@property(assign) NSString *EDEmail;
-@property(nonatomic, retain) NSString *UID;
+@property(nonatomic, copy) NSString *BUN;
+@property(nonatomic, copy) NSString *Password;
+@property(nonatomic, copy) NSString *EDEmail;
+@property(nonatomic, copy) NSString *FBEmail;
+@property(nonatomic, copy) NSString *UID;
 @property(assign) double Longitude;
 @property(assign) double Latitude;
-@property(nonatomic,retain) NSArray *numberMessages;
+@property(nonatomic, retain) NSArray *numberMessages;
 @property (nonatomic, retain) NSMutableArray *images;
 
 @end
