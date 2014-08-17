@@ -22,6 +22,9 @@
 @property (strong, nonatomic) AVPlayer *player1;
 @property (weak, nonatomic) NSString *replyURL;
 
+//AVFoundation Controls
+@property BOOL frontCamera;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *camerCheck;
 
 
 

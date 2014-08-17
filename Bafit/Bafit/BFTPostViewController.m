@@ -19,6 +19,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -26,10 +27,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _frontCamera = NO;
+    [_camerCheck setSelectedSegmentIndex:1];
     self.replyURL = self.replyURL;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     // Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
+    if(!_replyURL){
+        [self setReplyURL:@"http://bafit.mobi/userPosts/v2.mp4"];
+    }
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
         //AV Asset Player
         AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
@@ -41,11 +47,10 @@
         [_player1 seekToTime:kCMTimeZero];
     [_userVideoView addSubview:_playButton];
     
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(playerItemDidReachEnd:)
-     name:AVPlayerItemDidPlayToEndTimeNotification
-     object:_player1];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification
+object:_player1];
+    
+    
     //UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     //imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
     //imagePickerController.allowsEditing = YES;
@@ -189,17 +194,5 @@
     
 }
 //keyboard end
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

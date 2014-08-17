@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8sT-Dz-QP5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="JyZ-0a-e6Y">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -235,7 +235,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIc-SL-6LQ">
-                                                        <rect key="frame" x="15" y="20" width="240" height="235"/>
+                                                        <rect key="frame" x="15" y="40" width="240" height="215"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                         <state key="normal" title="Hold to Record">
@@ -245,6 +245,14 @@
                                                             <action selector="captureVideo:" destination="JyZ-0a-e6Y" eventType="touchUpInside" id="V2F-iq-qvE"/>
                                                         </connections>
                                                     </button>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zz0-oS-HMK">
+                                                        <rect key="frame" x="76" y="4" width="123" height="29"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <segments>
+                                                            <segment title="Front"/>
+                                                            <segment title="Back"/>
+                                                        </segments>
+                                                    </segmentedControl>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
@@ -293,6 +301,7 @@
                     <navigationItem key="navigationItem" id="baM-D1-qV9"/>
                     <connections>
                         <outlet property="bottomToolbar" destination="eCG-s4-YZM" id="cSE-uc-Ziw"/>
+                        <outlet property="camerCheck" destination="zz0-oS-HMK" id="yw6-GS-b5L"/>
                         <outlet property="playButton" destination="ynv-VR-HYu" id="Iyp-u1-iwM"/>
                         <outlet property="recordView" destination="r17-yh-b9p" id="gdS-JQ-BXA"/>
                         <outlet property="userVideoView" destination="QZb-AI-k2u" id="bRp-er-OAG"/>
