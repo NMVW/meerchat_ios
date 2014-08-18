@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UILabel *usernameErrorLabel;
 
 @property (assign) BOOL usernameIsUnique;
+@property (assign) BOOL usernameNeedsUpdating;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField;
 

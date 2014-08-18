@@ -25,7 +25,7 @@
     
     //Facebook
     _loginButton.delegate = self;
-    [self openFBSession];
+    _loginButton.readPermissions = @[@"public_profile", @"email"];
     
     _thumbURLS = [[NSMutableArray alloc] initWithObjects:@"http://bafit.mobi/userPosts/thumb/v1.jpeg",
                   @"http://bafit.mobi/userPosts/thumb/v2.jpeg",
@@ -95,11 +95,6 @@
 
 #pragma mark FBLoginView Delegate
 
--(void)openFBSession {
-    //[[FBSession activeSession] closeAndClearTokenInformation];
-    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"] allowLoginUI:YES completionHandler:nil];
-}
-
 -(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logged in " message:@"You are logged in" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
     //[alert show];
@@ -118,6 +113,13 @@
 }
 
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
+    //this is getting called more than once for some reason, which was casuing multiple segues and issues with navigation
+    static int fetchedInfoCounter = 0;
+    if (fetchedInfoCounter > 0) {
+        return;
+    }
+    fetchedInfoCounter++;
+    
     NSString *email = [user objectForKey:@"email"]; //@"poppyc@ufl.edu";
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"userExists.php?FBemail=%@", email] completionBlock:^(NSMutableData *data, NSError *error) {
         //NOTE: Response is UID,BUN
@@ -183,7 +185,7 @@
 }
 
 -(void)sendFBDemographicInfo:(id<FBGraphUser>)user {
-    
+    NSLog(@"Sending FB Demographics");
 }
 
 
