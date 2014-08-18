@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< .merge_file_3g3xGT
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="JyZ-0a-e6Y">
-=======
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8sT-Dz-QP5">
->>>>>>> .merge_file_cD6RHx
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -100,6 +96,7 @@
                                                         <connections>
                                                             <action selector="didBeginEdit:" destination="po8-c2-nTd" eventType="editingDidBegin" id="01Q-cZ-hdq"/>
                                                             <action selector="editreturn:" destination="po8-c2-nTd" eventType="editingDidEnd" id="OeE-GC-31J"/>
+                                                            <action selector="usernameTextChanged:" destination="po8-c2-nTd" eventType="editingChanged" id="7oF-SQ-G8Y"/>
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is what users will use to recognize you " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="211" translatesAutoresizingMaskIntoConstraints="NO" id="INv-CZ-4ZH">
@@ -177,7 +174,7 @@
                         <outlet property="initialUsername" destination="X0r-vj-ifv" id="ner-5P-c6B"/>
                         <outlet property="schoolEmail" destination="eey-tS-Vtj" id="vL7-NX-Krb"/>
                         <outlet property="scrollView" destination="Rhy-hT-DMP" id="4WF-2H-hvA"/>
-                        <segue destination="fdV-vP-xcf" kind="modal" identifier="emailConfirm" id="hmw-A7-sAG"/>
+                        <segue destination="fdV-vP-xcf" kind="push" identifier="emailConfirm" id="TgI-fU-f1G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bni-QR-9rB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -486,7 +483,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRR-9n-Jbj">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRR-9n-Jbj">
                                 <rect key="frame" x="0.0" y="86" width="320" height="181"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -510,7 +507,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verification Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ban-aT-gSE">
-                                        <rect key="frame" x="55" y="131" width="142" height="30"/>
+                                        <rect key="frame" x="44" y="131" width="142" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -520,10 +517,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.082352943720000002" green="0.26274511220000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                                     </progressView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEN-P8-ZP0">
-                                        <rect key="frame" x="197" y="131" width="69" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEN-P8-ZP0">
+                                        <rect key="frame" x="194" y="131" width="82" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Verify">
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Submit">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -548,10 +546,12 @@
                             <constraint firstItem="cRR-9n-Jbj" firstAttribute="top" secondItem="Euq-iS-nt2" secondAttribute="bottom" constant="66" id="xvr-pv-UrL"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="rve-oj-ifj"/>
                     <connections>
                         <outlet property="emailSentTextLabel" destination="UmR-YX-Sr1" id="Htt-en-ctM"/>
+                        <outlet property="submitVerificationButton" destination="yEN-P8-ZP0" id="mk1-U0-JNj"/>
                         <outlet property="verificationNumberTextField" destination="ban-aT-gSE" id="Kha-Cc-sue"/>
-                        <segue destination="2cd-to-cO3" kind="modal" identifier="tomain" id="jaP-dt-f3g"/>
+                        <segue destination="2cd-to-cO3" kind="push" identifier="tomain" id="Obj-9D-QzL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufk-NK-jdy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -662,6 +662,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jaP-dt-f3g"/>
+        <segue reference="Obj-9D-QzL"/>
     </inferredMetricsTieBreakers>
 </document>

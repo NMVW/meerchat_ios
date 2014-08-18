@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *emailSentTextLabel;
 @property (weak, nonatomic) IBOutlet UITextField *verificationNumberTextField;
-@property (weak, nonatomic) IBOutlet UIButton *numberPadDoneButton;
+@property (weak, nonatomic) IBOutlet UIButton *submitVerificationButton;
 
 
 @end

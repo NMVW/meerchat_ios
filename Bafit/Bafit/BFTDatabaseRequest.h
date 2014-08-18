@@ -28,5 +28,6 @@
 
 //must call this to send request
 -(void)startConnection;
+-(void)startSynchronousConnection;
 
 @end

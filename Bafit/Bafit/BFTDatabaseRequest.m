@@ -44,6 +44,18 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
     _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
+-(void)startSynchronousConnection {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.url];
+    [request setHTTPMethod:@"POST"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setTimeoutInterval:self.timeoutInterval];
+    
+    [_logMessage appendFormat:@"Connection Began:\nURL:%@", self.url];
+    NSError *error;
+    [self connection:_connection didReceiveData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error]];
+    [self completeConnection:error];
+}
+
 #pragma mark NSURLConnection Delegate
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

@@ -53,10 +53,14 @@
 }
 
 - (IBAction)checkUser:(id)sender {
-    if ([[_schoolEmail text] length] >= 3) {
+    if ([[_schoolEmail text] length] >= 1) {
         //Passed School email
         BFTDataHandler *handler = [BFTDataHandler sharedInstance];
         [handler setEDEmail:[NSString stringWithFormat:@"%@@ufl.edu", self.schoolEmail.text]];
+        if (self.usernameNeedsUpdating) {
+            //sychronously update the username is valid.. this has to be done before we can continue, otherwise the username may not be unique
+            [self verifyUniqueUsername:YES];
+        }
         if (self.usernameIsUnique) {
             //passed username and email, focus on navigation
             [handler setInitialLogin:false];
@@ -69,25 +73,35 @@
         } else{
             //username incorrect
             NSLog(@"Username is not unique");
+            [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Username Is Not Unique" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         }
     } else {
-        //email incorrect
+        [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Please enter an email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         NSLog(@"Email is incorrect");
     }
 }
 
--(void)verifyUniqueUsername {
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"uniqueUN.php?BUN=%@", self.initialUsername.text] trueOrFalseBlock:^(BOOL isUnique) {
+-(void)verifyUniqueUsername:(BOOL)isSynchronous {
+    BFTDatabaseRequest *request = [[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"uniqueUN.php?BUN=%@", self.initialUsername.text] trueOrFalseBlock:^(BOOL isUnique) {
         self.usernameIsUnique = isUnique;
+        self.usernameNeedsUpdating = NO;
         if (!isUnique) {
             self.initialUsername.layer.borderWidth= 2.0f;
             [_usernameErrorLabel setText:@"Username Must Be Unique"];
+            [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusernameblue.png"] forState:UIControlStateNormal];
         }
         else {
             [_usernameErrorLabel setText:@""];
             self.initialUsername.layer.borderWidth = 0.0f;
+            [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusername.png"] forState:UIControlStateNormal];
         }
-    }] startConnection];
+    }];
+    if (isSynchronous) {
+        [request startSynchronousConnection];
+    }
+    else {
+        [request startConnection];
+    }
 }
 
 #pragma mark TextField
@@ -110,7 +124,7 @@
 - (IBAction)editreturn:(id)sender {
     [sender resignFirstResponder];
     [self.scrollView setContentOffset:CGPointZero animated:YES];
-    [self verifyUniqueUsername];
+    [self verifyUniqueUsername:NO];
 }
 
 //adjust view for keyabord to edit the username textfield
@@ -133,6 +147,10 @@
         [self.scrollView setContentOffset:scrollPoint animated:YES];
         
     }
+}
+
+- (IBAction)usernameTextChanged:(id)sender {
+    self.usernameNeedsUpdating = YES;
 }
 
 /*

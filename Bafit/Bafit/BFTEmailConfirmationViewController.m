@@ -20,11 +20,27 @@
 {
     [super viewDidLoad];
     [_emailSentTextLabel setText:[NSString stringWithFormat:@"Please enter the verification number sent to %@", [[BFTDataHandler sharedInstance] EDEmail]]];
+    
+    UIColor *blueButtonBorder = [UIColor colorWithRed:70/255.0f green:116/255.0f blue:157/255.0f alpha:1];
+    _submitVerificationButton.layer.cornerRadius = 5.0f;
+    _submitVerificationButton.layer.borderWidth = 2.0f;
+    _submitVerificationButton.layer.borderColor = blueButtonBorder.CGColor;
+    _submitVerificationButton.clipsToBounds = YES;
+    [_submitVerificationButton setBackgroundImage:[BFTEmailConfirmationViewController imageWithColor:blueButtonBorder size:_submitVerificationButton.frame.size] forState:UIControlStateHighlighted];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.verificationNumberTextField becomeFirstResponder];
+}
+
+-(BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,6 +72,21 @@
             //handle connection error
         }
     }] startConnection];
+}
+
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 
