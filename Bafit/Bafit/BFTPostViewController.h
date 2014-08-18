@@ -23,7 +23,7 @@
 @property (weak, nonatomic) NSString *replyURL;
 
 //AVFoundation Controls
-@property BOOL frontCamera;
+@property BOOL FrontCamera;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *camerCheck;
 
 

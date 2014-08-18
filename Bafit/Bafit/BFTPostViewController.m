@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _frontCamera = NO;
+    _FrontCamera = NO;
     [_camerCheck setSelectedSegmentIndex:1];
     self.replyURL = self.replyURL;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -51,42 +51,12 @@
 object:_player1];
     
     
-    //UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-    //imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //imagePickerController.allowsEditing = YES;
-    //imagePickerController.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
-    //UIView *videoMessage = [[UIView alloc] initWithFrame:CGRectMake(23, 189, 275, 275)];
-    //[videoMessage setBackgroundColor:[UIColor colorWithWhite:-100 alpha:1.0]];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:(BOOL)animated];
     [self deregisterFromKeyboardNotifications];
-//    //Setup View with Scrollable Content
-//     _innerScroll = [[UIScrollView alloc] initWithFrame:self.view.frame];
-//    [self.view addSubview:_innerScroll];
-//    _recordView = [[UIView alloc] initWithFrame:CGRectMake(20, 240, 275, 275)];
-//    [_recordView setBackgroundColor:[UIColor colorWithWhite:-100 alpha:1.0]];
-//    [_innerScroll addSubview:_recordView];
-//    
-//    _recordButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 235, 235)];
-//    [_recordButton setTitle:@"Hold to record" forState:UIControlStateNormal];
-//    [_recordButton addTarget:self action:@selector(captureVideo:) forControlEvents:UIControlEventTouchUpInside];
-//    [_recordView addSubview:_recordButton];
-//    
-//    //Add video playback View
-//    _postVideoPlayBack =[[UIView alloc] initWithFrame:CGRectMake(20, -81, 275, 275)];
-//    [_postVideoPlayBack setBackgroundColor:[UIColor colorWithWhite:-100 alpha:1.0]];
-//    [_innerScroll addSubview:_postVideoPlayBack];
-//    UIButton *playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60.0f, 60.0f)];
-//    [playButton setBackgroundImage:[UIImage imageNamed:@"play-icon-grey.png"] forState:UIControlStateNormal];
-//    //[playButton addTarget:self action:@selector(postThread:) forControlEvents:UIControlEventTouchUpInside];
-//    playButton.center = CGPointMake(100, 160);
-//    [_postVideoPlayBack addSubview:playButton];
-//    _innerScroll.contentSize = CGSizeMake(0, 700);
-    
-    
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
@@ -101,13 +71,15 @@ object:_player1];
 
 
 - (IBAction)captureVideo:(id)sender {
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        _picker = [[UIImagePickerController alloc] init];
-        _picker.allowsEditing = YES;
-        _picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        _picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
-        [self presentViewController:_picker animated:YES completion:NULL];
-    }
+    
+    [self initializeCamera];
+//    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//        _picker = [[UIImagePickerController alloc] init];
+//        _picker.allowsEditing = YES;
+//        _picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        _picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
+//        [self presentViewController:_picker animated:YES completion:NULL];
+//    }
 }
 
 - (IBAction)playButtonPress:(id)sender {
@@ -140,6 +112,73 @@ object:_player1];
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+//AVCaptureSession to show live video feed in view
+- (void) initializeCamera {
+    AVCaptureSession *session = [[AVCaptureSession alloc] init];
+	session.sessionPreset = AVCaptureSessionPresetPhoto;
+	
+	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+    [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    
+	captureVideoPreviewLayer.frame = _recordView.bounds;
+	[_recordView.layer addSublayer:captureVideoPreviewLayer];
+	
+    UIView *view = _recordView;
+    CALayer *viewLayer = [view layer];
+    [viewLayer setMasksToBounds:YES];
+    
+    CGRect bounds = [view bounds];
+    [captureVideoPreviewLayer setFrame:bounds];
+    
+    NSArray *devices = [AVCaptureDevice devices];
+    AVCaptureDevice *frontCamera;
+    AVCaptureDevice *backCamera;
+    
+    for (AVCaptureDevice *device in devices) {
+        
+        NSLog(@"Device name: %@", [device localizedName]);
+        
+        if ([device hasMediaType:AVMediaTypeVideo]) {
+            
+            if ([device position] == AVCaptureDevicePositionBack) {
+                NSLog(@"Device position : back");
+                backCamera = device;
+            }
+            else {
+                NSLog(@"Device position : front");
+                frontCamera = device;
+            }
+        }
+    }
+    
+    if (!_FrontCamera) {
+        NSError *error = nil;
+        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:&error];
+        if (!input) {
+            NSLog(@"ERROR: trying to open camera: %@", error);
+        }
+        [session addInput:input];
+    }
+    
+    if (_FrontCamera) {
+        NSError *error = nil;
+        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:frontCamera error:&error];
+        if (!input) {
+            NSLog(@"ERROR: trying to open camera: %@", error);
+        }
+        [session addInput:input];
+    }
+	
+//    stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+//    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+//    [stillImageOutput setOutputSettings:outputSettings];
+//    
+//    [session addOutput:stillImageOutput];
+    
+	[session startRunning];
 }
 
 //Keyboard start

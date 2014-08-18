@@ -13,12 +13,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate>
+@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIView *videoPlayback;
 
-@property (weak, nonatomic) IBOutlet UIButton *notToday;
-@property (weak, nonatomic) IBOutlet UIButton *respondButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *forthButton;
 @property (weak, nonatomic) IBOutlet UIButton *moveCatButton;

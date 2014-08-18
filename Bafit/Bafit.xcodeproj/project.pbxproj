@@ -30,6 +30,7 @@
 		8040E9A3197C902A000D66C7 /* LoginWFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 8040E9A2197C902A000D66C7 /* LoginWFacebook.png */; };
 		8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */; };
 		8040E9B6197EA894000D66C7 /* BFTLoginhandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9B5197EA894000D66C7 /* BFTLoginhandler.m */; };
+		8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */; };
 		8058E1AF1988436100DF2F4F /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1AE1988436100DF2F4F /* iCarousel.m */; };
 		8058E1B3198843ED00DF2F4F /* BFTICarouselViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1B2198843ED00DF2F4F /* BFTICarouselViewController.m */; };
 		8058E1B6198855A600DF2F4F /* BFTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1B5198855A600DF2F4F /* BFTMessage.m */; };
@@ -160,6 +161,9 @@
 		8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTDataHandler.m; sourceTree = "<group>"; };
 		8040E9B4197EA894000D66C7 /* BFTLoginhandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTLoginhandler.h; sourceTree = "<group>"; };
 		8040E9B5197EA894000D66C7 /* BFTLoginhandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTLoginhandler.m; sourceTree = "<group>"; };
+		8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTEmailConfirmationViewController.m; sourceTree = "<group>"; };
+		8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTEmailConfirmationViewController.h; sourceTree = "<group>"; };
+		8053BDB819A17AF8006E9D13 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8058E1AD1988436100DF2F4F /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		8058E1AE1988436100DF2F4F /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		8058E1B1198843ED00DF2F4F /* BFTICarouselViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTICarouselViewController.h; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 		8040E9AD197E080D000D66C7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
+				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
 				8040E97B1978FD59000D66C7 /* BFTViewController.h */,
 				8040E97C1978FD59000D66C7 /* BFTViewController.m */,
 				80F650FE1980A4DD00443673 /* BFTMainViewController.h */,
@@ -726,6 +732,7 @@
 				80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */,
 				807F5B9C198F1D5000528829 /* BFTPostViewController.m in Sources */,
 				8058E1B6198855A600DF2F4F /* BFTMessage.m in Sources */,
+				8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */,
 				8040E9731978FD59000D66C7 /* main.m in Sources */,
 				801AE87D1985E082006EA19B /* BFTThreadTableViewCell.m in Sources */,
 				8040E9771978FD59000D66C7 /* BFTAppDelegate.m in Sources */,
@@ -776,6 +783,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8040E9791978FD59000D66C7 /* Base */,
+				8053BDB819A17AF8006E9D13 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
