@@ -12,6 +12,8 @@
 
 @end
 
+#define CAPTURE_FRAMES_PER_SECOND 20
+
 @implementation BFTPostViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,6 +36,7 @@
     // Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
     if(!_replyURL){
+        //default video used incase URL is not sent
         [self setReplyURL:@"http://bafit.mobi/userPosts/v2.mp4"];
     }
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
@@ -42,7 +45,6 @@
         _player1 = [[AVPlayer alloc] initWithPlayerItem:playerItem];
         AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player1];
     playerLayer.frame = _userVideoView.bounds;
-        //        [playerLayer setFrame:_videoView.frame];
         [_userVideoView.layer addSublayer:playerLayer];
         [_player1 seekToTime:kCMTimeZero];
     [_userVideoView addSubview:_playButton];
@@ -71,15 +73,7 @@ object:_player1];
 
 
 - (IBAction)captureVideo:(id)sender {
-    
     [self initializeCamera];
-//    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//        _picker = [[UIImagePickerController alloc] init];
-//        _picker.allowsEditing = YES;
-//        _picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//        _picker.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeMovie, nil];
-//        [self presentViewController:_picker animated:YES completion:NULL];
-//    }
 }
 
 - (IBAction)playButtonPress:(id)sender {
@@ -171,12 +165,16 @@ object:_player1];
         }
         [session addInput:input];
     }
-	
-//    stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-//    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
-//    [stillImageOutput setOutputSettings:outputSettings];
-//    
-//    [session addOutput:stillImageOutput];
+    
+    //ADD AUDIO INPUT
+	NSLog(@"Adding audio input");
+	AVCaptureDevice *audioCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+	NSError *error = nil;
+	AVCaptureDeviceInput *audioInput = [AVCaptureDeviceInput deviceInputWithDevice:audioCaptureDevice error:&error];
+	if (audioInput)
+	{
+		[session addInput:audioInput];
+	}
     
 	[session startRunning];
 }

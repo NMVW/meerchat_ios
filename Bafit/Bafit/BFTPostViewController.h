@@ -12,7 +12,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 
-@interface BFTPostViewController : UIViewController <UIImagePickerControllerDelegate, UIScrollViewDelegate>
+@interface BFTPostViewController : UIViewController <UIImagePickerControllerDelegate, UIScrollViewDelegate, AVCaptureFileOutputRecordingDelegate>
 @property (strong, nonatomic) IBOutlet UIToolbar *bottomToolbar;
 @property (strong, nonatomic) MPMoviePlayerController *player;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
