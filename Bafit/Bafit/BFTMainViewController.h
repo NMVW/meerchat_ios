@@ -42,9 +42,8 @@
 @property (strong, nonatomic) NSArray *images;
 @property (retain, nonatomic) AVPlayer *player;
 @property (strong, nonatomic)UISwipeGestureRecognizer* swipeUpGestureRecognizer;
+@property (assign, nonatomic) NSInteger segment;
 
-
-@property(strong, nonatomic) NSMutableData *responseData;
 
 -(void)downloadVideo:(NSString *)videoUrl;
 
