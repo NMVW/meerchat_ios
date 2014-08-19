@@ -11,21 +11,14 @@
 #import "BFTDataHandler.h"
 #import "BFTAppDelegate.h"
 #import "BFTPostViewController.h"
+#import "BFTDataHandler.h"
+#import "BFTDatabaseRequest.h"
 
 @interface BFTMainViewController ()
 
 @end
 
 @implementation BFTMainViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -36,39 +29,11 @@
     _carousel.type = iCarouselTypeLinear;
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-    _videoURLS = [[NSMutableArray alloc] initWithObjects:@"http://bafit.mobi/userPosts/v1.mp4",
-                  @"http://bafit.mobi/userPosts/v2.mp4",
-                  @"http://bafit.mobi/userPosts/v3.mp4",
-                  @"http://bafit.mobi/userPosts/v4.mp4",
-                  @"http://bafit.mobi/userPosts/v5.mp4",
-                  @"http://bafit.mobi/userPosts/v6.mp4",
-                  @"http://bafit.mobi/userPosts/v7.mp4",
-                  @"http://bafit.mobi/userPosts/v8.mp4",
-                  @"http://bafit.mobi/userPosts/v9.mp4",
-                  @"http://bafit.mobi/userPosts/v10.mp4", nil];
-    _thumbURLS = [[NSMutableArray alloc] initWithObjects:@"http://bafit.mobi/userPosts/thumb/v1.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v2.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v3.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v4.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v5.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v6.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v7.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v8.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v9.mp4.jpg",
-                  @"http://bafit.mobi/userPosts/thumb/v10.mp4.jpg", nil];
-
+    
+    _segment = 1;
+    [self loadURLsFromSegment:_segment];
     
     _items = [NSMutableArray array];
-    
-    
-    /* Move outside to extended class for production */
-    // Do any additional setup after loading the view.
-    NSString *requestUserList = [[NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/requestUserList.php?UIDr=12&GPSLat=%f&GPSLon=%f", [[BFTDataHandler sharedInstance] Latitude],[[BFTDataHandler sharedInstance]Longitude]]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    self.responseData = [NSMutableData data];
-    NSURLRequest *request = [NSURLRequest requestWithURL:
-                             [NSURL URLWithString:requestUserList]];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     //Check Messages from Queue
     [self checkMessages];
@@ -82,6 +47,34 @@
 
 - (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer {
     NSLog(@"Swipe Down Done");
+}
+
+-(void)loadURLsFromSegment:(NSInteger)segment {
+    static NSString *baseVideoURL = @"http://bafit.mobi/userPosts";
+    static NSString *baseThumbURL = @"http://bafit.mobi/userPosts/thumb";
+    
+    BFTDataHandler *userData = [BFTDataHandler sharedInstance];
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"requestUserList.php?UIDr=%@&&GPSlat=%.8f&GPSlon=%.8f&SegNum=%zd", [userData UID], [userData Latitude], [userData Longitude], segment] completionBlock:^(NSMutableData *data, NSError *error) {
+        if (!error) {
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            //create the lists if not already created 
+            if (!_videoURLS)
+                _videoURLS = [[NSMutableArray alloc] initWithCapacity:[jsonArray count]];
+            if (!_thumbURLS)
+                _thumbURLS = [[NSMutableArray alloc] initWithCapacity:[jsonArray count]];
+            
+            for (NSDictionary *dict in jsonArray) {
+                NSString *relativeVidURL = [dict objectForKey:@"vidURI"];
+                [_videoURLS addObject:[baseVideoURL stringByAppendingPathComponent:relativeVidURL]];
+                [_thumbURLS addObject:[[baseThumbURL stringByAppendingPathComponent:relativeVidURL] stringByAppendingPathExtension:@"jpg"]];
+            }
+            [self.carousel reloadData];
+        }
+        else {
+            //handle connection error
+        }
+    }] startConnection];
 }
 
 -(void)setCarouselVideoObjects:(NSMutableArray *)array {
@@ -137,60 +130,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"didReceiveResponse");
-    [self.responseData setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [self.responseData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"didFailWithError");
-    NSLog(@"Connection failed: %@", [error description]);
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSLog(@"connectionDidFinishLoading");
-    NSLog(@"Succeeded! Received %lu bytes of data",(unsigned long)[_responseData length]);
-    
-    // convert to JSON
-    NSError *myError = nil;
-    NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:_responseData options:NSJSONReadingMutableLeaves error:&myError];
-    
-    _mutableArray = [[NSMutableArray alloc]init];
-    
-    for (NSDictionary *sub in jsonArray)
-    {
-        //[mutableArray addObjectsFromArray:[sub allKeys]];
-        [_mutableArray addObject:[sub objectForKey:@"vidURI"]];
-    }
-    
-    //for (id object in mutableArray) {
-        //[self downloadVideo:object];
-    //}
-    
-    //[self setDataForPostView:[NSURL URLWithString:[_mutableArray objectAtIndex:0]]];
-    
-    NSLog(@"Array is: %@", _mutableArray);
-    
-    // show all values
-    for (int i = 0; i < 10; i++) {
-        NSLog(@"Instance: %d", i);
-    }
-    
-    // extract specific value...
-    //NSArray *results = [res objectForKey:@"results"];
-    
-    //for (NSDictionary *result in results) {
-        //NSString *icon = [result objectForKey:@"distance"];
-        //NSLog(@"distance: %@", icon);
-    //}
-    
-}
-
-
 -(void)checkMessages {
     if ([[BFTDataHandler sharedInstance]numberMessages].count <= 0) {
         [_MessageCountLabel setTitle:@"" forState:UIControlStateNormal];
@@ -203,7 +142,6 @@
     }
 }
 
-#pragma mark -
 #pragma mark iCarousel methods
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
