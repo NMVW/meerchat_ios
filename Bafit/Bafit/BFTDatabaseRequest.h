@@ -14,8 +14,8 @@
 @property (nonatomic, strong) NSURLRequest *request;
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, strong) NSURLConnection *connection;
-@property (copy) void(^responseHandler)(NSMutableData* data, NSError* error);
-@property (copy) void(^boolResponseBlock)(BOOL);
+@property (copy) void(^responseHandler)(NSMutableData* , NSError* );
+@property (copy) void(^boolResponseBlock)(BOOL, NSError* );
 
 @property (nonatomic, assign) NSInteger timeoutInterval;
 
@@ -24,10 +24,12 @@
 //Use this if you want to decode a json response
 -(instancetype)initWithURLString:(NSString *)URL completionBlock:(void (^)(NSMutableData *, NSError *))responseHandler;
 //Use this if you just want YES or NO back
--(instancetype)initWithURLString:(NSString *)URL trueOrFalseBlock:(void (^)(BOOL))boolResponseBlock;
+-(instancetype)initWithURLString:(NSString *)URL trueOrFalseBlock:(void (^)(BOOL, NSError *))boolResponseBlock;
+-(instancetype)initWithFileURL:(NSString *)URL completionBlock:(void (^)(NSMutableData *, NSError *))completionBlock;
 
 //must call this to send request
 -(void)startConnection;
 -(void)startSynchronousConnection;
+-(void)startImageDownload;
 
 @end

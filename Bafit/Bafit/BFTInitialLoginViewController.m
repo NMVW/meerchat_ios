@@ -66,14 +66,19 @@
             [handler setInitialLogin:false];
             [handler setBUN:self.initialUsername.text];
             //email and username are good, so we need to send them a verification email
-            [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful) {}] startConnection];
+            [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {}] startConnection];
             
             //go to email confirmation page
             [self performSegueWithIdentifier:@"emailConfirm" sender:self];
         } else{
-            //username incorrect
-            NSLog(@"Username is not unique");
-            [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Username Is Not Unique" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+            if (self.couldNotConnect) {
+                NSLog(@"Connection Error");
+                [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Unable to Connect to Database" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+            }
+            else {
+                NSLog(@"Username is not unique");
+                [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Username Is Not Unique" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+            }
         }
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Please enter an email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
@@ -82,18 +87,24 @@
 }
 
 -(void)verifyUniqueUsername:(BOOL)isSynchronous {
-    BFTDatabaseRequest *request = [[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"uniqueUN.php?BUN=%@", self.initialUsername.text] trueOrFalseBlock:^(BOOL isUnique) {
-        self.usernameIsUnique = isUnique;
-        self.usernameNeedsUpdating = NO;
-        if (!isUnique) {
-            self.initialUsername.layer.borderWidth= 2.0f;
-            [_usernameErrorLabel setText:@"Username Must Be Unique"];
-            [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusernameblue.png"] forState:UIControlStateNormal];
+    BFTDatabaseRequest *request = [[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"uniqueUN.php?BUN=%@", self.initialUsername.text] trueOrFalseBlock:^(BOOL isUnique, NSError *error) {
+        if (!error) {
+            self.couldNotConnect = NO;
+            self.usernameIsUnique = isUnique;
+            self.usernameNeedsUpdating = NO;
+            if (!isUnique) {
+                self.initialUsername.layer.borderWidth= 2.0f;
+                [_usernameErrorLabel setText:@"Username Must Be Unique"];
+                [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusernameblue.png"] forState:UIControlStateNormal];
+            }
+            else {
+                [_usernameErrorLabel setText:@""];
+                self.initialUsername.layer.borderWidth = 0.0f;
+                [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusername.png"] forState:UIControlStateNormal];
+            }
         }
         else {
-            [_usernameErrorLabel setText:@""];
-            self.initialUsername.layer.borderWidth = 0.0f;
-            [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusername.png"] forState:UIControlStateNormal];
+            self.couldNotConnect = YES;
         }
     }];
     if (isSynchronous) {
