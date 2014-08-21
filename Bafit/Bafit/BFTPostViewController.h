@@ -21,10 +21,12 @@
 @property (strong, nonatomic) IBOutlet UIView *recordView;
 @property (strong, nonatomic) AVPlayer *player1;
 @property (weak, nonatomic) NSString *replyURL;
+@property (strong, nonatomic) IBOutlet UILabel *recordDescription;
 
 //AVFoundation Controls
 @property BOOL FrontCamera;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *camerCheck;
+@property (strong, nonatomic) AVCaptureMovieFileOutput *output;
+@property (strong, nonatomic) IBOutlet UIToolbar *postToolBar;
 
 
 

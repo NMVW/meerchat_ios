@@ -75,6 +75,8 @@
             //handle connection error
         }
     }] startConnection];
+    
+    NSLog(@"%@",_videoURLS);
 }
 
 -(void)setCarouselVideoObjects:(NSMutableArray *)array {

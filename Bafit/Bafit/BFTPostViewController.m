@@ -30,8 +30,9 @@
 {
     [super viewDidLoad];
     _FrontCamera = NO;
-    [_camerCheck setSelectedSegmentIndex:1];
     self.replyURL = self.replyURL;
+    //Create output.
+    _output = [[AVCaptureMovieFileOutput alloc] init];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     // Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
@@ -59,6 +60,8 @@ object:_player1];
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:(BOOL)animated];
     [self deregisterFromKeyboardNotifications];
+    [_postToolBar setHidden:YES];
+    UIToolbar *recordToolbar = [[UIToolbar alloc] initWithFrame:_postToolBar.frame];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
@@ -112,7 +115,7 @@ object:_player1];
 //AVCaptureSession to show live video feed in view
 - (void) initializeCamera {
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
-	session.sessionPreset = AVCaptureSessionPresetPhoto;
+	session.sessionPreset = AVCaptureSessionPreset1920x1080;
 	
 	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
     [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
@@ -176,7 +179,22 @@ object:_player1];
 		[session addInput:audioInput];
 	}
     
+    //Add capture output
+    if ([session canAddOutput:_output]) {
+        [session addOutput:_output];
+    }else{
+        NSLog(@"Was unable to add output for recording video");
+    }
+    
 	[session startRunning];
+}
+
+-(void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections{
+    
+}
+
+-(void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
+    
 }
 
 //Keyboard start
