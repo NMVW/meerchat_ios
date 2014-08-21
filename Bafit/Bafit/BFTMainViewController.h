@@ -32,8 +32,7 @@
 
 @property (retain, nonatomic) IBOutlet iCarousel *carousel;
 @property (retain, nonatomic) NSMutableArray *items;
-@property(retain, nonatomic) NSMutableArray *videoURLS;
-@property(retain, nonatomic) NSMutableArray *thumbURLS;
+@property(retain, nonatomic) NSMutableOrderedSet *videoPosts;
 @property (retain, nonatomic) NSMutableArray *imageObjects;
 @property (weak, nonatomic) NSMutableArray *filePaths;
 @property (strong, nonatomic) NSMutableArray *mutableArray;

@@ -23,13 +23,26 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
     return self;
 }
 
--(instancetype)initWithURLString:(NSString *)URL trueOrFalseBlock:(void (^)(BOOL))boolResponseBlock {
+-(instancetype)initWithURLString:(NSString *)URL trueOrFalseBlock:(void (^)(BOOL, NSError *))boolResponseBlock {
     self = [super init];
     if (self) {
         _url = [[NSURL alloc] initWithString:URL relativeToURL:[[NSURL alloc] initWithString:kBaseURL]];
         _boolResponseBlock = boolResponseBlock;
         _logMessage = [[NSMutableString alloc] initWithString:@"\n"];
         _timeoutInterval = 5;
+    }
+    return self;
+}
+
+-(instancetype)initWithFileURL:(NSString *)URL completionBlock:(void (^)(NSMutableData *, NSError *))completionBlock {
+    self = [super init];
+    if (self) {
+        if (!URL)
+            return nil;
+        _url = [[NSURL alloc] initWithString:URL];
+        _responseHandler = completionBlock;
+        //_logMessage = [[NSMutableString alloc] initWithString:@"\n"];
+        _timeoutInterval = 10;
     }
     return self;
 }
@@ -48,12 +61,18 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.url];
     [request setHTTPMethod:@"POST"];
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
-    [request setTimeoutInterval:self.timeoutInterval];
+    [request setTimeoutInterval:3];
     
     [_logMessage appendFormat:@"Connection Began:\nURL:%@", self.url];
     NSError *error;
     [self connection:_connection didReceiveData:[NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error]];
     [self completeConnection:error];
+}
+
+-(void)startImageDownload {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.url];
+    [_logMessage appendFormat:@"Connection Began:\nURL:%@", self.url];
+    _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 #pragma mark NSURLConnection Delegate
@@ -88,24 +107,25 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
 }
 
 -(void)completeConnection:(NSError*)error {
-    NSLog(@"%@", self.logMessage);
+    if (self.logMessage)
+        NSLog(@"%@", self.logMessage);
     
     if (_responseHandler) {
         _responseHandler(self.data, error);
     }
     else {
-        [self returnBoolValue];
+        [self returnBoolValue:error];
     }
     [self destroyConnection];
 }
 
--(void)returnBoolValue {
+-(void)returnBoolValue:(NSError *)error {
     if (_data) {
         NSString *boolString = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
-        _boolResponseBlock([boolString boolValue]);
+        _boolResponseBlock([boolString boolValue], error);
     }
     else {
-        _boolResponseBlock(NO);
+        _boolResponseBlock(NO, error);
     }
 }
 

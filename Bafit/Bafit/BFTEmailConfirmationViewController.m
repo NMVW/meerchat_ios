@@ -51,7 +51,9 @@
 
 - (IBAction)createUser:(id)sender {
     BFTDataHandler *data = [BFTDataHandler sharedInstance];
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"createUser.php?UIDr=%@&BUN=%@&BAFemail=%@&RVC=%@&FBemail=%@&GPSlat=%.8f&GPSlon=%.8f", [[UIDevice currentDevice] identifierForVendor].UUIDString, [data BUN], [data EDEmail], self.verificationNumberTextField.text, [data FBEmail], [data Latitude], [data Longitude]] completionBlock:^(NSMutableData *data, NSError *error) {
+    NSString *UID = [[NSUUID UUID] UUIDString];
+    [data setUID:UID];
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"createUser.php?UIDr=%@&BUN=%@&BAFemail=%@&RVC=%@&FBemail=%@&GPSlat=%.8f&GPSlon=%.8f", UID, [data BUN], [data EDEmail], self.verificationNumberTextField.text, [data FBEmail], [data Latitude], [data Longitude]] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSArray *result = [response componentsSeparatedByString:@":"];

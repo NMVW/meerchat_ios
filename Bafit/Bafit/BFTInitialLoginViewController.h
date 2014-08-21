@@ -17,6 +17,7 @@
 
 @property (assign) BOOL usernameIsUnique;
 @property (assign) BOOL usernameNeedsUpdating;
+@property (assign) BOOL couldNotConnect;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField;
 

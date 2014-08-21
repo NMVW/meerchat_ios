@@ -13,6 +13,7 @@
 #import "BFTPostViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTDatabaseRequest.h"
+#import "BFTVideoPost.h"
 
 @interface BFTMainViewController ()
 
@@ -23,6 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     //configure carousel
     _carousel.delegate = self;
     _carousel.dataSource = self;
@@ -30,8 +32,13 @@
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
+    //this is just for testing, if we want to skip right to the main view we will need a uid
+    if (![[BFTDataHandler sharedInstance] UID]) {
+        [[BFTDataHandler sharedInstance] setUID:[[NSUUID UUID] UUIDString]];
+    }
+    
     _segment = 1;
-    [self loadURLsFromSegment:_segment];
+    [self loadURLsFromSegment:_segment replacingRemovedVideo:NO];
     
     _items = [NSMutableArray array];
     
@@ -46,30 +53,57 @@
 }
 
 - (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer {
-    NSLog(@"Swipe Down Done");
+    NSInteger index = [_carousel indexOfItemView:[_carousel itemViewAtPoint:[recognizer locationInView:self.view]]];
+    [self removeVideoPostAtIndex:index];
 }
 
--(void)loadURLsFromSegment:(NSInteger)segment {
-    static NSString *baseVideoURL = @"http://bafit.mobi/userPosts";
-    static NSString *baseThumbURL = @"http://bafit.mobi/userPosts/thumb";
-    
+-(void)removeVideoPostAtIndex:(NSInteger)index {
+    BFTVideoPost *post = [_videoPosts objectAtIndex:index];
+    [_videoPosts removeObjectAtIndex:index];
+    [self.carousel removeItemAtIndex:index animated:YES];
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"notToday.php?UIDr=%@&UIDp=%@&MC=%zd", [BFTDataHandler sharedInstance].UID, post.UID, post.MC] trueOrFalseBlock:^(BOOL succes, NSError *error) {
+        if (!error) {
+            [self loadURLsFromSegment:_segment replacingRemovedVideo:YES];
+        }
+        else {
+            //handle connection error
+        }
+    }] startConnection];
+    NSLog(@"Removed item from carousel at index: %zd", index);
+}
+
+/*
+ Loads url's from a given segment. If videoRemoved is set to true, that means that we have swiped down on a video, and we only want to retrieve the new video from the segment
+ */
+-(void)loadURLsFromSegment:(NSInteger)segment replacingRemovedVideo:(BOOL)videoRemoved {
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"requestUserList.php?UIDr=%@&&GPSlat=%.8f&GPSlon=%.8f&SegNum=%zd", [userData UID], [userData Latitude], [userData Longitude], segment] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
             //create the lists if not already created 
-            if (!_videoURLS)
-                _videoURLS = [[NSMutableArray alloc] initWithCapacity:[jsonArray count]];
-            if (!_thumbURLS)
-                _thumbURLS = [[NSMutableArray alloc] initWithCapacity:[jsonArray count]];
+            if (!_videoPosts)
+                _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
             
-            for (NSDictionary *dict in jsonArray) {
-                NSString *relativeVidURL = [dict objectForKey:@"vidURI"];
-                [_videoURLS addObject:[baseVideoURL stringByAppendingPathComponent:relativeVidURL]];
-                [_thumbURLS addObject:[[baseThumbURL stringByAppendingPathComponent:relativeVidURL] stringByAppendingPathExtension:@"jpg"]];
+            //If a video is removed, we need to get the post that we don't currently have form the segment we just reloaded. Note that this could be any of them due to videos being added, deleted, location changes, etc. 
+            if (videoRemoved) {
+                NSMutableOrderedSet *tempPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+                for (NSDictionary *dict in jsonArray) {
+                    [tempPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
+                }
+                [tempPosts minusOrderedSet:_videoPosts];
+                NSLog(@"New Set - Old Set: \n%@", tempPosts);
+                for (BFTVideoPost *post in tempPosts) {
+                    [_videoPosts addObject:post];
+                    [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                }
             }
-            [self.carousel reloadData];
+            else {
+                for (NSDictionary *dict in jsonArray) {
+                    [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
+                    [self.carousel insertItemAtIndex:[_videoPosts count] - 1 animated:YES];
+                }
+            }
         }
         else {
             //handle connection error
@@ -149,7 +183,7 @@
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     //return the total number of items in the carousel
-    return 10;
+    return [_videoPosts count];
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
@@ -188,14 +222,23 @@
     [mainView addSubview:dividerTop];
     
     //Video Player View
-    _videoView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, mainViewWidth, 220)];
-    _videoView.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
-    _videoView.center = CGPointMake(100, 170);
-    [_videoView setContentMode:UIViewContentModeScaleAspectFit];
-    [_videoView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[_thumbURLS objectAtIndex:index]]]]];
+    UIImageView *videoThumb = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, mainViewWidth, 220)];
+    videoThumb.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
+    videoThumb.center = CGPointMake(100, 170);
+    [videoThumb setContentMode:UIViewContentModeScaleAspectFit];
+    //[_videoView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[_videoPosts objectAtIndex:index] thumbURL]]]]];
+    [[[BFTDatabaseRequest alloc] initWithFileURL:[[_videoPosts objectAtIndex:index] thumbURL] completionBlock:^(NSMutableData *data, NSError *error) {
+        if (!error) {
+            [videoThumb setImage:[UIImage imageWithData:data]];
+        }
+        else {
+            //handle image download error
+        }
+    }] startImageDownload];
     
     //video Thumbs
-    [view addSubview:_videoView];
+    _videoView = videoThumb;
+    [view addSubview:videoThumb];
         
         
     //Username Display
@@ -273,7 +316,7 @@
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
     
     NSLog(@"Inside select object at index");
-    AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:[_videoURLS objectAtIndex:carousel.currentItemIndex]]];
+    AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:[[_videoPosts objectAtIndex:carousel.currentItemIndex] videoURL]]];
     AVPlayer *avPlayer = [[AVPlayer alloc] initWithPlayerItem:avPlayeritem];
     AVPlayerLayer *avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:avPlayer];
     [avPlayerLayer setFrame:_videoView.frame];
@@ -331,7 +374,7 @@
             //swipe up to post
             [self setSwipeUp:NO];
             BFTPostViewController *postView = segue.destinationViewController;
-            postView.replyURL = [_videoURLS objectAtIndex:_carousel.currentItemIndex];
+            postView.replyURL = [[_videoPosts objectAtIndex:_carousel.currentItemIndex] videoURL];
         }
     }
     
@@ -341,7 +384,7 @@
 -(IBAction)postThread:(id)sender {
     
     NSLog(@"Index Button Number: %ld", (long)[sender tag]);
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:[_videoURLS objectAtIndex:[sender tag]]] options:nil];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:[[_videoPosts objectAtIndex:[sender tag]] videoURL]] options:nil];
     //AV Asset Player
     AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
     _player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
@@ -361,6 +404,8 @@
 
 - (IBAction)forthToPost:(id)sender {
 }
+
+#pragma mark Catagory Selection
 
 - (IBAction)moveCatTouched:(id)sender {
     switch ([_moveCatButton isSelected]) {
@@ -431,7 +476,6 @@
             
             break;
     }
-
 }
 
 
