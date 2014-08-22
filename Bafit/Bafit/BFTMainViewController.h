@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) UIView *videoPlayback;
 
+@property (strong, nonatomic) IBOutlet UIView *customNavView;
 
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *forthButton;

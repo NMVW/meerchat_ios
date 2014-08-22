@@ -24,6 +24,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //set background color
+    [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     
     //configure carousel
     _carousel.delegate = self;
@@ -110,7 +113,6 @@
         }
     }] startConnection];
     
-    NSLog(@"%@",_videoURLS);
 }
 
 -(void)setCarouselVideoObjects:(NSMutableArray *)array {

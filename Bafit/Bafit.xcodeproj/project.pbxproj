@@ -101,6 +101,8 @@
 		807F5BBD19954CED00528829 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5BBB19954CED00528829 /* Default-568h@2x.png */; };
 		807F5BBE19954CED00528829 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5BBC19954CED00528829 /* Default.png */; };
 		80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */; };
+		80DCD0FB19A6C3B2002B9AFD /* Milo_Face_Full.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */; };
+		80DCD0FD19A6C786002B9AFD /* Milo_Face_Navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FC19A6C786002B9AFD /* Milo_Face_Navbar.png */; };
 		80F650E1197EBEC300443673 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E0197EBEC300443673 /* FacebookSDK.framework */; };
 		80F650E31980814B00443673 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E21980814B00443673 /* AssetsLibrary.framework */; };
 		80F650E51980815300443673 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E41980815300443673 /* AVFoundation.framework */; };
@@ -244,6 +246,8 @@
 		807F5BBC19954CED00528829 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTDatabaseRequest.m; sourceTree = "<group>"; };
 		80CE6E39199CB9EA006543B2 /* BFTDatabaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTDatabaseRequest.h; sourceTree = "<group>"; };
+		80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Full.png; sourceTree = "<group>"; };
+		80DCD0FC19A6C786002B9AFD /* Milo_Face_Navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Navbar.png; sourceTree = "<group>"; };
 		80F650E0197EBEC300443673 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		80F650E21980814B00443673 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		80F650E41980815300443673 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -386,8 +390,10 @@
 			children = (
 				807F5BB81995216600528829 /* Thumbs */,
 				807F5B78198E1B4B00528829 /* icons */,
+				80DCD0FC19A6C786002B9AFD /* Milo_Face_Navbar.png */,
 				807F5BBB19954CED00528829 /* Default-568h@2x.png */,
 				807F5BBC19954CED00528829 /* Default.png */,
+				80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */,
 				807F5B74198DE84600528829 /* dividerbar.png */,
 				807F5B6B198D96D100528829 /* play-icon-white.png */,
 				807F5B69198AFDF400528829 /* splashlogo.png */,
@@ -628,6 +634,7 @@
 				8040E9711978FD59000D66C7 /* InfoPlist.strings in Resources */,
 				807F5B5A198A0CC100528829 /* move-btn-inactive.png in Resources */,
 				807F5B68198AFB0A00528829 /* checkmarkusernameblue.png in Resources */,
+				80DCD0FB19A6C3B2002B9AFD /* Milo_Face_Full.png in Resources */,
 				807F5B96198E1B5A00528829 /* Icon@2x.png in Resources */,
 				807F5B53198A0CC100528829 /* love-btn-inactive@2x.png in Resources */,
 				807F5BBD19954CED00528829 /* Default-568h@2x.png in Resources */,
@@ -651,6 +658,7 @@
 				807F5B95198E1B5A00528829 /* Icon.png in Resources */,
 				807F5B60198A0CC100528829 /* upper-trap.png in Resources */,
 				807F5B8B198E1B5A00528829 /* Icon-60.png in Resources */,
+				80DCD0FD19A6C786002B9AFD /* Milo_Face_Navbar.png in Resources */,
 				807F5B38198A0CAD00528829 /* nav-bar@2x.png in Resources */,
 				807F5BBE19954CED00528829 /* Default.png in Resources */,
 				807F5B89198E1B5A00528829 /* Icon-40.png in Resources */,

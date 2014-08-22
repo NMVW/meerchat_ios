@@ -22,6 +22,7 @@
 @property (strong, nonatomic) AVPlayer *player1;
 @property (weak, nonatomic) NSString *replyURL;
 @property (strong, nonatomic) IBOutlet UILabel *recordDescription;
+@property (strong, nonatomic) IBOutlet UIView *customNavView;
 
 //AVFoundation Controls
 @property BOOL FrontCamera;

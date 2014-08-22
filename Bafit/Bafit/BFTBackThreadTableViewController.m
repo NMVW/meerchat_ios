@@ -85,6 +85,7 @@
     // Configure the cell
     cell.userLabel.text = [_dummyUsers objectAtIndex:[indexPath row]];
     [cell.numberMessageThread setTitle:[_numberOfMessages objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
+    [cell setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     cell.timeStamp.text = [_messageTimes objectAtIndex:[indexPath row]];
     
     return cell;
