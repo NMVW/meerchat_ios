@@ -66,10 +66,15 @@
             [handler setInitialLogin:false];
             [handler setBUN:self.initialUsername.text];
             //email and username are good, so we need to send them a verification email
-            [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {}] startConnection];
-            
-            //go to email confirmation page
-            [self performSegueWithIdentifier:@"emailConfirm" sender:self];
+            [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {
+                if (!error) {
+                    //go to email confirmation page
+                    [self performSegueWithIdentifier:@"emailConfirm" sender:self];
+                }
+                else {
+                    [[[UIAlertView alloc] initWithTitle:@"Unable To Send Verification Email" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+                }
+            }] startConnection];
         } else{
             if (self.couldNotConnect) {
                 NSLog(@"Connection Error");
