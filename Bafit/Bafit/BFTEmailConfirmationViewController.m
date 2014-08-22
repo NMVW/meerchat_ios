@@ -73,7 +73,7 @@
             }
         }
         else {
-            //handle connection error
+            [[[UIAlertView alloc] initWithTitle:@"Could Not Create User" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         }
     }] startConnection];
 }

@@ -66,7 +66,9 @@
     [self.carousel removeItemAtIndex:index animated:YES];
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"notToday.php?UIDr=%@&UIDp=%@&MC=%zd", [BFTDataHandler sharedInstance].UID, post.UID, post.MC] trueOrFalseBlock:^(BOOL succes, NSError *error) {
         if (!error) {
-            [self loadURLsFromSegment:_segment replacingRemovedVideo:YES];
+            if (succes) {
+                [self loadURLsFromSegment:_segment replacingRemovedVideo:YES];
+            }
         }
         else {
             //handle connection error
@@ -104,12 +106,12 @@
             else {
                 for (NSDictionary *dict in jsonArray) {
                     [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
-                    [self.carousel insertItemAtIndex:[_videoPosts count] - 1 animated:YES];
+                    [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
                 }
             }
         }
         else {
-            //handle connection error
+            [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }] startConnection];
     
@@ -307,7 +309,7 @@
     
     
     //Assign Item to Labels
-    _usernameLabel.text = handler.Username[index];
+    _usernameLabel.text = handler.Username[index%10];
     pointLabel.text = @"32 points";
     postTimeLabel.text = @"3 hours ago";
     distanceLabel.text = @"4 miles away";
@@ -333,7 +335,12 @@
     
 }
 
--(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {}
+-(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
+    if (_carousel.currentItemIndex >= _segment*10 - 3) {
+        _segment++;
+        [self loadURLsFromSegment:_segment replacingRemovedVideo:NO];
+    }
+}
 
 - (NSUInteger)numberOfVisibleItemsInCarousel:(iCarousel *)carousel
 {

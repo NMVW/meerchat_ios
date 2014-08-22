@@ -129,22 +129,26 @@
     
     NSString *email = [user objectForKey:@"email"]; //@"poppyc@ufl.edu";
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"userExists.php?FBemail=%@", email] completionBlock:^(NSMutableData *data, NSError *error) {
-        //NOTE: Response is UID,BUN
-        NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSArray *values = [response componentsSeparatedByString:@","];
-        if (![values[0] isEqualToString:@""]) {
-            //if the response is successful, we set the uid to the datahandler, and go to mainview, otherwise, we go to the loginview
-            NSString *uid = values[0];
-            [[BFTDataHandler sharedInstance] setUID:uid];
-            NSString *BUN = values[1];
-            [[BFTDataHandler sharedInstance] setBUN:BUN];
-            [[BFTDataHandler sharedInstance] setFBEmail:email];
-            [self performSegueWithIdentifier:@"mainview" sender:self];
+        if (!error) {
+            NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSArray *values = [response componentsSeparatedByString:@","];
+            if (![values[0] isEqualToString:@""]) {
+                //if the response is successful, we set the uid to the datahandler, and go to mainview, otherwise, we go to the loginview
+                NSString *uid = values[0];
+                [[BFTDataHandler sharedInstance] setUID:uid];
+                NSString *BUN = values[1];
+                [[BFTDataHandler sharedInstance] setBUN:BUN];
+                [[BFTDataHandler sharedInstance] setFBEmail:email];
+                [self performSegueWithIdentifier:@"mainview" sender:self];
+            }
+            else {
+                [self sendFBDemographicInfo:user];
+                [[BFTDataHandler sharedInstance] setFBEmail:email];
+                [self performSegueWithIdentifier:@"initiallogin" sender:self];
+            }
         }
         else {
-            [self sendFBDemographicInfo:user];
-            [[BFTDataHandler sharedInstance] setFBEmail:email];
-            [self performSegueWithIdentifier:@"initiallogin" sender:self];
+            [[[UIAlertView alloc] initWithTitle:@"Could Not Authenticate Facebook User" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }] startConnection];
 }
