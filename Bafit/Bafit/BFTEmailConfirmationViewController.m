@@ -23,12 +23,12 @@
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [_emailSentTextLabel setText:[NSString stringWithFormat:@"Please enter the verification number sent to %@", [[BFTDataHandler sharedInstance] EDEmail]]];
     
-    UIColor *blueButtonBorder = [UIColor colorWithRed:70/255.0f green:116/255.0f blue:157/255.0f alpha:1];
+    UIColor *orangeButtonBorder = [UIColor colorWithRed:230/255.0f green:116/255.0f blue:20/255.0f alpha:1];
     _submitVerificationButton.layer.cornerRadius = 5.0f;
     _submitVerificationButton.layer.borderWidth = 2.0f;
-    _submitVerificationButton.layer.borderColor = blueButtonBorder.CGColor;
+    _submitVerificationButton.layer.borderColor = orangeButtonBorder.CGColor;
     _submitVerificationButton.clipsToBounds = YES;
-    [_submitVerificationButton setBackgroundImage:[BFTEmailConfirmationViewController imageWithColor:blueButtonBorder size:_submitVerificationButton.frame.size] forState:UIControlStateHighlighted];
+    [_submitVerificationButton setBackgroundImage:[BFTEmailConfirmationViewController imageWithColor:orangeButtonBorder size:_submitVerificationButton.frame.size] forState:UIControlStateHighlighted];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

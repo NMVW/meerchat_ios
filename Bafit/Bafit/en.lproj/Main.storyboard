@@ -97,6 +97,7 @@
                                                         <connections>
                                                             <action selector="didBeginEdit:" destination="po8-c2-nTd" eventType="editingDidBegin" id="01Q-cZ-hdq"/>
                                                             <action selector="editreturn:" destination="po8-c2-nTd" eventType="editingDidEnd" id="OeE-GC-31J"/>
+                                                            <action selector="usernameTextChanged:" destination="po8-c2-nTd" eventType="editingChanged" id="TdE-hI-BoC"/>
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is what users will use to recognize you " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="211" translatesAutoresizingMaskIntoConstraints="NO" id="INv-CZ-4ZH">
@@ -525,7 +526,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Verification Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ban-aT-gSE">
-                                        <rect key="frame" x="55" y="131" width="142" height="30"/>
+                                        <rect key="frame" x="44" y="131" width="142" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -535,10 +536,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.082352943720000002" green="0.26274511220000002" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
                                     </progressView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEN-P8-ZP0">
-                                        <rect key="frame" x="197" y="131" width="69" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEN-P8-ZP0">
+                                        <rect key="frame" x="194" y="131" width="82" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Verify">
+                                        <state key="normal" title="Submit">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -566,6 +567,7 @@
                     <navigationItem key="navigationItem" id="vNB-bu-8gQ"/>
                     <connections>
                         <outlet property="emailSentTextLabel" destination="UmR-YX-Sr1" id="Htt-en-ctM"/>
+                        <outlet property="submitVerificationButton" destination="yEN-P8-ZP0" id="XVa-S1-o7V"/>
                         <outlet property="verificationNumberTextField" destination="ban-aT-gSE" id="Kha-Cc-sue"/>
                         <segue destination="gen-d0-YEF" kind="modal" identifier="tomain" id="jaP-dt-f3g"/>
                     </connections>

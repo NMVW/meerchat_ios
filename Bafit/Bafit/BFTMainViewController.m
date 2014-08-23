@@ -35,6 +35,24 @@
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
+    //add report user button
+    UIButton *reportButton = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-39, 93, 39)];
+    [reportButton setBackgroundImage:[UIImage imageNamed:@"reportUserButton.png"] forState:UIControlStateNormal];
+    [reportButton setBackgroundImage:[UIImage imageNamed:@"reportUserButtonHighlighted.png"] forState:UIControlStateHighlighted];
+    [reportButton addTarget:self action:@selector(blockUser:) forControlEvents:UIControlEventTouchUpInside];
+    [reportButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [reportButton setTitle:@"report user" forState:UIControlStateNormal];
+    [self.view addSubview:reportButton];
+    
+    //add feedback button
+    UIButton *feedbackButton = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-93, [UIScreen mainScreen].bounds.size.height-39, 93, 39)];
+    [feedbackButton setBackgroundImage:[UIImage imageNamed:@"feedbackButton.png"] forState:UIControlStateNormal];
+    [feedbackButton setBackgroundImage:[UIImage imageNamed:@"feedbackButtonHighlighted.png"] forState:UIControlStateHighlighted];
+    [feedbackButton addTarget:self action:@selector(submitFeedback:) forControlEvents:UIControlEventTouchUpInside];
+    [feedbackButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [feedbackButton setTitle:@"Feedback" forState:UIControlStateNormal];
+    [self.view addSubview:feedbackButton];
+    
     //this is just for testing, if we want to skip right to the main view we will need a uid
     if (![[BFTDataHandler sharedInstance] UID]) {
         [[BFTDataHandler sharedInstance] setUID:[[NSUUID UUID] UUIDString]];
@@ -389,6 +407,26 @@
     
 }
 
+-(IBAction)blockUser:(UIButton *)sender {
+    NSInteger index = [_carousel currentItemIndex];
+    
+    [_videoPosts removeObjectAtIndex:index];
+    [self.carousel removeItemAtIndex:index animated:YES];
+    
+    BFTVideoPost *post = [_videoPosts objectAtIndex:index];
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"blockUser.php?UIDr=%@&UIDp=%@&GPSlat=%.4f&GPSlon=%.4f", [[BFTDataHandler sharedInstance] UID], post.UID, [[BFTDataHandler sharedInstance] Latitude], [[BFTDataHandler sharedInstance] Longitude]] trueOrFalseBlock:^(BOOL success, NSError *error) {
+        if (!error) {
+            [self loadURLsFromSegment:_segment replacingRemovedVideo:YES];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Could not block user" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        }
+    }] startConnection];
+}
+
+-(IBAction)submitFeedback:(UIButton *)sender {
+    NSLog(@"Submit Feedback");
+}
 
 -(IBAction)postThread:(id)sender {
     
