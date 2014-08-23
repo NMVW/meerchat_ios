@@ -103,6 +103,7 @@
 		80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */; };
 		80DCD0FB19A6C3B2002B9AFD /* Milo_Face_Full.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */; };
 		80DCD0FD19A6C786002B9AFD /* Milo_Face_Navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FC19A6C786002B9AFD /* Milo_Face_Navbar.png */; };
+		80DCD0FF19A80834002B9AFD /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80DCD0FE19A80834002B9AFD /* Appsee.framework */; };
 		80F650E1197EBEC300443673 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E0197EBEC300443673 /* FacebookSDK.framework */; };
 		80F650E31980814B00443673 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E21980814B00443673 /* AssetsLibrary.framework */; };
 		80F650E51980815300443673 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E41980815300443673 /* AVFoundation.framework */; };
@@ -248,6 +249,7 @@
 		80CE6E39199CB9EA006543B2 /* BFTDatabaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTDatabaseRequest.h; sourceTree = "<group>"; };
 		80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Full.png; sourceTree = "<group>"; };
 		80DCD0FC19A6C786002B9AFD /* Milo_Face_Navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Navbar.png; sourceTree = "<group>"; };
+		80DCD0FE19A80834002B9AFD /* Appsee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Appsee.framework; path = ../../Bafit/AppSee/Appsee/Appsee.framework; sourceTree = "<group>"; };
 		80F650E0197EBEC300443673 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		80F650E21980814B00443673 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		80F650E41980815300443673 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -284,6 +286,7 @@
 				8040E96B1978FD59000D66C7 /* UIKit.framework in Frameworks */,
 				8040E9671978FD59000D66C7 /* Foundation.framework in Frameworks */,
 				4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */,
+				80DCD0FF19A80834002B9AFD /* Appsee.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +326,7 @@
 		8040E9651978FD59000D66C7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80DCD0FE19A80834002B9AFD /* Appsee.framework */,
 				8058E1BA1988725C00DF2F4F /* CoreLocation.framework */,
 				80F650EC1980817800443673 /* QuartzCore.framework */,
 				80F650EA1980817100443673 /* MobileCoreServices.framework */,
@@ -894,6 +898,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/keeanomartin/Documents/FacebookSDK,
+					/Users/keeanomartin/Desktop/Bafit/AppSee/Appsee,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
@@ -916,6 +921,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/keeanomartin/Documents/FacebookSDK,
+					/Users/keeanomartin/Desktop/Bafit/AppSee/Appsee,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
