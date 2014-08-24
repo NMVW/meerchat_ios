@@ -135,37 +135,6 @@
     
 }
 
--(void)setCarouselVideoObjects:(NSMutableArray *)array {
-    for (int i = 0; i < [array count]; i++) {
-        MPMoviePlayerController *movieController = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:[array objectAtIndex:i]]];
-        if (movieController != nil) {
-            //[_videoObjects addObject:movieController];
-        }
-    }
-}
-
--(void)downloadVideo:(NSString *)videoUrl
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"Download Started");
-        NSURL *url = [NSURL URLWithString:videoUrl];
-        NSData *urlData = [NSData dataWithContentsOfURL:url];
-        
-        if (urlData) {
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSString *filePath = [NSString stringWithFormat:@"%@%@", documentsDirectory,@"thefile.mp4"];
-            [_filePaths addObject:filePath];
-            NSLog(@"File Path: %@", filePath);
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [urlData writeToFile:filePath atomically:YES];
-                NSLog(@"File Saved!");
-            });
-        }
-        
-    });
-}
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:(BOOL)animated];
@@ -177,10 +146,6 @@
     [self.view addSubview:_videoPlayback];
 }
 
--(void)notTodayHandler
-{
-    
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -384,10 +349,6 @@
 {
     NSLog(@"Did Finish Playing");
     [_videoPlayback setHidden:YES];
-}
-
--(void)playAtIndex:(NSInteger)index
-{
 }
 
 /* Segue Preperation */

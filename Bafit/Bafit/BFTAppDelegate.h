@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Appsee/Appsee.h>
 
 @interface BFTAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
