@@ -10,7 +10,7 @@
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
 
-@interface BFTFeedbackViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate>
+@interface BFTFeedbackViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *issuesExperiencedLabel;
 @property (weak, nonatomic) IBOutlet UIPickerView *issuesPickerView;
@@ -196,23 +196,30 @@ static NSString *feedbackPlaceholder = @"Additional Feedback...";
     [self.view endEditing:YES];
 }
 
+#pragma mark Alert View
+
+-(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if ([alertView.title isEqualToString:@"Thank you for your feedback!"]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (IBAction)submitForm:(id)sender {
     BFTDataHandler *handler = [BFTDataHandler sharedInstance];
-    
-    NSString *url = [[NSString alloc] initWithFormat:@"sendFeedback.php?UID=%@&BUN=%@&issue=%@&issueDetail=%@&contFeedback=%@&recommend=%@&GPSlat=%.4fGPSlon=%.4f", [handler UID], [handler BUN], self.issuesLabel.text, self.issuesDetailTextView.text, self.commentsFeedbackTextView.text, [NSNumber numberWithBool:[self.recommendSwitch isOn]], [handler Latitude], [handler Longitude]];
-    
-    NSLog(@"Submit Feedback Script: %@", url);
-    /*[[[BFTDatabaseRequest alloc] initWithURLString:url trueOrFalseBlock:^(BOOL success, NSError *error) {
+    NSString *url = [[NSString alloc] initWithFormat:@"sendFeedback.php?issue=%@&issueDetail=%@&contFeedback=%@&recommend=%@&UID=%@&BUN=%@&lat=%.4f&lon=%.4f", self.issuesLabel.text, self.issuesDetailTextView.text, self.commentsFeedbackTextView.text, [self.recommendSwitch isOn] ? @"YES" : @"NO", [handler UID], [handler BUN], [handler Latitude], [handler Longitude]];
+    [[[BFTDatabaseRequest alloc] initWithURLString:url trueOrFalseBlock:^(BOOL success, NSError *error) {
         if (!error) {
-            
+            if (success) {
+                [[[UIAlertView alloc] initWithTitle:@"Thank you for your feedback!" message:@"Your feedback has been recieved, and we will address any issues as soon as possible." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            }
+            else {
+                [[[UIAlertView alloc] initWithTitle:@"Unable to send feedback" message:@"There was an error sending your feedback" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            }
         }
         else {
-            //handle connection error
+            [[[UIAlertView alloc] initWithTitle:@"Unable to send feedback" message:[NSString stringWithFormat:@"There was an error sending your feedback: %@", error.localizedDescription] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
         }
-    }] startConnection];*/
-    
-    //send form email
-    [self dismissViewControllerAnimated:YES completion:nil];
+    }] startConnection];
 }
 
 - (IBAction)cancelSubmission:(id)sender {
