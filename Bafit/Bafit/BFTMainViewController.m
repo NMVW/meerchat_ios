@@ -410,10 +410,10 @@
 -(IBAction)blockUser:(UIButton *)sender {
     NSInteger index = [_carousel currentItemIndex];
     
+    BFTVideoPost *post = [_videoPosts objectAtIndex:index];
     [_videoPosts removeObjectAtIndex:index];
     [self.carousel removeItemAtIndex:index animated:YES];
     
-    BFTVideoPost *post = [_videoPosts objectAtIndex:index];
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"blockUser.php?UIDr=%@&UIDp=%@&GPSlat=%.4f&GPSlon=%.4f", [[BFTDataHandler sharedInstance] UID], post.UID, [[BFTDataHandler sharedInstance] Latitude], [[BFTDataHandler sharedInstance] Longitude]] trueOrFalseBlock:^(BOOL success, NSError *error) {
         if (!error) {
             [self loadURLsFromSegment:_segment replacingRemovedVideo:YES];
@@ -426,6 +426,7 @@
 
 -(IBAction)submitFeedback:(UIButton *)sender {
     NSLog(@"Submit Feedback");
+    [self performSegueWithIdentifier:@"tofeedback" sender:self];
 }
 
 -(IBAction)postThread:(id)sender {
