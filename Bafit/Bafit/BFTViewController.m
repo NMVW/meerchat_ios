@@ -23,10 +23,6 @@
     [super viewDidLoad];
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    //set Log image view
-//    _logoImageView = [[UIImageView alloc] init];
-//    [_logoImageView setImage:[UIImage imageNamed:@"Milo_final.png"]];
-//    _logoImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     _data = [[BFTDataHandler alloc] init];
     

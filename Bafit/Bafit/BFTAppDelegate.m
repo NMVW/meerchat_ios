@@ -10,11 +10,19 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "BFTLoginhandler.h"
 #import "BFTDataHandler.h"
+#import <Appsee/Appsee.h>
+
 
 @implementation BFTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //AppSee Authentication
+    [Appsee start:@"5b8ed11d20124a19b532ef160262b9a4"];
+    
+    //Set navigation color
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    
     // Override point for customization after application launch.
     //BFTDataHandler *handler = [[BFTDataHandler alloc]init];
     if(self.locationManager == nil){
