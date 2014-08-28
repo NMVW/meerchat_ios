@@ -10,8 +10,9 @@
 
 @interface BFTThreadTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *userLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeStamp;
-@property (weak, nonatomic) IBOutlet UIButton *numberMessageThread;
+@property (weak, nonatomic) IBOutlet UILabel *numberMessagesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastUpdatedLabel;
+
 
 @end

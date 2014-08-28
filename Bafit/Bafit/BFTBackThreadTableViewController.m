@@ -9,6 +9,7 @@
 #import "BFTBackThreadTableViewController.h"
 #import "BFTThreadTableViewCell.h"
 #import "BFTMainViewController.h"
+#import "BFTBackThreadItem.h"
 #import "BFTMessage.h"
 
 #define UIColorFromRGB(rgbvalue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 168))/255.0 blue:((float)(rgbValue & 0xFF)) >> 166/255.0 alpha:1.0]
@@ -31,26 +32,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //Naivagation Bar
-    [self.navigationController setNavigationBarHidden:NO  animated:NO];
-    //UIEdgeInsets inset = UIEdgeInsetsMake(56, 0, 0, 0);
-    //self.tableView.contentInset = inset;
-    //[self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 88/255.0 green:168/255.0 blue:166/255.0 alpha:1.0]];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-bar@2x.png"] forBarMetrics:UIBarMetricsDefault];
-    self.title = @"";
-    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(home:)];
-    self.navigationItem.leftBarButtonItem = newBackButton;
     
-    _dummyUsers = [[NSArray alloc] initWithObjects:@"@JonathanB",@"@NickyV",@"@Dman",@"C-LO-P",@"Auginator",@"Mcgurn1", nil];
-    _messageTimes = [[NSArray alloc] initWithObjects:@"3:34 PM",@"5:12 AM",@"Yesterday",@"3 days ago",@"2 weeks ago",@"3 weeks ago", nil];
-    _numberOfMessages = [[NSArray alloc] initWithObjects:@"1",@"3",@"",@"",@"",@"", nil];
-    NSLog(@"%lu", (unsigned long)[_dummyUsers count]);
+    _listOfThreads = [[NSMutableArray alloc] init];
+    [self loadDummyData];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    //actual background color for tableview
+    UIView *backView = [[UIView alloc] initWithFrame:self.tableView.frame];
+    [backView setBackgroundColor:[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1]];
+    [self.tableView setBackgroundView:backView];
+
+    //remove seperator lines from searchbar
+    CGRect rect = self.searchBar.frame;
+    UIView *bottomlineView = [[UIView alloc]initWithFrame:CGRectMake(0, rect.size.height -2, rect.size.width, 2)];
+    bottomlineView.backgroundColor = [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1];
+    UIView *toplineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 2)];
+    toplineView.backgroundColor = [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1];
+    [self.searchBar addSubview:bottomlineView];
+    [self.searchBar addSubview:toplineView];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //custom nav bar
+    [self.navigationController setNavigationBarHidden:NO animated:NO]; //not sure why we need to do this?
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 240/255.0 green:162/255.0 blue:43/255.0 alpha:1.0]];
+    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"message_icon.png"]]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    //hack to get an image where the right bar button goes
+    UIBarButtonItem *miloFace = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Milo_Face_Navbar_Transparent.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationItem.rightBarButtonItem = miloFace;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 -(void)home:(UIBarButtonItem *)sender {
@@ -64,55 +73,69 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [_dummyUsers count];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_listOfThreads count];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    BFTThreadTableViewCell *cell = (BFTThreadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
-    // Configure the cell
-    cell.userLabel.text = [_dummyUsers objectAtIndex:[indexPath row]];
-    [cell.numberMessageThread setTitle:[_numberOfMessages objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
-    [cell setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    cell.timeStamp.text = [_messageTimes objectAtIndex:[indexPath row]];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BFTThreadTableViewCell *cell = (BFTThreadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"backThreadCell"];
+    
+    if (!cell) {
+        cell = [[BFTThreadTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"backThreadCell"];
+    }
+    
+    //Bold fonts
+    [cell.usernameLabel setFont:[UIFont boldSystemFontOfSize:17]];
+    [cell.numberMessagesLabel setFont:[UIFont boldSystemFontOfSize:17]];
+    [cell.lastUpdatedLabel setFont:[UIFont boldSystemFontOfSize:17]];
+    
+    BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexPath.row];
+    
+    cell.usernameLabel.text = item.username;
+    cell.numberMessagesLabel.text = [NSString stringWithFormat:@"%zd", item.numberOfMessages];
+    cell.lastUpdatedLabel.text = item.lastMessageTime;
     
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //segue somewhere?
+}
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        [_listOfThreads removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
-*/
+
+-(void)loadDummyData {
+    NSArray *listOfUserNames = [[NSArray alloc] initWithObjects:@"@JonathanB",@"@NickyV",@"@Dman",@"C-LO-P",@"Auginator",@"Mcgurn1", nil];
+    NSArray *listOfMessageTimes = [[NSArray alloc] initWithObjects:@"3:34 PM",@"5:12 AM",@"Yesterday",@"3 days ago",@"2 weeks ago",@"3 weeks ago", nil];
+    NSArray *listOfNumMessages = [[NSArray alloc] initWithObjects:@"1",@"3",@"0",@"2",@"1",@"7", nil];
+    
+    for (int i = 0; i < [listOfUserNames count]; i++) {
+        BFTBackThreadItem *item = [[BFTBackThreadItem alloc] init];
+        item.username = listOfUserNames[i];
+        item.lastMessageTime = listOfMessageTimes[i];
+        item.numberOfMessages = [listOfNumMessages[i] integerValue];
+        [_listOfThreads addObject:item];
+    }
+}
 
 /*
 // Override to support rearranging the table view.

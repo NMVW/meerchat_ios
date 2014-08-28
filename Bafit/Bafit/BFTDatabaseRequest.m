@@ -26,7 +26,7 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
 -(instancetype)initWithURLString:(NSString *)URL trueOrFalseBlock:(void (^)(BOOL, NSError *))boolResponseBlock {
     self = [super init];
     if (self) {
-        _url = [[NSURL alloc] initWithString:URL relativeToURL:[[NSURL alloc] initWithString:kBaseURL]];
+        _url = [[NSURL alloc] initWithString:[URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:[[NSURL alloc] initWithString:kBaseURL]];
         _boolResponseBlock = boolResponseBlock;
         _logMessage = [[NSMutableString alloc] initWithString:@"\n"];
         _timeoutInterval = 5;

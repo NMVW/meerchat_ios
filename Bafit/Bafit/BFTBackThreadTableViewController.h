@@ -10,9 +10,8 @@
 
 @interface BFTBackThreadTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property(nonatomic, retain)NSArray *dummyUsers;
-@property(nonatomic, retain)NSArray *messageTimes;
-@property(nonatomic, retain)NSArray *numberOfMessages;
+@property(nonatomic, retain) NSMutableArray *listOfThreads;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 
 @end
