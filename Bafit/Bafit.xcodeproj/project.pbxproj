@@ -59,6 +59,7 @@
 		8021999819A948D80042597A /* Milo_Face_Navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021999519A948D80042597A /* Milo_Face_Navbar.png */; };
 		8021999919A948D80042597A /* Milo_final_8-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021999619A948D80042597A /* Milo_final_8-20.png */; };
 		8021999C19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */; };
+		802199A019AB124F0042597A /* switchCamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021999F19AB124F0042597A /* switchCamera.png */; };
 		803EE0F01984CCD200B86ACE /* checkmarkusername.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0ED1984CCD200B86ACE /* checkmarkusername.png */; };
 		803EE0F11984CCD200B86ACE /* trianglebluedown.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0EE1984CCD200B86ACE /* trianglebluedown.png */; };
 		803EE0F21984CCD200B86ACE /* trianglered.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0EF1984CCD200B86ACE /* trianglered.png */; };
@@ -100,24 +101,8 @@
 		807F5B36198A0CAD00528829 /* forth-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B2E198A0CAD00528829 /* forth-icon@2x.png */; };
 		807F5B37198A0CAD00528829 /* nav-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B2F198A0CAD00528829 /* nav-bar.png */; };
 		807F5B38198A0CAD00528829 /* nav-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B30198A0CAD00528829 /* nav-bar@2x.png */; };
-		807F5B4D198A0CC100528829 /* grub-btn-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B39198A0CC100528829 /* grub-btn-active@2x.png */; };
-		807F5B4E198A0CC100528829 /* grub-btn-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B3A198A0CC100528829 /* grub-btn-active.png */; };
-		807F5B4F198A0CC100528829 /* grub-btn-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B3B198A0CC100528829 /* grub-btn-inactive@2x.png */; };
-		807F5B50198A0CC100528829 /* grub-btn-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B3C198A0CC100528829 /* grub-btn-inactive.png */; };
-		807F5B51198A0CC100528829 /* love-btn-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B3D198A0CC100528829 /* love-btn-active@2x.png */; };
-		807F5B52198A0CC100528829 /* love-btn-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B3E198A0CC100528829 /* love-btn-active.png */; };
-		807F5B53198A0CC100528829 /* love-btn-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B3F198A0CC100528829 /* love-btn-inactive@2x.png */; };
-		807F5B54198A0CC100528829 /* love-btn-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B40198A0CC100528829 /* love-btn-inactive.png */; };
 		807F5B55198A0CC100528829 /* lower-trap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B41198A0CC100528829 /* lower-trap@2x.png */; };
 		807F5B56198A0CC100528829 /* lower-trap.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B42198A0CC100528829 /* lower-trap.png */; };
-		807F5B57198A0CC100528829 /* move-btn-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B43198A0CC100528829 /* move-btn-active@2x.png */; };
-		807F5B58198A0CC100528829 /* move-btn-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B44198A0CC100528829 /* move-btn-active.png */; };
-		807F5B59198A0CC100528829 /* move-btn-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B45198A0CC100528829 /* move-btn-inactive@2x.png */; };
-		807F5B5A198A0CC100528829 /* move-btn-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B46198A0CC100528829 /* move-btn-inactive.png */; };
-		807F5B5B198A0CC100528829 /* study-btn-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B47198A0CC100528829 /* study-btn-active@2x.png */; };
-		807F5B5C198A0CC100528829 /* study-btn-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B48198A0CC100528829 /* study-btn-active.png */; };
-		807F5B5D198A0CC100528829 /* study-btn-inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B49198A0CC100528829 /* study-btn-inactive@2x.png */; };
-		807F5B5E198A0CC100528829 /* study-btn-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B4A198A0CC100528829 /* study-btn-inactive.png */; };
 		807F5B5F198A0CC100528829 /* upper-trap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B4B198A0CC100528829 /* upper-trap@2x.png */; };
 		807F5B60198A0CC100528829 /* upper-trap.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B4C198A0CC100528829 /* upper-trap.png */; };
 		807F5B62198A182F00528829 /* glyphicons_white_envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5B61198A182F00528829 /* glyphicons_white_envelope.png */; };
@@ -202,40 +187,41 @@
 		8021994C19A948CF0042597A /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		8021994D19A948CF0042597A /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		8021994E19A948CF0042597A /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
-		8021994F19A948CF0042597A /* feedback_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feedback_btn.png; sourceTree = "<group>"; };
-		8021995019A948CF0042597A /* feedback_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_btn@2x.png"; sourceTree = "<group>"; };
-		8021995119A948CF0042597A /* grub_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grub_btn_active.png; sourceTree = "<group>"; };
-		8021995219A948CF0042597A /* grub_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grub_btn_active@2x.png"; sourceTree = "<group>"; };
-		8021995319A948CF0042597A /* grub_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grub_btn_inactive.png; sourceTree = "<group>"; };
-		8021995419A948CF0042597A /* grub_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grub_btn_inactive@2x.png"; sourceTree = "<group>"; };
-		8021995519A948CF0042597A /* love_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = love_btn_active.png; sourceTree = "<group>"; };
-		8021995619A948CF0042597A /* love_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "love_btn_active@2x.png"; sourceTree = "<group>"; };
-		8021995719A948CF0042597A /* love_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = love_btn_inactive.png; sourceTree = "<group>"; };
-		8021995819A948CF0042597A /* love_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "love_btn_inactive@2x.png"; sourceTree = "<group>"; };
-		8021995919A948CF0042597A /* Milo_Face_Navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Navbar.png; sourceTree = "<group>"; };
-		8021995A19A948CF0042597A /* move_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = move_btn_active.png; sourceTree = "<group>"; };
-		8021995B19A948CF0042597A /* move_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "move_btn_active@2x.png"; sourceTree = "<group>"; };
-		8021995C19A948CF0042597A /* move_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = move_btn_inactive.png; sourceTree = "<group>"; };
-		8021995D19A948CF0042597A /* move_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "move_btn_inactive@2x.png"; sourceTree = "<group>"; };
-		8021995E19A948CF0042597A /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
-		8021995F19A948CF0042597A /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navbar@2x.png"; sourceTree = "<group>"; };
-		8021996019A948CF0042597A /* report_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report_btn.png; sourceTree = "<group>"; };
-		8021996119A948CF0042597A /* report_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report_btn@2x.png"; sourceTree = "<group>"; };
-		8021996219A948CF0042597A /* study_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = study_btn_active.png; sourceTree = "<group>"; };
-		8021996319A948CF0042597A /* study_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "study_btn_active@2x.png"; sourceTree = "<group>"; };
-		8021996419A948CF0042597A /* study_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = study_btn_inactive.png; sourceTree = "<group>"; };
-		8021996519A948CF0042597A /* study_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "study_btn_inactive@2x.png"; sourceTree = "<group>"; };
-		8021996619A948CF0042597A /* trapezoid_menu_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trapezoid_menu_bottom.png; sourceTree = "<group>"; };
-		8021996719A948CF0042597A /* trapezoid_menu_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_bottom@2x.png"; sourceTree = "<group>"; };
-		8021996819A948CF0042597A /* trapezoid_menu_bottom_segmented.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trapezoid_menu_bottom_segmented.png; sourceTree = "<group>"; };
-		8021996919A948CF0042597A /* trapezoid_menu_bottom_segmented@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_bottom_segmented@2x.png"; sourceTree = "<group>"; };
-		8021996A19A948CF0042597A /* trapezoid_menu_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trapezoid_menu_top.png; sourceTree = "<group>"; };
-		8021996B19A948CF0042597A /* trapezoid_menu_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_top@2x.png"; sourceTree = "<group>"; };
+		8021994F19A948CF0042597A /* feedback_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = feedback_btn.png; path = "Buttons & Icons/feedback_btn.png"; sourceTree = "<group>"; };
+		8021995019A948CF0042597A /* feedback_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "feedback_btn@2x.png"; path = "Buttons & Icons/feedback_btn@2x.png"; sourceTree = "<group>"; };
+		8021995119A948CF0042597A /* grub_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grub_btn_active.png; path = "Buttons & Icons/grub_btn_active.png"; sourceTree = "<group>"; };
+		8021995219A948CF0042597A /* grub_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grub_btn_active@2x.png"; path = "Buttons & Icons/grub_btn_active@2x.png"; sourceTree = "<group>"; };
+		8021995319A948CF0042597A /* grub_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grub_btn_inactive.png; path = "Buttons & Icons/grub_btn_inactive.png"; sourceTree = "<group>"; };
+		8021995419A948CF0042597A /* grub_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "grub_btn_inactive@2x.png"; path = "Buttons & Icons/grub_btn_inactive@2x.png"; sourceTree = "<group>"; };
+		8021995519A948CF0042597A /* love_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = love_btn_active.png; path = "Buttons & Icons/love_btn_active.png"; sourceTree = "<group>"; };
+		8021995619A948CF0042597A /* love_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "love_btn_active@2x.png"; path = "Buttons & Icons/love_btn_active@2x.png"; sourceTree = "<group>"; };
+		8021995719A948CF0042597A /* love_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = love_btn_inactive.png; path = "Buttons & Icons/love_btn_inactive.png"; sourceTree = "<group>"; };
+		8021995819A948CF0042597A /* love_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "love_btn_inactive@2x.png"; path = "Buttons & Icons/love_btn_inactive@2x.png"; sourceTree = "<group>"; };
+		8021995919A948CF0042597A /* Milo_Face_Navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Milo_Face_Navbar.png; path = "Buttons & Icons/Milo_Face_Navbar.png"; sourceTree = "<group>"; };
+		8021995A19A948CF0042597A /* move_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = move_btn_active.png; path = "Buttons & Icons/move_btn_active.png"; sourceTree = "<group>"; };
+		8021995B19A948CF0042597A /* move_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "move_btn_active@2x.png"; path = "Buttons & Icons/move_btn_active@2x.png"; sourceTree = "<group>"; };
+		8021995C19A948CF0042597A /* move_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = move_btn_inactive.png; path = "Buttons & Icons/move_btn_inactive.png"; sourceTree = "<group>"; };
+		8021995D19A948CF0042597A /* move_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "move_btn_inactive@2x.png"; path = "Buttons & Icons/move_btn_inactive@2x.png"; sourceTree = "<group>"; };
+		8021995E19A948CF0042597A /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbar.png; path = "Buttons & Icons/navbar.png"; sourceTree = "<group>"; };
+		8021995F19A948CF0042597A /* navbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "navbar@2x.png"; path = "Buttons & Icons/navbar@2x.png"; sourceTree = "<group>"; };
+		8021996019A948CF0042597A /* report_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = report_btn.png; path = "Buttons & Icons/report_btn.png"; sourceTree = "<group>"; };
+		8021996119A948CF0042597A /* report_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "report_btn@2x.png"; path = "Buttons & Icons/report_btn@2x.png"; sourceTree = "<group>"; };
+		8021996219A948CF0042597A /* study_btn_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = study_btn_active.png; path = "Buttons & Icons/study_btn_active.png"; sourceTree = "<group>"; };
+		8021996319A948CF0042597A /* study_btn_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "study_btn_active@2x.png"; path = "Buttons & Icons/study_btn_active@2x.png"; sourceTree = "<group>"; };
+		8021996419A948CF0042597A /* study_btn_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = study_btn_inactive.png; path = "Buttons & Icons/study_btn_inactive.png"; sourceTree = "<group>"; };
+		8021996519A948CF0042597A /* study_btn_inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "study_btn_inactive@2x.png"; path = "Buttons & Icons/study_btn_inactive@2x.png"; sourceTree = "<group>"; };
+		8021996619A948CF0042597A /* trapezoid_menu_bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trapezoid_menu_bottom.png; path = "Buttons & Icons/trapezoid_menu_bottom.png"; sourceTree = "<group>"; };
+		8021996719A948CF0042597A /* trapezoid_menu_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trapezoid_menu_bottom@2x.png"; path = "Buttons & Icons/trapezoid_menu_bottom@2x.png"; sourceTree = "<group>"; };
+		8021996819A948CF0042597A /* trapezoid_menu_bottom_segmented.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trapezoid_menu_bottom_segmented.png; path = "Buttons & Icons/trapezoid_menu_bottom_segmented.png"; sourceTree = "<group>"; };
+		8021996919A948CF0042597A /* trapezoid_menu_bottom_segmented@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trapezoid_menu_bottom_segmented@2x.png"; path = "Buttons & Icons/trapezoid_menu_bottom_segmented@2x.png"; sourceTree = "<group>"; };
+		8021996A19A948CF0042597A /* trapezoid_menu_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = trapezoid_menu_top.png; path = "Buttons & Icons/trapezoid_menu_top.png"; sourceTree = "<group>"; };
+		8021996B19A948CF0042597A /* trapezoid_menu_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trapezoid_menu_top@2x.png"; path = "Buttons & Icons/trapezoid_menu_top@2x.png"; sourceTree = "<group>"; };
 		8021999419A948D80042597A /* Milo_Face_Full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Full.png; sourceTree = "<group>"; };
 		8021999519A948D80042597A /* Milo_Face_Navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Navbar.png; sourceTree = "<group>"; };
 		8021999619A948D80042597A /* Milo_final_8-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Milo_final_8-20.png"; sourceTree = "<group>"; };
 		8021999A19A9AC4E0042597A /* BFTPrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPrivacyPolicyViewController.h; sourceTree = "<group>"; };
 		8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPrivacyPolicyViewController.m; sourceTree = "<group>"; };
+		8021999F19AB124F0042597A /* switchCamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCamera.png; sourceTree = "<group>"; };
 		803EE0ED1984CCD200B86ACE /* checkmarkusername.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmarkusername.png; sourceTree = "<group>"; };
 		803EE0EE1984CCD200B86ACE /* trianglebluedown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trianglebluedown.png; sourceTree = "<group>"; };
 		803EE0EF1984CCD200B86ACE /* trianglered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trianglered.png; sourceTree = "<group>"; };
@@ -292,24 +278,8 @@
 		807F5B2E198A0CAD00528829 /* forth-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forth-icon@2x.png"; sourceTree = "<group>"; };
 		807F5B2F198A0CAD00528829 /* nav-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-bar.png"; sourceTree = "<group>"; };
 		807F5B30198A0CAD00528829 /* nav-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-bar@2x.png"; sourceTree = "<group>"; };
-		807F5B39198A0CC100528829 /* grub-btn-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grub-btn-active@2x.png"; sourceTree = "<group>"; };
-		807F5B3A198A0CC100528829 /* grub-btn-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grub-btn-active.png"; sourceTree = "<group>"; };
-		807F5B3B198A0CC100528829 /* grub-btn-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grub-btn-inactive@2x.png"; sourceTree = "<group>"; };
-		807F5B3C198A0CC100528829 /* grub-btn-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grub-btn-inactive.png"; sourceTree = "<group>"; };
-		807F5B3D198A0CC100528829 /* love-btn-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "love-btn-active@2x.png"; sourceTree = "<group>"; };
-		807F5B3E198A0CC100528829 /* love-btn-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "love-btn-active.png"; sourceTree = "<group>"; };
-		807F5B3F198A0CC100528829 /* love-btn-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "love-btn-inactive@2x.png"; sourceTree = "<group>"; };
-		807F5B40198A0CC100528829 /* love-btn-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "love-btn-inactive.png"; sourceTree = "<group>"; };
 		807F5B41198A0CC100528829 /* lower-trap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-trap@2x.png"; sourceTree = "<group>"; };
 		807F5B42198A0CC100528829 /* lower-trap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-trap.png"; sourceTree = "<group>"; };
-		807F5B43198A0CC100528829 /* move-btn-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "move-btn-active@2x.png"; sourceTree = "<group>"; };
-		807F5B44198A0CC100528829 /* move-btn-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "move-btn-active.png"; sourceTree = "<group>"; };
-		807F5B45198A0CC100528829 /* move-btn-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "move-btn-inactive@2x.png"; sourceTree = "<group>"; };
-		807F5B46198A0CC100528829 /* move-btn-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "move-btn-inactive.png"; sourceTree = "<group>"; };
-		807F5B47198A0CC100528829 /* study-btn-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "study-btn-active@2x.png"; sourceTree = "<group>"; };
-		807F5B48198A0CC100528829 /* study-btn-active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "study-btn-active.png"; sourceTree = "<group>"; };
-		807F5B49198A0CC100528829 /* study-btn-inactive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "study-btn-inactive@2x.png"; sourceTree = "<group>"; };
-		807F5B4A198A0CC100528829 /* study-btn-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "study-btn-inactive.png"; sourceTree = "<group>"; };
 		807F5B4B198A0CC100528829 /* upper-trap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-trap@2x.png"; sourceTree = "<group>"; };
 		807F5B4C198A0CC100528829 /* upper-trap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-trap.png"; sourceTree = "<group>"; };
 		807F5B61198A182F00528829 /* glyphicons_white_envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_white_envelope.png; sourceTree = "<group>"; };
@@ -420,24 +390,8 @@
 				807F5B69198AFDF400528829 /* splashlogo.png */,
 				807F5B67198AFB0A00528829 /* checkmarkusernameblue.png */,
 				807F5B61198A182F00528829 /* glyphicons_white_envelope.png */,
-				807F5B39198A0CC100528829 /* grub-btn-active@2x.png */,
-				807F5B3A198A0CC100528829 /* grub-btn-active.png */,
-				807F5B3B198A0CC100528829 /* grub-btn-inactive@2x.png */,
-				807F5B3C198A0CC100528829 /* grub-btn-inactive.png */,
-				807F5B3D198A0CC100528829 /* love-btn-active@2x.png */,
-				807F5B3E198A0CC100528829 /* love-btn-active.png */,
-				807F5B3F198A0CC100528829 /* love-btn-inactive@2x.png */,
-				807F5B40198A0CC100528829 /* love-btn-inactive.png */,
 				807F5B41198A0CC100528829 /* lower-trap@2x.png */,
 				807F5B42198A0CC100528829 /* lower-trap.png */,
-				807F5B43198A0CC100528829 /* move-btn-active@2x.png */,
-				807F5B44198A0CC100528829 /* move-btn-active.png */,
-				807F5B45198A0CC100528829 /* move-btn-inactive@2x.png */,
-				807F5B46198A0CC100528829 /* move-btn-inactive.png */,
-				807F5B47198A0CC100528829 /* study-btn-active@2x.png */,
-				807F5B48198A0CC100528829 /* study-btn-active.png */,
-				807F5B49198A0CC100528829 /* study-btn-inactive@2x.png */,
-				807F5B4A198A0CC100528829 /* study-btn-inactive.png */,
 				807F5B4B198A0CC100528829 /* upper-trap@2x.png */,
 				807F5B4C198A0CC100528829 /* upper-trap.png */,
 				807F5B29198A0CAD00528829 /* back-btn.png */,
@@ -470,16 +424,7 @@
 		8021994219A9488D0042597A /* New_Images */ = {
 			isa = PBXGroup;
 			children = (
-				8021999319A948D80042597A /* Logos */,
-				8021994319A948CF0042597A /* Buttons & Icons */,
-			);
-			name = New_Images;
-			sourceTree = "<group>";
-		};
-		8021994319A948CF0042597A /* Buttons & Icons */ = {
-			isa = PBXGroup;
-			children = (
-				8021994419A948CF0042597A /* app_icons */,
+				8021999F19AB124F0042597A /* switchCamera.png */,
 				8021994F19A948CF0042597A /* feedback_btn.png */,
 				8021995019A948CF0042597A /* feedback_btn@2x.png */,
 				8021995119A948CF0042597A /* grub_btn_active.png */,
@@ -509,6 +454,16 @@
 				8021996919A948CF0042597A /* trapezoid_menu_bottom_segmented@2x.png */,
 				8021996A19A948CF0042597A /* trapezoid_menu_top.png */,
 				8021996B19A948CF0042597A /* trapezoid_menu_top@2x.png */,
+				8021999319A948D80042597A /* Logos */,
+				8021994319A948CF0042597A /* Buttons & Icons */,
+			);
+			name = New_Images;
+			sourceTree = "<group>";
+		};
+		8021994319A948CF0042597A /* Buttons & Icons */ = {
+			isa = PBXGroup;
+			children = (
+				8021994419A948CF0042597A /* app_icons */,
 			);
 			path = "Buttons & Icons";
 			sourceTree = "<group>";
@@ -818,14 +773,12 @@
 				803EE0F11984CCD200B86ACE /* trianglebluedown.png in Resources */,
 				8021998D19A948CF0042597A /* trapezoid_menu_bottom.png in Resources */,
 				8021999819A948D80042597A /* Milo_Face_Navbar.png in Resources */,
-				807F5B58198A0CC100528829 /* move-btn-active.png in Resources */,
 				807F5B241988DFF000528829 /* background.png in Resources */,
 				807F5B261988DFF000528829 /* placeholder.png in Resources */,
 				807F5B8A198E1B5A00528829 /* Icon-40@2x.png in Resources */,
 				807F5BB91995216600528829 /* Thumbs in Resources */,
 				8021997B19A948CF0042597A /* grub_btn_inactive@2x.png in Resources */,
 				8021999919A948D80042597A /* Milo_final_8-20.png in Resources */,
-				807F5B5D198A0CC100528829 /* study-btn-inactive@2x.png in Resources */,
 				807F5B201988970300528829 /* ChatBox-To.png in Resources */,
 				8021998119A948CF0042597A /* move_btn_active.png in Resources */,
 				807F5B90198E1B5A00528829 /* Icon-76@2x.png in Resources */,
@@ -836,7 +789,7 @@
 				807F5B92198E1B5A00528829 /* Icon-Small-50@2x.png in Resources */,
 				80F650F71980911500443673 /* tumblr_static_tumblr_static_heart-icon.png in Resources */,
 				8040E9711978FD59000D66C7 /* InfoPlist.strings in Resources */,
-				807F5B5A198A0CC100528829 /* move-btn-inactive.png in Resources */,
+				802199A019AB124F0042597A /* switchCamera.png in Resources */,
 				8021998A19A948CF0042597A /* study_btn_active@2x.png in Resources */,
 				807F5B68198AFB0A00528829 /* checkmarkusernameblue.png in Resources */,
 				8021997219A948CF0042597A /* Icon-Small.png in Resources */,
@@ -847,12 +800,10 @@
 				8021997019A948CF0042597A /* Icon-76.png in Resources */,
 				8021998C19A948CF0042597A /* study_btn_inactive@2x.png in Resources */,
 				807F5B96198E1B5A00528829 /* Icon@2x.png in Resources */,
-				807F5B53198A0CC100528829 /* love-btn-inactive@2x.png in Resources */,
 				807F5BBD19954CED00528829 /* Default-568h@2x.png in Resources */,
 				80F650F31980907100443673 /* shape_rounded-512.png in Resources */,
 				807F5B75198DE84600528829 /* dividerbar.png in Resources */,
 				807F5B97198E1B5A00528829 /* iTunesArtwork.png in Resources */,
-				807F5B4F198A0CC100528829 /* grub-btn-inactive@2x.png in Resources */,
 				807F5B94198E1B5A00528829 /* Icon-Small@2x.png in Resources */,
 				807F5B77198E18CA00528829 /* Media.xcassets in Resources */,
 				8021997D19A948CF0042597A /* love_btn_active@2x.png in Resources */,
@@ -862,14 +813,10 @@
 				807F5B8C198E1B5A00528829 /* Icon-60@2x.png in Resources */,
 				8040E97A1978FD59000D66C7 /* Main.storyboard in Resources */,
 				807F5B33198A0CAD00528829 /* forth-btn.png in Resources */,
-				807F5B5C198A0CC100528829 /* study-btn-active.png in Resources */,
 				8021996C19A948CF0042597A /* Icon-40.png in Resources */,
 				807F5B251988DFF000528829 /* page.png in Resources */,
 				803EE0F01984CCD200B86ACE /* checkmarkusername.png in Resources */,
-				807F5B4E198A0CC100528829 /* grub-btn-active.png in Resources */,
-				807F5B54198A0CC100528829 /* love-btn-inactive.png in Resources */,
 				8021997C19A948CF0042597A /* love_btn_active.png in Resources */,
-				807F5B5B198A0CC100528829 /* study-btn-active@2x.png in Resources */,
 				807F5B95198E1B5A00528829 /* Icon.png in Resources */,
 				807F5B60198A0CC100528829 /* upper-trap.png in Resources */,
 				807F5B8B198E1B5A00528829 /* Icon-60.png in Resources */,
@@ -878,17 +825,12 @@
 				807F5B38198A0CAD00528829 /* nav-bar@2x.png in Resources */,
 				807F5BBE19954CED00528829 /* Default.png in Resources */,
 				807F5B89198E1B5A00528829 /* Icon-40.png in Resources */,
-				807F5B4D198A0CC100528829 /* grub-btn-active@2x.png in Resources */,
-				807F5B5E198A0CC100528829 /* study-btn-inactive.png in Resources */,
-				807F5B57198A0CC100528829 /* move-btn-active@2x.png in Resources */,
 				8021997519A948CF0042597A /* iTunesArtwork@2x.png in Resources */,
 				8021997A19A948CF0042597A /* grub_btn_inactive.png in Resources */,
 				8021998519A948CF0042597A /* navbar.png in Resources */,
 				803EE0F21984CCD200B86ACE /* trianglered.png in Resources */,
 				8021994019A926660042597A /* feedbackButton@2x.png in Resources */,
-				807F5B51198A0CC100528829 /* love-btn-active@2x.png in Resources */,
 				807F5B8E198E1B5A00528829 /* Icon-72@2x.png in Resources */,
-				807F5B59198A0CC100528829 /* move-btn-inactive@2x.png in Resources */,
 				8021997E19A948CF0042597A /* love_btn_inactive.png in Resources */,
 				8021997F19A948CF0042597A /* love_btn_inactive@2x.png in Resources */,
 				8040E9A3197C902A000D66C7 /* LoginWFacebook.png in Resources */,
@@ -898,7 +840,6 @@
 				8021998B19A948CF0042597A /* study_btn_inactive.png in Resources */,
 				8021998319A948CF0042597A /* move_btn_inactive.png in Resources */,
 				807F5B31198A0CAD00528829 /* back-btn.png in Resources */,
-				807F5B52198A0CC100528829 /* love-btn-active.png in Resources */,
 				807F5B56198A0CC100528829 /* lower-trap.png in Resources */,
 				8021999019A948CF0042597A /* trapezoid_menu_bottom_segmented@2x.png in Resources */,
 				8021998919A948CF0042597A /* study_btn_active.png in Resources */,
@@ -924,7 +865,6 @@
 				8021997119A948CF0042597A /* Icon-76@2x.png in Resources */,
 				8021996F19A948CF0042597A /* Icon-60@2x.png in Resources */,
 				807F5B5F198A0CC100528829 /* upper-trap@2x.png in Resources */,
-				807F5B50198A0CC100528829 /* grub-btn-inactive.png in Resources */,
 				8021993F19A926660042597A /* feedbackButtonHighlighted@2x.png in Resources */,
 				807F5B32198A0CAD00528829 /* back-btn@2x.png in Resources */,
 				807F5B35198A0CAD00528829 /* forth-icon.png in Resources */,
