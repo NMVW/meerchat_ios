@@ -443,11 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oEx-uq-tZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-<<<<<<< HEAD
-            <point key="canvasLocation" x="-31" y="-1419"/>
-=======
             <point key="canvasLocation" x="-639" y="-915"/>
->>>>>>> 8a4d0e084887ecacae2702bb33d1df72bf6d59c5
         </scene>
         <!--Main View Controller-->
         <scene sceneID="jvE-S6-NhD">
@@ -601,11 +597,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-<<<<<<< HEAD
-            <point key="canvasLocation" x="-595" y="-179"/>
-=======
             <point key="canvasLocation" x="-603" y="-179"/>
->>>>>>> 8a4d0e084887ecacae2702bb33d1df72bf6d59c5
         </scene>
         <!--Privacy Policy View Controller-->
         <scene sceneID="qYS-yb-PUH">
@@ -1102,10 +1094,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-=======
-        <segue reference="jaP-dt-f3g"/>
->>>>>>> 8a4d0e084887ecacae2702bb33d1df72bf6d59c5
         <segue reference="5yH-kS-ND2"/>
         <segue reference="jaP-dt-f3g"/>
     </inferredMetricsTieBreakers>
