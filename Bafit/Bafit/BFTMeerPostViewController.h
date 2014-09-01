@@ -11,6 +11,7 @@
 #import "BFTDataHandler.h"
 
 @interface BFTMeerPostViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) IBOutlet UIImageView *btmTrapazoid;
 @property (strong, nonatomic) IBOutlet UILabel *userLabel;
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
