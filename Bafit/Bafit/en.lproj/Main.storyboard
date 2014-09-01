@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gen-d0-YEF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8sT-Dz-QP5">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -305,7 +305,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZQ6-2J-LEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="tu0-M6-YJg"/>
             </objects>
-            <point key="canvasLocation" x="-31" y="-594"/>
+            <point key="canvasLocation" x="-31" y="-642"/>
         </scene>
         <!--Meer Post View Controller - postView-->
         <scene sceneID="Bxx-hz-cgd">
@@ -443,7 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oEx-uq-tZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="-915"/>
+            <point key="canvasLocation" x="-603" y="-1075"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="jvE-S6-NhD">
@@ -937,7 +937,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95V-lD-gKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-551" y="559"/>
+            <point key="canvasLocation" x="-603" y="703"/>
         </scene>
         <!--Back Thread Table View Controller - Back-->
         <scene sceneID="KWj-6R-maa">
@@ -1040,7 +1040,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4w-JH-xI2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-31" y="190"/>
+            <point key="canvasLocation" x="-31" y="278"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jcm-Lj-FRb">

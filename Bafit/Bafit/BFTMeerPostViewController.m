@@ -27,6 +27,9 @@
 {
     [super viewDidLoad];
     [self setPostToMainView];
+    //set Naivagtion for View
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"appcoda-logo.png"]];
+
     //Switch handlers
     [_locationSwitch addTarget:self action:@selector(stateChangedLocation) forControlEvents:UIControlEventValueChanged];
     [_anonymousSwitch addTarget:self action:@selector(stateChangedUser) forControlEvents:UIControlEventValueChanged];

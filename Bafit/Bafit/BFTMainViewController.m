@@ -27,6 +27,8 @@
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    //set catagory
+    _catagory = 0;
     
     //configure carousel
     _carousel.delegate = self;
@@ -58,8 +60,8 @@
         [[BFTDataHandler sharedInstance] setUID:[[NSUUID UUID] UUIDString]];
     }
     
-    _segment = 1;
-    [self loadURLsFromSegment:_segment replacingRemovedVideo:NO];
+    
+    [self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
     
     _items = [NSMutableArray array];
     
@@ -85,7 +87,7 @@
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"notToday.php?UIDr=%@&UIDp=%@&MC=%zd", [BFTDataHandler sharedInstance].UID, post.UID, post.MC] trueOrFalseBlock:^(BOOL succes, NSError *error) {
         if (!error) {
             if (succes) {
-                [self loadURLsFromSegment:_segment replacingRemovedVideo:YES];
+                [self loadURLsFromCatagory:_catagory replacingRemovedVideo:YES];
             }
         }
         else {
@@ -98,9 +100,9 @@
 /*
  Loads url's from a given segment. If videoRemoved is set to true, that means that we have swiped down on a video, and we only want to retrieve the new video from the segment
  */
--(void)loadURLsFromSegment:(NSInteger)segment replacingRemovedVideo:(BOOL)videoRemoved {
+-(void)loadURLsFromCatagory:(NSInteger)catagory replacingRemovedVideo:(BOOL)videoRemoved {
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"requestUserList.php?UIDr=%@&&GPSlat=%.8f&GPSlon=%.8f&SegNum=%zd", [userData UID], [userData Latitude], [userData Longitude], segment] completionBlock:^(NSMutableData *data, NSError *error) {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
@@ -319,9 +321,9 @@
 }
 
 -(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
-    if (_carousel.currentItemIndex >= _segment*10 - 3) {
-        _segment++;
-        [self loadURLsFromSegment:_segment replacingRemovedVideo:NO];
+    if (_carousel.currentItemIndex >= 10 - 3) {
+//        _segment++;
+        [self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
     }
 }
 
@@ -377,7 +379,7 @@
     
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"blockUser.php?UIDr=%@&UIDp=%@&GPSlat=%.4f&GPSlon=%.4f", [[BFTDataHandler sharedInstance] UID], post.UID, [[BFTDataHandler sharedInstance] Latitude], [[BFTDataHandler sharedInstance] Longitude]] trueOrFalseBlock:^(BOOL success, NSError *error) {
         if (!error) {
-            [self loadURLsFromSegment:_segment replacingRemovedVideo:YES];
+            [self loadURLsFromCatagory:_catagory replacingRemovedVideo:YES];
         }
         else {
             [[[UIAlertView alloc] initWithTitle:@"Could not block user" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];

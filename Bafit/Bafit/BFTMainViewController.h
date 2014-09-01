@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *MessageCountLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *videoView;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
+@property (nonatomic) int catagory;
 @property (weak, nonatomic) NSArray *messages;
 @property (nonatomic) BOOL swipeUp;
 

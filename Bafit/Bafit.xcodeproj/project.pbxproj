@@ -60,6 +60,8 @@
 		8021999919A948D80042597A /* Milo_final_8-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021999619A948D80042597A /* Milo_final_8-20.png */; };
 		8021999C19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */; };
 		802199A019AB124F0042597A /* switchCamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021999F19AB124F0042597A /* switchCamera.png */; };
+		802199A519AFB6E90042597A /* BFTFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802199A119AFB6E80042597A /* BFTFeedbackViewController.m */; };
+		802199A619AFB6E90042597A /* BFTBackThreadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 802199A319AFB6E90042597A /* BFTBackThreadItem.m */; };
 		803EE0F01984CCD200B86ACE /* checkmarkusername.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0ED1984CCD200B86ACE /* checkmarkusername.png */; };
 		803EE0F11984CCD200B86ACE /* trianglebluedown.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0EE1984CCD200B86ACE /* trianglebluedown.png */; };
 		803EE0F21984CCD200B86ACE /* trianglered.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0EF1984CCD200B86ACE /* trianglered.png */; };
@@ -222,6 +224,10 @@
 		8021999A19A9AC4E0042597A /* BFTPrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPrivacyPolicyViewController.h; sourceTree = "<group>"; };
 		8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPrivacyPolicyViewController.m; sourceTree = "<group>"; };
 		8021999F19AB124F0042597A /* switchCamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCamera.png; sourceTree = "<group>"; };
+		802199A119AFB6E80042597A /* BFTFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTFeedbackViewController.m; sourceTree = "<group>"; };
+		802199A219AFB6E90042597A /* BFTFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTFeedbackViewController.h; sourceTree = "<group>"; };
+		802199A319AFB6E90042597A /* BFTBackThreadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTBackThreadItem.m; sourceTree = "<group>"; };
+		802199A419AFB6E90042597A /* BFTBackThreadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTBackThreadItem.h; sourceTree = "<group>"; };
 		803EE0ED1984CCD200B86ACE /* checkmarkusername.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmarkusername.png; sourceTree = "<group>"; };
 		803EE0EE1984CCD200B86ACE /* trianglebluedown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trianglebluedown.png; sourceTree = "<group>"; };
 		803EE0EF1984CCD200B86ACE /* trianglered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trianglered.png; sourceTree = "<group>"; };
@@ -611,6 +617,10 @@
 		8040E9AD197E080D000D66C7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
+				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
+				802199A319AFB6E90042597A /* BFTBackThreadItem.m */,
+				802199A419AFB6E90042597A /* BFTBackThreadItem.h */,
 				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
 				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
 				8040E97B1978FD59000D66C7 /* BFTViewController.h */,
@@ -923,6 +933,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				802199A519AFB6E90042597A /* BFTFeedbackViewController.m in Sources */,
 				80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */,
 				807F5B9C198F1D5000528829 /* BFTPostViewController.m in Sources */,
 				8058E1B6198855A600DF2F4F /* BFTMessage.m in Sources */,
@@ -932,6 +943,7 @@
 				801AE87D1985E082006EA19B /* BFTThreadTableViewCell.m in Sources */,
 				8040E9771978FD59000D66C7 /* BFTAppDelegate.m in Sources */,
 				8040E97D1978FD59000D66C7 /* BFTViewController.m in Sources */,
+				802199A619AFB6E90042597A /* BFTBackThreadItem.m in Sources */,
 				8058E1B91988722400DF2F4F /* BFTLocationHandler.m in Sources */,
 				80F651001980A4DD00443673 /* BFTMainViewController.m in Sources */,
 				803EE0F51984CD1600B86ACE /* BFTInitialLoginViewController.m in Sources */,
