@@ -140,7 +140,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:(BOOL)animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
     //Create and handle Video Player for Videos in thread
     _videoPlayback = [[UIView alloc] initWithFrame:CGRectMake(60, 210,200, 220)];
 //    [_videoPlayback setBackgroundColor:[UIColor colorWithWhite:-100 alpha:1.0]];
@@ -148,6 +147,10 @@
     [self.view addSubview:_videoPlayback];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -321,10 +324,7 @@
 }
 
 -(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
-    if (_carousel.currentItemIndex >= 10 - 3) {
-//        _segment++;
-        [self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
-    }
+    //dont need this code anymore. that was only for loading the next segment (but we only have one segment now)
 }
 
 - (NSUInteger)numberOfVisibleItemsInCarousel:(iCarousel *)carousel
@@ -418,35 +418,36 @@
 #pragma mark Catagory Selection
 
 - (IBAction)moveCatTouched:(id)sender {
+    [_moveCatButton setSelected:!_moveCatButton.selected];
     switch ([_moveCatButton isSelected]) {
         case true:
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move-btn-active.png"] forState:UIControlStateNormal];
+            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_active.png"] forState:UIControlStateNormal];
             //otherButtons are not active
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study-btn-inactive.png"] forState:UIControlStateNormal];
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love-btn-inactive.png"] forState:UIControlStateNormal];
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub-btn-inactive.png"] forState:UIControlStateNormal];
+            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
+            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
+            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
              break;
         default:
             //move button selected
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move-btn-inactive.png"] forState:UIControlStateNormal];
+            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
             
             break;
     }
 }
 
 - (IBAction)studyCatTouched:(id)sender {
-    
+    [_studyCatButton setSelected:!_studyCatButton.selected];
     switch ([_studyCatButton isSelected]) {
         case true:
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study-btn-active.png"] forState:UIControlStateNormal];
+            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_active.png"] forState:UIControlStateNormal];
             //otherButtons are not active
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move-btn-inactive.png"] forState:UIControlStateNormal];
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love-btn-inactive.png"] forState:UIControlStateNormal];
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub-btn-inactive.png"] forState:UIControlStateNormal];
+            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
+            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
+            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
             break;
         default:
             //move button selected
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study-btn-inactive.png"] forState:UIControlStateNormal];
+            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
             
             break;
     }
@@ -454,17 +455,18 @@
 }
 
 - (IBAction)loveCatTouched:(id)sender {
+    [_loveCatButton setSelected:!_loveCatButton.selected];
     switch ([_loveCatButton isSelected]) {
         case true:
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love-btn-active.png"] forState:UIControlStateNormal];
+            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_active.png"] forState:UIControlStateNormal];
             //otherButtons are not active
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study-btn-inactive.png"] forState:UIControlStateNormal];
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move-btn-inactive.png"] forState:UIControlStateNormal];
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub-btn-inactive.png"] forState:UIControlStateNormal];
+            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
+            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
+            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
             break;
         default:
             //move button selected
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love-btn-inactive.png"] forState:UIControlStateNormal];
+            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
             
             break;
     }
@@ -472,17 +474,18 @@
 }
 
 - (IBAction)grubCatTouched:(id)sender {
+    [_grubCatButton setSelected:!_grubCatButton.selected];
     switch ([_grubCatButton isSelected]) {
         case true:
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub-btn-active.png"] forState:UIControlStateNormal];
+            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_active.png"] forState:UIControlStateNormal];
             //otherButtons are not active
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study-btn-inactive.png"] forState:UIControlStateNormal];
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love-btn-inactive.png"] forState:UIControlStateNormal];
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move-btn-inactive.png"] forState:UIControlStateNormal];
+            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
+            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
+            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
             break;
         default:
             //move button selected
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub-btn-inactive.png"] forState:UIControlStateNormal];
+            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
             
             break;
     }

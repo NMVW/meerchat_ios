@@ -52,19 +52,20 @@
     
     //custom nav bar
     [self.navigationController setNavigationBarHidden:NO animated:NO]; //not sure why we need to do this?
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 240/255.0 green:162/255.0 blue:43/255.0 alpha:1.0]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"message_icon.png"]]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     //hack to get an image where the right bar button goes
-    UIBarButtonItem *miloFace = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Milo_Face_Navbar_Transparent.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *miloFace = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Milo_Face_Navbar_Transparent.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  style:UIBarButtonItemStylePlain target:self action:@selector(home:)];
     self.navigationItem.rightBarButtonItem = miloFace;
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    [self.navigationItem setHidesBackButton:YES animated:NO];
 }
 
 -(void)home:(UIBarButtonItem *)sender {
     NSLog(@"%@", self.navigationController);
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

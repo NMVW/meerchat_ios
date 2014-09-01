@@ -28,12 +28,16 @@
     [super viewDidLoad];
     [self setPostToMainView];
     //set Naivagtion for View
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"appcoda-logo.png"]];
+    [self.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    [self.navigationBar setTranslucent:NO];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"appcoda-logo.png"]];
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30, 30)];
     [backButton setImage:[UIImage imageNamed:@"Milo_Face_Navbar.png"]  forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(popVC) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = barbtn;
+    navItem.leftBarButtonItem = barbtn;
+    [self.navigationBar setItems:@[navItem]];
 
     //Switch handler
     [_locationSwitch addTarget:self action:@selector(stateChangedLocation) forControlEvents:UIControlEventValueChanged];
