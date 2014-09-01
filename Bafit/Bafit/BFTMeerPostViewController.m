@@ -29,8 +29,13 @@
     [self setPostToMainView];
     //set Naivagtion for View
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"appcoda-logo.png"]];
+    UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30, 30)];
+    [backButton setImage:[UIImage imageNamed:@"Milo_Face_Navbar.png"]  forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(popVC) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = barbtn;
 
-    //Switch handlers
+    //Switch handler
     [_locationSwitch addTarget:self action:@selector(stateChangedLocation) forControlEvents:UIControlEventValueChanged];
     [_anonymousSwitch addTarget:self action:@selector(stateChangedUser) forControlEvents:UIControlEventValueChanged];
     
@@ -39,6 +44,10 @@
     [_locationLabel setText:@"hide location"];
     [_userLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
     [_locationLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
+}
+
+-(void)popVC {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)stateChangedLocation {
