@@ -62,6 +62,8 @@
 		802199A019AB124F0042597A /* switchCamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 8021999F19AB124F0042597A /* switchCamera.png */; };
 		802199A519AFB6E90042597A /* BFTFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802199A119AFB6E80042597A /* BFTFeedbackViewController.m */; };
 		802199A619AFB6E90042597A /* BFTBackThreadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 802199A319AFB6E90042597A /* BFTBackThreadItem.m */; };
+		802199AD19B426EC0042597A /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802199AB19B426EC0042597A /* splash@2x.png */; };
+		802199AE19B426EC0042597A /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 802199AC19B426EC0042597A /* splash.png */; };
 		803EE0F01984CCD200B86ACE /* checkmarkusername.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0ED1984CCD200B86ACE /* checkmarkusername.png */; };
 		803EE0F11984CCD200B86ACE /* trianglebluedown.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0EE1984CCD200B86ACE /* trianglebluedown.png */; };
 		803EE0F21984CCD200B86ACE /* trianglered.png in Resources */ = {isa = PBXBuildFile; fileRef = 803EE0EF1984CCD200B86ACE /* trianglered.png */; };
@@ -228,6 +230,8 @@
 		802199A219AFB6E90042597A /* BFTFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTFeedbackViewController.h; sourceTree = "<group>"; };
 		802199A319AFB6E90042597A /* BFTBackThreadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTBackThreadItem.m; sourceTree = "<group>"; };
 		802199A419AFB6E90042597A /* BFTBackThreadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTBackThreadItem.h; sourceTree = "<group>"; };
+		802199AB19B426EC0042597A /* splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash@2x.png"; sourceTree = "<group>"; };
+		802199AC19B426EC0042597A /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		803EE0ED1984CCD200B86ACE /* checkmarkusername.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmarkusername.png; sourceTree = "<group>"; };
 		803EE0EE1984CCD200B86ACE /* trianglebluedown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trianglebluedown.png; sourceTree = "<group>"; };
 		803EE0EF1984CCD200B86ACE /* trianglered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trianglered.png; sourceTree = "<group>"; };
@@ -430,6 +434,8 @@
 		8021994219A9488D0042597A /* New_Images */ = {
 			isa = PBXGroup;
 			children = (
+				802199AB19B426EC0042597A /* splash@2x.png */,
+				802199AC19B426EC0042597A /* splash.png */,
 				8021999F19AB124F0042597A /* switchCamera.png */,
 				8021994F19A948CF0042597A /* feedback_btn.png */,
 				8021995019A948CF0042597A /* feedback_btn@2x.png */,
@@ -832,6 +838,7 @@
 				807F5B8B198E1B5A00528829 /* Icon-60.png in Resources */,
 				8021997819A948CF0042597A /* grub_btn_active.png in Resources */,
 				80DCD0FD19A6C786002B9AFD /* Milo_Face_Navbar.png in Resources */,
+				802199AD19B426EC0042597A /* splash@2x.png in Resources */,
 				807F5B38198A0CAD00528829 /* nav-bar@2x.png in Resources */,
 				807F5BBE19954CED00528829 /* Default.png in Resources */,
 				807F5B89198E1B5A00528829 /* Icon-40.png in Resources */,
@@ -842,6 +849,7 @@
 				8021994019A926660042597A /* feedbackButton@2x.png in Resources */,
 				807F5B8E198E1B5A00528829 /* Icon-72@2x.png in Resources */,
 				8021997E19A948CF0042597A /* love_btn_inactive.png in Resources */,
+				802199AE19B426EC0042597A /* splash.png in Resources */,
 				8021997F19A948CF0042597A /* love_btn_inactive@2x.png in Resources */,
 				8040E9A3197C902A000D66C7 /* LoginWFacebook.png in Resources */,
 				807F5B55198A0CC100528829 /* lower-trap@2x.png in Resources */,
