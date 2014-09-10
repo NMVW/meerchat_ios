@@ -15,7 +15,7 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
 -(instancetype)initWithURLString:(NSString *)URL completionBlock:(void (^)(NSMutableData *, NSError *))responseHandler {
     self = [super init];
     if (self) {
-        _url = [[NSURL alloc] initWithString:URL relativeToURL:[[NSURL alloc] initWithString:kBaseURL]];
+        _url = [[NSURL alloc] initWithString:[URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:[[NSURL alloc] initWithString:kBaseURL]];
         _responseHandler = responseHandler;
         _logMessage = [[NSMutableString alloc] initWithString:@"\n"];
         _timeoutInterval = 5;
@@ -39,7 +39,7 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
     if (self) {
         if (!URL)
             return nil;
-        _url = [[NSURL alloc] initWithString:URL];
+        _url = [[NSURL alloc] initWithString:[URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         _responseHandler = completionBlock;
         //_logMessage = [[NSMutableString alloc] initWithString:@"\n"];
         _timeoutInterval = 10;

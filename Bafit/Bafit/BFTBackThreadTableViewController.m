@@ -7,6 +7,7 @@
 //
 
 #import "BFTBackThreadTableViewController.h"
+#import "BFTForthThreadControllerTableViewController.h"
 #import "BFTThreadTableViewCell.h"
 #import "BFTMainViewController.h"
 #import "BFTBackThreadItem.h"
@@ -20,21 +21,13 @@
 
 @implementation BFTBackThreadTableViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    _listOfThreads = [[NSMutableArray alloc] init];
-    [self loadDummyData];
+    self.threadManager = [BFTMessageThreads sharedInstance];
+    
+    self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     //actual background color for tableview
     UIView *backView = [[UIView alloc] initWithFrame:self.tableView.frame];
@@ -63,6 +56,17 @@
     [self.navigationItem setHidesBackButton:YES animated:NO];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+    self.appDelegate.messageDelegate = self;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.appDelegate.messageDelegate = nil;
+}
+
 -(void)home:(UIBarButtonItem *)sender {
     NSLog(@"%@", self.navigationController);
     [self.navigationController popViewControllerAnimated:YES];
@@ -82,7 +86,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_listOfThreads count];
+    return [[_threadManager listOfThreads] count];
 }
 
 
@@ -98,10 +102,10 @@
     [cell.numberMessagesLabel setFont:[UIFont boldSystemFontOfSize:17]];
     [cell.lastUpdatedLabel setFont:[UIFont boldSystemFontOfSize:17]];
     
-    BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexPath.row];
+    BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:indexPath.row];
     
     cell.usernameLabel.text = item.username;
-    cell.numberMessagesLabel.text = [NSString stringWithFormat:@"%zd", item.numberOfMessages];
+    cell.numberMessagesLabel.text = [NSString stringWithFormat:@"%zd", [[item listOfMessages] count]];
     cell.lastUpdatedLabel.text = item.lastMessageTime;
     
     return cell;
@@ -109,7 +113,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //segue somewhere?
+    self.selectedIndex = indexPath.row;
+    [self performSegueWithIdentifier:@"loadThread" sender:self];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -119,23 +124,16 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_listOfThreads removeObjectAtIndex:indexPath.row];
+        [_threadManager removeThreadAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
--(void)loadDummyData {
-    NSArray *listOfUserNames = [[NSArray alloc] initWithObjects:@"@JonathanB",@"@NickyV",@"@Dman",@"C-LO-P",@"Auginator",@"Mcgurn1", nil];
-    NSArray *listOfMessageTimes = [[NSArray alloc] initWithObjects:@"3:34 PM",@"5:12 AM",@"Yesterday",@"3 days ago",@"2 weeks ago",@"3 weeks ago", nil];
-    NSArray *listOfNumMessages = [[NSArray alloc] initWithObjects:@"1",@"3",@"0",@"2",@"1",@"7", nil];
-    
-    for (int i = 0; i < [listOfUserNames count]; i++) {
-        BFTBackThreadItem *item = [[BFTBackThreadItem alloc] init];
-        item.username = listOfUserNames[i];
-        item.lastMessageTime = listOfMessageTimes[i];
-        item.numberOfMessages = [listOfNumMessages[i] integerValue];
-        [_listOfThreads addObject:item];
-    }
+#pragma mark Messaging Delegate
+
+-(void)recievedMessage:(NSString *)message fromSender:(NSString *)sender {
+    //the actual recieving of the message is handled in the singleton, which we are getting are information from. we just need to reload the table data
+    [self.tableView reloadData];
 }
 
 /*
@@ -154,15 +152,18 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    BFTForthThreadControllerTableViewController *destination = [segue destinationViewController];
+    
+    BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:self.selectedIndex];
+    destination.otherPersonsUserID = item.username;
+    destination.otherPersonsUserName = item.username;
+    destination.messageThread = item;
 }
-*/
+
 
 @end

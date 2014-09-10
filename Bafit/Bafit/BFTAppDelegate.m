@@ -9,6 +9,7 @@
 #import "BFTAppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "BFTLoginhandler.h"
+#import "BFTMessageThreads.h"
 #import "BFTDataHandler.h"
 #import <Appsee/Appsee.h>
 
@@ -45,24 +46,22 @@
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [self disconnectFromJabber];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[BFTMessageThreads sharedInstance] saveThreads];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self connectToJabber];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -73,6 +72,124 @@
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
+
+#pragma Mark XMPP Messaging Stuff
+
+-(void)setupStream {
+    _xmppStream = [[XMPPStream alloc] init];
+    [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+}
+
+-(void)goOnline {
+    XMPPPresence *presence = [XMPPPresence presence];
+    [[self xmppStream] sendElement:presence];
+}
+
+-(void)goOffline {
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
+    [[self xmppStream] sendElement:presence];
+}
+
+-(BOOL)connectToJabber {
+    [[BFTMessageThreads sharedInstance] loadThreadsFromStorage];
+    
+    [self setupStream];
+    
+    NSString *jabberID = [NSString stringWithFormat:@"%@@meerchat.mobi", [[BFTDataHandler sharedInstance] BUN]];
+    NSString *myPassword = [[BFTDataHandler sharedInstance] BUN];
+    
+    if (![_xmppStream isDisconnected]) {
+        return YES;
+    }
+    
+    if (jabberID == nil || myPassword == nil) {
+        return NO;
+    }
+    
+    [_xmppStream setMyJID:[XMPPJID jidWithString:jabberID]];
+    
+    NSError *error = nil;
+    if (![_xmppStream connectWithTimeout:10 error:&error]) {
+        NSLog(@"Not Logged In: %@", error.localizedDescription);
+        return NO;
+    }
+    
+    NSLog(@"Jabber is Logged In");
+    return YES;
+}
+
+-(void)disconnectFromJabber {
+    [self goOffline];
+    [self.xmppStream disconnect];
+}
+
+-(void)xmppStreamDidConnect:(XMPPStream *)sender {
+    NSLog(@"XMPP Stream did connect");
+
+    NSError *error = nil;
+    [[self xmppStream] authenticateWithPassword:[[BFTDataHandler sharedInstance] BUN] error:&error];
+}
+
+-(void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
+    NSLog(@"Authentication successful");
+    [self goOnline];
+}
+
+-(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
+    NSString *msg = [[message elementForName:@"body"] stringValue];
+    NSString *from = [[message attributeForName:@"from"] stringValue];
+    NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
+    
+    if (!msg) {
+        return;
+    }
+    
+    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
+
+    [self.messageDelegate recievedMessage:msg fromSender:username]; //if we are on the messaging screen, we will update that too
+    
+    NSLog(@"Message Recieved:\nFrom: %@\nMessage:\n%@", from, msg);
+}
+
+//this is called when a buddy goes online/offline, we aren't using this right now
+-(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
+    NSString *presenceType = [presence type]; // online/offline
+    NSString *myUsername = [[sender myJID] user];
+    NSString *presenceFromUser = [[presence from] user];
+    
+    if ([myUsername isEqualToString:presenceFromUser]) {
+        NSLog(@"It's just one of my updates...");
+        return;
+    }
+    
+    if ([presenceType isEqualToString:@"available"]) {
+        //[self.messageDelegate friendOnline:presenceFromUser];
+    }
+    else if ([presenceType isEqualToString:@"unavailable"]) {
+        //[self.messageDelegate friendOffline:presenceFromUser];
+    }
+    
+    NSLog(@"%@ just changed his status to %@", presenceFromUser, presenceType);
+}
+
+//sends a message through the xmpp stream. 
+-(void)sendMessage:(NSString*)messageBody toUser:(NSString*)user {
+    user = [[NSString alloc] initWithFormat:@"%@@meerchat.mobi", user];
+    
+    NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+    [body setStringValue:messageBody];
+    
+    NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+    [message addAttributeWithName:@"type" stringValue:@"chat"];
+    [message addAttributeWithName:@"to" stringValue:user];
+    [message addChild:body];
+    
+    [self.xmppStream sendElement:message];
+    
+    NSLog(@"Send Message to User with Body: %@", messageBody);
+}
+
+#pragma mark CLLocation Manager
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     

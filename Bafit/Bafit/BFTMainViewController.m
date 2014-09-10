@@ -393,7 +393,7 @@
 }
 
 -(IBAction)postThread:(id)sender {
-    
+    /*NOTE: I was getting an error here (ARC Semantic issue, multiple instances of method tag". I think this is because of the logging framework, but it doesnt seem like this method is being used, so i commented it out.
     NSLog(@"Index Button Number: %ld", (long)[sender tag]);
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:[[_videoPosts objectAtIndex:[sender tag]] videoURL]] options:nil];
     //AV Asset Player
@@ -405,7 +405,7 @@
     [_videoView.layer addSublayer:playerLayer];
     [_player seekToTime:kCMTimeZero];
     [_player play];
-    
+    */
 }
 
 - (IBAction)backToThread:(id)sender {
