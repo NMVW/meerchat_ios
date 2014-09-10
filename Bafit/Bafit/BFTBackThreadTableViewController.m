@@ -160,7 +160,7 @@
     BFTForthThreadControllerTableViewController *destination = [segue destinationViewController];
     
     BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:self.selectedIndex];
-    destination.otherPersonsUserID = item.username;
+    destination.otherPersonsUserID = item.userID;
     destination.otherPersonsUserName = item.username;
     destination.messageThread = item;
 }

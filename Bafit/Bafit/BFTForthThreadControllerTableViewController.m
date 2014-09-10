@@ -31,9 +31,6 @@
     self.sender = [[BFTDataHandler sharedInstance] BUN] ?: @"me";
     
     [self loadMessages];
-    if ([self.otherPersonsUserName isEqualToString:@"jpecoraro342"]) {
-        self.otherPersonsUserID = @"3422";
-    }
     
     self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory outgoingMessageBubbleImageViewWithColor:[UIColor whiteColor]];
     self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory incomingMessageBubbleImageViewWithColor:[UIColor whiteColor]];
@@ -44,10 +41,13 @@
     self.inputToolbar.tintColor = [UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0];
 
     self.inputToolbar.contentView.leftBarButtonItem = nil;
+    
+    //this is not working for whatever reason
     //UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
     //button.titleLabel.text = @"Record";
     //self.inputToolbar.contentView.leftBarButtonItem = button;
     //self.inputToolbar.contentView.leftBarButtonItemWidth = 60;
+    
     [self.inputToolbar.contentView.rightBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     [self.inputToolbar.contentView.leftBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     
