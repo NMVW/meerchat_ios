@@ -25,6 +25,7 @@
     self = [super init];
     if (self) {
         self.username = [aDecoder decodeObjectForKey:@"username"];
+        self.userID = [aDecoder decodeObjectForKey:@"userID"];
         self.lastMessageTime = [aDecoder decodeObjectForKey:@"mostRecentMessage"];
         self.listOfMessages = [aDecoder decodeObjectForKey:@"messages"];
     }
@@ -33,6 +34,7 @@
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.username forKey:@"username"];
+    [aCoder encodeObject:self.userID forKey:@"userID"];
     [aCoder encodeObject:self.lastMessageTime forKey:@"mostRecentMessage"];
     [aCoder encodeObject:self.listOfMessages forKey:@"messages"];
 }
