@@ -53,6 +53,7 @@
 		7C64470519BCE6440071D444 /* XMPPStringPrep.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6446EA19BCE6440071D444 /* XMPPStringPrep.m */; };
 		7C64470619BCE6440071D444 /* XMPPTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C6446EC19BCE6440071D444 /* XMPPTimer.m */; };
 		7C64470819BCEFF10071D444 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C64470719BCEFF10071D444 /* libresolv.dylib */; };
+		7CCB382219BED3C00057D2F1 /* BFTMessageThreads.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */; };
 		7CD0F5F919B4219A00BC59F2 /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD0F5F819B4219A00BC59F2 /* Appsee.framework */; };
 		7CD0F5FB19B421AE00BC59F2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CD0F5FA19B421AE00BC59F2 /* FacebookSDK.framework */; };
 		801AE87A1985C023006EA19B /* BFTBackThreadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 801AE8791985C023006EA19B /* BFTBackThreadTableViewController.m */; };
@@ -310,6 +311,9 @@
 		7C6446EB19BCE6440071D444 /* XMPPTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPTimer.h; sourceTree = "<group>"; };
 		7C6446EC19BCE6440071D444 /* XMPPTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPTimer.m; sourceTree = "<group>"; };
 		7C64470719BCEFF10071D444 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		7C64470919BD84BE0071D444 /* BFTMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTMessageDelegate.h; sourceTree = "<group>"; };
+		7CCB382019BED3C00057D2F1 /* BFTMessageThreads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMessageThreads.h; sourceTree = "<group>"; };
+		7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMessageThreads.m; sourceTree = "<group>"; };
 		7CD0F5F819B4219A00BC59F2 /* Appsee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Appsee.framework; path = ../../../../../../Documents/Appsee.framework; sourceTree = "<group>"; };
 		7CD0F5FA19B421AE00BC59F2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		801AE8781985C023006EA19B /* BFTBackThreadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTBackThreadTableViewController.h; sourceTree = "<group>"; };
@@ -1023,6 +1027,8 @@
 				80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */,
 				8040E9B1197E34F6000D66C7 /* BFTDataHandler.h */,
 				8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */,
+				7CCB382019BED3C00057D2F1 /* BFTMessageThreads.h */,
+				7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */,
 				8058E1B71988722400DF2F4F /* BFTLocationHandler.h */,
 				8058E1B81988722400DF2F4F /* BFTLocationHandler.m */,
 			);
@@ -1032,10 +1038,8 @@
 		8040E9AD197E080D000D66C7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
 				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
-				802199A319AFB6E90042597A /* BFTBackThreadItem.m */,
-				802199A419AFB6E90042597A /* BFTBackThreadItem.h */,
+				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
 				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
 				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
 				8040E97B1978FD59000D66C7 /* BFTViewController.h */,
@@ -1107,6 +1111,9 @@
 				8058E1B5198855A600DF2F4F /* BFTMessage.m */,
 				807F5BA0199329BC00528829 /* BFTVideoMain.h */,
 				807F5BA1199329BC00528829 /* BFTVideoMain.m */,
+				802199A419AFB6E90042597A /* BFTBackThreadItem.h */,
+				802199A319AFB6E90042597A /* BFTBackThreadItem.m */,
+				7C64470919BD84BE0071D444 /* BFTMessageDelegate.h */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -1378,6 +1385,7 @@
 				8040E9731978FD59000D66C7 /* main.m in Sources */,
 				7C64468119BCE1E10071D444 /* DDFileLogger.m in Sources */,
 				801AE87D1985E082006EA19B /* BFTThreadTableViewCell.m in Sources */,
+				7CCB382219BED3C00057D2F1 /* BFTMessageThreads.m in Sources */,
 				7C6446F219BCE6440071D444 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				7C64470019BCE6440071D444 /* DDList.m in Sources */,
 				7C6446EF19BCE6440071D444 /* XMPPDeprecatedPlainAuthentication.m in Sources */,

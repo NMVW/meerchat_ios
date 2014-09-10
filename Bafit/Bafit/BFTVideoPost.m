@@ -16,6 +16,7 @@
     self = [super init];
     if (self) {
         self.UID = [jsonDictionary objectForKey:@"UID"];
+        self.BUN = [jsonDictionary objectForKey:@"BUN"];
         self.videoURL = [baseVideoURL stringByAppendingPathComponent:[jsonDictionary objectForKey:@"vidURI"]];
         self.thumbURL = [[baseThumbURL stringByAppendingPathComponent:[jsonDictionary objectForKey:@"vidURI"]] stringByAppendingPathExtension:@"jpg"];
         self.MC = [[jsonDictionary objectForKey:@"MC"] integerValue];

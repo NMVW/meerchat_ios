@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BFTBackThreadItem : NSObject
+@interface BFTBackThreadItem : NSObject <NSCoding>
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *lastMessageTime;
-@property (nonatomic, assign) NSInteger numberOfMessages;
+
+@property (nonatomic, strong) NSMutableArray *listOfMessages;
 
 @end

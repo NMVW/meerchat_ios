@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BFTAppDelegate.h"
+#import "BFTMessageThreads.h"
 
-@interface BFTBackThreadTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface BFTBackThreadTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, BFTMessageDelegate>
 
-@property(nonatomic, retain) NSMutableArray *listOfThreads;
+@property (nonatomic, weak) BFTAppDelegate *appDelegate;
+@property (nonatomic, weak) BFTMessageThreads *threadManager;
+
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
+@property (nonatomic, assign) NSInteger selectedIndex;
 
 @end
