@@ -48,12 +48,12 @@
                         <outlet property="loginButton" destination="b7j-eo-Vuc" id="CZJ-B4-RaY"/>
                         <outlet property="logoImageView" destination="bOm-Je-dz7" id="MvO-R4-566"/>
                         <segue destination="po8-c2-nTd" kind="push" identifier="initiallogin" id="Los-Ko-dpt"/>
-                        <segue destination="gen-d0-YEF" kind="push" identifier="mainview" id="3k4-TZ-wLg"/>
+                        <segue destination="2cd-to-cO3" kind="push" identifier="mainview" id="OrP-gC-r7e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3169" y="-179"/>
+            <point key="canvasLocation" x="-3171" y="-179"/>
         </scene>
         <!--Initial Login View Controller-->
         <scene sceneID="8fp-NH-HT2">
@@ -1102,7 +1102,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3k4-TZ-wLg"/>
+        <segue reference="OrP-gC-r7e"/>
         <segue reference="5yH-kS-ND2"/>
     </inferredMetricsTieBreakers>
 </document>
