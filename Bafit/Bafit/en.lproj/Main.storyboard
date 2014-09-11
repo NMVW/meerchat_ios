@@ -480,6 +480,7 @@
                                         <state key="normal" backgroundImage="study_btn_inactive.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" backgroundImage="study_btn_active.png"/>
                                         <state key="highlighted" backgroundImage="study_btn_active.png"/>
                                         <connections>
                                             <action selector="studyCatTouched:" destination="2cd-to-cO3" eventType="touchUpInside" id="7ge-Uq-vIv"/>
@@ -491,6 +492,7 @@
                                         <state key="normal" backgroundImage="love_btn_inactive.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" backgroundImage="love_btn_active.png"/>
                                         <state key="highlighted" backgroundImage="love_btn_active.png"/>
                                         <connections>
                                             <action selector="loveCatTouched:" destination="2cd-to-cO3" eventType="touchUpInside" id="Pug-dB-T9Z"/>
@@ -502,6 +504,7 @@
                                         <state key="normal" backgroundImage="grub_btn_inactive.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" backgroundImage="grub_btn_active.png"/>
                                         <state key="highlighted" backgroundImage="grub_btn_active.png"/>
                                         <connections>
                                             <action selector="grubCatTouched:" destination="2cd-to-cO3" eventType="touchUpInside" id="eya-08-6hJ"/>

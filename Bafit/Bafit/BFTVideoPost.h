@@ -17,6 +17,7 @@
 
 @property (nonatomic, assign) NSInteger category;
 @property (nonatomic, assign) float distance;
+@property (nonatomic, strong) NSDate *timeStamp;
 @property (nonatomic, copy) NSString *atTag;
 @property (nonatomic, copy) NSString *hashTag;
 

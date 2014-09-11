@@ -24,11 +24,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //init temp image cahce with max size of 100 mb
+    _tempImageCache = [[NSCache alloc] init];
+    [_tempImageCache setTotalCostLimit:100*1024*1024];
+    
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    
     //set catagory
+    _items = [NSMutableArray array];
     _catagory = 0;
+    [self moveCatTouched:nil];
+    //[self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
     
     //configure carousel
     _carousel.delegate = self;
@@ -54,16 +63,6 @@
     [feedbackButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
     [feedbackButton setTitle:@"Feedback" forState:UIControlStateNormal];
     [self.view addSubview:feedbackButton];
-    
-    //this is just for testing, if we want to skip right to the main view we will need a uid
-    if (![[BFTDataHandler sharedInstance] UID]) {
-        [[BFTDataHandler sharedInstance] setUID:[[NSUUID UUID] UUIDString]];
-    }
-    
-    
-    [self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
-    
-    _items = [NSMutableArray array];
     
     //Check Messages from Queue
     [self checkMessages];
@@ -134,7 +133,27 @@
             [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }] startConnection];
-    
+}
+
+-(void)updateCategory:(NSInteger)category {
+    BFTDataHandler *userData = [BFTDataHandler sharedInstance];
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
+        if (!error) {
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+            [self.carousel reloadData];
+            
+            for (NSDictionary *dict in jsonArray) {
+                [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
+                //[self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+            }
+            [self.carousel reloadData];
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }] startConnection];
 }
 
 
@@ -218,15 +237,24 @@
     videoThumb.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
     videoThumb.center = CGPointMake(100, 170);
     [videoThumb setContentMode:UIViewContentModeScaleAspectFit];
-    //[_videoView setImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[[_videoPosts objectAtIndex:index] thumbURL]]]]];
-    [[[BFTDatabaseRequest alloc] initWithFileURL:[[_videoPosts objectAtIndex:index] thumbURL] completionBlock:^(NSMutableData *data, NSError *error) {
-        if (!error) {
-            [videoThumb setImage:[UIImage imageWithData:data]];
-        }
-        else {
-            //handle image download error
-        }
-    }] startImageDownload];
+    
+    //try to retrieve the image from the temporary cache first
+    [videoThumb setImage:[_tempImageCache objectForKey:[[_videoPosts objectAtIndex:index] thumbURL]]];
+    
+    if (!videoThumb.image) {
+        [[[BFTDatabaseRequest alloc] initWithFileURL:[[_videoPosts objectAtIndex:index] thumbURL] completionBlock:^(NSMutableData *data, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                
+                //put the image in a temporary cache so we dont have to reload each time
+                [_tempImageCache setObject:image forKey:[[_videoPosts objectAtIndex:index] thumbURL]];
+                [videoThumb setImage:image];
+            }
+            else {
+                //handle image download error
+            }
+        }] startImageDownload];
+    }
     
     //video Thumbs
     _videoView = videoThumb;
@@ -418,76 +446,54 @@
 #pragma mark Catagory Selection
 
 - (IBAction)moveCatTouched:(id)sender {
-    [_moveCatButton setSelected:!_moveCatButton.selected];
-    switch ([_moveCatButton isSelected]) {
-        case true:
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_active.png"] forState:UIControlStateNormal];
-            //otherButtons are not active
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
-             break;
-        default:
-            //move button selected
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
-            
-            break;
+    if (![_moveCatButton isSelected]) {
+        _catagory = 0;
+        [self updateCategory:_catagory];
+        
+        [_moveCatButton setSelected:YES];
+        //otherButtons are not active
+        [_studyCatButton setSelected:NO];
+        [_loveCatButton setSelected:NO];
+        [_grubCatButton setSelected:NO];
     }
 }
 
 - (IBAction)studyCatTouched:(id)sender {
-    [_studyCatButton setSelected:!_studyCatButton.selected];
-    switch ([_studyCatButton isSelected]) {
-        case true:
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_active.png"] forState:UIControlStateNormal];
-            //otherButtons are not active
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
-            break;
-        default:
-            //move button selected
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
-            
-            break;
+    if (![_studyCatButton isSelected]) {
+        _catagory = 1;
+        [self updateCategory:_catagory];
+        
+        [_studyCatButton setSelected:YES];
+        //otherButtons are not active
+        [_moveCatButton setSelected:NO];
+        [_loveCatButton setSelected:NO];
+        [_grubCatButton setSelected:NO];
     }
-
 }
 
 - (IBAction)loveCatTouched:(id)sender {
-    [_loveCatButton setSelected:!_loveCatButton.selected];
-    switch ([_loveCatButton isSelected]) {
-        case true:
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_active.png"] forState:UIControlStateNormal];
-            //otherButtons are not active
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
-            break;
-        default:
-            //move button selected
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
-            
-            break;
+    if (![_loveCatButton isSelected]) {
+        _catagory = 2;
+        [self updateCategory:_catagory];
+        
+        [_loveCatButton setSelected:YES];
+        //otherButtons are not active
+        [_studyCatButton setSelected:NO];
+        [_moveCatButton setSelected:NO];
+        [_grubCatButton setSelected:NO];
     }
-
 }
 
 - (IBAction)grubCatTouched:(id)sender {
-    [_grubCatButton setSelected:!_grubCatButton.selected];
-    switch ([_grubCatButton isSelected]) {
-        case true:
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_active.png"] forState:UIControlStateNormal];
-            //otherButtons are not active
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
-            break;
-        default:
-            //move button selected
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
-            
-            break;
+    if (![_grubCatButton isSelected]) {
+        _catagory = 3;
+        [self updateCategory:_catagory];
+        
+        [_grubCatButton setSelected:YES];
+        //otherButtons are not active
+        [_studyCatButton setSelected:NO];
+        [_loveCatButton setSelected:NO];
+        [_moveCatButton setSelected:NO];
     }
 }
 
