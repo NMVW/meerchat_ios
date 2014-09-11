@@ -28,7 +28,7 @@
     [super viewDidLoad];
     //set bakground color
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    NSString *fullURL = @"http://bafit.mobi";
+    NSString *fullURL = @"http://bafit.mobi/PrivacyPolicy_Terms";
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_privacyWebView loadRequest:requestObj];
@@ -52,11 +52,15 @@
 */
 
 - (IBAction)acceptButton:(id)sender {
-    [self performSegueWithIdentifier:@"policy" sender:self];
+    [self performSegueWithIdentifier:@"confirmemail" sender:self];
 }
 
 - (IBAction)declineButton:(id)sender {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Privacy Policy" message:@"You must accept our privacy policy to be an active user of Meerchat" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
     [alert show];
+}
+
+- (IBAction)ipadbypassButton:(id)sender {
+    [self performSegueWithIdentifier:@"confirmemail" sender:self];
 }
 @end

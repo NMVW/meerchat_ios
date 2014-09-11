@@ -71,7 +71,7 @@
             [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {
                 if (!error) {
                     //go to email confirmation page
-                    [self performSegueWithIdentifier:@"emailConfirm" sender:self];
+                    [self performSegueWithIdentifier:@"privacyview" sender:self];
                 }
                 else {
                     [[[UIAlertView alloc] initWithTitle:@"Unable To Send Verification Email" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];

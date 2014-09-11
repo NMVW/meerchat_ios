@@ -36,10 +36,16 @@
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     // Do any additional setup after loading the view.
     [self registerForKeyboardNotifications];
-    if(!_replyURL){
-        //default video used incase URL is not sent
-        [self setReplyURL:@"http://bafit.mobi/userPosts/v2.mp4"];
-    }
+//    if(!_replyURL){
+//        //default video used incase URL is not sent
+//        [self setReplyURL:@"http://bafit.mobi/userPosts/v2.mp4"];
+//    }
+    
+//    //Setup reply record function
+//    _embeddedrecordView = [[KZCameraView alloc] initWithFrame:_recordView.frame withVideoPreviewFrame:CGRectMake(0, 0, 275, 275)];
+//    _embeddedrecordView.maxDuration = 10.0;
+//    [_recordView addSubview:_embeddedrecordView];
+    
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
         //AV Asset Player
         AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
@@ -64,7 +70,7 @@ object:_player1];
 //    [_postToolBar setHidden:YES];
     
     [_postToolBar setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    UIToolbar *recordToolbar = [[UIToolbar alloc] initWithFrame:_postToolBar.frame];
+    //UIToolbar *recordToolbar = [[UIToolbar alloc] initWithFrame:_postToolBar.frame];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
@@ -77,6 +83,28 @@ object:_player1];
     }
 }
 
+
+-(void)longPressRecord:(UILongPressGestureRecognizer *)sender {
+    NSLog(@"Sender being called");
+    if ([sender isEqual:_recordGesture]) {
+        if (sender.state == UIGestureRecognizerStateBegan) {
+            NSLog(@"Recording should start");
+            [self initializeCamera];
+        }else{
+            NSLog(@"State was not started");
+        }
+    }
+}
+
+-(IBAction)saveVideo:(id)sender
+{
+    [_embeddedrecordView saveVideoWithCompletionBlock:^(BOOL success) {
+        if (success)
+        {
+            //Do something after video got succesfully saved
+        }
+    }];
+}
 
 - (IBAction)captureVideo:(id)sender {
     [self initializeCamera];
@@ -118,11 +146,9 @@ object:_player1];
 //AVCaptureSession to show live video feed in view
 - (void) initializeCamera {
     AVCaptureSession *session = [[AVCaptureSession alloc] init];
-	session.sessionPreset = AVCaptureSessionPreset1920x1080;
-	
+	session.sessionPreset = AVCaptureSessionPresetMedium;
 	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
     [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    
 	captureVideoPreviewLayer.frame = _recordView.bounds;
 	[_recordView.layer addSublayer:captureVideoPreviewLayer];
 	
@@ -138,11 +164,8 @@ object:_player1];
     AVCaptureDevice *backCamera;
     
     for (AVCaptureDevice *device in devices) {
-        
         NSLog(@"Device name: %@", [device localizedName]);
-        
         if ([device hasMediaType:AVMediaTypeVideo]) {
-            
             if ([device position] == AVCaptureDevicePositionBack) {
                 NSLog(@"Device position : back");
                 backCamera = device;

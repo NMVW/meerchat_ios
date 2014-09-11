@@ -413,6 +413,7 @@
 }
 
 - (IBAction)forthToPost:(id)sender {
+    [self performSegueWithIdentifier:@"newpostview" sender:self];
 }
 
 #pragma mark Catagory Selection
@@ -436,21 +437,8 @@
 }
 
 - (IBAction)studyCatTouched:(id)sender {
-    [_studyCatButton setSelected:!_studyCatButton.selected];
-    switch ([_studyCatButton isSelected]) {
-        case true:
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_active.png"] forState:UIControlStateNormal];
-            //otherButtons are not active
-            [_moveCatButton setBackgroundImage:[UIImage imageNamed:@"move_btn_inactive.png"] forState:UIControlStateNormal];
-            [_loveCatButton setBackgroundImage:[UIImage imageNamed:@"love_btn_inactive.png"] forState:UIControlStateNormal];
-            [_grubCatButton setBackgroundImage:[UIImage imageNamed:@"grub_btn_inactive.png"] forState:UIControlStateNormal];
-            break;
-        default:
-            //move button selected
-            [_studyCatButton setBackgroundImage:[UIImage imageNamed:@"study_btn_inactive.png"] forState:UIControlStateNormal];
-            
-            break;
-    }
+    _catagory = 1;
+    [_carousel reloadData];
 
 }
 
