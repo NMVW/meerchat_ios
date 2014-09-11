@@ -14,6 +14,7 @@
 
 @property (nonatomic, weak) BFTAppDelegate *appDelegate;
 @property (nonatomic, weak) BFTMessageThreads *threadManager;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 

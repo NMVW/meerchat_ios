@@ -54,6 +54,12 @@
     self.navigationItem.rightBarButtonItem = miloFace;
     
     [self.navigationItem setHidesBackButton:YES animated:NO];
+    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    
+    [self.dateFormatter setDoesRelativeDateFormatting:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -106,7 +112,7 @@
     
     cell.usernameLabel.text = item.username;
     cell.numberMessagesLabel.text = [NSString stringWithFormat:@"%zd", [[item listOfMessages] count]];
-    cell.lastUpdatedLabel.text = item.lastMessageTime;
+    cell.lastUpdatedLabel.text = [self.dateFormatter stringFromDate:item.lastMessageTime];
     
     return cell;
 }

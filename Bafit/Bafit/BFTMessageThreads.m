@@ -32,9 +32,6 @@
 }
 
 -(void)addMessageToThread:(NSString *)message from:(NSString *)sender {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd hh:mm a"];
-    
     JSQMessage *msg = [[JSQMessage alloc] initWithText:message sender:sender date:[NSDate new]];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
@@ -42,13 +39,13 @@
     
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
     if (indexOfOldObject == NSNotFound) {
-        newItem.lastMessageTime = [dateFormatter stringFromDate:[NSDate new]];
+        newItem.lastMessageTime = [NSDate new];
         [newItem.listOfMessages addObject:msg];
         [self.listOfThreads addObject:newItem];
     }
     else {
         BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
-        item.lastMessageTime = [dateFormatter stringFromDate:[NSDate new]];
+        item.lastMessageTime = [NSDate new];
         [item.listOfMessages addObject:msg];
     }
 }
