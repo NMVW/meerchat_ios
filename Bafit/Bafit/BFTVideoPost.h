@@ -10,12 +10,14 @@
 @interface BFTVideoPost : NSObject
 
 @property (nonatomic, copy) NSString *UID;
+@property (nonatomic, copy) NSString *BUN;
 @property (nonatomic, copy) NSString *videoURL;
 @property (nonatomic, copy) NSString *thumbURL;
 @property (nonatomic, assign) NSInteger MC;
 
 @property (nonatomic, assign) NSInteger category;
 @property (nonatomic, assign) float distance;
+@property (nonatomic, strong) NSDate *timeStamp;
 @property (nonatomic, copy) NSString *atTag;
 @property (nonatomic, copy) NSString *hashTag;
 

@@ -10,10 +10,24 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Appsee/Appsee.h>
+#import "BFTMessageDelegate.h"
+#import "XMPP.h"
 
 @interface BFTAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+
+//xmpp stuff
+@property (nonatomic, assign) id<BFTMessageDelegate> messageDelegate;
+@property (nonatomic, readonly) XMPPStream *xmppStream;
+
+
+-(BOOL)connectToJabber;
+-(void)setupStream;
+-(void)goOnline;
+-(void)goOffline;
+-(void)sendMessage:(NSString*)message toUser:(NSString*)user;
+
 
 @end

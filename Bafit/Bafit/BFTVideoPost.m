@@ -12,10 +12,13 @@
 -(instancetype)initWithDictionary:(NSDictionary *)jsonDictionary {
     static NSString *baseVideoURL = @"http://bafit.mobi/userPosts";
     static NSString *baseThumbURL = @"http://bafit.mobi/userPosts/thumb";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     
     self = [super init];
     if (self) {
         self.UID = [jsonDictionary objectForKey:@"UID"];
+        self.BUN = [jsonDictionary objectForKey:@"BUN"];
         self.videoURL = [baseVideoURL stringByAppendingPathComponent:[jsonDictionary objectForKey:@"vidURI"]];
         self.thumbURL = [[baseThumbURL stringByAppendingPathComponent:[jsonDictionary objectForKey:@"vidURI"]] stringByAppendingPathExtension:@"jpg"];
         self.MC = [[jsonDictionary objectForKey:@"MC"] integerValue];
@@ -23,6 +26,8 @@
         self.distance = [[jsonDictionary objectForKey:@"dist"] floatValue];
         self.atTag = [jsonDictionary objectForKey:@"at_tag"];
         self.hashTag = [jsonDictionary objectForKey:@"hash_tag"];
+        //TODO:Use date formatter to make this a date object instead of a string;
+        self.timeStamp = [dateFormatter dateFromString:[jsonDictionary objectForKey:@"TS"]];
     }
     return self;
 }

@@ -10,6 +10,7 @@
 #import "BFTDataHandler.h"
 #import "BFTLoginhandler.h"
 #import "BFTDatabaseRequest.h"
+#import "BFTAppDelegate.h"
 
 @interface BFTViewController ()
 
@@ -136,6 +137,9 @@
                 [[BFTDataHandler sharedInstance] setBUN:BUN];
                 [[BFTDataHandler sharedInstance] setFBEmail:email];
                 [self performSegueWithIdentifier:@"mainview" sender:self];
+                
+                //log the user into jabber
+                [(BFTAppDelegate*)[[UIApplication sharedApplication] delegate] connectToJabber];
             }
             else {
                 [self sendFBDemographicInfo:user];

@@ -44,6 +44,7 @@
 @property (strong, nonatomic)UISwipeGestureRecognizer* swipeUpGestureRecognizer;
 @property (assign, nonatomic) NSInteger segment;
 
+@property (nonatomic, strong) NSCache *tempImageCache;
 
 -(void)downloadVideo:(NSString *)videoUrl;
 
