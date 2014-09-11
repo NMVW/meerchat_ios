@@ -179,8 +179,6 @@
         <!--Post View Controller-->
         <scene sceneID="ZTm-ND-d7r">
             <objects>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.30000000000000004" id="XfD-wj-ddn"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZQ6-2J-LEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="JyZ-0a-e6Y" customClass="BFTPostViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eNe-pv-Bz2"/>
@@ -295,6 +293,8 @@
                         <outlet property="userVideoView" destination="QZb-AI-k2u" id="bRp-er-OAG"/>
                     </connections>
                 </viewController>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.30000000000000004" id="XfD-wj-ddn"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZQ6-2J-LEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-31" y="-642"/>
         </scene>
@@ -1076,7 +1076,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Milo_Face_Full.png" width="3600" height="3600"/>
+        <image name="Milo_Face_Full.png" width="1000" height="1000"/>
         <image name="baf_left_inactive.png" width="36" height="36"/>
         <image name="baf_right_active.png" width="36" height="36"/>
         <image name="baf_right_inactive.png" width="36" height="36"/>
