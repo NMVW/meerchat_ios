@@ -676,7 +676,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRR-9n-Jbj">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRR-9n-Jbj">
                                 <rect key="frame" x="0.0" y="86" width="320" height="181"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -950,7 +950,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95V-lD-gKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-603" y="703"/>
+            <point key="canvasLocation" x="-937" y="643"/>
         </scene>
         <!--Back Thread Table View Controller - Back-->
         <scene sceneID="KWj-6R-maa">
@@ -1049,11 +1049,31 @@
                     <navigationItem key="navigationItem" title="Back" id="1aK-bf-fNP"/>
                     <connections>
                         <outlet property="searchBar" destination="Acc-47-H8z" id="j3W-en-I7o"/>
+                        <segue destination="o7d-dj-EKV" kind="push" identifier="loadThread" id="Ndn-dg-YUf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4w-JH-xI2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-31" y="278"/>
+            <point key="canvasLocation" x="-109" y="408"/>
+        </scene>
+        <!--Forth Thread Controller Table View Controller-->
+        <scene sceneID="GzM-Ej-dYh">
+            <objects>
+                <viewController id="o7d-dj-EKV" customClass="BFTForthThreadControllerTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tRR-kE-B4v"/>
+                        <viewControllerLayoutGuide type="bottom" id="R13-ee-fHq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ptS-aw-3Hu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mTA-JN-c7X"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7wu-dJ-hlB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="341" y="408"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jcm-Lj-FRb">
@@ -1102,7 +1122,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="OrP-gC-r7e"/>
-        <segue reference="5yH-kS-ND2"/>
+        <segue reference="xOA-DU-GHD"/>
+        <segue reference="hmw-A7-sAG"/>
     </inferredMetricsTieBreakers>
 </document>
