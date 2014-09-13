@@ -59,18 +59,19 @@
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"createUser.php?UIDr=%@&BUN=%@&BAFemail=%@&RVC=%@&FBemail=%@&GPSlat=%.8f&GPSlon=%.8f", UID, [data BUN], [data EDEmail], self.verificationNumberTextField.text, [data FBEmail], [data Latitude], [data Longitude]] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            BOOL boolResult = [response boolValue];
             NSArray *result = [response componentsSeparatedByString:@":"];
             
             //not sure what this returns if its successful
-            if ([result[0] isEqualToString:@""]) {
+            if (boolResult) {
                 NSLog(@"User Succesfully Created");
                 [self performSegueWithIdentifier:@"tomain" sender:self];
             }
             else {
                 NSLog(@"User Not Created\n%@", response);
-                //[[[UIAlertView alloc] initWithTitle:@"Could Not Create User" message:result[1] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Could Not Create User" message:result[1] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
                 //this is only temporary since we cant really create a new user now (no verification email)
-                [self performSegueWithIdentifier:@"tomain" sender:self];
+                //[self performSegueWithIdentifier:@"tomain" sender:self];
             }
         }
         else {

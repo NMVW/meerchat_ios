@@ -66,6 +66,7 @@
     if (!self.listOfThreads) {
         self.listOfThreads = [[NSMutableOrderedSet alloc] init];
     }
+    NSLog(@"Messages Loaded");
 }
 
 -(void)saveThreads {
@@ -75,6 +76,7 @@
     [coder finishEncoding];
     
     [data writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"] atomically:YES];
+    NSLog(@"Messages Saved");
 }
 
 @end

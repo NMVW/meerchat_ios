@@ -36,8 +36,7 @@
     //set catagory
     _items = [NSMutableArray array];
     _catagory = 0;
-    [self moveCatTouched:nil];
-    //[self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
+    [self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
     
     //configure carousel
     _carousel.delegate = self;
@@ -47,21 +46,15 @@
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     //add report user button
-    UIButton *reportButton = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-39, 93, 39)];
-    [reportButton setBackgroundImage:[UIImage imageNamed:@"reportUserButton.png"] forState:UIControlStateNormal];
-    [reportButton setBackgroundImage:[UIImage imageNamed:@"reportUserButtonHighlighted.png"] forState:UIControlStateHighlighted];
+    UIButton *reportButton = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-40, 80, 40)];
+    [reportButton setBackgroundImage:[UIImage imageNamed:@"report_btn.png"] forState:UIControlStateNormal];
     [reportButton addTarget:self action:@selector(blockUser:) forControlEvents:UIControlEventTouchUpInside];
-    [reportButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [reportButton setTitle:@"report user" forState:UIControlStateNormal];
     [self.view addSubview:reportButton];
     
     //add feedback button
-    UIButton *feedbackButton = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-93, [UIScreen mainScreen].bounds.size.height-39, 93, 39)];
-    [feedbackButton setBackgroundImage:[UIImage imageNamed:@"feedbackButton.png"] forState:UIControlStateNormal];
-    [feedbackButton setBackgroundImage:[UIImage imageNamed:@"feedbackButtonHighlighted.png"] forState:UIControlStateHighlighted];
+    UIButton *feedbackButton = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-80, [UIScreen mainScreen].bounds.size.height-40, 80, 40)];
+    [feedbackButton setBackgroundImage:[UIImage imageNamed:@"feedback_btn.png"] forState:UIControlStateNormal];
     [feedbackButton addTarget:self action:@selector(submitFeedback:) forControlEvents:UIControlEventTouchUpInside];
-    [feedbackButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [feedbackButton setTitle:@"Feedback" forState:UIControlStateNormal];
     [self.view addSubview:feedbackButton];
     
     //Check Messages from Queue
@@ -447,7 +440,7 @@
 
 - (IBAction)moveCatTouched:(id)sender {
     if (![_moveCatButton isSelected]) {
-        _catagory = 0;
+        _catagory = 1;
         [self updateCategory:_catagory];
         
         [_moveCatButton setSelected:YES];
@@ -456,11 +449,16 @@
         [_loveCatButton setSelected:NO];
         [_grubCatButton setSelected:NO];
     }
+    else {
+        [_moveCatButton setSelected:NO];
+        _catagory = 0;
+        [self updateCategory:_catagory];
+    }
 }
 
 - (IBAction)studyCatTouched:(id)sender {
     if (![_studyCatButton isSelected]) {
-        _catagory = 1;
+        _catagory = 2;
         [self updateCategory:_catagory];
         
         [_studyCatButton setSelected:YES];
@@ -469,11 +467,16 @@
         [_loveCatButton setSelected:NO];
         [_grubCatButton setSelected:NO];
     }
+    else {
+        [_studyCatButton setSelected:NO];
+        _catagory = 0;
+        [self updateCategory:_catagory];
+    }
 }
 
 - (IBAction)loveCatTouched:(id)sender {
     if (![_loveCatButton isSelected]) {
-        _catagory = 2;
+        _catagory = 3;
         [self updateCategory:_catagory];
         
         [_loveCatButton setSelected:YES];
@@ -482,11 +485,16 @@
         [_moveCatButton setSelected:NO];
         [_grubCatButton setSelected:NO];
     }
+    else {
+        [_loveCatButton setSelected:NO];
+        _catagory = 0;
+        [self updateCategory:_catagory];
+    }
 }
 
 - (IBAction)grubCatTouched:(id)sender {
     if (![_grubCatButton isSelected]) {
-        _catagory = 3;
+        _catagory = 4;
         [self updateCategory:_catagory];
         
         [_grubCatButton setSelected:YES];
@@ -494,6 +502,11 @@
         [_studyCatButton setSelected:NO];
         [_loveCatButton setSelected:NO];
         [_moveCatButton setSelected:NO];
+    }
+    else {
+        [_grubCatButton setSelected:NO];
+        _catagory = 0;
+        [self updateCategory:_catagory];
     }
 }
 
