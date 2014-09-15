@@ -387,7 +387,7 @@
     }];
     
     [self.assets removeAllObjects];
-    [self.delegate removeProgress];
+    //[self.delegate removeProgress];
     
     if (session.status == AVAssetExportSessionStatusCompleted) {
         NSURL *outputURL = session.outputURL;
