@@ -10,6 +10,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "KZCameraView.h"
 
 
 @interface BFTPostViewController : UIViewController <UIImagePickerControllerDelegate, UIScrollViewDelegate, AVCaptureFileOutputRecordingDelegate>
@@ -18,7 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (nonatomic) UIImagePickerController *picker;
 @property (strong, nonatomic) IBOutlet UIView *userVideoView;
-@property (strong, nonatomic) IBOutlet UIView *recordView;
+@property (nonatomic) IBOutlet UIView *recordView;
 @property (strong, nonatomic) AVPlayer *player1;
 @property (weak, nonatomic) NSString *replyURL;
 @property (strong, nonatomic) IBOutlet UILabel *recordDescription;
@@ -28,6 +29,8 @@
 @property BOOL FrontCamera;
 @property (strong, nonatomic) AVCaptureMovieFileOutput *output;
 @property (strong, nonatomic) IBOutlet UIToolbar *postToolBar;
+@property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *recordGesture;
+@property (strong, nonatomic) KZCameraView *embeddedrecordView;
 
 
 

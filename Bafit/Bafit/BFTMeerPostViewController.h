@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
 #import "BFTDataHandler.h"
+#import "BFTCameraView.h"
 
 @interface BFTMeerPostViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
@@ -18,5 +19,7 @@
 @property (strong, nonatomic) UISwitch *anonymousSwitch;
 @property (strong, nonatomic) UISwitch *locationSwitch;
 @property (strong, nonatomic) BFTDataHandler *data;
+@property (strong, nonatomic) IBOutlet UIView *recordView;
+@property (nonatomic) BFTCameraView *embeddedRecordView;
 
 @end

@@ -48,6 +48,15 @@
     [_locationLabel setText:@"hide location"];
     [_userLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
     [_locationLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
+    
+    //setup post view record
+    //Setup reply record function
+    _embeddedRecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
+    _embeddedRecordView.maxDuration = 10.0;
+    [_recordView addSubview:_embeddedRecordView];
+//    _embeddedRecordView = [[KZCameraView alloc] initWithFrame:_recordView.frame withVideoPreviewFrame:CGRectMake(0, 0, 275, 275)];
+//    _embeddedRecordView.maxDuration = 10.0;
+//    [_recordView addSubview:_embeddedRecordView];
 }
 
 -(void)popVC {
