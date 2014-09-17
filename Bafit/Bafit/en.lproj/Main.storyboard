@@ -585,7 +585,7 @@
                         <outlet property="moveCatButton" destination="8aO-ff-r4J" id="zoP-KL-D1N"/>
                         <outlet property="studyCatButton" destination="9jf-Cr-ah8" id="xRT-yy-RO3"/>
                         <segue destination="RcN-Gc-fEK" kind="push" identifier="backthread" id="ccd-J6-bWr"/>
-                        <segue destination="pXb-OP-ekb" kind="modal" identifier="tofeedback" id="uxH-Rh-FEU"/>
+                        <segue destination="VCp-Kg-1gI" kind="modal" identifier="tofeedback" id="4T2-eB-283"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdt-gZ-4dS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -751,12 +751,27 @@
             </objects>
             <point key="canvasLocation" x="-1671" y="-179"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YWC-eE-CUg">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="VCp-Kg-1gI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D8r-H3-uF9">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pXb-OP-ekb" kind="relationship" relationship="rootViewController" id="eRI-bt-rRj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qjy-FE-SMT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1379" y="643"/>
+        </scene>
         <!--Feedback View Controller-->
         <scene sceneID="Ldk-d7-Km6">
             <objects>
                 <tableViewController id="pXb-OP-ekb" customClass="BFTFeedbackViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TkN-qc-QVa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
@@ -894,42 +909,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="qjT-jv-Mc9">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="AR6-QU-g1k">
-                                        <rect key="frame" x="0.0" y="709" width="320" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AR6-QU-g1k" id="cN8-hZ-FzE">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSA-Dp-O9L">
-                                                    <rect key="frame" x="20" y="12" width="132" height="35"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Submit">
-                                                        <color key="titleColor" red="0.94117647059999998" green="0.63529411759999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="submitForm:" destination="pXb-OP-ekb" eventType="touchUpInside" id="Egp-Zs-mZB"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePw-Zo-CcF">
-                                                    <rect key="frame" x="168" y="12" width="132" height="35"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Cancel">
-                                                        <color key="titleColor" red="0.94117647059999998" green="0.63529411759999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="cancelSubmission:" destination="pXb-OP-ekb" eventType="touchUpInside" id="R3V-PH-PiO"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="pXb-OP-ekb" id="cag-b5-GK7"/>
@@ -937,15 +916,14 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="rJk-Ly-QyH"/>
                     <connections>
-                        <outlet property="cancelButton" destination="ePw-Zo-CcF" id="Pu1-dd-e1q"/>
                         <outlet property="commentsFeedbackTextView" destination="hxq-2K-B0h" id="9jV-e4-DHo"/>
                         <outlet property="issuesDetailTextView" destination="U3Q-Dq-PCc" id="TCY-0c-YOX"/>
                         <outlet property="issuesExperiencedLabel" destination="lup-Un-PJH" id="SK6-Vw-1FV"/>
                         <outlet property="issuesLabel" destination="Kcf-Cp-V4N" id="qaq-zM-haR"/>
                         <outlet property="issuesPickerView" destination="QDy-TY-f2l" id="eM5-ff-mLX"/>
                         <outlet property="recommendSwitch" destination="9Va-3L-lbW" id="2zp-Ki-DTd"/>
-                        <outlet property="submitButton" destination="wSA-Dp-O9L" id="uC0-It-3IR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95V-lD-gKE" userLabel="First Responder" sceneMemberID="firstResponder"/>
