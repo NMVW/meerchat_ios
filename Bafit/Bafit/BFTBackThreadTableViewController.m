@@ -65,11 +65,13 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    [[BFTMessageThreads sharedInstance] resetUnread];
     self.appDelegate.messageDelegate = self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[BFTMessageThreads sharedInstance] resetUnread];
     self.appDelegate.messageDelegate = nil;
 }
 

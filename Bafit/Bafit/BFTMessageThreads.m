@@ -32,6 +32,8 @@
 }
 
 -(void)addMessageToThread:(NSString *)message from:(NSString *)sender {
+    self.unreadMessages = YES;
+    
     JSQMessage *msg = [[JSQMessage alloc] initWithText:message sender:sender date:[NSDate new]];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
@@ -74,6 +76,10 @@
     
     [data writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"] atomically:YES];
     NSLog(@"Messages Saved");
+}
+
+-(void)resetUnread {
+    self.unreadMessages = NO;
 }
 
 @end
