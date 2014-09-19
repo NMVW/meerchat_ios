@@ -136,6 +136,10 @@
                 NSString *BUN = values[1];
                 [[BFTDataHandler sharedInstance] setBUN:BUN];
                 [[BFTDataHandler sharedInstance] setFBEmail:email];
+                [[BFTDataHandler sharedInstance] setInitialLogin:NO];
+                [[BFTDataHandler sharedInstance] setPPAccepted:YES];
+                [[BFTDataHandler sharedInstance] setEmailConfirmed:YES];
+                [[BFTDataHandler sharedInstance] saveData];
                 [self performSegueWithIdentifier:@"mainview" sender:self];
                 
                 //log the user into jabber
@@ -144,6 +148,7 @@
             else {
                 [self sendFBDemographicInfo:user];
                 [[BFTDataHandler sharedInstance] setFBEmail:email];
+                [[BFTDataHandler sharedInstance] saveData];
                 [self performSegueWithIdentifier:@"initiallogin" sender:self];
             }
         }

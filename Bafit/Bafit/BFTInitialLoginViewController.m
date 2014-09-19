@@ -67,6 +67,7 @@
             //passed username and email, focus on navigation
             [handler setInitialLogin:false];
             [handler setBUN:self.initialUsername.text];
+            [handler saveData];
             //email and username are good, so we need to send them a verification email
             [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {
                 if (!error) {

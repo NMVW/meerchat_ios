@@ -24,6 +24,8 @@
     //Set navigation color
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     
+    [[BFTDataHandler sharedInstance] loadData];
+    
     // Override point for customization after application launch.
     //BFTDataHandler *handler = [[BFTDataHandler alloc]init];
     if(self.locationManager == nil){
@@ -37,9 +39,50 @@
     if([CLLocationManager locationServicesEnabled]){
         [_locationManager startUpdatingLocation];
     }
-    
-    //Check Facebook Session
+
     [FBLoginView class];
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    UINavigationController *initialViewController;
+    
+    //make this the default
+    initialViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginVC"];
+    
+    // Whenever a person opens the app, check for a cached session
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        NSError *error = [self openCachedFBSession];
+        if (!error) {
+            //Since we are here, we know they at least made it to the initial login page
+            //if this is true, we need to go to the login page
+            if ([[BFTDataHandler sharedInstance] initialLogin]) {
+                [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"initialLoginVC"]]];
+            }
+            else if (![[BFTDataHandler sharedInstance] PPAccepted]) {
+                //PP not accepted? go to the pp page
+                [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"privacyPolicyVC"]]];
+            }
+            else if (![[BFTDataHandler sharedInstance] emailConfirmed]) {
+                //email not confirmed? confirm email page
+                [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"confirmEmailVC"]]];
+            }
+            else {
+                initialViewController = [storyboard instantiateViewControllerWithIdentifier:@"mainVC"];
+            }
+        }
+        else {
+            //could not open cached session..
+            [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"fbVC"]]];
+        }
+    }
+    else {
+        [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"fbVC"]]];
+    }
+    
+    self.window.rootViewController = initialViewController;
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
@@ -52,6 +95,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [[BFTMessageThreads sharedInstance] saveThreads];
+    [[BFTDataHandler sharedInstance] saveData];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -71,6 +115,24 @@
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+#pragma Mark FB Stuff
+
+-(NSError*)openCachedFBSession {
+    __block NSError *fbError;
+    // If there's one, just open the session silently, without showing the user the login UI
+    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile", @"email"] allowLoginUI:NO completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+        fbError = error;
+        if (!error) {
+            
+        }
+        else {
+            //handle fb login error
+        }
+    }];
+    
+    return fbError;
 }
 
 #pragma Mark XMPP Messaging Stuff

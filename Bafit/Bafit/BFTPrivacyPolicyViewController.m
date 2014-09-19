@@ -7,6 +7,7 @@
 //
 
 #import "BFTPrivacyPolicyViewController.h"
+#import "BFTDataHandler.h"
 
 @interface BFTPrivacyPolicyViewController ()
 
@@ -52,6 +53,7 @@
 */
 
 - (IBAction)acceptButton:(id)sender {
+    [[BFTDataHandler sharedInstance] setPPAccepted:YES];
     [self performSegueWithIdentifier:@"confirmemail" sender:self];
 }
 
@@ -61,6 +63,7 @@
 }
 
 - (IBAction)ipadbypassButton:(id)sender {
+    [[BFTDataHandler sharedInstance] setPPAccepted:YES];
     [self performSegueWithIdentifier:@"confirmemail" sender:self];
 }
 @end
