@@ -328,23 +328,6 @@
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DAz-2L-ROS">
                                         <rect key="frame" x="0.0" y="84" width="240" height="237"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Poe-cQ-djz">
-                                                <rect key="frame" x="207" y="3" width="30" height="25"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" image="switchCamera.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARN-wD-6TD">
-                                                <rect key="frame" x="0.0" y="36" width="237" height="201"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Hold to record">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                        </subviews>
                                         <color key="backgroundColor" white="0.5" alpha="0.79000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="trapezoid_menu_top.png" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-Tb-ZNH">
@@ -1112,7 +1095,6 @@
         <image name="study-btn-active.png" width="80" height="32"/>
         <image name="study_btn_active.png" width="80" height="36"/>
         <image name="study_btn_inactive.png" width="80" height="36"/>
-        <image name="switchCamera.png" width="260" height="155"/>
         <image name="trapezoid_menu_bottom.png" width="240" height="80"/>
         <image name="trapezoid_menu_top.png" width="240" height="80"/>
     </resources>

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-Bafit-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Bafit-JSQMessagesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A0D67FA0D888483DBF4571D8</key>
+		<key>22977F5A4CCD48FB9A3BE2EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC58E9CB6BB4481CBBDFEAE5</key>
+		<key>4D58273650444BF0B8E8D91E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E638423A817E4545B6B54890</key>
+		<key>4EAFE9CF23A6490BB90CE3B0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FAD878E2C2DF4C168AC3C73B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

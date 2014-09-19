@@ -20,6 +20,6 @@
 @property (strong, nonatomic) UISwitch *locationSwitch;
 @property (strong, nonatomic) BFTDataHandler *data;
 @property (strong, nonatomic) IBOutlet UIView *recordView;
-@property (nonatomic) BFTCameraView *embeddedRecordView;
+@property (strong, nonatomic) BFTCameraView *embeddedRecordView;
 
 @end

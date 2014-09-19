@@ -293,6 +293,7 @@
             
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration)
                                 ofTrack:[[asset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:time error:nil];
+            
             if(idx == 0)
             {
                 // Set your desired output aspect ratio here. 1.0 for square, 16/9.0 for widescreen, etc.
@@ -355,7 +356,7 @@
         self.exportSession.shouldOptimizeForNetworkUse = YES;
         self.exportSession.videoComposition = videoComposition;
         
-        self.exportProgressBarTimer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self.delegate selector:@selector(updateProgress) userInfo:nil repeats:YES];
+        //self.exportProgressBarTimer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self.delegate selector:@selector(updateProgress) userInfo:nil repeats:YES];
         
         __block id weakSelf = self;
         
@@ -384,27 +385,33 @@
         
         if (fileURL)
             [weakSelf removeFile:fileURL];
+        NSLog(@"File Url: %@", fileURL);
     }];
     
-    [self.assets removeAllObjects];
+    //[self.assets removeAllObjects];
     //[self.delegate removeProgress];
     
     if (session.status == AVAssetExportSessionStatusCompleted) {
         NSURL *outputURL = session.outputURL;
+        NSLog(@" Output URL: %@", outputURL);
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputURL]) {
-            [library writeVideoAtPathToSavedPhotosAlbum:outputURL completionBlock:^(NSURL *assetURL, NSError *error){
-                //delete file from documents after saving to camera roll
-                [weakSelf removeFile:outputURL];
-                
-                if (error) {
-                    completion (NO);
-                } else {
-                    completion (YES);
-                }
-            }];
-        }
+//        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputURL]) {
+//            [library writeVideoAtPathToSavedPhotosAlbum:outputURL completionBlock:^(NSURL *assetURL, NSError *error){
+//                //delete file from documents after saving to camera roll
+//                [weakSelf removeFile:outputURL];
+//        
+//                if (error) {
+//                    completion (NO);
+//                } else {
+//                    completion (YES);
+//                }
+//            }];
+//        }
     }
+    //Upload service
+    completion(YES);
+    
+    
     [self.assets removeAllObjects];
 }
 
@@ -575,6 +582,9 @@
 {
     //save file in the app's Documents directory for this session
     [self copyFileToDocuments:outputFileURL];
+    
+    //Upload instead of Save *TEST*
+    NSLog(@"File url in Recorder: %@", outputFileURL);
     
     if ([[UIDevice currentDevice] isMultitaskingSupported]) {
         [[UIApplication sharedApplication] endBackgroundTask:[self backgroundRecordingID]];

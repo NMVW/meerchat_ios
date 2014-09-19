@@ -4,6 +4,7 @@
 target "Bafit" do
 
 pod 'JSQMessagesViewController', '5.1.1'
+pod 'AFNetworking', '~> 2.0'
 
 end
 
