@@ -144,6 +144,7 @@
             else {
                 [self sendFBDemographicInfo:user];
                 [[BFTDataHandler sharedInstance] setFBEmail:email];
+                [[BFTDataHandler sharedInstance] saveData];
                 [self performSegueWithIdentifier:@"initiallogin" sender:self];
             }
         }
