@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Bafit/NewVideoRecorder/VideoRecorder/AVCam/CaptureManager.m"
-            timestampString = "432613571.814849"
+            timestampString = "433462071.884273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "-saveVideoWithCompletionBlock:"
             landmarkType = "5">
          </BreakpointContent>

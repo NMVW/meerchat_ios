@@ -25,6 +25,8 @@
 @property(assign) double Latitude;
 @property(nonatomic, retain) NSArray *numberMessages;
 @property (nonatomic, retain) NSMutableArray *images;
+@property(assign) BOOL postView;
+@property (nonatomic, copy) NSString *mp4Name;
 
 -(void)saveData;
 -(void)loadData;

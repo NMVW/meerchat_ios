@@ -11,15 +11,18 @@
 #import "BFTLoginhandler.h"
 #import "BFTMessageThreads.h"
 #import "BFTDataHandler.h"
-#import <Appsee/Appsee.h>
+#import "Flurry.h"
 
 
 @implementation BFTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //AppSee Authentication
-    [Appsee start:@"5b8ed11d20124a19b532ef160262b9a4"];
+    //Flurry Authentication
+    [Flurry setCrashReportingEnabled:YES];
+    
+    // Replace YOUR_API_KEY with the api key in the downloaded package
+    [Flurry startSession:@"H87STTM6HJF6CQC8Y49S"];
     
     //Set navigation color
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];

@@ -32,6 +32,7 @@
 @property (nonatomic) int catagory;
 @property (weak, nonatomic) NSArray *messages;
 @property (nonatomic) BOOL swipeUp;
+@property (nonatomic, strong) NSArray *tempHashTags;
 
 @property (retain, nonatomic) IBOutlet iCarousel *carousel;
 @property (retain, nonatomic) NSMutableArray *items;

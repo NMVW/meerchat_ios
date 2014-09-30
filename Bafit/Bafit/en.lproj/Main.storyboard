@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gen-d0-YEF">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -199,14 +200,6 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r17-yh-b9p">
                                                 <rect key="frame" x="23" y="315" width="275" height="275"/>
-                                                <subviews>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hold to record" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RI-T2-Vk7">
-                                                        <rect key="frame" x="82" y="127" width="111" height="21"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <gestureRecognizers/>
                                                 <connections>
@@ -243,12 +236,18 @@
                                     <constraint firstItem="NLu-Qc-9Wh" firstAttribute="leading" secondItem="ttn-ju-g24" secondAttribute="leading" id="imX-fc-wI6"/>
                                 </constraints>
                             </scrollView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Smj-uF-0eK">
-                                <rect key="frame" x="0.0" y="1" width="320" height="44"/>
-                                <items>
-                                    <navigationItem id="0xq-3L-D7k"/>
-                                </items>
-                            </navigationBar>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8u9-3h-QAr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fj6-4R-ZOS">
+                                        <rect key="frame" x="8" y="4" width="37" height="37"/>
+                                        <state key="normal" image="Milo_Face_Navbar.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.56720774211307978" blue="0.17107744432559613" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="0.95564254509035096" blue="0.96940537992176323" alpha="1" colorSpace="calibratedRGB"/>
@@ -262,9 +261,10 @@
                     <navigationItem key="navigationItem" id="baM-D1-qV9"/>
                     <connections>
                         <outlet property="bottomToolbar" destination="eCG-s4-YZM" id="cSE-uc-Ziw"/>
+                        <outlet property="customBackButton" destination="fj6-4R-ZOS" id="ChU-g0-YeU"/>
+                        <outlet property="customNavView" destination="8u9-3h-QAr" id="ZAt-OH-M4F"/>
                         <outlet property="playButton" destination="ynv-VR-HYu" id="Iyp-u1-iwM"/>
                         <outlet property="postToolBar" destination="eCG-s4-YZM" id="sSM-Sf-qf1"/>
-                        <outlet property="recordDescription" destination="1RI-T2-Vk7" id="7cw-Uf-HB5"/>
                         <outlet property="recordGesture" destination="XfD-wj-ddn" id="MEk-xz-mvg"/>
                         <outlet property="recordView" destination="r17-yh-b9p" id="gdS-JQ-BXA"/>
                         <outlet property="userVideoView" destination="QZb-AI-k2u" id="bRp-er-OAG"/>
@@ -301,21 +301,6 @@
                                     </imageView>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DAz-2L-ROS">
                                         <rect key="frame" x="0.0" y="84" width="240" height="237"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Poe-cQ-djz">
-                                                <rect key="frame" x="207" y="3" width="30" height="25"/>
-                                                <state key="normal" image="switchCamera.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARN-wD-6TD">
-                                                <rect key="frame" x="0.0" y="36" width="237" height="201"/>
-                                                <state key="normal" title="Hold to record">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
-                                        </subviews>
                                         <color key="backgroundColor" white="0.5" alpha="0.79000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="trapezoid_menu_top.png" translatesAutoresizingMaskIntoConstraints="NO" id="VmM-Tb-ZNH">
@@ -607,7 +592,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUm-72-HKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2157" y="-179"/>
+            <point key="canvasLocation" x="-2153" y="-179"/>
         </scene>
         <!--Email Confirmation View Controller-->
         <scene sceneID="fBO-oe-D4v">
@@ -1002,6 +987,7 @@
     </scenes>
     <resources>
         <image name="Milo_Face_Full.png" width="1000" height="1000"/>
+        <image name="Milo_Face_Navbar.png" width="69" height="69"/>
         <image name="baf_left_inactive.png" width="36" height="36"/>
         <image name="baf_right_active.png" width="36" height="36"/>
         <image name="baf_right_inactive.png" width="36" height="36"/>
@@ -1017,7 +1003,6 @@
         <image name="study-btn-active.png" width="80" height="32"/>
         <image name="study_btn_active.png" width="80" height="36"/>
         <image name="study_btn_inactive.png" width="80" height="36"/>
-        <image name="switchCamera.png" width="260" height="155"/>
         <image name="trapezoid_menu_bottom.png" width="240" height="80"/>
         <image name="trapezoid_menu_top.png" width="240" height="80"/>
     </resources>
@@ -1028,6 +1013,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="OrP-gC-r7e"/>
-        <segue reference="hmw-A7-sAG"/>
+        <segue reference="5yH-kS-ND2"/>
     </inferredMetricsTieBreakers>
 </document>

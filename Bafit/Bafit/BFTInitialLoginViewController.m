@@ -58,7 +58,7 @@
     if ([[_schoolEmail text] length] >= 1) {
         //Passed School email
         BFTDataHandler *handler = [BFTDataHandler sharedInstance];
-        [handler setEDEmail:[NSString stringWithFormat:@"%@@ufl.edu", self.schoolEmail.text]];
+        [handler setEDEmail:[NSString stringWithFormat:@"%@@gmail.com", self.schoolEmail.text]];
         if (self.usernameNeedsUpdating) {
             //sychronously update the username is valid.. this has to be done before we can continue, otherwise the username may not be unique
             [self verifyUniqueUsername:YES];
@@ -69,7 +69,7 @@
             [handler setBUN:self.initialUsername.text];
             [handler saveData];
             //email and username are good, so we need to send them a verification email
-            [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@ufl.edu", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {
+            [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@@gmail.com", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {
                 if (!error) {
                     //go to email confirmation page
                     [self performSegueWithIdentifier:@"privacyview" sender:self];

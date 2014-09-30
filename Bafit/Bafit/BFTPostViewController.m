@@ -7,6 +7,8 @@
 //
 
 #import "BFTPostViewController.h"
+#import "BFTDataHandler.h"
+#import "BFTCameraView.h"
 
 @interface BFTPostViewController ()
 
@@ -29,8 +31,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Setup Navigation
+    _customNavView = [[UIView alloc] init];
+    [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    
+    
+    
     _FrontCamera = NO;
     self.replyURL = self.replyURL;
+    //set Data Handler for View
+    [[BFTDataHandler sharedInstance] setPostView:NO];
+    BOOL test = [[BFTDataHandler sharedInstance] postView];
+    NSLog(test ? @"YES" : @"NO");
+    
     //Create output.
     _output = [[AVCaptureMovieFileOutput alloc] init];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -45,6 +58,10 @@
 //    _embeddedrecordView = [[KZCameraView alloc] initWithFrame:_recordView.frame withVideoPreviewFrame:CGRectMake(0, 0, 275, 275)];
 //    _embeddedrecordView.maxDuration = 10.0;
 //    [_recordView addSubview:_embeddedrecordView];
+    
+    _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
+    _embeddedrecordView.maxDuration = 10.0;
+    [_recordView addSubview:_embeddedrecordView];
     
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
         //AV Asset Player
@@ -96,15 +113,15 @@ object:_player1];
     }
 }
 
--(IBAction)saveVideo:(id)sender
-{
-    [_embeddedrecordView saveVideoWithCompletionBlock:^(BOOL success) {
-        if (success)
-        {
-            //Do something after video got succesfully saved
-        }
-    }];
-}
+//-(IBAction)saveVideo:(id)sender
+//{
+//    [_embeddedrecordView saveVideoWithCompletionBlock:^(BOOL success) {
+//        if (success)
+//        {
+//            //Do something after video got succesfully saved
+//        }
+//    }];
+//}
 
 - (IBAction)captureVideo:(id)sender {
     [self initializeCamera];
@@ -134,6 +151,10 @@ object:_player1];
     [_recordView addSubview:_player.view];
     
     
+}
+
+-(void)popVC {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning

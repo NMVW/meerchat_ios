@@ -9,6 +9,8 @@
 #import "BFTCameraView.h"
 #import "CaptureManager.h"
 #import "AVCamRecorder.h"
+#import "BFTDatabaseRequest.h"
+#import "BFTDataHandler.h"
 
 @interface BFTCameraView () <UIGestureRecognizerDelegate>
 
@@ -147,9 +149,13 @@
        
         if (success)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test" message:@"video saved to photo album" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
-            [alert show];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test" message:@"video saved to photo album" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
+//            [alert show];
+            
             [weakSelf performSelector:@selector(refresh) withObject:nil afterDelay:0.5];
+            NSLog(@"Save Success");
+            
+        
             
         }
         else
@@ -219,6 +225,7 @@
 
 - (void)captureManagerRecordingFinished:(CaptureManager *)captureManager
 {
+    NSLog(@"Recording finsihed called");
 }
 
 - (void)captureManagerDeviceConfigurationChanged:(CaptureManager *)captureManager

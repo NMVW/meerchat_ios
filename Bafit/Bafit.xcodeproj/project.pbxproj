@@ -143,6 +143,7 @@
 		8040E9A3197C902A000D66C7 /* LoginWFacebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 8040E9A2197C902A000D66C7 /* LoginWFacebook.png */; };
 		8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */; };
 		8040E9B6197EA894000D66C7 /* BFTLoginhandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9B5197EA894000D66C7 /* BFTLoginhandler.m */; };
+		80417BCD19DA075C0076ACD7 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */; };
 		8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */; };
 		8053BDBB19A5CE54006E9D13 /* BFTMeerPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDBA19A5CE54006E9D13 /* BFTMeerPostViewController.m */; };
 		8058E1AF1988436100DF2F4F /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1AE1988436100DF2F4F /* iCarousel.m */; };
@@ -196,7 +197,6 @@
 		80F650FC1980979700443673 /* BFTVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F650FB1980979700443673 /* BFTVideoPost.m */; };
 		80F651001980A4DD00443673 /* BFTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F650FF1980A4DD00443673 /* BFTMainViewController.m */; };
 		80F81E6319C2604D00533EC8 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E0197EBEC300443673 /* FacebookSDK.framework */; };
-		80F81E6419C2605700533EC8 /* Appsee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80DCD0FE19A80834002B9AFD /* Appsee.framework */; };
 		80FD6DF31980CDF5005AD023 /* BFTHTTPCLIENT.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FD6DF21980CDF5005AD023 /* BFTHTTPCLIENT.m */; };
 /* End PBXBuildFile section */
 
@@ -417,6 +417,8 @@
 		8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTDataHandler.m; sourceTree = "<group>"; };
 		8040E9B4197EA894000D66C7 /* BFTLoginhandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTLoginhandler.h; sourceTree = "<group>"; };
 		8040E9B5197EA894000D66C7 /* BFTLoginhandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTLoginhandler.m; sourceTree = "<group>"; };
+		80417BCB19DA075C0076ACD7 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		8053BDB819A17AF8006E9D13 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -493,7 +495,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80F81E6419C2605700533EC8 /* Appsee.framework in Frameworks */,
 				80F81E6319C2604D00533EC8 /* FacebookSDK.framework in Frameworks */,
 				7C64470819BCEFF10071D444 /* libresolv.dylib in Frameworks */,
 				7C64468F19BCE26D0071D444 /* Security.framework in Frameworks */,
@@ -509,6 +510,7 @@
 				80F650E51980815300443673 /* AVFoundation.framework in Frameworks */,
 				80F650E31980814B00443673 /* AssetsLibrary.framework in Frameworks */,
 				8040E9691978FD59000D66C7 /* CoreGraphics.framework in Frameworks */,
+				80417BCD19DA075C0076ACD7 /* libFlurry_5.4.0.a in Frameworks */,
 				8040E96B1978FD59000D66C7 /* UIKit.framework in Frameworks */,
 				8040E9671978FD59000D66C7 /* Foundation.framework in Frameworks */,
 				4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */,
@@ -997,6 +999,7 @@
 		8040E96C1978FD59000D66C7 /* Bafit */ = {
 			isa = PBXGroup;
 			children = (
+				80417BCA19DA075C0076ACD7 /* Flurry */,
 				7CF791EE19C250BF003EB61F /* NewVideoRecorder */,
 				7C64466919BCE1AA0071D444 /* XMPPFramework */,
 				8058E1B01988436700DF2F4F /* ICarousel */,
@@ -1099,6 +1102,15 @@
 			);
 			name = Controller;
 			sourceTree = "<group>";
+		};
+		80417BCA19DA075C0076ACD7 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				80417BCB19DA075C0076ACD7 /* Flurry.h */,
+				80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */,
+			);
+			path = Flurry;
+			sourceTree = SOURCE_ROOT;
 		};
 		8058E1B01988436700DF2F4F /* ICarousel */ = {
 			isa = PBXGroup;
@@ -1596,6 +1608,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Bafit/libidn",
 					"$(PROJECT_DIR)/Bafit/Pods",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1639,6 +1652,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Bafit/libidn",
 					"$(PROJECT_DIR)/Bafit/Pods",
+					"$(PROJECT_DIR)/Flurry",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

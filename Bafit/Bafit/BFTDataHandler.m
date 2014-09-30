@@ -25,6 +25,8 @@
         _PPAccepted = false;
         _numberMessages = [[NSArray alloc] initWithObjects:nil];
         _images = [[NSMutableArray alloc] init];
+        _postView = false;
+        _mp4Name = @"";
     }
     return self;
 }

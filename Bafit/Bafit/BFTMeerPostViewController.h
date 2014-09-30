@@ -11,6 +11,14 @@
 #import "BFTDataHandler.h"
 #import "BFTCameraView.h"
 
+@protocol MeerPostDelegate <NSObject>
+@optional
+
+-(void)doneSavingAtURL:(NSString *)url;
+
+@end
+
+
 @interface BFTMeerPostViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) IBOutlet UIImageView *btmTrapazoid;
@@ -21,5 +29,9 @@
 @property (strong, nonatomic) BFTDataHandler *data;
 @property (strong, nonatomic) IBOutlet UIView *recordView;
 @property (strong, nonatomic) BFTCameraView *embeddedRecordView;
+@property (nonatomic, assign) BOOL postFromView;
+@property (nonatomic, assign) NSString *mp4Name;
+
+-(void)uploadToMain;
 
 @end
