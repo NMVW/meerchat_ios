@@ -297,4 +297,8 @@ object:_player1];
 }
 //keyboard end
 
+- (IBAction)backButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gen-d0-YEF">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -237,16 +236,19 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8u9-3h-QAr">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fj6-4R-ZOS">
-                                        <rect key="frame" x="8" y="4" width="37" height="37"/>
+                                        <rect key="frame" x="8" y="15" width="37" height="37"/>
                                         <state key="normal" image="Milo_Face_Navbar.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="JyZ-0a-e6Y" eventType="touchUpInside" id="Wha-JX-buZ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.56720774211307978" blue="0.17107744432559613" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.63137254899999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -446,11 +448,11 @@
                                     </button>
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gP2-Jv-F0U">
                                         <rect key="frame" x="0.0" y="187" width="320" height="251"/>
-                                        <state key="normal" backgroundImage="gradient.jpeg">
+                                        <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="JyZ-0a-e6Y" kind="push" identifier="topostview" id="2Ab-ci-yYy"/>
+                                            <segue destination="JyZ-0a-e6Y" kind="modal" identifier="topostview" id="2Ab-ci-yYy"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gj-Cb-ydK" customClass="iCarousel">
@@ -636,7 +638,7 @@
                                     </progressView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yEN-P8-ZP0">
                                         <rect key="frame" x="194" y="131" width="82" height="31"/>
-                                        <color key="backgroundColor" red="0.94117647059999998" green="0.63529411759999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.63137254901960782" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Submit">
                                             <color key="titleColor" red="0.89803928136825562" green="0.89803928136825562" blue="0.89803928136825562" alpha="1" colorSpace="deviceRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -857,13 +859,6 @@
                         <color key="separatorColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <color key="sectionIndexBackgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="deviceRGB"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Search" id="Acc-47-H8z">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="barTintColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="backThreadCell" rowHeight="52" id="51r-Cb-HZM" customClass="BFTThreadTableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="52"/>
@@ -876,16 +871,16 @@
                                             <rect key="frame" x="0.0" y="2" width="320" height="48"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lastUpdated" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzx-Fh-mVz">
-                                                    <rect key="frame" x="204" y="6" width="101" height="36"/>
+                                                    <rect key="frame" x="180" y="6" width="125" height="36"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="101" id="ygx-2R-ANi"/>
+                                                        <constraint firstAttribute="width" constant="125" id="ygx-2R-ANi"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.63137254899999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="28g-jn-oWR">
-                                                    <rect key="frame" x="58" y="6" width="138" height="36"/>
+                                                    <rect key="frame" x="58" y="6" width="114" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.63137254899999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -938,7 +933,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Back" id="1aK-bf-fNP"/>
                     <connections>
-                        <outlet property="searchBar" destination="Acc-47-H8z" id="j3W-en-I7o"/>
                         <segue destination="o7d-dj-EKV" kind="push" identifier="loadThread" id="Ndn-dg-YUf"/>
                     </connections>
                 </tableViewController>
@@ -992,7 +986,6 @@
         <image name="baf_right_active.png" width="36" height="36"/>
         <image name="baf_right_inactive.png" width="36" height="36"/>
         <image name="checkmarkusernameblue.png" width="208" height="208"/>
-        <image name="gradient.jpeg" width="276" height="183"/>
         <image name="grub_btn_active.png" width="80" height="36"/>
         <image name="grub_btn_inactive.png" width="80" height="36"/>
         <image name="love_btn_active.png" width="80" height="36"/>
@@ -1013,6 +1006,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="OrP-gC-r7e"/>
-        <segue reference="5yH-kS-ND2"/>
+        <segue reference="hmw-A7-sAG"/>
     </inferredMetricsTieBreakers>
 </document>

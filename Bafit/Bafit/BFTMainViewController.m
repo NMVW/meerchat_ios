@@ -310,24 +310,35 @@
 
     
     postTimeLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    postTimeLabel.center = CGPointMake(220, 295);
-    postTimeLabel.textColor = [UIColor colorWithWhite:-100 alpha:1.0];
-    postTimeLabel.font = [postTimeLabel.font fontWithSize:11];
+    postTimeLabel.center = CGPointMake(225, 295);
+    postTimeLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    postTimeLabel.font = [postTimeLabel.font fontWithSize:9];
     postTimeLabel.tag = 14;
     [mainView addSubview:postTimeLabel];
         
     distanceLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
     distanceLabel.center = CGPointMake(130, 295);
-    distanceLabel.textColor = [UIColor colorWithWhite:-100 alpha:1.0];
-    distanceLabel.font = [distanceLabel.font fontWithSize:11];
+    distanceLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    distanceLabel.font = [distanceLabel.font fontWithSize:9];
     distanceLabel.tag = 15;
     [mainView addSubview:distanceLabel];
     
+    UIImageView *timeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clock_icon"]];
+    [timeIcon setFrame:CGRectMake(bottomTrapazoid.frame.size.width/2 + 5, 5, 17, 17)];
+    [timeIcon setContentMode:UIViewContentModeScaleAspectFit];
+    [bottomTrapazoid addSubview:timeIcon];
+    
+    UIImageView *locationIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location_icon"]];
+    [locationIcon setFrame:CGRectMake(10, 5, 18, 18)];
+    [locationIcon setContentMode:UIViewContentModeScaleAspectFit];
+    [bottomTrapazoid addSubview:locationIcon];
+    
     
     //Assign Item to Labels
+    BFTVideoPost *post = [self.videoPosts objectAtIndex:index];
     _usernameLabel.text = handler.Username[index%10];
-    postTimeLabel.text = @"3 hours ago";
-    distanceLabel.text = @"4 miles away";
+    postTimeLabel.text = [NSString stringWithFormat:@"%.0f hours ago", [[post timeStamp] timeIntervalSinceNow]/-3600.0];
+    distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
     
     return view;
 }

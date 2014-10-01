@@ -25,6 +25,8 @@
     [Flurry startSession:@"H87STTM6HJF6CQC8Y49S"];
     
     //Set navigation color
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     
     [[BFTDataHandler sharedInstance] loadData];
@@ -143,11 +145,13 @@
 -(void)setupStream {
     _xmppStream = [[XMPPStream alloc] init];
     [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    NSLog(@"Jabber Stream Opened");
 }
 
 -(void)goOnline {
     XMPPPresence *presence = [XMPPPresence presence];
     [[self xmppStream] sendElement:presence];
+    NSLog(@"Went Online");
 }
 
 -(void)goOffline {
@@ -164,10 +168,12 @@
     NSString *myPassword = [[BFTDataHandler sharedInstance] BUN];
     
     if (![_xmppStream isDisconnected]) {
+        NSLog(@"Connected to Jabber");
         return YES;
     }
     
     if (jabberID == nil || myPassword == nil) {
+        NSLog(@"No Jabber Username or Password");
         return NO;
     }
     

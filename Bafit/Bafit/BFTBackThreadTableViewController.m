@@ -35,17 +35,19 @@
     [self.tableView setBackgroundView:backView];
 
     //remove seperator lines from searchbar
-    CGRect rect = self.searchBar.frame;
+    //TODO:Uncomment these lines when adding search bar to remove seperator lines
+    /*CGRect rect = self.searchBar.frame;
     UIView *bottomlineView = [[UIView alloc]initWithFrame:CGRectMake(0, rect.size.height -2, rect.size.width, 2)];
     bottomlineView.backgroundColor = [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1];
     UIView *toplineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 2)];
     toplineView.backgroundColor = [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1];
     [self.searchBar addSubview:bottomlineView];
-    [self.searchBar addSubview:toplineView];
+    [self.searchBar addSubview:toplineView];*/
     
     //custom nav bar
     [self.navigationController setNavigationBarHidden:NO animated:NO]; //not sure why we need to do this?
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
+    [self.navigationController.navigationBar setTranslucent:NO];
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"message_icon.png"]]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
@@ -112,7 +114,7 @@
     
     BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:indexPath.row];
     
-    cell.usernameLabel.text = item.username;
+    cell.usernameLabel.text = [NSString stringWithFormat:@"@%@", item.username];
     cell.numberMessagesLabel.text = [NSString stringWithFormat:@"%zd", [[item listOfMessages] count]];
     cell.lastUpdatedLabel.text = [self.dateFormatter stringFromDate:item.lastMessageTime];
     
