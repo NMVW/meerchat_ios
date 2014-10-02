@@ -27,8 +27,11 @@
     
     self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
     
-    self.title = self.otherPersonsUserName;
+    self.title = [NSString stringWithFormat:@"@%@", self.otherPersonsUserName];
     self.sender = [[BFTDataHandler sharedInstance] BUN] ?: @"me";
+    
+    //I don't know why I had to do this to change the title color.. ohh well
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
     
     [self loadMessages];
     

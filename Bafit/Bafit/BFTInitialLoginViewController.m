@@ -58,7 +58,7 @@
     if ([[_schoolEmail text] length] >= 1) {
         //Passed School email
         BFTDataHandler *handler = [BFTDataHandler sharedInstance];
-        [handler setEDEmail:[NSString stringWithFormat:@"%@@gmail.com", self.schoolEmail.text]];
+        [handler setEDEmail:[NSString stringWithFormat:@"%@@ufl.edu", self.schoolEmail.text]];
         if (self.usernameNeedsUpdating) {
             //sychronously update the username is valid.. this has to be done before we can continue, otherwise the username may not be unique
             [self verifyUniqueUsername:YES];
