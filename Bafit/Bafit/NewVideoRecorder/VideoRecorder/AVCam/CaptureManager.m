@@ -450,8 +450,34 @@
 -(void)uploadToMainWithURL:(NSURL *)URL {
 
     NSLog(@"URL: %@", URL);
+    //upload thumb image
+    UIImage *uploadThumb = [[UIImage alloc] init];
+    uploadThumb = [self generateImageFromURI:URL];
+    
+    NSString* thumbName = [NSString stringWithFormat:@"%@.mp4",[[BFTDataHandler sharedInstance] mp4Name]];
+    
+    NSData *imageData = UIImagePNGRepresentation(uploadThumb);
+    NSString *urlString = [NSString stringWithFormat:@"http:www.bafit.mobi/cScripts/v1/uploadVid.php"];
+
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileURL:URL name:@"file" fileName:thumbName mimeType:@"video/mp4" error:nil];
+    } error:nil];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSProgress *progress = nil;
+    
+    NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            NSLog(@"%@ %@", response, responseObject);
+        }
+    }];
+    
+    [uploadTask resume];
+    
 //   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html; video/mp4"];
 //    [manager POST:@"http:www.bafit.mobi/cScripts/v1/uploadVid.php"
 //       parameters:nil
 //constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -483,41 +509,45 @@
 //    NSLog(@"POSTING");
 //    
 //    // Generate the postdata:
-    NSData *postData = [NSData dataWithContentsOfURL:URL];
-    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+//    NSData *postData = [NSData dataWithContentsOfURL:URL];
+//    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
 //
 //    // Setup the request:
-    NSMutableURLRequest *uploadRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http:www.bafit.mobi/cScripts/v1/uploadVid.php"] cachePolicy: NSURLRequestReloadIgnoringLocalCacheData timeoutInterval: 30];
-    [uploadRequest setHTTPMethod:@"POST"];
-    [uploadRequest setValue:@"text/html" forHTTPHeaderField:@"Accept"];
-    [uploadRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [uploadRequest setValue:[NSString stringWithFormat:@"%@", [[BFTDataHandler sharedInstance] mp4Name]] forHTTPHeaderField:@"filename"];
-    [uploadRequest setValue:@"multipart/form-data; boundary=AaB03x" forHTTPHeaderField:@"Content-Type"];
-    [uploadRequest setHTTPBody:postData];
+//    NSMutableURLRequest *uploadRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http:www.bafit.mobi/cScripts/v1/uploadVid.php"] cachePolicy: NSURLRequestReloadIgnoringLocalCacheData timeoutInterval: 30];
+//    [uploadRequest setHTTPMethod:@"POST"];
+//    [uploadRequest setValue:@"text/html" forHTTPHeaderField:@"Accept"];
+//    [uploadRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+//    [uploadRequest setValue:[NSString stringWithFormat:@"%@", [[BFTDataHandler sharedInstance] mp4Name]] forHTTPHeaderField:@"filename"];
+//    [uploadRequest setValue:@"multipart/form-data; boundary=AaB03x" forHTTPHeaderField:@"Content-Type"];
+//    [uploadRequest setHTTPBody:postData];
     
     // Execute the reqest:
-    NSURLConnection *conn=[[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
-    if (conn)
-    {
-        // Connection succeeded
-        NSLog(@"success");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Got Server Response" message:@"Success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-    }
-    else
-    {
-        // Connection failed (cannot reach server).
-        NSLog(@"fail");
-    }
+//    NSURLConnection *conn=[[NSURLConnection alloc] initWithRequest:uploadRequest delegate:self];
+//    if (conn)
+//    {
+//        // Connection succeeded
+//        NSLog(@"success");
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Got Server Response" message:@"Success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alert show];
+//    }
+//    else
+//    {
+//        // Connection failed (cannot reach server).
+//        NSLog(@"fail");
+//    }
 
     
     //newest of the newest test code
+//    NSString *videoURL = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@", [[BFTDataHandler sharedInstance] mp4Name]] ofType:@"mp4"];
 //    NSData *videoData = [NSData dataWithContentsOfURL:URL];
 //    
+////    AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http:www.bafit.mobi"]];
+//    AFHTTPRequestOperationManager * manager = [[AFHTTPRequestOperationManager alloc] init];
 //    
-//    NSMutableURLRequest *request = [manager multipartFormRequestWithMethod:@"POST" path:@"/videoupload.php" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData)
+//    
+//    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/cScripts/v1/uploadVid.php" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData>formData)
 //                                    {
-//                                        [formData appendPartWithFileData:videoData name:@"file" fileName:@"myVideo.mov" mimeType:@"video/quicktime"];
+//                                        [formData appendPartWithFileData:videoData name:@"file" fileName: mimeType:@"video/quicktime"];
 //                                    }];
 //    
 //    
@@ -536,7 +566,7 @@
 //    
 //    [operation start];
     
-    NSString *fileNameMP4 = [[BFTDataHandler sharedInstance] mp4Name];
+//    NSString *fileNameMP4 = [[BFTDataHandler sharedInstance] mp4Name];
     
     //newest code
 //    NSString *urlString = @"http:www.bafit.mobi/cScripts/v1/uploadVid.php";
@@ -557,6 +587,26 @@
 //    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 //    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
 //    NSLog(@"RETURNED:%@",returnString);
+    
+//    //newest of new code
+//    NSString *urlString = @"http:www.bafit.mobi/cScripts/v1/uploadVid.php";
+//    NSString *filename = [[BFTDataHandler sharedInstance] mp4Name];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setURL:[NSURL URLWithString:urlString]];
+//    [request setHTTPMethod:@"POST"];
+//    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data;"];
+//    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+//    NSMutableData *postbody = [NSMutableData data];
+////    [postbody appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [postbody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; filename=\"%@.mp4\"\r\n", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [postbody appendData:[@"Content-Type: video/mp4\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//    [postbody appendData:[NSData dataWithData:[NSData dataWithContentsOfURL:URL]]];
+////    [postbody appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    [request setHTTPBody:postbody];
+//    
+//    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//    NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@", returnString);
     
     
 }
@@ -579,6 +629,29 @@
     }] startConnection];
     NSLog(@"%@", self.mp4Name);
     return self.mp4Name;
+}
+
+#pragma mark Capture Image From URL
+-(UIImage *)generateImageFromURI:(NSURL *)url
+{
+    _thumbImg = [[UIImage alloc] init];
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+    AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    generator.appliesPreferredTrackTransform = TRUE;
+    CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
+    
+    AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+        if (result != AVAssetImageGeneratorSucceeded) {
+            NSLog(@"couldn't generate thumbnail, error:%@", error);
+        }
+        _thumbImg = [UIImage imageWithCGImage:im];
+    };
+    
+    CGSize maxSize = CGSizeMake(320, 180);
+    generator.maximumSize = maxSize;
+    [generator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
+    
+    return _thumbImg;
 }
 
 
@@ -693,12 +766,12 @@
     return nil;
 }
 
-- (NSURL *) tempFileURL
+- (NSURL *)tempFileURL
 {
     return [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"output.mov"]];
 }
 
-- (void) removeFile:(NSURL *)fileURL
+- (void)removeFile:(NSURL *)fileURL
 {
     NSString *filePath = [fileURL path];
     NSFileManager *fileManager = [NSFileManager defaultManager];

@@ -75,6 +75,8 @@
 @property (nonatomic, strong) BFTMeerPostViewController *meerPost;
 @property (nonatomic, assign) NSString *postView;
 @property (nonatomic, assign) NSString *mp4Name;
+@property (nonatomic, strong) UIImage *thumbImg;
+
 
 - (BOOL) setupSession;
 - (void) startRecording;
