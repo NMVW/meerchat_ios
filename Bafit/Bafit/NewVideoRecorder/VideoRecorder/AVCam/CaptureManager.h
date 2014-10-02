@@ -50,6 +50,8 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import "BFTDataHandler.h"
+#import "BFTMeerPostViewController.h"
 
 @class AVCamRecorder;
 @protocol CaptureManagerDelegate;
@@ -70,6 +72,11 @@
 @property (nonatomic,strong) NSMutableArray *assets;
 @property (nonatomic,assign) NSTimer *exportProgressBarTimer;
 @property (nonatomic,strong) AVAssetExportSession *exportSession;
+@property (nonatomic, strong) BFTMeerPostViewController *meerPost;
+@property (nonatomic, assign) NSString *postView;
+@property (nonatomic, assign) NSString *mp4Name;
+@property (nonatomic, strong) UIImage *thumbImg;
+
 
 - (BOOL) setupSession;
 - (void) startRecording;
@@ -89,7 +96,6 @@
 @optional
 
 - (void) removeTimeFromDuration:(float)removeTime;
-
 - (void) updateProgress;
 - (void) removeProgress;
 

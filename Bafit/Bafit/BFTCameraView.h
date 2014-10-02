@@ -15,4 +15,5 @@
 @property (nonatomic, assign) float maxDuration;
 @property (nonatomic, strong) CaptureManager *captureManager;
 
+
 @end

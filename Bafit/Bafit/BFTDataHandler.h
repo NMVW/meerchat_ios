@@ -12,8 +12,9 @@
 
 + (BFTDataHandler *)sharedInstance;
 
-@property(nonatomic) BOOL initialLogin;
-@property BOOL PPAccepted;
+@property (nonatomic) BOOL initialLogin;
+@property (nonatomic) BOOL PPAccepted;
+@property (nonatomic) BOOL emailConfirmed;
 @property(nonatomic, retain) NSMutableArray *Username;
 @property(nonatomic, copy) NSString *BUN;
 @property(nonatomic, copy) NSString *Password;
@@ -24,5 +25,10 @@
 @property(assign) double Latitude;
 @property(nonatomic, retain) NSArray *numberMessages;
 @property (nonatomic, retain) NSMutableArray *images;
+@property(assign) BOOL postView;
+@property (nonatomic, copy) NSString *mp4Name;
+
+-(void)saveData;
+-(void)loadData;
 
 @end

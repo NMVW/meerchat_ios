@@ -9,6 +9,8 @@
 #import "BFTCameraView.h"
 #import "CaptureManager.h"
 #import "AVCamRecorder.h"
+#import "BFTDatabaseRequest.h"
+#import "BFTDataHandler.h"
 
 @interface BFTCameraView () <UIGestureRecognizerDelegate>
 
@@ -123,7 +125,7 @@
                 UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _videoPreviewView.frame.size.width, 30)];
                 [saveButton setTitle:@"Save" forState:UIControlStateNormal];
                 [saveButton addTarget:self
-                           action:@selector(saveVideoWithCompletionBlock:)
+                           action:@selector(saveVideo:)
                  forControlEvents:UIControlEventTouchUpInside];
                 
                 
@@ -138,26 +140,29 @@
 }
 
 
-- (void)saveVideoWithCompletionBlock:(void(^)(BOOL success))completion {
-    
-    __block id weakSelf = self;
-    
+//- (void)saveVideoWithCompletionBlock:(void(^)(BOOL success))completion {
+
+-(IBAction)saveVideo:(id)sender
+{
+     __block id weakSelf = self;
     [self.captureManager saveVideoWithCompletionBlock:^(BOOL success) {
-        
-        if (completion)
+       
+        if (success)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test" message:@"video saved to photo album" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
-            [alert show];
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test" message:@"video saved to photo album" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
+//            [alert show];
+            
             [weakSelf performSelector:@selector(refresh) withObject:nil afterDelay:0.5];
+            NSLog(@"Save Success");
+            
+        
             
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Error" message:@"video unablet to be saved" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Error" message:@"video unable to be saved" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
             [alert show];
         }
-        
-        completion (success);
         
         if (success == YES) {
             NSLog(@"Navigate to main view");       }
@@ -220,6 +225,7 @@
 
 - (void)captureManagerRecordingFinished:(CaptureManager *)captureManager
 {
+    NSLog(@"Recording finsihed called");
 }
 
 - (void)captureManagerDeviceConfigurationChanged:(CaptureManager *)captureManager

@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "iCarousel.h"
+#import "BFTMessageDelegate.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <CoreMedia/CoreMedia.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate>
+@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate, BFTMessageDelegate>
 
 @property (strong, nonatomic) UIView *videoPlayback;
 
@@ -31,6 +32,7 @@
 @property (nonatomic) int catagory;
 @property (weak, nonatomic) NSArray *messages;
 @property (nonatomic) BOOL swipeUp;
+@property (nonatomic, strong) NSArray *tempHashTags;
 
 @property (retain, nonatomic) IBOutlet iCarousel *carousel;
 @property (retain, nonatomic) NSMutableArray *items;
@@ -45,6 +47,7 @@
 @property (assign, nonatomic) NSInteger segment;
 
 @property (nonatomic, strong) NSCache *tempImageCache;
+@property (nonatomic, assign) BOOL notificationImageAssigned; //bool value to let me know whether or not the "you have new messages" image is on the back button or not
 
 -(void)downloadVideo:(NSString *)videoUrl;
 

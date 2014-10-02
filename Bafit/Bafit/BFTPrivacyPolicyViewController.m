@@ -7,6 +7,7 @@
 //
 
 #import "BFTPrivacyPolicyViewController.h"
+#import "BFTDataHandler.h"
 
 @interface BFTPrivacyPolicyViewController ()
 
@@ -31,7 +32,11 @@
     NSString *fullURL = @"http://bafit.mobi/PrivacyPolicy_Terms";
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [_privacyWebView loadRequest:requestObj];
+    if(requestObj != nil){
+        [_privacyWebView loadRequest:requestObj];
+    }else{
+        NSLog(@"Error in oading PDF for Preview");
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +57,7 @@
 */
 
 - (IBAction)acceptButton:(id)sender {
+    [[BFTDataHandler sharedInstance] setPPAccepted:YES];
     [self performSegueWithIdentifier:@"confirmemail" sender:self];
 }
 
@@ -61,6 +67,7 @@
 }
 
 - (IBAction)ipadbypassButton:(id)sender {
+    [[BFTDataHandler sharedInstance] setPPAccepted:YES];
     [self performSegueWithIdentifier:@"confirmemail" sender:self];
 }
 @end

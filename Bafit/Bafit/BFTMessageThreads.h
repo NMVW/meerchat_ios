@@ -12,6 +12,7 @@
 @interface BFTMessageThreads : NSObject
 
 @property (nonatomic, strong) NSMutableOrderedSet *listOfThreads;
+@property (nonatomic, assign) BOOL unreadMessages;
 
 +(instancetype)sharedInstance;
 
@@ -20,5 +21,7 @@
 
 -(void)saveThreads;
 -(void)loadThreadsFromStorage;
+
+-(void)resetUnread;
 
 @end

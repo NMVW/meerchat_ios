@@ -14,6 +14,8 @@
 #import "BFTDataHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTVideoPost.h"
+#import "BFTMessageThreads.h"
+#import "BFTMeerPostViewController.h"
 
 @interface BFTMainViewController ()
 
@@ -28,6 +30,9 @@
     //init temp image cahce with max size of 100 mb
     _tempImageCache = [[NSCache alloc] init];
     [_tempImageCache setTotalCostLimit:100*1024*1024];
+    
+    //init array of temp hash tags
+    _tempHashTags = [[NSArray alloc] initWithObjects:@"#hookup",@"#cantina101",@"#tequila", nil];
     
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
@@ -59,6 +64,37 @@
     
     //Check Messages from Queue
     [self checkMessages];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:(BOOL)animated];
+    //Create and handle Video Player for Videos in thread
+    _videoPlayback = [[UIView alloc] initWithFrame:CGRectMake(60, 210,200, 220)];
+    //    [_videoPlayback setBackgroundColor:[UIColor colorWithWhite:-100 alpha:1.0]];
+    [_videoPlayback setHidden:YES];
+    [self.view addSubview:_videoPlayback];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    //set us as the message delegate so we can change the backbutton image if we need to
+    [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) setMessageDelegate:self];
+    
+    if ([[BFTMessageThreads sharedInstance] unreadMessages]) {
+        [self.backButton setImage:[UIImage imageNamed:@"baf_left_active.png"] forState:UIControlStateNormal];
+        self.notificationImageAssigned = YES;
+    }
+    else {
+        [self.backButton setImage:[UIImage imageNamed:@"baf_left_inactive.png"] forState:UIControlStateNormal];
+        self.notificationImageAssigned = NO;
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) setMessageDelegate:self];
 }
 
 - (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer {
@@ -149,21 +185,6 @@
     }] startConnection];
 }
 
-
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:(BOOL)animated];
-    //Create and handle Video Player for Videos in thread
-    _videoPlayback = [[UIView alloc] initWithFrame:CGRectMake(60, 210,200, 220)];
-//    [_videoPlayback setBackgroundColor:[UIColor colorWithWhite:-100 alpha:1.0]];
-    [_videoPlayback setHidden:YES];
-    [self.view addSubview:_videoPlayback];
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -193,8 +214,6 @@
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
     _usernameLabel = nil;
-    UILabel *pointLabel = nil;
-    UIButton *reportUser = nil;
     UILabel *postTimeLabel = nil;
     UILabel *distanceLabel = nil;
     BFTDataHandler *handler = [BFTDataHandler sharedInstance];
@@ -209,21 +228,31 @@
         
     //Header
     UIImageView *topTrapazoid = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, mainViewWidth, 60)];
-    topTrapazoid.image = [UIImage imageNamed:@"upper-trap@2x.png"];
+    topTrapazoid.image = [UIImage imageNamed:@"trapezoid_menu_top.png"];
     topTrapazoid.tag = 4;
     [mainView addSubview:topTrapazoid];
+    
+    //hashtags
+    UILabel *hashTagLabel = [[UILabel alloc] initWithFrame:topTrapazoid.bounds];
+    hashTagLabel.center = CGPointMake(125, 45);
+    hashTagLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    hashTagLabel.font = [hashTagLabel.font fontWithSize:11];
+    hashTagLabel.tag = 13;
+    hashTagLabel.text = [NSString stringWithFormat:@"%@ %@ %@", _tempHashTags[0],_tempHashTags[1], _tempHashTags[2]];
+    [mainView addSubview:hashTagLabel];
+    
     UILabel *responseLabel = [[UILabel alloc] initWithFrame:topTrapazoid.bounds];
-    responseLabel.center = CGPointMake(180, 15);
+    responseLabel.center = CGPointMake(178, 15);
     responseLabel.textColor = [UIColor colorWithRed:243/255.0f green:172/255.0f blue:40/255.0f alpha:1.0];
-    responseLabel.font = [responseLabel.font fontWithSize:10];
+    responseLabel.font = [responseLabel.font fontWithSize:13];
     responseLabel.tag = 8;
     responseLabel.text = @"respond";
     [mainView addSubview:responseLabel];
         
-    UIImageView *dividerTop = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 167, 1)];
-    dividerTop.image = [UIImage imageNamed:@"dividerbar.png"];
-    dividerTop.center = CGPointMake(100, 30);
-    [mainView addSubview:dividerTop];
+//    UIImageView *dividerTop = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 167, 1)];
+//    dividerTop.image = [UIImage imageNamed:@"dividerbar.png"];
+//    dividerTop.center = CGPointMake(100, 30);
+//    [mainView addSubview:dividerTop];
     
     //Video Player View
     UIImageView *videoThumb = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, mainViewWidth, 220)];
@@ -262,66 +291,54 @@
     _usernameLabel.tag = 10;
     [mainView addSubview:_usernameLabel];
     
-    
         
     //footer
-    UIImageView *bottomTrapazoid = [[UIImageView alloc] initWithFrame:CGRectMake(0, 280, mainViewWidth, 90)];
-    bottomTrapazoid.image = [UIImage imageNamed:@"lower-trap@2x.png"];
+    UIImageView *bottomTrapazoid = [[UIImageView alloc] initWithFrame:CGRectMake(0, 280, mainViewWidth, 60)];
+    bottomTrapazoid.image = [UIImage imageNamed:@"trapezoid_menu_bottom_segmented.png"];
     bottomTrapazoid.tag = 6;
     bottomTrapazoid.contentMode = UIViewContentModeScaleToFill;
     [view addSubview:bottomTrapazoid];
-    UIImageView *dividerbtm1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 169, 1)];
-    dividerbtm1.image = [UIImage imageNamed:@"dividerbar.png"];
-    dividerbtm1.center = CGPointMake(100,310);
-    [mainView addSubview:dividerbtm1];
-    UIImageView *dividerbtm2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 126, 1)];
-    dividerbtm2.image = [UIImage imageNamed:@"dividerbar.png"];
-    dividerbtm2.center = CGPointMake(100,346);
-    [mainView addSubview:dividerbtm2];
+
     //Labels
     UILabel *notTodayLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    notTodayLabel.center = CGPointMake(175, 358);
+    notTodayLabel.center = CGPointMake(175, 325);
     notTodayLabel.textColor = [UIColor colorWithRed:243/255.0f green:172/255.0f blue:40/255.0f alpha:1.0];
-    notTodayLabel.font = [notTodayLabel.font fontWithSize:10];
+    notTodayLabel.font = [notTodayLabel.font fontWithSize:13];
     notTodayLabel.tag = 11;
     notTodayLabel.text = @"not today";
     [mainView addSubview:notTodayLabel];
-        
-    pointLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    pointLabel.center = CGPointMake(235, 293);
-    pointLabel.textColor = [UIColor colorWithWhite:-90 alpha:1.0];
-    pointLabel.font = [pointLabel.font fontWithSize:9];
-    pointLabel.tag = 12;
-    [mainView addSubview:pointLabel];
-        
+
+    
     postTimeLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    postTimeLabel.center = CGPointMake(120, 294);
-    postTimeLabel.textColor = [UIColor colorWithWhite:-100 alpha:1.0];
+    postTimeLabel.center = CGPointMake(225, 295);
+    postTimeLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     postTimeLabel.font = [postTimeLabel.font fontWithSize:9];
     postTimeLabel.tag = 14;
     [mainView addSubview:postTimeLabel];
         
     distanceLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    distanceLabel.center = CGPointMake(130, 325);
-    distanceLabel.textColor = [UIColor colorWithWhite:-100 alpha:1.0];
+    distanceLabel.center = CGPointMake(130, 295);
+    distanceLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     distanceLabel.font = [distanceLabel.font fontWithSize:9];
     distanceLabel.tag = 15;
     [mainView addSubview:distanceLabel];
-        
-        
-    reportUser = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60,10)];
-    reportUser.center = CGPointMake(140, 325);
-    reportUser.titleLabel.font =[reportUser.titleLabel.font fontWithSize:9];
-    [reportUser setTitle:@"report user" forState:UIControlStateNormal];
-    [reportUser setTitleColor:[UIColor colorWithWhite:-100 alpha:1.0] forState:UIControlStateNormal];
-    [mainView addSubview:reportUser];
+    
+    UIImageView *timeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clock_icon"]];
+    [timeIcon setFrame:CGRectMake(bottomTrapazoid.frame.size.width/2 + 5, 5, 17, 17)];
+    [timeIcon setContentMode:UIViewContentModeScaleAspectFit];
+    [bottomTrapazoid addSubview:timeIcon];
+    
+    UIImageView *locationIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location_icon"]];
+    [locationIcon setFrame:CGRectMake(10, 5, 18, 18)];
+    [locationIcon setContentMode:UIViewContentModeScaleAspectFit];
+    [bottomTrapazoid addSubview:locationIcon];
     
     
     //Assign Item to Labels
+    BFTVideoPost *post = [self.videoPosts objectAtIndex:index];
     _usernameLabel.text = handler.Username[index%10];
-    pointLabel.text = @"32 points";
-    postTimeLabel.text = @"3 hours ago";
-    distanceLabel.text = @"4 miles away";
+    postTimeLabel.text = [NSString stringWithFormat:@"%.0f hours ago", [[post timeStamp] timeIntervalSinceNow]/-3600.0];
+    distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
     
     return view;
 }
@@ -350,7 +367,7 @@
 
 - (NSUInteger)numberOfVisibleItemsInCarousel:(iCarousel *)carousel
 {
-    return 3;
+    return 1;
 }
 
 - (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
@@ -387,6 +404,11 @@
             BFTPostViewController *postView = segue.destinationViewController;
             postView.replyURL = [[_videoPosts objectAtIndex:_carousel.currentItemIndex] videoURL];
         }
+    }
+    
+    if ([segue.identifier isEqualToString:@"newpostview"]) {
+        BFTMeerPostViewController *meerPost = segue.destinationViewController;
+        meerPost.postFromView = YES;
     }
     
 }
@@ -434,6 +456,16 @@
 }
 
 - (IBAction)forthToPost:(id)sender {
+}
+
+#pragma mark Message Delegate
+
+-(void)recievedMessage:(NSString *)message fromSender:(NSString *)sender {
+    //checking a bool is faster than reassigning the image everytime we get a message
+    if (!self.notificationImageAssigned) {
+        [self.backButton setImage:[UIImage imageNamed:@"baf_left_active.png"] forState:UIControlStateNormal];
+        self.notificationImageAssigned = YES;
+    }
 }
 
 #pragma mark Catagory Selection

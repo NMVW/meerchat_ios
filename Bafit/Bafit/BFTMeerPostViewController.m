@@ -7,6 +7,9 @@
 //
 
 #import "BFTMeerPostViewController.h"
+#import "BFTDataHandler.h"
+#import "BFTDatabaseRequest.h"
+#import "CaptureManager.h"
 
 @interface BFTMeerPostViewController ()
 
@@ -27,6 +30,14 @@
 {
     [super viewDidLoad];
     [self setPostToMainView];
+    //Set Data Handler for Post View
+    [[BFTDataHandler sharedInstance] setPostView:YES];
+    BOOL test = [[BFTDataHandler sharedInstance] postView];
+    NSLog(test ? @"YES" : @"NO");
+
+    [self MP4NameGet];
+
+    
     //set Naivagtion for View
     [self.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [self.navigationBar setTranslucent:NO];
@@ -38,6 +49,7 @@
     UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:backButton];
     navItem.leftBarButtonItem = barbtn;
     [self.navigationBar setItems:@[navItem]];
+    
 
     //Switch handler
     [_locationSwitch addTarget:self action:@selector(stateChangedLocation) forControlEvents:UIControlEventValueChanged];
@@ -59,6 +71,25 @@
 //    [_recordView addSubview:_embeddedRecordView];
 }
 
+-(void)MP4NameGet {
+    
+    //    __block NSString *mp4Name = nil;
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
+        
+        //handle JSON from step one
+        if (!error) {
+            NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            for (NSDictionary *dict in responseJSON) {
+                NSLog(@"Object value: %@", [dict allKeys]);
+                [[BFTDataHandler sharedInstance] setMp4Name:[dict objectForKey:@"FName"]];
+            }
+        }else{
+            NSLog(@"No Data recived for file type");
+        }
+    }] startConnection];
+    NSLog(@"%@", [[BFTDataHandler sharedInstance] mp4Name]);
+}
+
 -(void)popVC {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -73,7 +104,7 @@
         //handle off
         //color back to grey
         [_locationLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
-        _locationLabel.text =@"hide location";
+        _locationLabel.text = @"hide location";
     }
 }
 
@@ -101,7 +132,9 @@
 }
 
 -(void)setPostToMainView {
-
+    //set Bool for Post from Meerchat
+    [self setPostFromView:@"toMainView"];
+    
     _anonymousSwitch =[[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     _anonymousSwitch.transform = CGAffineTransformMakeScale(0.50f, 0.50f);
     [_anonymousSwitch setOnTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
@@ -113,6 +146,24 @@
     [_locationSwitch setOnTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     _locationSwitch.center = CGPointMake(95, 490);
     [self.view addSubview:_locationSwitch];
+}
+
+-(void)uploadToMain {
+    
+    BFTDataHandler *userData = [BFTDataHandler sharedInstance];
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/registerVid.php?UIDr=%@&UIDp=%@", userData.UID, userData.UID] completionBlock:^(NSMutableData *data, NSError *error) {
+        
+        //handle JSON from step one
+        if (!error) {
+            NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            for (NSDictionary *dict in responseJSON) {
+                NSLog(@"Object value: %@", [dict allValues]);
+            }
+        }else{
+            NSLog(@"No Data recived for file type");
+        }
+    }] startConnection];
+    
 }
 
 /*

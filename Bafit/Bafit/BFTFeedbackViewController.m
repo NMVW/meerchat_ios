@@ -17,9 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *issuesDetailTextView;
 @property (weak, nonatomic) IBOutlet UITextView *commentsFeedbackTextView;
 @property (weak, nonatomic) IBOutlet UILabel *issuesLabel;
-@property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (weak, nonatomic) IBOutlet UISwitch *recommendSwitch;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @end
 
@@ -33,30 +31,25 @@
     
     [self.issuesExperiencedLabel setFont:[UIFont boldSystemFontOfSize:16]];
     
-    UIColor *orangeButtonBorder = [UIColor colorWithRed:240/255.0f green:162/255.0f blue:44/255.0f alpha:1];
-    self.submitButton.layer.cornerRadius = 5.0f;
-    self.submitButton.layer.borderWidth = 2.0f;
-    self.submitButton.layer.borderColor = orangeButtonBorder.CGColor;
-    self.submitButton.clipsToBounds = YES;
-    [self.submitButton setBackgroundImage:[BFTFeedbackViewController imageWithColor:orangeButtonBorder size:self.submitButton.frame.size] forState:UIControlStateHighlighted];
-    [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelSubmission:)];
+    UIBarButtonItem *submit = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStyleBordered target:self action:@selector(submitForm:)];
     
-    self.cancelButton.layer.cornerRadius = 5.0f;
-    self.cancelButton.layer.borderWidth = 2.0f;
-    self.cancelButton.layer.borderColor = orangeButtonBorder.CGColor;
-    self.cancelButton.clipsToBounds = YES;
-    [self.cancelButton setBackgroundImage:[BFTFeedbackViewController imageWithColor:orangeButtonBorder size:self.cancelButton.frame.size] forState:UIControlStateHighlighted];
-    [self.cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
+    [self.navigationItem setTitle:@"Feedback"];
+    [self.navigationItem setLeftBarButtonItem:cancel];
+    [self.navigationItem setRightBarButtonItem:submit];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
 }
 
 #pragma mark Table View
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return (section == 0 || section == 2) ? 35 : 0.01f;
+    return 0.01f;//section == 2 ? 35 : 0.01f;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return section == 3 ? 60 : 0.01f;
+    return 0.01f;//section == 2 ? 35 : 0.01f;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

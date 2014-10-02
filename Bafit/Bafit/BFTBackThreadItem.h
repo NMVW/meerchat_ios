@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *userID;
-@property (nonatomic, copy) NSString *lastMessageTime;
+@property (nonatomic, strong) NSDate *lastMessageTime;
 
 @property (nonatomic, strong) NSMutableArray *listOfMessages;
 
