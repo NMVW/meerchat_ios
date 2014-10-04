@@ -78,8 +78,7 @@
 }
 
 -(void)home:(UIBarButtonItem *)sender {
-    NSLog(@"%@", self.navigationController);
-    [self.navigationController popViewControllerAnimated:YES];
+    [self performSegueWithIdentifier:@"backToMain" sender:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,33 +145,18 @@
     [self.tableView reloadData];
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    BFTForthThreadControllerTableViewController *destination = [segue destinationViewController];
-    
-    BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:self.selectedIndex];
-    destination.otherPersonsUserID = item.userID;
-    destination.otherPersonsUserName = item.username;
-    destination.messageThread = item;
+    if ([segue.identifier isEqualToString:@"loadThread"]) {
+        BFTForthThreadControllerTableViewController *destination = [segue destinationViewController];
+        
+        BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:self.selectedIndex];
+        destination.otherPersonsUserID = item.userID;
+        destination.otherPersonsUserName = item.username;
+        destination.messageThread = item;
+    }
 }
 
 

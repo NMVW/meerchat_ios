@@ -519,7 +519,7 @@
                         <outlet property="loveCatButton" destination="iHl-1O-fxu" id="ZSL-Wr-qBI"/>
                         <outlet property="moveCatButton" destination="8aO-ff-r4J" id="zoP-KL-D1N"/>
                         <outlet property="studyCatButton" destination="9jf-Cr-ah8" id="xRT-yy-RO3"/>
-                        <segue destination="RcN-Gc-fEK" kind="push" identifier="backthread" id="ccd-J6-bWr"/>
+                        <segue destination="RcN-Gc-fEK" kind="custom" identifier="backthread" customClass="BFTLeftRightSegue" id="ccd-J6-bWr"/>
                         <segue destination="VCp-Kg-1gI" kind="modal" identifier="tofeedback" id="4T2-eB-283"/>
                     </connections>
                 </viewController>
@@ -608,7 +608,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRR-9n-Jbj">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRR-9n-Jbj">
                                 <rect key="frame" x="0.0" y="86" width="320" height="181"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Verify Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07i-rf-qyx">
@@ -934,11 +934,12 @@
                     <navigationItem key="navigationItem" title="Back" id="1aK-bf-fNP"/>
                     <connections>
                         <segue destination="o7d-dj-EKV" kind="push" identifier="loadThread" id="Ndn-dg-YUf"/>
+                        <segue destination="2cd-to-cO3" kind="push" identifier="backToMain" id="J4a-6v-v6f"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4w-JH-xI2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-109" y="408"/>
+            <point key="canvasLocation" x="-145" y="534"/>
         </scene>
         <!--Forth Thread Controller Table View Controller-->
         <scene sceneID="GzM-Ej-dYh">
@@ -957,7 +958,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7wu-dJ-hlB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="341" y="408"/>
+            <point key="canvasLocation" x="305" y="534"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jcm-Lj-FRb">
@@ -1005,7 +1006,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="OrP-gC-r7e"/>
+        <segue reference="J4a-6v-v6f"/>
         <segue reference="hmw-A7-sAG"/>
     </inferredMetricsTieBreakers>
 </document>
