@@ -162,6 +162,12 @@
 -(BOOL)connectToJabber {
     [[BFTMessageThreads sharedInstance] loadThreadsFromStorage];
     
+    //This is to prevent crashing when loading messages based on old data model. I think it actually only effects me.
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"didLoadSinceLibraryUpdate"]) {
+        [[BFTMessageThreads sharedInstance] clearThreads];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"didLoadSinceLibraryUpdate"];
+    }
+    
     [self setupStream];
     
     NSString *jabberID = [NSString stringWithFormat:@"%@@meerchat.mobi", [[BFTDataHandler sharedInstance] BUN]];

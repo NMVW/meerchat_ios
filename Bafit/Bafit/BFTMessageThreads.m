@@ -8,7 +8,7 @@
 
 #import "BFTMessageThreads.h"
 #import "BFTBackThreadItem.h"
-#import "JSQMessage.h"
+#import "JSQTextMessage.h"
 
 @implementation BFTMessageThreads
 
@@ -34,7 +34,7 @@
 -(void)addMessageToThread:(NSString *)message from:(NSString *)sender {
     self.unreadMessages = YES;
     
-    JSQMessage *msg = [[JSQMessage alloc] initWithText:message sender:sender date:[NSDate new]];
+    JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:sender senderDisplayName:sender date:[NSDate new] text:message];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
@@ -76,6 +76,11 @@
     
     [data writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"] atomically:YES];
     NSLog(@"Messages Saved");
+}
+
+-(void)clearThreads {
+    self.listOfThreads = [[NSMutableOrderedSet alloc] init];
+    [self saveThreads];
 }
 
 -(void)resetUnread {

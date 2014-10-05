@@ -1,6 +1,6 @@
 //
 //  Created by Jesse Squires
-//  http://www.hexedbits.com
+//  http://www.jessesquires.com
 //
 //
 //  Documentation
@@ -16,35 +16,63 @@
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
+#import "JSQMessageMediaData.h"
 
 /**
- *  The `JSQMessageData` protocol defines the common interface through 
- *  which `JSQMessagesViewController` and `JSQMessagesCollectionView` interacts with message model objects.
+ *  The `JSQMessageData` protocol defines the common interface through which 
+ *  a `JSQMessagesViewController` and `JSQMessagesCollectionView` interact with message model objects.
  *
  *  It declares the required and optional methods that a class must implement so that instances of that class 
- *  can be displayed properly with a `JSQMessagesCollectionViewCell`.
+ *  can be displayed properly within a `JSQMessagesCollectionViewCell`.
+ *
+ *  Two concrete classes that conform to this protocol are provided in the library. See `JSQTextMessage` and `JSQMediaMessage`.
+ *
+ *  @see JSQMessage, JSQTextMessage, JSQMediaMessage.
  */
 @protocol JSQMessageData <NSObject>
 
 @required
 
 /**
- *  @return The body text of the message. 
+ *  @return A string identifier that uniquely identifies the user who sent the message.
+ *
+ *  @discussion If you need to generate a unique identifier, consider using 
+ *  `[[NSProcessInfo processInfo] globallyUniqueString]`
+ *
+ *  @warning You must not return `nil` from this method. This value must be unique.
+ */
+- (NSString *)senderId;
+
+/**
+ *  @return The display name for the user who sent the message.
+ *
+ *  @warning You must not return `nil` from this method.
+ */
+- (NSString *)senderDisplayName;
+
+/**
+ *  @return The date that the message was sent.
+ *
+ *  @warning You must not return `nil` from this method.
+ */
+- (NSDate *)date;
+
+@optional
+
+/**
+ *  @return The body text of the message.
+ *
  *  @warning You must not return `nil` from this method.
  */
 - (NSString *)text;
 
 /**
- *  @return The name of the user who sent the message.
+ *  @return The media item of the message.
+ *  
  *  @warning You must not return `nil` from this method.
  */
-- (NSString *)sender;
-
-/**
- *  @return The date that the message was sent.
- *  @warning You must not return `nil` from this method.
- */
-- (NSDate *)date;
+- (id<JSQMessageMediaData>)media;
 
 @end

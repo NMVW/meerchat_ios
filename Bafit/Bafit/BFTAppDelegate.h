@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <CoreLocation/CoreLocation.h>
-#import <Appsee/Appsee.h>
 #import "BFTMessageDelegate.h"
 #import "XMPP.h"
 

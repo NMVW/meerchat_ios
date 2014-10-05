@@ -24,4 +24,6 @@
 
 -(void)resetUnread;
 
+-(void)clearThreads;
+
 @end

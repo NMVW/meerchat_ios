@@ -1,6 +1,6 @@
 //
 //  Created by Jesse Squires
-//  http://www.hexedbits.com
+//  http://www.jessesquires.com
 //
 //
 //  Documentation
@@ -26,7 +26,7 @@
 
 + (UIButton *)defaultAccessoryButtonItem
 {
-    UIImage *cameraImage = [UIImage imageNamed:@"camera"];
+    UIImage *cameraImage = [UIImage imageNamed:@"clip"];
     UIImage *cameraNormal = [cameraImage jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
     UIImage *cameraHighlighted = [cameraImage jsq_imageMaskedWithColor:[UIColor darkGrayColor]];
     

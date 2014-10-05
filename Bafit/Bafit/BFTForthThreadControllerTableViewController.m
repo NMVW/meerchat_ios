@@ -7,7 +7,7 @@
 //
 
 #import "BFTForthThreadControllerTableViewController.h"
-#import "JSQMessage.h"
+#import "JSQTextMessage.h"
 #import "JSQMessagesBubbleImageFactory.h"
 #import "JSQMessagesTimeStampFormatter.h"
 #import "JSQMessagesCollectionViewCell.h"
@@ -28,15 +28,12 @@
     self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     self.title = [NSString stringWithFormat:@"@%@", self.otherPersonsUserName];
-    self.sender = [[BFTDataHandler sharedInstance] BUN] ?: @"me";
+    self.senderId = [[BFTDataHandler sharedInstance] BUN] ?: @"me";
     
     //I don't know why I had to do this to change the title color.. ohh well
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
     
     [self loadMessages];
-    
-    self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory outgoingMessageBubbleImageViewWithColor:[UIColor whiteColor]];
-    self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory incomingMessageBubbleImageViewWithColor:[UIColor whiteColor]];
     
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
@@ -69,7 +66,7 @@
 
 #pragma mark - JSQMessagesViewController
 
--(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text sender:(NSString *)sender date:(NSDate *)date {
+-(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
     //send the message to the database
     [[[BFTDatabaseRequest alloc] initWithURLString:[[NSString alloc] initWithFormat:@"sendText.php?UIDr=%@&UIDp=%@&TEXT=%@", [[BFTDataHandler sharedInstance] UID], self.otherPersonsUserID, text] trueOrFalseBlock:^(BOOL success, NSError *error) {
         if (!error) {
@@ -86,7 +83,7 @@
     //TODO: Carlo wants us to use the database for messaging, and xmpp just to notify of when we need updates. This could then be modified to notify of something specific
     [self.appDelegate sendMessage:text toUser:self.otherPersonsUserName];
     
-    JSQMessage *message = [[JSQMessage alloc] initWithText:text sender:sender date:date];
+    JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
     [[self.messageThread listOfMessages] addObject:message];
     
     [self finishSendingMessage];
@@ -98,16 +95,22 @@
     return [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
 }
 
-- (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView bubbleImageViewForItemAtIndexPath:(NSIndexPath *)indexPath {
-    JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+- (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    /**
+     *  You may return nil here if you do not want bubbles.
+     *  In this case, you should set the background color of your collection view cell's textView.
+     *
+     *  Otherwise, return your previously created bubble image data objects.
+     */
     
-    if ([message.sender isEqualToString:self.sender]) {
-        return [[UIImageView alloc] initWithImage:self.outgoingBubbleImageView.image
-                                 highlightedImage:self.outgoingBubbleImageView.highlightedImage];
+    JSQTextMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+    
+    if ([message.senderId isEqualToString:self.senderId]) {
+        return [JSQMessagesBubbleImageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     }
     
-    return [[UIImageView alloc] initWithImage:self.incomingBubbleImageView.image
-                             highlightedImage:self.incomingBubbleImageView.highlightedImage];
+    return [JSQMessagesBubbleImageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
 }
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,18 +132,18 @@
     JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
     
     //no name if its me
-    if ([message.sender isEqualToString:self.sender]) {
+    if ([message.senderId isEqualToString:self.senderId]) {
         return nil;
     }
     
     if (indexPath.item - 1 > 0) {
         JSQMessage *previousMessage = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item - 1];
-        if ([[previousMessage sender] isEqualToString:message.sender]) {
+        if ([[previousMessage senderId] isEqualToString:message.senderId]) {
             return nil;
         }
     }
 
-    return [[NSAttributedString alloc] initWithString:message.sender];
+    return [[NSAttributedString alloc] initWithString:message.senderId];
 }
 
 #pragma mark - UICollectionView DataSource
@@ -175,13 +178,13 @@
 {
     //no label for sender
     JSQMessage *currentMessage = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
-    if ([[currentMessage sender] isEqualToString:self.sender]) {
+    if ([[currentMessage senderId] isEqualToString:self.senderId]) {
         return 0.0f;
     }
     
     if (indexPath.item - 1 > 0) {
         JSQMessage *previousMessage = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item - 1];
-        if ([[previousMessage sender] isEqualToString:[currentMessage sender]]) {
+        if ([[previousMessage senderId] isEqualToString:[currentMessage senderId]]) {
             return 0.0f;
         }
     }
