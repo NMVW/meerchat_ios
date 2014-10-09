@@ -19,7 +19,7 @@
     self = [super init];
     if (self) {
         self.videoURL = contentURL;
-        [self initView];
+        [self initViewWithFrame:CGRectMake(0, 0, 200, 200)];
     }
     return self;
 }
@@ -29,18 +29,28 @@
     if (self) {
         self.videoURL = contentURL;
         self.thumbURL = thumbURL;
-        [self initView];
+        [self initViewWithFrame:CGRectMake(0, 0, 200, 200)];
+    }
+    return self;
+}
+
+-(instancetype)initWithVideoURL:(NSURL *)contentURL andThumbURL:(NSURL *)thumbURL frame:(CGRect)frame {
+    self = [super init];
+    if (self) {
+        self.videoURL = contentURL;
+        self.thumbURL = thumbURL;
+        [self initViewWithFrame:frame];
     }
     return self;
 }
 
 #pragma mark - View
 
--(void)initView {
-    self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+-(void)initViewWithFrame:(CGRect)frame {
+    self.view = [[UIView alloc] initWithFrame:frame];
     
     //Thumbnail
-    UIImageView *videoThumb = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, 200, 200)];
+    UIImageView *videoThumb = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     videoThumb.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
     [videoThumb setContentMode:UIViewContentModeScaleAspectFit];
     
@@ -69,7 +79,7 @@
     AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:self.videoURL];
     AVPlayer *avPlayer = [[AVPlayer alloc] initWithPlayerItem:avPlayeritem];
     AVPlayerLayer *avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:avPlayer];
-    [avPlayerLayer setFrame:self.view.frame];
+    [avPlayerLayer setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [avPlayerLayer setNeedsLayout];
     [self.view.layer addSublayer:avPlayerLayer];

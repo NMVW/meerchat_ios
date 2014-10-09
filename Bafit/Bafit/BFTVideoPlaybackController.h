@@ -16,6 +16,7 @@
 
 -(instancetype)initWithVideoURL:(NSURL *)videoURL;
 -(instancetype)initWithVideoURL:(NSURL *)videoURL andThumbURL:(NSURL *)thumbURL;
+-(instancetype)initWithVideoURL:(NSURL *)videoURL andThumbURL:(NSURL *)thumbURL frame:(CGRect)frame;
 
 -(void)prepareToPlay;
 -(void)togglePlayback;
