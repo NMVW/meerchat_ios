@@ -119,7 +119,9 @@
 }
 
 -(void)stop {
-    [self pause];
+    if (_videoIsPlaying) {
+        [self pause];
+    }
     [self playbackComplete];
 }
 

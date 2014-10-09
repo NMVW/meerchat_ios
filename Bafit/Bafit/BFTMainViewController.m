@@ -261,7 +261,7 @@
     NSURL *videoURL = [[NSURL alloc] initWithString:[[_videoPosts objectAtIndex:index] videoURL]];
     
     BFTVideoPlaybackController* videoPlayer = [[BFTVideoPlaybackController alloc] initWithVideoURL:videoURL andThumbURL:thumbURL frame:CGRectMake(0, 60, 200, 220)];
-    [_videoPlaybackControllers setObject:videoPlayer forKey:[NSNumber numberWithInt:index]];
+    [_videoPlaybackControllers setObject:videoPlayer forKey:[NSNumber numberWithUnsignedInteger:index]];
     
     _videoView = videoPlayer.view;
     [view addSubview:videoPlayer.view];
@@ -327,7 +327,12 @@
 }
 
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
-    BFTVideoPlaybackController* videoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithInt:index]];
+    BFTVideoPlaybackController* videoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+    if (self.currentVideoPlaybackIndex != index) {
+        BFTVideoPlaybackController* lastVideoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:self.currentVideoPlaybackIndex]];
+        [lastVideoPlayer stop];
+    }
+    self.currentVideoPlaybackIndex = index;
     [videoPlayer togglePlayback];
 }
 

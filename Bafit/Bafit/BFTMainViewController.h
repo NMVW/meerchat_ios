@@ -35,6 +35,7 @@
 @property (nonatomic, strong) NSArray *tempHashTags;
 
 @property (nonatomic, strong) NSMutableDictionary *videoPlaybackControllers;
+@property (nonatomic, assign) NSUInteger currentVideoPlaybackIndex;
 
 @property (retain, nonatomic) IBOutlet iCarousel *carousel;
 @property (retain, nonatomic) NSMutableArray *items;
