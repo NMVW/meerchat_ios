@@ -10,7 +10,7 @@
 
 @protocol BFTMessageDelegate <NSObject>
 
--(void)recievedMessage:(NSString*)message fromSender:(NSString*)sender;
+-(void)recievedMessage;
 
 @optional
 -(void)friendOnline:(NSString*)buddy;

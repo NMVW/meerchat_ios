@@ -26,7 +26,8 @@
 -(void)setupStream;
 -(void)goOnline;
 -(void)goOffline;
--(void)sendMessage:(NSString*)message toUser:(NSString*)user;
+-(void)sendTextMessage:(NSString*)message toUser:(NSString*)user;
+-(void)sendVideoMessageWithURL:(NSString*)videoURL thumbURL:(NSString*)thumbURL toUser:(NSString*)user;
 
 
 @end

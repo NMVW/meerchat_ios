@@ -35,8 +35,6 @@
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
     self.inputToolbar.tintColor = [UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0];
-
-    self.inputToolbar.contentView.leftBarButtonItem = nil;
     
     //this is not working for whatever reason
     //UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
@@ -77,7 +75,7 @@
     
     //send the message to the xmpp server
     //TODO: Carlo wants us to use the database for messaging, and xmpp just to notify of when we need updates. This could then be modified to notify of something specific
-    [self.appDelegate sendMessage:text toUser:self.otherPersonsUserName];
+    [self.appDelegate sendTextMessage:text toUser:self.otherPersonsUserName];
     
     JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
     [[self.messageThread listOfMessages] addObject:message];
@@ -155,7 +153,7 @@
     return cell;
 }
 
-#pragma mark CollectionViewDelegate
+#pragma mark - CollectionView Delegate
 
 -(void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
     id<JSQMessageData> messageItem = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
@@ -163,10 +161,13 @@
     BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
     
     if (isMediaMessage) {
+        if (!(self.indexOfLastPlayedVideo == indexPath.row)) {
+            [self stopPlayingLastVideo];
+        }
         BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
         [mediaItem togglePlayback];
+        self.indexOfLastPlayedVideo = indexPath.row;
     }
-
 }
 
 #pragma mark - Adjusting cell label heights
@@ -205,16 +206,33 @@
     return 0.0f;
 }
 
-#pragma mark Message Delegate
+#pragma mark - Toolbar Delegate
 
--(void)recievedMessage:(NSString *)message fromSender:(NSString *)sender {
+-(void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressLeftBarButton:(UIButton *)sender {
+    //Go to record view
+}
+
+#pragma mark - Message Delegate
+
+-(void)recievedMessage {
     //this should already be handled in the BFTMessages class
     //Note: TODO: Carlo wants us to actually pull the messages here, but Since I'm already getting the message from xmpp, I'm not going to at this time.
     
     [self finishReceivingMessage];
 }
 
-#pragma mark Other
+#pragma mark - Video Playback
+
+-(void)stopPlayingLastVideo {
+    id<JSQMessageData> messageItem = [self.collectionView.dataSource collectionView:self.collectionView messageDataForItemAtIndexPath:[NSIndexPath indexPathForItem:self.indexOfLastPlayedVideo inSection:0]];
+    
+    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
+    
+    if (isMediaMessage) {
+        BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
+        [mediaItem endVideoPlayback];
+    }
+}
 
 -(void)loadMessages {
     

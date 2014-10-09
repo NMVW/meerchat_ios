@@ -435,7 +435,7 @@
 
 #pragma mark Message Delegate
 
--(void)recievedMessage:(NSString *)message fromSender:(NSString *)sender {
+-(void)recievedMessage {
     //checking a bool is faster than reassigning the image everytime we get a message
     if (!self.notificationImageAssigned) {
         [self.backButton setImage:[UIImage imageNamed:@"baf_left_active.png"] forState:UIControlStateNormal];

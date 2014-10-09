@@ -212,22 +212,6 @@
     [self goOnline];
 }
 
--(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-    NSString *msg = [[message elementForName:@"body"] stringValue];
-    NSString *from = [[message attributeForName:@"from"] stringValue];
-    NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
-    
-    if (!msg) {
-        return;
-    }
-    
-    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
-
-    [self.messageDelegate recievedMessage:msg fromSender:username]; //if we are on the messaging screen, we will update that too
-    
-    NSLog(@"Message Recieved:\nFrom: %@\nMessage:\n%@", from, msg);
-}
-
 //this is called when a buddy goes online/offline, we aren't using this right now
 -(void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
     NSString *presenceType = [presence type]; // online/offline
@@ -249,8 +233,48 @@
     NSLog(@"%@ just changed his status to %@", presenceFromUser, presenceType);
 }
 
-//sends a message through the xmpp stream. 
--(void)sendMessage:(NSString*)messageBody toUser:(NSString*)user {
+-(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
+    NSString *type = [[message attributeForName:@"type"] stringValue];
+    if ([type isEqualToString:@"chat"]) {
+        [self textMessageRecieved:message];
+    }
+    else if ([type isEqualToString:@"video"]) {
+        [self videoMessageRecieved:message];
+    }
+}
+
+-(void)textMessageRecieved:(XMPPMessage*)message {
+    NSString *msg = [[message elementForName:@"body"] stringValue];
+    NSString *from = [[message attributeForName:@"from"] stringValue];
+    NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
+    
+    if (!msg) {
+        return;
+    }
+    
+    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
+    
+    [self.messageDelegate recievedMessage]; //notify the current mesage delegate of recieved message
+    
+    NSLog(@"Message Recieved:\nFrom: %@\nMessage:\n%@", from, msg);
+}
+
+-(void)videoMessageRecieved:(XMPPMessage*)message {
+    NSXMLElement *body = [message elementForName:@"body"];
+    NSString *videoURL = [[body attributeForName:@"videoURL"] stringValue];
+    NSString *thumbURL = [[body attributeForName:@"thumbURL"] stringValue];
+    
+    NSString *from = [[message attributeForName:@"from"] stringValue];
+    NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
+    
+    [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username];
+    
+    [self.messageDelegate recievedMessage];
+    NSLog(@"Video Message Recieved:\nFrom: %@\nMessage:\n%@", username, videoURL);
+}
+
+//sends a message through the xmpp stream.
+-(void)sendTextMessage:(NSString*)messageBody toUser:(NSString*)user {
     user = [[NSString alloc] initWithFormat:@"%@@meerchat.mobi", user];
     
     NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
@@ -264,6 +288,23 @@
     [self.xmppStream sendElement:message];
     
     NSLog(@"Send Message to User with Body: %@", messageBody);
+}
+
+-(void)sendVideoMessageWithURL:(NSString *)videoURL thumbURL:(NSString *)thumbURL toUser:(NSString *)user {
+    user = [[NSString alloc] initWithFormat:@"%@@meerchat.mobi", user];
+    
+    NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+    [body addAttributeWithName:@"videoURL" stringValue:videoURL];
+    [body addAttributeWithName:@"thumbURL" stringValue:thumbURL];
+    
+    NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+    [message addAttributeWithName:@"type" stringValue:@"video"];
+    [message addAttributeWithName:@"to" stringValue:user];
+    [message addChild:body];
+    
+    [self.xmppStream sendElement:message];
+    
+    NSLog(@"Send Video Message to User with URL: %@", videoURL);
 }
 
 #pragma mark CLLocation Manager

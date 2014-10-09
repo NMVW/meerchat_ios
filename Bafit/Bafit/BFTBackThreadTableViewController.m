@@ -140,7 +140,7 @@
 
 #pragma mark Messaging Delegate
 
--(void)recievedMessage:(NSString *)message fromSender:(NSString *)sender {
+-(void)recievedMessage {
     //the actual recieving of the message is handled in the singleton, which we are getting are information from. we just need to reload the table data
     [self.tableView reloadData];
 }
