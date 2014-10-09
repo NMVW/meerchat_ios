@@ -8,7 +8,9 @@
 
 #import "BFTMessageThreads.h"
 #import "BFTBackThreadItem.h"
+#import "BFTVideoMediaItem.h"
 #import "JSQTextMessage.h"
+#import "JSQMediaMessage.h"
 
 @implementation BFTMessageThreads
 
@@ -35,6 +37,28 @@
     self.unreadMessages = YES;
     
     JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:sender senderDisplayName:sender date:[NSDate new] text:message];
+    
+    BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
+    newItem.username = sender;
+    
+    NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
+    if (indexOfOldObject == NSNotFound) {
+        newItem.lastMessageTime = [NSDate new];
+        [newItem.listOfMessages addObject:msg];
+        [self.listOfThreads addObject:newItem];
+    }
+    else {
+        BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
+        item.lastMessageTime = [NSDate new];
+        [item.listOfMessages addObject:msg];
+    }
+}
+
+-(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender {
+    self.unreadMessages = YES;
+    
+    BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL];
+    JSQMediaMessage *msg = [[JSQMediaMessage alloc] initWithSenderId:sender senderDisplayName:sender date:[NSDate new] media:videoItem];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;

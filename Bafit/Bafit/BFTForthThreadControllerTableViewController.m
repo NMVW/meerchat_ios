@@ -7,14 +7,10 @@
 //
 
 #import "BFTForthThreadControllerTableViewController.h"
-#import "JSQTextMessage.h"
-#import "JSQMessagesBubbleImageFactory.h"
-#import "JSQMessagesTimeStampFormatter.h"
-#import "JSQMessagesCollectionViewCell.h"
-#import "JSQMessagesInputToolbar.h"
-#import "JSQMessagesToolbarContentView.h"
+#import <JSQMessagesViewController/JSQMessages.h>
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
+#import "BFTVideoMediaItem.h"
 
 @interface BFTForthThreadControllerTableViewController ()
 
@@ -146,8 +142,6 @@
     return [[NSAttributedString alloc] initWithString:message.senderId];
 }
 
-#pragma mark - UICollectionView DataSource
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [[self.messageThread listOfMessages] count];
 }
@@ -159,6 +153,20 @@
     cell.textView.tintColor = [UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0];
     
     return cell;
+}
+
+#pragma mark CollectionViewDelegate
+
+-(void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
+    id<JSQMessageData> messageItem = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
+    
+    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
+    
+    if (isMediaMessage) {
+        BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
+        [mediaItem togglePlayback];
+    }
+
 }
 
 #pragma mark - Adjusting cell label heights

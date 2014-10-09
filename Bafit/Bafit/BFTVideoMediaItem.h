@@ -7,19 +7,22 @@
 //
 
 #import "JSQMessageMediaData.h"
+#import "BFTVideoPlaybackController.h"
 
 @interface BFTVideoMediaItem : NSObject <JSQMessageMediaData, NSCoding, NSCopying>
 
 
 @property (strong, nonatomic) NSURL *videoURL;
-@property (nonatomic, assign) BOOL canPlayVideo;
+@property (strong, nonatomic) NSURL *thumbURL;
+
+@property (nonatomic, strong) BFTVideoPlaybackController* videoView;
 
 -(instancetype)initWithURL:(NSURL*)url;
 -(instancetype)initWithURLString:(NSString*)url;
+-(instancetype)initWithVideoURL:(NSString*)url thumbURL:(NSString*)thumbURL;
 
+-(void)togglePlayback;
 -(void)beginVideoPlayback;
 -(void)endVideoPlayback;
-
--(void)videoPlaybackDidFinish;
 
 @end
