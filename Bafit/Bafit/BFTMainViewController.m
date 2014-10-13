@@ -12,6 +12,7 @@
 #import "BFTAppDelegate.h"
 #import "BFTPostViewController.h"
 #import "BFTDataHandler.h"
+#import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTVideoPost.h"
 #import "BFTMessageThreads.h"
@@ -30,6 +31,9 @@
     //init temp image cahce with max size of 100 mb
     _tempImageCache = [[NSCache alloc] init];
     [_tempImageCache setTotalCostLimit:100*1024*1024];
+    
+    //start PostHandler
+    [[BFTPostHandler sharedInstance] setPostUID:[[BFTDataHandler sharedInstance]UID]];
     
     //init array of temp hash tags
     _tempHashTags = [[NSArray alloc] initWithObjects:@"#hookup",@"#cantina101",@"#tequila", nil];
@@ -243,7 +247,7 @@
     
     UILabel *responseLabel = [[UILabel alloc] initWithFrame:topTrapazoid.bounds];
     responseLabel.center = CGPointMake(178, 15);
-    responseLabel.textColor = [UIColor colorWithRed:243/255.0f green:172/255.0f blue:40/255.0f alpha:1.0];
+    responseLabel.textColor = [UIColor colorWithRed:204/255.0f green:204/255.0f blue:204/255.0f alpha:1.0];
     responseLabel.font = [responseLabel.font fontWithSize:13];
     responseLabel.tag = 8;
     responseLabel.text = @"respond";
@@ -302,7 +306,7 @@
     //Labels
     UILabel *notTodayLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
     notTodayLabel.center = CGPointMake(175, 325);
-    notTodayLabel.textColor = [UIColor colorWithRed:243/255.0f green:172/255.0f blue:40/255.0f alpha:1.0];
+    notTodayLabel.textColor = [UIColor colorWithRed:204/255.0f green:204/255.0f blue:204/255.0f alpha:1.0];
     notTodayLabel.font = [notTodayLabel.font fontWithSize:13];
     notTodayLabel.tag = 11;
     notTodayLabel.text = @"not today";

@@ -8,6 +8,7 @@
 
 #import "BFTMeerPostViewController.h"
 #import "BFTDataHandler.h"
+#import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "CaptureManager.h"
 
@@ -42,9 +43,9 @@
     [self.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [self.navigationBar setTranslucent:NO];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"appcoda-logo.png"]];
+    navItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"post_center.png"]];
     UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30, 30)];
-    [backButton setImage:[UIImage imageNamed:@"Milo_Face_Navbar.png"]  forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"milo_backtohome.png"]  forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(popVC) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:backButton];
     navItem.leftBarButtonItem = barbtn;
@@ -82,11 +83,15 @@
             for (NSDictionary *dict in responseJSON) {
                 NSLog(@"Object value: %@", [dict allKeys]);
                 [[BFTDataHandler sharedInstance] setMp4Name:[dict objectForKey:@"FName"]];
+                [[BFTPostHandler sharedInstance] setPostMC:[dict objectForKey:@"MC"]];
+                [[BFTPostHandler sharedInstance] setPostFName:[dict objectForKey:@"FName"]];
             }
         }else{
             NSLog(@"No Data recived for file type");
         }
     }] startConnection];
+    //while here set the Username
+    [[BFTPostHandler sharedInstance] setPostAT_Tag:[[BFTDataHandler sharedInstance] BUN]];
     NSLog(@"%@", [[BFTDataHandler sharedInstance] mp4Name]);
 }
 
@@ -164,6 +169,71 @@
         }
     }] startConnection];
     
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([_hashtagEditText isFirstResponder] && [touch view] != _hashtagEditText) {
+        [_hashtagEditText resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
+}
+
+- (IBAction)moveClicked:(id)sender {
+    if(![_moveButton isSelected]){
+        [[BFTPostHandler sharedInstance] setPostCategory:1];
+        [_moveButton setSelected:YES];
+        [_studyButton setSelected:NO];
+        [_loveButton setSelected:NO];
+        [_grubButton setSelected:NO];
+    }else{
+        [_moveButton setSelected:NO];
+        [[BFTPostHandler sharedInstance] setPostCategory:0];
+    }
+}
+
+- (IBAction)grubClicked:(id)sender {
+    if(![_grubButton isSelected]){
+        [[BFTPostHandler sharedInstance] setPostCategory:2];
+        [_grubButton setSelected:YES];
+        [_studyButton setSelected:NO];
+        [_loveButton setSelected:NO];
+        [_moveButton setSelected:NO];
+    }else{
+        [_grubButton setSelected:NO];
+        [[BFTPostHandler sharedInstance] setPostCategory:0];
+    }
+}
+
+- (IBAction)loveClicked:(id)sender {
+    if(![_loveButton isSelected]){
+        [[BFTPostHandler sharedInstance] setPostCategory:3];
+        [_loveButton setSelected:YES];
+        [_studyButton setSelected:NO];
+        [_moveButton setSelected:NO];
+        [_grubButton setSelected:NO];
+    }else{
+        [_loveButton setSelected:NO];
+        [[BFTPostHandler sharedInstance] setPostCategory:0];
+    }
+}
+
+- (IBAction)studyClicked:(id)sender {
+    if(![_studyButton isSelected]){
+        [[BFTPostHandler sharedInstance] setPostCategory:4];
+        [_studyButton setSelected:YES];
+        [_moveButton setSelected:NO];
+        [_loveButton setSelected:NO];
+        [_grubButton setSelected:NO];
+    }else{
+        [_studyButton setSelected:NO];
+        [[BFTPostHandler sharedInstance] setPostCategory:0];
+    }
+}
+
+- (IBAction)updateHashtag:(id)sender {
+    [[BFTPostHandler sharedInstance] setPostHash_tag:[_hashtagEditText text]];
 }
 
 /*

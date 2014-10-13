@@ -8,6 +8,7 @@
 
 #import "BFTViewController.h"
 #import "BFTDataHandler.h"
+#import "BFTPostHandler.h"
 #import "BFTLoginhandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTAppDelegate.h"
@@ -128,6 +129,7 @@
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"userExists.php?FBemail=%@", email] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Facebook Data: %@", response);
             NSArray *values = [response componentsSeparatedByString:@","];
             if (![values[0] isEqualToString:@""]) {
                 //if the response is successful, we set the uid to the datahandler, and go to mainview, otherwise, we go to the loginview
@@ -201,6 +203,21 @@
 }
 
 -(void)sendFBDemographicInfo:(id<FBGraphUser>)user {
+    
+    NSLog(@"BF Info: %@", user);
+    [[BFTDataHandler sharedInstance] setUserInfo:user];
+    //upload friends list
+    [FBRequestConnection startWithGraphPath:@"/me/friendlists"
+                                 parameters:nil
+                                 HTTPMethod:@"GET"
+                          completionHandler:^(
+                                              FBRequestConnection *connection,
+                                              id result,
+                                              NSError *error
+                                              ) {
+                              [[BFTDataHandler sharedInstance] setFBFriends:result];
+                              NSLog(@"Friend Result: %@", result);
+                          }];
     NSLog(@"Sending FB Demographics");
 }
 

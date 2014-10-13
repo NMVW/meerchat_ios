@@ -27,6 +27,8 @@
         _images = [[NSMutableArray alloc] init];
         _postView = false;
         _mp4Name = @"";
+        _userInfo = nil;
+        _FBFriends = nil;
     }
     return self;
 }

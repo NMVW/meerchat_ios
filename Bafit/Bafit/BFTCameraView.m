@@ -11,6 +11,7 @@
 #import "AVCamRecorder.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
+#import "BFTMeerPostViewController.h"
 
 @interface BFTCameraView () <UIGestureRecognizerDelegate>
 
@@ -154,18 +155,16 @@
             
             [weakSelf performSelector:@selector(refresh) withObject:nil afterDelay:0.5];
             NSLog(@"Save Success");
-            
-        
-            
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Error" message:@"video unable to be saved" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Error" message:@"video unable to be saved, please contact support" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
             [alert show];
         }
         
         if (success == YES) {
-            NSLog(@"Navigate to main view");       }
+            NSLog(@"Navigate to main view");
+        }
     }];
     
 }

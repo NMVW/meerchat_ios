@@ -181,6 +181,16 @@
 		807F5BA2199329BC00528829 /* BFTVideoMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5BA1199329BC00528829 /* BFTVideoMain.m */; };
 		807F5BBD19954CED00528829 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5BBB19954CED00528829 /* Default-568h@2x.png */; };
 		807F5BBE19954CED00528829 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 807F5BBC19954CED00528829 /* Default.png */; };
+		80844C5D19E38E1100545AB1 /* milo_backtohome.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C5B19E38E1100545AB1 /* milo_backtohome.png */; };
+		80844C5E19E38E1100545AB1 /* milo_backtohome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C5C19E38E1100545AB1 /* milo_backtohome@2x.png */; };
+		80844C6119E38EFB00545AB1 /* post_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C5F19E38EFB00545AB1 /* post_center.png */; };
+		80844C6219E38EFB00545AB1 /* post_center@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6019E38EFB00545AB1 /* post_center@2x.png */; };
+		80844C6519E3911B00545AB1 /* msg_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6319E3911B00545AB1 /* msg_center.png */; };
+		80844C6619E3911B00545AB1 /* msg_center@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6419E3911B00545AB1 /* msg_center@2x.png */; };
+		80844C6C19E4E31000545AB1 /* ForgottenFuturistRg_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6A19E4E0C800545AB1 /* ForgottenFuturistRg_Bold.ttf */; };
+		80844C6D19E4E31000545AB1 /* ForgottenFuturistRg_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6B19E4E0C800545AB1 /* ForgottenFuturistRg_Regular.ttf */; };
+		80844C6E19E4E31000545AB1 /* ForgottenFuturistRg_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6819E4E07900545AB1 /* ForgottenFuturistRg_Bold.otf */; };
+		80844C6F19E4E31000545AB1 /* ForgottenFuturistRg_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6919E4E07900545AB1 /* ForgottenFuturistRg_Regular.otf */; };
 		80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */; };
 		80DCD0FB19A6C3B2002B9AFD /* Milo_Face_Full.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */; };
 		80DCD0FD19A6C786002B9AFD /* Milo_Face_Navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FC19A6C786002B9AFD /* Milo_Face_Navbar.png */; };
@@ -197,6 +207,7 @@
 		80F650FC1980979700443673 /* BFTVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F650FB1980979700443673 /* BFTVideoPost.m */; };
 		80F651001980A4DD00443673 /* BFTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F650FF1980A4DD00443673 /* BFTMainViewController.m */; };
 		80F81E6319C2604D00533EC8 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E0197EBEC300443673 /* FacebookSDK.framework */; };
+		80FBB4AF19E5D55F00AEBB69 /* BFTPostHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FBB4AE19E5D55F00AEBB69 /* BFTPostHandler.m */; };
 		80FD6DF31980CDF5005AD023 /* BFTHTTPCLIENT.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FD6DF21980CDF5005AD023 /* BFTHTTPCLIENT.m */; };
 /* End PBXBuildFile section */
 
@@ -466,6 +477,16 @@
 		807F5BA1199329BC00528829 /* BFTVideoMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoMain.m; sourceTree = "<group>"; };
 		807F5BBB19954CED00528829 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		807F5BBC19954CED00528829 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		80844C5B19E38E1100545AB1 /* milo_backtohome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = milo_backtohome.png; path = "../../../Buttons & Icons 3/milo_backtohome.png"; sourceTree = "<group>"; };
+		80844C5C19E38E1100545AB1 /* milo_backtohome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "milo_backtohome@2x.png"; path = "../../../Buttons & Icons 3/milo_backtohome@2x.png"; sourceTree = "<group>"; };
+		80844C5F19E38EFB00545AB1 /* post_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = post_center.png; path = "../../../Buttons & Icons 3/post_center.png"; sourceTree = "<group>"; };
+		80844C6019E38EFB00545AB1 /* post_center@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "post_center@2x.png"; path = "../../../Buttons & Icons 3/post_center@2x.png"; sourceTree = "<group>"; };
+		80844C6319E3911B00545AB1 /* msg_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = msg_center.png; path = "../../../Buttons & Icons 3/msg_center.png"; sourceTree = "<group>"; };
+		80844C6419E3911B00545AB1 /* msg_center@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "msg_center@2x.png"; path = "../../../Buttons & Icons 3/msg_center@2x.png"; sourceTree = "<group>"; };
+		80844C6819E4E07900545AB1 /* ForgottenFuturistRg_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Bold.otf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/ForgottenFuturistRg_Bold.otf"; sourceTree = "<group>"; };
+		80844C6919E4E07900545AB1 /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Regular.otf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/ForgottenFuturistRg_Regular.otf"; sourceTree = "<group>"; };
+		80844C6A19E4E0C800545AB1 /* ForgottenFuturistRg_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Bold.ttf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/Alternative files/ForgottenFuturistRg_Bold.ttf"; sourceTree = "<group>"; };
+		80844C6B19E4E0C800545AB1 /* ForgottenFuturistRg_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Regular.ttf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/Alternative files/ForgottenFuturistRg_Regular.ttf"; sourceTree = "<group>"; };
 		80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTDatabaseRequest.m; sourceTree = "<group>"; };
 		80CE6E39199CB9EA006543B2 /* BFTDatabaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTDatabaseRequest.h; sourceTree = "<group>"; };
 		80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Full.png; sourceTree = "<group>"; };
@@ -486,6 +507,8 @@
 		80F650FB1980979700443673 /* BFTVideoPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoPost.m; sourceTree = "<group>"; };
 		80F650FE1980A4DD00443673 /* BFTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMainViewController.h; sourceTree = "<group>"; };
 		80F650FF1980A4DD00443673 /* BFTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMainViewController.m; sourceTree = "<group>"; };
+		80FBB4AD19E5D55F00AEBB69 /* BFTPostHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPostHandler.h; sourceTree = "<group>"; };
+		80FBB4AE19E5D55F00AEBB69 /* BFTPostHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPostHandler.m; sourceTree = "<group>"; };
 		80FD6DF11980CDF5005AD023 /* BFTHTTPCLIENT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTHTTPCLIENT.h; sourceTree = "<group>"; };
 		80FD6DF21980CDF5005AD023 /* BFTHTTPCLIENT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTHTTPCLIENT.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -869,6 +892,12 @@
 		8021994219A9488D0042597A /* New_Images */ = {
 			isa = PBXGroup;
 			children = (
+				80844C6319E3911B00545AB1 /* msg_center.png */,
+				80844C6419E3911B00545AB1 /* msg_center@2x.png */,
+				80844C5F19E38EFB00545AB1 /* post_center.png */,
+				80844C6019E38EFB00545AB1 /* post_center@2x.png */,
+				80844C5B19E38E1100545AB1 /* milo_backtohome.png */,
+				80844C5C19E38E1100545AB1 /* milo_backtohome@2x.png */,
 				7CF7920819C2534E003EB61F /* baf_left_active.png */,
 				7CF7920919C2534E003EB61F /* baf_left_active@2x.png */,
 				7CF7920A19C2534E003EB61F /* baf_left_inactive.png */,
@@ -1018,6 +1047,7 @@
 		8040E96D1978FD59000D66C7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				80844C6719E4E06E00545AB1 /* Fonts */,
 				8040E96E1978FD59000D66C7 /* Bafit-Info.plist */,
 				8040E96F1978FD59000D66C7 /* InfoPlist.strings */,
 				8040E9721978FD59000D66C7 /* main.m */,
@@ -1066,6 +1096,8 @@
 				7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */,
 				8058E1B71988722400DF2F4F /* BFTLocationHandler.h */,
 				8058E1B81988722400DF2F4F /* BFTLocationHandler.m */,
+				80FBB4AD19E5D55F00AEBB69 /* BFTPostHandler.h */,
+				80FBB4AE19E5D55F00AEBB69 /* BFTPostHandler.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1126,6 +1158,17 @@
 			children = (
 			);
 			name = icons;
+			sourceTree = "<group>";
+		};
+		80844C6719E4E06E00545AB1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				80844C6A19E4E0C800545AB1 /* ForgottenFuturistRg_Bold.ttf */,
+				80844C6B19E4E0C800545AB1 /* ForgottenFuturistRg_Regular.ttf */,
+				80844C6819E4E07900545AB1 /* ForgottenFuturistRg_Bold.otf */,
+				80844C6919E4E07900545AB1 /* ForgottenFuturistRg_Regular.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		80F650FD198097A400443673 /* Modal */ = {
@@ -1231,6 +1274,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80844C6C19E4E31000545AB1 /* ForgottenFuturistRg_Bold.ttf in Resources */,
+				80844C6D19E4E31000545AB1 /* ForgottenFuturistRg_Regular.ttf in Resources */,
+				80844C6E19E4E31000545AB1 /* ForgottenFuturistRg_Bold.otf in Resources */,
+				80844C6F19E4E31000545AB1 /* ForgottenFuturistRg_Regular.otf in Resources */,
 				7C64468719BCE1E10071D444 /* README.txt in Resources */,
 				8021998219A948CF0042597A /* move_btn_active@2x.png in Resources */,
 				803EE0F11984CCD200B86ACE /* trianglebluedown.png in Resources */,
@@ -1254,15 +1301,18 @@
 				807F5B68198AFB0A00528829 /* checkmarkusernameblue.png in Resources */,
 				8021997219A948CF0042597A /* Icon-Small.png in Resources */,
 				80DCD0FB19A6C3B2002B9AFD /* Milo_Face_Full.png in Resources */,
+				80844C5D19E38E1100545AB1 /* milo_backtohome.png in Resources */,
 				8021997419A948CF0042597A /* iTunesArtwork.png in Resources */,
 				8021997919A948CF0042597A /* grub_btn_active@2x.png in Resources */,
 				8021998E19A948CF0042597A /* trapezoid_menu_bottom@2x.png in Resources */,
 				8021997019A948CF0042597A /* Icon-76.png in Resources */,
 				7CF7920D19C2534E003EB61F /* baf_left_active@2x.png in Resources */,
+				80844C6219E38EFB00545AB1 /* post_center@2x.png in Resources */,
 				8021998C19A948CF0042597A /* study_btn_inactive@2x.png in Resources */,
 				807F5BBD19954CED00528829 /* Default-568h@2x.png in Resources */,
 				80F650F31980907100443673 /* shape_rounded-512.png in Resources */,
 				7CF7921119C2555A003EB61F /* Milo_Face_Navbar@2x.png in Resources */,
+				80844C6119E38EFB00545AB1 /* post_center.png in Resources */,
 				807F5B75198DE84600528829 /* dividerbar.png in Resources */,
 				807F5B77198E18CA00528829 /* Media.xcassets in Resources */,
 				8021997D19A948CF0042597A /* love_btn_active@2x.png in Resources */,
@@ -1274,6 +1324,7 @@
 				803EE0F01984CCD200B86ACE /* checkmarkusername.png in Resources */,
 				8021997C19A948CF0042597A /* love_btn_active.png in Resources */,
 				807F5B60198A0CC100528829 /* upper-trap.png in Resources */,
+				80844C5E19E38E1100545AB1 /* milo_backtohome@2x.png in Resources */,
 				8021997819A948CF0042597A /* grub_btn_active.png in Resources */,
 				80DCD0FD19A6C786002B9AFD /* Milo_Face_Navbar.png in Resources */,
 				802199AD19B426EC0042597A /* splash@2x.png in Resources */,
@@ -1281,6 +1332,7 @@
 				807F5BBE19954CED00528829 /* Default.png in Resources */,
 				8021997519A948CF0042597A /* iTunesArtwork@2x.png in Resources */,
 				8021997A19A948CF0042597A /* grub_btn_inactive.png in Resources */,
+				80844C6519E3911B00545AB1 /* msg_center.png in Resources */,
 				8021998519A948CF0042597A /* navbar.png in Resources */,
 				803EE0F21984CCD200B86ACE /* trianglered.png in Resources */,
 				7CF7920C19C2534E003EB61F /* baf_left_active.png in Resources */,
@@ -1311,6 +1363,7 @@
 				8021996E19A948CF0042597A /* Icon-60.png in Resources */,
 				8021997319A948CF0042597A /* Icon-Small@2x.png in Resources */,
 				7CF7920419C25341003EB61F /* baf_right_active.png in Resources */,
+				80844C6619E3911B00545AB1 /* msg_center@2x.png in Resources */,
 				807F5B37198A0CAD00528829 /* nav-bar.png in Resources */,
 				8021997619A948CF0042597A /* feedback_btn.png in Resources */,
 				80F650F41980907100443673 /* star-full-icon.png in Resources */,
@@ -1383,6 +1436,7 @@
 				7C64468219BCE1E10071D444 /* DDLog.m in Sources */,
 				802199A519AFB6E90042597A /* BFTFeedbackViewController.m in Sources */,
 				7C6446F919BCE6440071D444 /* XMPPIQ.m in Sources */,
+				80FBB4AF19E5D55F00AEBB69 /* BFTPostHandler.m in Sources */,
 				80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */,
 				7C64470419BCE6440071D444 /* XMPPSRVResolver.m in Sources */,
 				7C64470319BCE6440071D444 /* XMPPIDTracker.m in Sources */,
@@ -1587,8 +1641,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/keeanomartin/Documents/FacebookSDK,
@@ -1619,7 +1673,7 @@
 					"-lxml2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7dd9cf27-1654-4068-98c2-282965dfe5de";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1631,8 +1685,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/keeanomartin/Documents/FacebookSDK,
@@ -1663,7 +1717,7 @@
 					"-lxml2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7dd9cf27-1654-4068-98c2-282965dfe5de";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

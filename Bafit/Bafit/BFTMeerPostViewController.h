@@ -31,7 +31,21 @@
 @property (strong, nonatomic) BFTCameraView *embeddedRecordView;
 @property (nonatomic, assign) BOOL postFromView;
 @property (nonatomic, assign) NSString *mp4Name;
+@property (nonatomic, weak) NSString *MessageCount;
+@property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
+@property (strong, nonatomic) IBOutlet UITextField *hashtagEditText;
+@property (strong, nonatomic) IBOutlet UIButton *moveButton;
+@property (strong, nonatomic) IBOutlet UIButton *grubButton;
+@property (strong, nonatomic) IBOutlet UIButton *loveButton;
+@property (strong, nonatomic) IBOutlet UIButton *studyButton;
 
 -(void)uploadToMain;
+
+- (IBAction)moveClicked:(id)sender;
+- (IBAction)grubClicked:(id)sender;
+- (IBAction)loveClicked:(id)sender;
+- (IBAction)studyClicked:(id)sender;
+- (IBAction)updateHashtag:(id)sender;
+
 
 @end

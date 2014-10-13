@@ -48,11 +48,11 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO]; //not sure why we need to do this?
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     [self.navigationController.navigationBar setTranslucent:NO];
-    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"message_icon.png"]]];
+    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"msg_center.png"]]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     //hack to get an image where the right bar button goes
-    UIBarButtonItem *miloFace = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"Milo_Face_Navbar.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  style:UIBarButtonItemStylePlain target:self action:@selector(home:)];
+    UIBarButtonItem *miloFace = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"milo_backtohome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  style:UIBarButtonItemStylePlain target:self action:@selector(home:)];
     self.navigationItem.rightBarButtonItem = miloFace;
     
     [self.navigationItem setHidesBackButton:YES animated:NO];

@@ -27,6 +27,8 @@
 @property (nonatomic, retain) NSMutableArray *images;
 @property(assign) BOOL postView;
 @property (nonatomic, copy) NSString *mp4Name;
+@property (nonatomic, retain) id userInfo;
+@property (nonatomic, retain) id FBFriends;
 
 -(void)saveData;
 -(void)loadData;

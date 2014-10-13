@@ -79,6 +79,16 @@
             [[[UIAlertView alloc] initWithTitle:@"Could Not Create User" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         }
     }] startConnection];
+    
+    //send Facebook info
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/sendFBdata.php?FBemail=%@&Data=%@&Flist=%@", [[BFTDataHandler sharedInstance] FBEmail],[[BFTDataHandler sharedInstance] userInfo],[[BFTDataHandler sharedInstance] FBFriends]] completionBlock:^(NSMutableData *data, NSError *error) {
+        
+        if (!error) {
+            
+        }else{
+            NSLog(@"No Data recived for file type");
+        }
+    }] startConnection];
 }
 
 //this is used to set the background color for the button when highlighted
