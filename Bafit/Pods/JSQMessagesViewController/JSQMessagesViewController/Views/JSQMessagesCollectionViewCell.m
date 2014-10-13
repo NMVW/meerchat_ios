@@ -1,6 +1,6 @@
 //
 //  Created by Jesse Squires
-//  http://www.hexedbits.com
+//  http://www.jessesquires.com
 //
 //
 //  Documentation
@@ -31,9 +31,11 @@
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *messageBubbleTopLabel;
 @property (weak, nonatomic) IBOutlet JSQMessagesLabel *cellBottomLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *messageBubbleContainerView;
+@property (weak, nonatomic) IBOutlet UIImageView *messageBubbleImageView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
-@property (weak, nonatomic) IBOutlet UIView *messageBubbleContainerView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIView *avatarContainerView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewTopVerticalSpaceConstraint;
@@ -54,14 +56,9 @@
 
 @property (assign, nonatomic) CGSize avatarViewSize;
 
-@property (weak, nonatomic, readwrite) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (weak, nonatomic, readwrite) UITapGestureRecognizer *tapGestureRecognizer;
 
-- (void)jsq_handleLongPressGesture:(UILongPressGestureRecognizer *)longPress;
 - (void)jsq_handleTapGesture:(UITapGestureRecognizer *)tap;
-
-- (void)jsq_didReceiveMenuWillHideNotification:(NSNotification *)notification;
-- (void)jsq_didReceiveMenuWillShowNotification:(NSNotification *)notification;
 
 - (void)jsq_updateConstraint:(NSLayoutConstraint *)constraint withConstant:(CGFloat)constant;
 
@@ -75,14 +72,17 @@
 
 + (UINib *)nib
 {
-    NSAssert(NO, @"ERROR: method must be overridden in subclasses: %s", __PRETTY_FUNCTION__);
-    return nil;
+    return [UINib nibWithNibName:NSStringFromClass([self class]) bundle:[NSBundle mainBundle]];
 }
 
 + (NSString *)cellReuseIdentifier
 {
-    NSAssert(NO, @"ERROR: method must be overridden in subclasses: %s", __PRETTY_FUNCTION__);
-    return nil;
+    return NSStringFromClass([self class]);
+}
+
++ (NSString *)mediaCellReuseIdentifier
+{
+    return [NSString stringWithFormat:@"%@_JSQMedia", NSStringFromClass([self class])];
 }
 
 #pragma mark - Initialization
@@ -122,16 +122,13 @@
     self.textView.contentInset = UIEdgeInsetsZero;
     self.textView.scrollIndicatorInsets = UIEdgeInsetsZero;
     self.textView.contentOffset = CGPointZero;
+    self.textView.textContainerInset = UIEdgeInsetsZero;
+    self.textView.textContainer.lineFragmentPadding = 0;
     self.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor],
                                           NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
     
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleLongPressGesture:)];
-    longPress.minimumPressDuration = 0.4f;
-    [self addGestureRecognizer:longPress];
-    self.longPressGestureRecognizer = longPress;
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
-    [self.avatarContainerView addGestureRecognizer:tap];
+    [self addGestureRecognizer:tap];
     self.tapGestureRecognizer = tap;
 }
 
@@ -142,12 +139,12 @@
     _cellTopLabel = nil;
     _messageBubbleTopLabel = nil;
     _cellBottomLabel = nil;
+    
     _textView = nil;
     _messageBubbleImageView = nil;
-    _avatarImageView = nil;
+    _mediaView = nil;
     
-    [_longPressGestureRecognizer removeTarget:nil action:NULL];
-    _longPressGestureRecognizer = nil;
+    _avatarImageView = nil;
     
     [_tapGestureRecognizer removeTarget:nil action:NULL];
     _tapGestureRecognizer = nil;
@@ -162,6 +159,10 @@
     self.cellTopLabel.text = nil;
     self.messageBubbleTopLabel.text = nil;
     self.cellBottomLabel.text = nil;
+    
+    self.textView.dataDetectorTypes = UIDataDetectorTypeNone;
+    self.textView.text = nil;
+    self.textView.attributedText = nil;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
@@ -200,6 +201,30 @@
     }
 }
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    self.messageBubbleImageView.highlighted = highlighted;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+    [super setSelected:selected];
+    self.messageBubbleImageView.highlighted = selected;
+}
+
+//  FIXME: radar 18326340
+//         remove when fixed
+//         hack for Xcode6 / iOS 8 SDK rendering bug that occurs on iOS 7.x
+//         see issue #484
+//         https://github.com/jessesquires/JSQMessagesViewController/issues/484
+//
+- (void)setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    self.contentView.frame = bounds;
+}
+
 #pragma mark - Setters
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
@@ -215,54 +240,6 @@
     
     self.messageBubbleContainerView.backgroundColor = backgroundColor;
     self.avatarContainerView.backgroundColor = backgroundColor;
-}
-
-- (void)setMessageBubbleImageView:(UIImageView *)messageBubbleImageView
-{
-    if (_messageBubbleImageView) {
-        [_messageBubbleImageView removeFromSuperview];
-    }
-    
-    if (!messageBubbleImageView) {
-        _messageBubbleImageView = nil;
-        return;
-    }
-    
-    messageBubbleImageView.frame = CGRectMake(0.0f,
-                                              0.0f,
-                                              CGRectGetWidth(self.messageBubbleContainerView.bounds),
-                                              CGRectGetHeight(self.messageBubbleContainerView.bounds));
-    
-    [messageBubbleImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.messageBubbleContainerView insertSubview:messageBubbleImageView belowSubview:self.textView];
-    [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:messageBubbleImageView];
-    [self setNeedsUpdateConstraints];
-    
-    _messageBubbleImageView = messageBubbleImageView;
-}
-
-- (void)setAvatarImageView:(UIImageView *)avatarImageView
-{
-    if (_avatarImageView) {
-        [_avatarImageView removeFromSuperview];
-    }
-    
-    if (!avatarImageView) {
-        self.avatarViewSize = CGSizeZero;
-        _avatarImageView = nil;
-        self.avatarContainerView.hidden = YES;
-        return;
-    }
-    
-    self.avatarContainerView.hidden = NO;
-    self.avatarViewSize = CGSizeMake(CGRectGetWidth(avatarImageView.bounds), CGRectGetHeight(avatarImageView.bounds));
-    
-    [avatarImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.avatarContainerView addSubview:avatarImageView];
-    [self.avatarContainerView jsq_pinAllEdgesOfSubview:avatarImageView];
-    [self setNeedsUpdateConstraints];
-    
-    _avatarImageView = avatarImageView;
 }
 
 - (void)setAvatarViewSize:(CGSize)avatarViewSize
@@ -285,6 +262,29 @@
     [self jsq_updateConstraint:self.textViewBottomVerticalSpaceConstraint withConstant:textViewFrameInsets.bottom];
     [self jsq_updateConstraint:self.textViewAvatarHorizontalSpaceConstraint withConstant:textViewFrameInsets.right];
     [self jsq_updateConstraint:self.textViewMarginHorizontalSpaceConstraint withConstant:textViewFrameInsets.left];
+}
+
+- (void)setMediaView:(UIView *)mediaView
+{
+    if (mediaView == _mediaView) {
+        return;
+    }
+    
+    if (_mediaView) {
+        [_mediaView removeFromSuperview];
+        _mediaView = nil;
+    }
+    
+    [self.messageBubbleImageView removeFromSuperview];
+    [self.textView removeFromSuperview];
+    
+    mediaView.translatesAutoresizingMaskIntoConstraints = NO;
+    mediaView.frame = self.messageBubbleContainerView.bounds;
+    
+    [self.messageBubbleContainerView addSubview:mediaView];
+    [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:mediaView];
+    [self setNeedsUpdateConstraints];
+    _mediaView = mediaView;
 }
 
 #pragma mark - Getters
@@ -315,78 +315,21 @@
     [self setNeedsUpdateConstraints];
 }
 
-#pragma mark - UIResponder
-
-- (BOOL)canBecomeFirstResponder
-{
-    return YES;
-}
-
-- (BOOL)becomeFirstResponder
-{
-    return [super becomeFirstResponder];
-}
-
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
-{
-    return (action == @selector(copy:));
-}
-
-- (void)copy:(id)sender
-{
-    [[UIPasteboard generalPasteboard] setString:self.textView.text];
-    [self resignFirstResponder];
-}
-
 #pragma mark - Gesture recognizers
-
-- (void)jsq_handleLongPressGesture:(UILongPressGestureRecognizer *)longPress
-{
-    if (longPress.state != UIGestureRecognizerStateBegan || ![self becomeFirstResponder]) {
-        return;
-    }
-    
-    UIMenuController *menu = [UIMenuController sharedMenuController];
-    CGRect targetRect = [self convertRect:self.messageBubbleImageView.bounds fromView:self.messageBubbleImageView];
-    
-    [menu setTargetRect:CGRectInset(targetRect, 0.0f, 4.0f) inView:self];
-    
-    self.messageBubbleImageView.highlighted = YES;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(jsq_didReceiveMenuWillShowNotification:)
-                                                 name:UIMenuControllerWillShowMenuNotification
-                                               object:menu];
-    
-    [menu setMenuVisible:YES animated:YES];
-}
 
 - (void)jsq_handleTapGesture:(UITapGestureRecognizer *)tap
 {
-    [self.delegate messagesCollectionViewCellDidTapAvatar:self];
-}
-
-#pragma mark - Notifications
-
-- (void)jsq_didReceiveMenuWillHideNotification:(NSNotification *)notification
-{
-    self.messageBubbleImageView.highlighted = NO;
+    CGPoint touchPt = [tap locationInView:self];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIMenuControllerWillHideMenuNotification
-                                                  object:nil];
-}
-
-- (void)jsq_didReceiveMenuWillShowNotification:(NSNotification *)notification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIMenuControllerWillShowMenuNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(jsq_didReceiveMenuWillHideNotification:)
-                                                 name:UIMenuControllerWillHideMenuNotification
-                                               object:[notification object]];
+    if (CGRectContainsPoint(self.avatarContainerView.frame, touchPt)) {
+        [self.delegate messagesCollectionViewCellDidTapAvatar:self];
+    }
+    else if (CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt)) {
+        [self.delegate messagesCollectionViewCellDidTapMessageBubble:self];
+    }
+    else {
+        [self.delegate messagesCollectionViewCellDidTapCell:self atPosition:touchPt];
+    }
 }
 
 @end

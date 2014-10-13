@@ -7,14 +7,10 @@
 //
 
 #import "BFTForthThreadControllerTableViewController.h"
-#import "JSQMessage.h"
-#import "JSQMessagesBubbleImageFactory.h"
-#import "JSQMessagesTimeStampFormatter.h"
-#import "JSQMessagesCollectionViewCell.h"
-#import "JSQMessagesInputToolbar.h"
-#import "JSQMessagesToolbarContentView.h"
+#import <JSQMessagesViewController/JSQMessages.h>
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
+#import "BFTVideoMediaItem.h"
 
 @interface BFTForthThreadControllerTableViewController ()
 
@@ -28,22 +24,17 @@
     self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
     
     self.title = [NSString stringWithFormat:@"@%@", self.otherPersonsUserName];
-    self.sender = [[BFTDataHandler sharedInstance] BUN] ?: @"me";
+    self.senderId = [[BFTDataHandler sharedInstance] BUN] ?: @"me";
     
     //I don't know why I had to do this to change the title color.. ohh well
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
     
     [self loadMessages];
     
-    self.outgoingBubbleImageView = [JSQMessagesBubbleImageFactory outgoingMessageBubbleImageViewWithColor:[UIColor whiteColor]];
-    self.incomingBubbleImageView = [JSQMessagesBubbleImageFactory incomingMessageBubbleImageViewWithColor:[UIColor whiteColor]];
-    
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     
     self.inputToolbar.tintColor = [UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0];
-
-    self.inputToolbar.contentView.leftBarButtonItem = nil;
     
     //this is not working for whatever reason
     //UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
@@ -69,7 +60,7 @@
 
 #pragma mark - JSQMessagesViewController
 
--(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text sender:(NSString *)sender date:(NSDate *)date {
+-(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
     //send the message to the database
     [[[BFTDatabaseRequest alloc] initWithURLString:[[NSString alloc] initWithFormat:@"sendText.php?UIDr=%@&UIDp=%@&TEXT=%@", [[BFTDataHandler sharedInstance] UID], self.otherPersonsUserID, text] trueOrFalseBlock:^(BOOL success, NSError *error) {
         if (!error) {
@@ -84,9 +75,9 @@
     
     //send the message to the xmpp server
     //TODO: Carlo wants us to use the database for messaging, and xmpp just to notify of when we need updates. This could then be modified to notify of something specific
-    [self.appDelegate sendMessage:text toUser:self.otherPersonsUserName];
+    [self.appDelegate sendTextMessage:text toUser:self.otherPersonsUserName];
     
-    JSQMessage *message = [[JSQMessage alloc] initWithText:text sender:sender date:date];
+    JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
     [[self.messageThread listOfMessages] addObject:message];
     
     [self finishSendingMessage];
@@ -98,16 +89,22 @@
     return [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
 }
 
-- (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView bubbleImageViewForItemAtIndexPath:(NSIndexPath *)indexPath {
-    JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+- (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    /**
+     *  You may return nil here if you do not want bubbles.
+     *  In this case, you should set the background color of your collection view cell's textView.
+     *
+     *  Otherwise, return your previously created bubble image data objects.
+     */
     
-    if ([message.sender isEqualToString:self.sender]) {
-        return [[UIImageView alloc] initWithImage:self.outgoingBubbleImageView.image
-                                 highlightedImage:self.outgoingBubbleImageView.highlightedImage];
+    JSQTextMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+    
+    if ([message.senderId isEqualToString:self.senderId]) {
+        return [JSQMessagesBubbleImageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     }
     
-    return [[UIImageView alloc] initWithImage:self.incomingBubbleImageView.image
-                             highlightedImage:self.incomingBubbleImageView.highlightedImage];
+    return [JSQMessagesBubbleImageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
 }
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,21 +126,19 @@
     JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
     
     //no name if its me
-    if ([message.sender isEqualToString:self.sender]) {
+    if ([message.senderId isEqualToString:self.senderId]) {
         return nil;
     }
     
     if (indexPath.item - 1 > 0) {
         JSQMessage *previousMessage = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item - 1];
-        if ([[previousMessage sender] isEqualToString:message.sender]) {
+        if ([[previousMessage senderId] isEqualToString:message.senderId]) {
             return nil;
         }
     }
 
-    return [[NSAttributedString alloc] initWithString:message.sender];
+    return [[NSAttributedString alloc] initWithString:message.senderId];
 }
-
-#pragma mark - UICollectionView DataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [[self.messageThread listOfMessages] count];
@@ -156,6 +151,23 @@
     cell.textView.tintColor = [UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0];
     
     return cell;
+}
+
+#pragma mark - CollectionView Delegate
+
+-(void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
+    id<JSQMessageData> messageItem = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
+    
+    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
+    
+    if (isMediaMessage) {
+        if (!(self.indexOfLastPlayedVideo == indexPath.row)) {
+            [self stopPlayingLastVideo];
+        }
+        BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
+        [mediaItem togglePlayback];
+        self.indexOfLastPlayedVideo = indexPath.row;
+    }
 }
 
 #pragma mark - Adjusting cell label heights
@@ -175,13 +187,13 @@
 {
     //no label for sender
     JSQMessage *currentMessage = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
-    if ([[currentMessage sender] isEqualToString:self.sender]) {
+    if ([[currentMessage senderId] isEqualToString:self.senderId]) {
         return 0.0f;
     }
     
     if (indexPath.item - 1 > 0) {
         JSQMessage *previousMessage = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item - 1];
-        if ([[previousMessage sender] isEqualToString:[currentMessage sender]]) {
+        if ([[previousMessage senderId] isEqualToString:[currentMessage senderId]]) {
             return 0.0f;
         }
     }
@@ -194,16 +206,33 @@
     return 0.0f;
 }
 
-#pragma mark Message Delegate
+#pragma mark - Toolbar Delegate
 
--(void)recievedMessage:(NSString *)message fromSender:(NSString *)sender {
+-(void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressLeftBarButton:(UIButton *)sender {
+    //Go to record view
+}
+
+#pragma mark - Message Delegate
+
+-(void)recievedMessage {
     //this should already be handled in the BFTMessages class
     //Note: TODO: Carlo wants us to actually pull the messages here, but Since I'm already getting the message from xmpp, I'm not going to at this time.
     
     [self finishReceivingMessage];
 }
 
-#pragma mark Other
+#pragma mark - Video Playback
+
+-(void)stopPlayingLastVideo {
+    id<JSQMessageData> messageItem = [self.collectionView.dataSource collectionView:self.collectionView messageDataForItemAtIndexPath:[NSIndexPath indexPathForItem:self.indexOfLastPlayedVideo inSection:0]];
+    
+    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
+    
+    if (isMediaMessage) {
+        BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
+        [mediaItem endVideoPlayback];
+    }
+}
 
 -(void)loadMessages {
     

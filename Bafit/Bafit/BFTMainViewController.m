@@ -17,6 +17,7 @@
 #import "BFTVideoPost.h"
 #import "BFTMessageThreads.h"
 #import "BFTMeerPostViewController.h"
+#import "BFTVideoPlaybackController.h"
 
 @interface BFTMainViewController ()
 
@@ -66,6 +67,7 @@
     [feedbackButton addTarget:self action:@selector(submitFeedback:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:feedbackButton];
     
+    _videoPlaybackControllers = [[NSMutableDictionary alloc] init];
     //Check Messages from Queue
     [self checkMessages];
 }
@@ -259,33 +261,14 @@
 //    [mainView addSubview:dividerTop];
     
     //Video Player View
-    UIImageView *videoThumb = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, mainViewWidth, 220)];
-    videoThumb.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
-    videoThumb.center = CGPointMake(100, 170);
-    [videoThumb setContentMode:UIViewContentModeScaleAspectFit];
+    NSURL *thumbURL = [[NSURL alloc] initWithString:[[_videoPosts objectAtIndex:index] thumbURL]];
+    NSURL *videoURL = [[NSURL alloc] initWithString:[[_videoPosts objectAtIndex:index] videoURL]];
     
-    //try to retrieve the image from the temporary cache first
-    [videoThumb setImage:[_tempImageCache objectForKey:[[_videoPosts objectAtIndex:index] thumbURL]]];
+    BFTVideoPlaybackController* videoPlayer = [[BFTVideoPlaybackController alloc] initWithVideoURL:videoURL andThumbURL:thumbURL frame:CGRectMake(0, 60, 200, 220)];
+    [_videoPlaybackControllers setObject:videoPlayer forKey:[NSNumber numberWithUnsignedInteger:index]];
     
-    if (!videoThumb.image) {
-        [[[BFTDatabaseRequest alloc] initWithFileURL:[[_videoPosts objectAtIndex:index] thumbURL] completionBlock:^(NSMutableData *data, NSError *error) {
-            if (!error) {
-                UIImage *image = [UIImage imageWithData:data];
-                
-                //put the image in a temporary cache so we dont have to reload each time
-                [_tempImageCache setObject:image forKey:[[_videoPosts objectAtIndex:index] thumbURL]];
-                [videoThumb setImage:image];
-            }
-            else {
-                //handle image download error
-            }
-        }] startImageDownload];
-    }
-    
-    //video Thumbs
-    _videoView = videoThumb;
-    [view addSubview:videoThumb];
-        
+    _videoView = videoPlayer.view;
+    [view addSubview:videoPlayer.view];
         
     //Username Display
     _usernameLabel = [[UILabel alloc] initWithFrame:_videoView.bounds];
@@ -348,21 +331,13 @@
 }
 
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
-    
-    NSLog(@"Inside select object at index");
-    AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:[[_videoPosts objectAtIndex:carousel.currentItemIndex] videoURL]]];
-    AVPlayer *avPlayer = [[AVPlayer alloc] initWithPlayerItem:avPlayeritem];
-    AVPlayerLayer *avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:avPlayer];
-    [avPlayerLayer setFrame:_videoView.frame];
-    avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    [avPlayerLayer setNeedsLayout];
-    [carousel.currentItemView.layer addSublayer:avPlayerLayer];
-    [carousel.currentItemView bringSubviewToFront:_usernameLabel];
-    //Assign to notication to check for end of playback
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayeritem];
-    [avPlayer seekToTime:kCMTimeZero];
-    [avPlayer play];
-    
+    BFTVideoPlaybackController* videoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+    if (self.currentVideoPlaybackIndex != index) {
+        BFTVideoPlaybackController* lastVideoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:self.currentVideoPlaybackIndex]];
+        [lastVideoPlayer stop];
+    }
+    self.currentVideoPlaybackIndex = index;
+    [videoPlayer togglePlayback];
 }
 
 -(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
@@ -464,7 +439,7 @@
 
 #pragma mark Message Delegate
 
--(void)recievedMessage:(NSString *)message fromSender:(NSString *)sender {
+-(void)recievedMessage {
     //checking a bool is faster than reassigning the image everytime we get a message
     if (!self.notificationImageAssigned) {
         [self.backButton setImage:[UIImage imageNamed:@"baf_left_active.png"] forState:UIControlStateNormal];

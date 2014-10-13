@@ -1,14 +1,12 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, "7.0"
 
+source 'https://github.com/CocoaPods/Specs.git'
+
 target "Bafit" do
 
-pod 'JSQMessagesViewController', '5.1.1'
+pod 'JSQMessagesViewController', :git => 'https://github.com/jessesquires/JSQMessagesViewController.git', :branch => 'develop'
 pod 'AFNetworking', '~> 2.0'
-
-end
-
-target "BafitTests" do
 
 end
 

@@ -7,17 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JSQMessagesViewController.h"
+#import <JSQMessagesViewController/JSQMessages.h>
 #import "BFTAppDelegate.h"
 #import "BFTMessageDelegate.h"
 #import "BFTBackThreadItem.h"
 
-@interface BFTForthThreadControllerTableViewController : JSQMessagesViewController <BFTMessageDelegate>
+@interface BFTForthThreadControllerTableViewController : JSQMessagesViewController <BFTMessageDelegate, JSQMessagesInputToolbarDelegate>
 
 @property (nonatomic, copy) NSString *otherPersonsUserID;
 @property (nonatomic, copy) NSString *otherPersonsUserName;
 
 @property (nonatomic, weak) BFTBackThreadItem *messageThread;
+
+@property (nonatomic, assign) NSInteger indexOfLastPlayedVideo;
 
 @property (nonatomic, strong) UIImageView *outgoingBubbleImageView;
 @property (nonatomic, strong) UIImageView *incomingBubbleImageView;
