@@ -12,7 +12,9 @@
 
 @implementation BFTVideoPlaybackController {
     BOOL _videoIsPlaying;
+    BOOL _shouldPlayWhenReady;
     AVPlayer *_videoPlayer;
+    AVPlayerLayer *_playerLayer;
 }
 
 -(instancetype)initWithVideoURL:(NSURL *)contentURL {
@@ -54,7 +56,7 @@
     videoThumb.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
     [videoThumb setContentMode:UIViewContentModeScaleAspectFit];
     
-    //TODO:Look into cache first
+    //TODO: Look into cache first
     //[videoThumb setImage:Cache objectForKey:[[_videoPosts objectAtIndex:index] thumbURL]]];
     
     if (!videoThumb.image) {
@@ -62,7 +64,7 @@
             if (!error) {
                 UIImage *image = [UIImage imageWithData:data];
                 
-                //TODO:Cache the image
+                //TODO: Cache the image
                 //[_tempImageCache setObject:image forKey:[[_videoPosts objectAtIndex:index] thumbURL]];
                 [videoThumb setImage:image];
             }
@@ -72,29 +74,40 @@
         }] startImageDownload];
     }
     
+    _loadingIcon = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [_loadingIcon setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    
     [self.view addSubview:videoThumb];
+    [self.view addSubview:_loadingIcon];
 }
 
 -(void)setupVideoPlayer {
-    AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:self.videoURL];
-    AVPlayer *avPlayer = [[AVPlayer alloc] initWithPlayerItem:avPlayeritem];
-    AVPlayerLayer *avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:avPlayer];
-    [avPlayerLayer setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    [avPlayerLayer setNeedsLayout];
-    [self.view.layer addSublayer:avPlayerLayer];
+    //[_loadingIcon startAnimating];
     
-    //Assign to notication to check for end of playback
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackComplete) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayeritem];
-    [avPlayer seekToTime:kCMTimeZero];
-    [avPlayer play];
-    _videoPlayer = avPlayer;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:self.videoURL];
+        AVPlayer *avPlayer = [[AVPlayer alloc] initWithPlayerItem:avPlayeritem];
+        AVPlayerLayer *avPlayerLayer = [AVPlayerLayer playerLayerWithPlayer:avPlayer];
+        [avPlayerLayer setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        avPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        
+        //UI stuff on main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [avPlayerLayer setNeedsLayout];
+            [self.view.layer addSublayer:avPlayerLayer];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(seekToBeginning) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayeritem];
+            [avPlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+            [avPlayer seekToTime:kCMTimeZero];
+            _videoPlayer = avPlayer;
+            _playerLayer = avPlayerLayer;
+        });
+    });
 }
 
 #pragma mark - Playback
 
 -(void)prepareToPlay {
-    
+    [self setupVideoPlayer];
 }
 
 -(void)togglePlayback {
@@ -108,13 +121,14 @@
 
 -(void)play {
     if (!_videoIsPlaying) {
-        if (_videoPlayer) {
-            [_videoPlayer play];
-        }
-        else {
+        if (!_videoPlayer) {
+            _shouldPlayWhenReady = YES;
             [self setupVideoPlayer];
         }
-        _videoIsPlaying = YES;
+        else {
+            [_videoPlayer play];
+            _videoIsPlaying = YES;
+        }
     }
 }
 
@@ -131,7 +145,47 @@
 }
 
 -(void)playbackComplete {
-    _videoPlayer = nil;
+    _shouldPlayWhenReady = NO;
+    _videoIsPlaying = NO;
+    if (_playerLayer) {
+        [_playerLayer removeFromSuperlayer];
+    }
+    if (_videoPlayer) {
+        [_videoPlayer removeObserver:self forKeyPath:@"status"];
+        _videoPlayer = nil;
+    }
+}
+
+-(void)seekToBeginning {
+    _videoIsPlaying = NO;
+    _shouldPlayWhenReady = NO;
+    [_videoPlayer seekToTime:kCMTimeZero];
+    [_videoPlayer pause];
+}
+
+#pragma mark - Video Lifecycle and Notifications
+     
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context {
+    if (object == _videoPlayer && [keyPath isEqualToString:@"status"]) {
+        if (_videoPlayer.status == AVPlayerStatusReadyToPlay) {
+            [_loadingIcon stopAnimating];
+            if (_shouldPlayWhenReady) {
+                [self play];
+                _shouldPlayWhenReady = NO;
+            }
+        } else if (_videoPlayer.status == AVPlayerStatusFailed) {
+            [_loadingIcon stopAnimating];
+        }
+    }
+}
+
+#pragma mark - Dealloc
+
+-(void)dealloc {
+    [self playbackComplete];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _playerLayer = nil;
 }
 
 @end

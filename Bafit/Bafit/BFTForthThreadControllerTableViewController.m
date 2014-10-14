@@ -56,6 +56,7 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.appDelegate.messageDelegate = nil;
+    [self stopPlayingLastVideo];
 }
 
 #pragma mark - JSQMessagesViewController
@@ -162,7 +163,7 @@
     
     if (isMediaMessage) {
         if (!(self.indexOfLastPlayedVideo == indexPath.row)) {
-            [self stopPlayingLastVideo];
+            [self pauseLastVideo];
         }
         BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
         [mediaItem togglePlayback];
@@ -231,6 +232,17 @@
     if (isMediaMessage) {
         BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
         [mediaItem endVideoPlayback];
+    }
+}
+
+-(void)pauseLastVideo {
+    id<JSQMessageData> messageItem = [self.collectionView.dataSource collectionView:self.collectionView messageDataForItemAtIndexPath:[NSIndexPath indexPathForItem:self.indexOfLastPlayedVideo inSection:0]];
+    
+    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
+    
+    if (isMediaMessage) {
+        BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
+        [mediaItem pauseVideoPlayback];
     }
 }
 

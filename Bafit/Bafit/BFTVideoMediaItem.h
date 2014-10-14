@@ -24,5 +24,6 @@
 -(void)togglePlayback;
 -(void)beginVideoPlayback;
 -(void)endVideoPlayback;
+-(void)pauseVideoPlayback;
 
 @end
