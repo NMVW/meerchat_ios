@@ -20,22 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - JSQMessagesViewController (6.0.0):
-    - JSQSystemSoundPlayer
-  - JSQSystemSoundPlayer (1.5.2)
+  - JSQMessagesViewController (6.0-beta5):
+    - JSQSystemSoundPlayer (~> 2.0.0)
+  - JSQSystemSoundPlayer (2.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`, branch `develop`)
-
-EXTERNAL SOURCES:
-  JSQMessagesViewController:
-    :branch: develop
-    :git: https://github.com/jessesquires/JSQMessagesViewController.git
+  - JSQMessagesViewController
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
-  JSQMessagesViewController: b3406a062b76c2f48b856cbcdc3d34d15696d8e2
-  JSQSystemSoundPlayer: c24914bc96ff5365b5d28b59d7ecffd60d1c5587
+  JSQMessagesViewController: 69aac1d7a05c41f22f6f562dc95a919936e2c523
+  JSQSystemSoundPlayer: c98443b1cbb3b45db09d0d3d6c2355cf78294981
 
 COCOAPODS: 0.34.1

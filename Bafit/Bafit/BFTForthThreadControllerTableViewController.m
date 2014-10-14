@@ -42,6 +42,10 @@
     //self.inputToolbar.contentView.leftBarButtonItem = button;
     //self.inputToolbar.contentView.leftBarButtonItemWidth = 60;
     
+    JSQMessagesBubbleImageFactory* imageFactory = [[JSQMessagesBubbleImageFactory alloc] init];
+    self.outgoingBubbleImageData = [imageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
+    self.incomingBubbleImageData = [imageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
+    
     [self.inputToolbar.contentView.rightBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     [self.inputToolbar.contentView.leftBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     
@@ -102,10 +106,10 @@
     JSQTextMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
     
     if ([message.senderId isEqualToString:self.senderId]) {
-        return [JSQMessagesBubbleImageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
+        return self.outgoingBubbleImageData;
     }
     
-    return [JSQMessagesBubbleImageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
+    return self.incomingBubbleImageData;
 }
 
 - (UIImageView *)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageViewForItemAtIndexPath:(NSIndexPath *)indexPath {

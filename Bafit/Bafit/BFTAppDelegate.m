@@ -304,7 +304,7 @@
     
     [self.xmppStream sendElement:message];
     
-    NSLog(@"Send Video Message to User with URL: %@", videoURL);
+    NSLog(@"Send Video Message to User: %@ with URL: %@", user, videoURL);
 }
 
 #pragma mark CLLocation Manager

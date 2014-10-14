@@ -21,8 +21,8 @@
 
 @property (nonatomic, assign) NSInteger indexOfLastPlayedVideo;
 
-@property (nonatomic, strong) UIImageView *outgoingBubbleImageView;
-@property (nonatomic, strong) UIImageView *incomingBubbleImageView;
+@property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
+@property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
 
 @property (nonatomic, weak) BFTAppDelegate *appDelegate;
 
