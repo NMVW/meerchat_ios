@@ -187,10 +187,6 @@
 		80844C6219E38EFB00545AB1 /* post_center@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6019E38EFB00545AB1 /* post_center@2x.png */; };
 		80844C6519E3911B00545AB1 /* msg_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6319E3911B00545AB1 /* msg_center.png */; };
 		80844C6619E3911B00545AB1 /* msg_center@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6419E3911B00545AB1 /* msg_center@2x.png */; };
-		80844C6C19E4E31000545AB1 /* ForgottenFuturistRg_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6A19E4E0C800545AB1 /* ForgottenFuturistRg_Bold.ttf */; };
-		80844C6D19E4E31000545AB1 /* ForgottenFuturistRg_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6B19E4E0C800545AB1 /* ForgottenFuturistRg_Regular.ttf */; };
-		80844C6E19E4E31000545AB1 /* ForgottenFuturistRg_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6819E4E07900545AB1 /* ForgottenFuturistRg_Bold.otf */; };
-		80844C6F19E4E31000545AB1 /* ForgottenFuturistRg_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 80844C6919E4E07900545AB1 /* ForgottenFuturistRg_Regular.otf */; };
 		80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */; };
 		80DCD0FB19A6C3B2002B9AFD /* Milo_Face_Full.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */; };
 		80DCD0FD19A6C786002B9AFD /* Milo_Face_Navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 80DCD0FC19A6C786002B9AFD /* Milo_Face_Navbar.png */; };
@@ -483,10 +479,10 @@
 		80844C6019E38EFB00545AB1 /* post_center@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "post_center@2x.png"; path = "../../../Buttons & Icons 3/post_center@2x.png"; sourceTree = "<group>"; };
 		80844C6319E3911B00545AB1 /* msg_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = msg_center.png; path = "../../../Buttons & Icons 3/msg_center.png"; sourceTree = "<group>"; };
 		80844C6419E3911B00545AB1 /* msg_center@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "msg_center@2x.png"; path = "../../../Buttons & Icons 3/msg_center@2x.png"; sourceTree = "<group>"; };
-		80844C6819E4E07900545AB1 /* ForgottenFuturistRg_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Bold.otf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/ForgottenFuturistRg_Bold.otf"; sourceTree = "<group>"; };
-		80844C6919E4E07900545AB1 /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Regular.otf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/ForgottenFuturistRg_Regular.otf"; sourceTree = "<group>"; };
-		80844C6A19E4E0C800545AB1 /* ForgottenFuturistRg_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Bold.ttf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/Alternative files/ForgottenFuturistRg_Bold.ttf"; sourceTree = "<group>"; };
-		80844C6B19E4E0C800545AB1 /* ForgottenFuturistRg_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ForgottenFuturistRg_Regular.ttf; path = "../../../Bafit/MeerChatDesign Elements/Fonts/MyFonts Order M6109971/Alternative files/ForgottenFuturistRg_Regular.ttf"; sourceTree = "<group>"; };
+		80B443E919ED84D7003DEBC6 /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.otf; sourceTree = "<group>"; };
+		80B443EA19ED84D7003DEBC6 /* ForgottenFuturistRg_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.ttf; sourceTree = "<group>"; };
+		80B443EB19ED84D7003DEBC6 /* ForgottenFuturistRg_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.ttf; sourceTree = "<group>"; };
+		80B443EC19ED84D7003DEBC6 /* ForgottenFuturistRg_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.otf; sourceTree = "<group>"; };
 		80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTDatabaseRequest.m; sourceTree = "<group>"; };
 		80CE6E39199CB9EA006543B2 /* BFTDatabaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTDatabaseRequest.h; sourceTree = "<group>"; };
 		80DCD0FA19A6C3B2002B9AFD /* Milo_Face_Full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Milo_Face_Full.png; sourceTree = "<group>"; };
@@ -1163,10 +1159,10 @@
 		80844C6719E4E06E00545AB1 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				80844C6A19E4E0C800545AB1 /* ForgottenFuturistRg_Bold.ttf */,
-				80844C6B19E4E0C800545AB1 /* ForgottenFuturistRg_Regular.ttf */,
-				80844C6819E4E07900545AB1 /* ForgottenFuturistRg_Bold.otf */,
-				80844C6919E4E07900545AB1 /* ForgottenFuturistRg_Regular.otf */,
+				80B443E919ED84D7003DEBC6 /* ForgottenFuturistRg_Regular.otf */,
+				80B443EA19ED84D7003DEBC6 /* ForgottenFuturistRg_Regular.ttf */,
+				80B443EB19ED84D7003DEBC6 /* ForgottenFuturistRg_Bold.ttf */,
+				80B443EC19ED84D7003DEBC6 /* ForgottenFuturistRg_Bold.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -1274,10 +1270,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80844C6C19E4E31000545AB1 /* ForgottenFuturistRg_Bold.ttf in Resources */,
-				80844C6D19E4E31000545AB1 /* ForgottenFuturistRg_Regular.ttf in Resources */,
-				80844C6E19E4E31000545AB1 /* ForgottenFuturistRg_Bold.otf in Resources */,
-				80844C6F19E4E31000545AB1 /* ForgottenFuturistRg_Regular.otf in Resources */,
 				7C64468719BCE1E10071D444 /* README.txt in Resources */,
 				8021998219A948CF0042597A /* move_btn_active@2x.png in Resources */,
 				803EE0F11984CCD200B86ACE /* trianglebluedown.png in Resources */,
