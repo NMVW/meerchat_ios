@@ -5,7 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target "Bafit" do
 
-pod 'JSQMessagesViewController', :git => 'https://github.com/jessesquires/JSQMessagesViewController.git', :branch => 'develop'
+pod 'JSQMessagesViewController'
 pod 'AFNetworking', '~> 2.0'
 
 end

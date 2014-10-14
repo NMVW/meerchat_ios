@@ -14,6 +14,8 @@
 @property (nonatomic, copy) NSURL* thumbURL;
 @property (nonatomic, strong) UIView *view;
 
+@property (nonatomic, strong) UIActivityIndicatorView *loadingIcon;
+
 -(instancetype)initWithVideoURL:(NSURL *)videoURL;
 -(instancetype)initWithVideoURL:(NSURL *)videoURL andThumbURL:(NSURL *)thumbURL;
 -(instancetype)initWithVideoURL:(NSURL *)videoURL andThumbURL:(NSURL *)thumbURL frame:(CGRect)frame;

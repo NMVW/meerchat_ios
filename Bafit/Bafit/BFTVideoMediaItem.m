@@ -70,7 +70,6 @@
 -(void)initMovieView {
     self.videoView = [[BFTVideoPlaybackController alloc] initWithVideoURL:self.videoURL andThumbURL:self.thumbURL];
     [self.videoView.view setFrame:CGRectMake(0, 0, 200, 200)];
-    [self.videoView prepareToPlay];
 }
 
 #pragma mark - Video Playback
@@ -85,6 +84,10 @@
 
 -(void)endVideoPlayback {
     [self.videoView stop];
+}
+
+-(void)pauseVideoPlayback {
+    [self.videoView pause];
 }
 
 #pragma mark - NSObject

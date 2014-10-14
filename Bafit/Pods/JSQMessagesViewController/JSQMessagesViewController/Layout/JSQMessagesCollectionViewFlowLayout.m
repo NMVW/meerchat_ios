@@ -31,6 +31,9 @@
 #import "JSQMessagesCollectionViewLayoutAttributes.h"
 #import "JSQMessagesCollectionViewFlowLayoutInvalidationContext.h"
 
+#import "UIImage+JSQMessages.h"
+
+
 const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
@@ -44,10 +47,15 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 @property (assign, nonatomic) CGFloat latestDelta;
 
+@property (assign, nonatomic, readonly) NSUInteger bubbleImageAssetWidth;
+
 - (void)jsq_configureFlowLayout;
 
 - (void)jsq_didReceiveApplicationMemoryWarningNotification:(NSNotification *)notification;
 - (void)jsq_didReceiveDeviceOrientationDidChangeNotification:(NSNotification *)notification;
+
+- (void)jsq_resetLayout;
+- (void)jsq_resetDynamicAnimator;
 
 - (CGSize)messageBubbleSizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)jsq_configureMessageCellLayoutAttributes:(JSQMessagesCollectionViewLayoutAttributes *)layoutAttributes;
@@ -71,6 +79,8 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     self.scrollDirection = UICollectionViewScrollDirectionVertical;
     self.sectionInset = UIEdgeInsetsMake(10.0f, 4.0f, 10.0f, 4.0f);
     self.minimumLineSpacing = 4.0f;
+    
+    _bubbleImageAssetWidth = [UIImage jsq_bubbleCompactImage].size.width;
     
     _messageBubbleSizes = [NSMutableDictionary new];
     
@@ -135,9 +145,13 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     
     _messageBubbleFont = nil;
     
+    [_messageBubbleSizes removeAllObjects];
     _messageBubbleSizes = nil;
     
+    [_dynamicAnimator removeAllBehaviors];
     _dynamicAnimator = nil;
+    
+    [_visibleIndexPaths removeAllObjects];
     _visibleIndexPaths = nil;
 }
 
@@ -145,6 +159,10 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 - (void)setSpringinessEnabled:(BOOL)springinessEnabled
 {
+    if (_springinessEnabled == springinessEnabled) {
+        return;
+    }
+    
     _springinessEnabled = springinessEnabled;
     
     if (!springinessEnabled) {
@@ -156,6 +174,10 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 - (void)setMessageBubbleFont:(UIFont *)messageBubbleFont
 {
+    if ([_messageBubbleFont isEqual:messageBubbleFont]) {
+        return;
+    }
+    
     NSParameterAssert(messageBubbleFont != nil);
     _messageBubbleFont = messageBubbleFont;
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
@@ -164,24 +186,36 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 - (void)setMessageBubbleLeftRightMargin:(CGFloat)messageBubbleLeftRightMargin
 {
     NSParameterAssert(messageBubbleLeftRightMargin >= 0.0f);
-    _messageBubbleLeftRightMargin = messageBubbleLeftRightMargin;
+    _messageBubbleLeftRightMargin = ceilf(messageBubbleLeftRightMargin);
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 }
 
 - (void)setMessageBubbleTextViewTextContainerInsets:(UIEdgeInsets)messageBubbleTextContainerInsets
 {
+    if (UIEdgeInsetsEqualToEdgeInsets(_messageBubbleTextViewTextContainerInsets, messageBubbleTextContainerInsets)) {
+        return;
+    }
+    
     _messageBubbleTextViewTextContainerInsets = messageBubbleTextContainerInsets;
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 }
 
 - (void)setIncomingAvatarViewSize:(CGSize)incomingAvatarViewSize
 {
+    if (CGSizeEqualToSize(_incomingAvatarViewSize, incomingAvatarViewSize)) {
+        return;
+    }
+    
     _incomingAvatarViewSize = incomingAvatarViewSize;
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 }
 
 - (void)setOutgoingAvatarViewSize:(CGSize)outgoingAvatarViewSize
 {
+    if (CGSizeEqualToSize(_outgoingAvatarViewSize, outgoingAvatarViewSize)) {
+        return;
+    }
+    
     _outgoingAvatarViewSize = outgoingAvatarViewSize;
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 }
@@ -213,15 +247,12 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 - (void)jsq_didReceiveApplicationMemoryWarningNotification:(NSNotification *)notification
 {
-    [self.messageBubbleSizes removeAllObjects];
-    [self.dynamicAnimator removeAllBehaviors];
-    [self.visibleIndexPaths removeAllObjects];
+    [self jsq_resetLayout];
 }
 
 - (void)jsq_didReceiveDeviceOrientationDidChangeNotification:(NSNotification *)notification
 {
-    [self.dynamicAnimator removeAllBehaviors];
-    [self.visibleIndexPaths removeAllObjects];
+    [self jsq_resetLayout];
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 }
 
@@ -236,7 +267,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     
     if (context.invalidateFlowLayoutAttributes
         || context.invalidateFlowLayoutDelegateMetrics) {
-        [self.messageBubbleSizes removeAllObjects];
+        [self jsq_resetLayout];
     }
     
     [super invalidateLayoutWithContext:context];
@@ -337,30 +368,47 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 {
     [super prepareForCollectionViewUpdates:updateItems];
     
-    if (self.springinessEnabled) {
-        [updateItems enumerateObjectsUsingBlock:^(UICollectionViewUpdateItem *updateItem, NSUInteger index, BOOL *stop) {
-            if (updateItem.updateAction == UICollectionUpdateActionInsert) {
-                
-                if ([self.dynamicAnimator layoutAttributesForCellAtIndexPath:updateItem.indexPathAfterUpdate]) {
-                    *stop = YES;
-                }
-                
-                CGSize size = self.collectionView.bounds.size;
-                JSQMessagesCollectionViewLayoutAttributes *attributes = [JSQMessagesCollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:updateItem.indexPathAfterUpdate];
-                
-                if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
-                    [self jsq_configureMessageCellLayoutAttributes:attributes];
-                }
-                
-                attributes.frame = CGRectMake(0.0f,
-                                              size.height - size.width,
-                                              size.width,
-                                              size.width);
-                
+    [updateItems enumerateObjectsUsingBlock:^(UICollectionViewUpdateItem *updateItem, NSUInteger index, BOOL *stop) {
+        if (updateItem.updateAction == UICollectionUpdateActionInsert) {
+            
+            if (self.springinessEnabled && [self.dynamicAnimator layoutAttributesForCellAtIndexPath:updateItem.indexPathAfterUpdate]) {
+                *stop = YES;
+            }
+            
+            CGFloat collectionViewHeight = CGRectGetHeight(self.collectionView.bounds);
+            
+            JSQMessagesCollectionViewLayoutAttributes *attributes = [JSQMessagesCollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:updateItem.indexPathAfterUpdate];
+            
+            if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
+                [self jsq_configureMessageCellLayoutAttributes:attributes];
+            }
+            
+            attributes.frame = CGRectMake(0.0f,
+                                          collectionViewHeight + CGRectGetHeight(attributes.frame),
+                                          CGRectGetWidth(attributes.frame),
+                                          CGRectGetHeight(attributes.frame));
+            
+            if (self.springinessEnabled) {
                 UIAttachmentBehavior *springBehaviour = [self jsq_springBehaviorWithLayoutAttributesItem:attributes];
                 [self.dynamicAnimator addBehavior:springBehaviour];
             }
-        }];
+        }
+    }];
+}
+
+#pragma mark - Invalidation utilities
+
+- (void)jsq_resetLayout
+{
+    [self.messageBubbleSizes removeAllObjects];
+    [self jsq_resetDynamicAnimator];
+}
+
+- (void)jsq_resetDynamicAnimator
+{
+    if (self.springinessEnabled) {
+        [self.dynamicAnimator removeAllBehaviors];
+        [self.visibleIndexPaths removeAllObjects];
     }
 }
 
@@ -376,7 +424,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     id<JSQMessageData> messageItem = [self.collectionView.dataSource collectionView:self.collectionView messageDataForItemAtIndexPath:indexPath];
     CGSize finalSize = CGSizeZero;
     
-    if ([messageItem respondsToSelector:@selector(media)]) {
+    if ([messageItem isMediaMessage]) {
         finalSize = [[messageItem media] mediaViewDisplaySize];
     }
     else {
@@ -404,7 +452,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
         //  not sure why. magix. (shrug) if you know, submit a PR
         CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + 2.0f;
         
-        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, [UIImage imageNamed:@"bubble_min"].size.width);
+        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.bubbleImageAssetWidth);
         
         finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
     }

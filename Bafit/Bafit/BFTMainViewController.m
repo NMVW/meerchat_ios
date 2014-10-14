@@ -101,6 +101,7 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) setMessageDelegate:self];
+    [self stopPlayingLastVideo];
 }
 
 - (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer {
@@ -333,8 +334,7 @@
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
     BFTVideoPlaybackController* videoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:index]];
     if (self.currentVideoPlaybackIndex != index) {
-        BFTVideoPlaybackController* lastVideoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:self.currentVideoPlaybackIndex]];
-        [lastVideoPlayer stop];
+        [self pauseLastVideo];
     }
     self.currentVideoPlaybackIndex = index;
     [videoPlayer togglePlayback];
@@ -362,6 +362,16 @@
         default:
             return value;
     }
+}
+
+-(void)stopPlayingLastVideo {
+    BFTVideoPlaybackController* lastVideoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:self.currentVideoPlaybackIndex]];
+    [lastVideoPlayer stop];
+}
+
+-(void)pauseLastVideo {
+    BFTVideoPlaybackController* lastVideoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:self.currentVideoPlaybackIndex]];
+    [lastVideoPlayer pause];
 }
 
 -(IBAction)didFinishPlaying:(id)sender

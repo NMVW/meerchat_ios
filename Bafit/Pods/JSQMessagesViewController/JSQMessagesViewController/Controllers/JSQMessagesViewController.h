@@ -20,8 +20,7 @@
 
 #import "JSQMessagesCollectionView.h"
 #import "JSQMessagesCollectionViewFlowLayout.h"
-
-@class JSQMessagesInputToolbar;
+#import "JSQMessagesInputToolbar.h"
 
 /**
  *  The `JSQMessagesViewController` class is an abstract class that represents a view controller whose content consists of
@@ -80,7 +79,7 @@
  *  The default value is the string returned by `[JSQMessagesCollectionViewCellOutgoing cellReuseIdentifier]`.
  *  This value must not be `nil`.
  *  
- *  @see `JSQMessagesCollectionViewCellOutgoing`.
+ *  @see JSQMessagesCollectionViewCellOutgoing.
  *
  *  @warning Overriding this property's default value is *not* recommended. 
  *  You should only override this property's default value if you are proividing your own cell prototypes.
@@ -98,7 +97,7 @@
  *  The default value is the string returned by `[JSQMessagesCollectionViewCellOutgoing mediaCellReuseIdentifier]`.
  *  This value must not be `nil`.
  *
- *  @see `JSQMessagesCollectionViewCellOutgoing`.
+ *  @see JSQMessagesCollectionViewCellOutgoing.
  *
  *  @warning Overriding this property's default value is *not* recommended.
  *  You should only override this property's default value if you are proividing your own cell prototypes.
@@ -116,7 +115,7 @@
  *  The default value is the string returned by `[JSQMessagesCollectionViewCellIncoming cellReuseIdentifier]`.
  *  This value must not be `nil`.
  *
- *  @see `JSQMessagesCollectionViewCellIncoming`.
+ *  @see JSQMessagesCollectionViewCellIncoming.
  *
  *  @warning Overriding this property's default value is *not* recommended. 
  *  You should only override this property's default value if you are proividing your own cell prototypes. 
@@ -134,7 +133,7 @@
  *  The default value is the string returned by `[JSQMessagesCollectionViewCellIncoming mediaCellReuseIdentifier]`.
  *  This value must not be `nil`.
  *
- *  @see `JSQMessagesCollectionViewCellIncoming`.
+ *  @see JSQMessagesCollectionViewCellIncoming.
  *
  *  @warning Overriding this property's default value is *not* recommended.
  *  You should only override this property's default value if you are proividing your own cell prototypes.

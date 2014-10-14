@@ -23,6 +23,7 @@
 #import "JSQMessagesCollectionViewLayoutAttributes.h"
 
 #import "UIView+JSQMessages.h"
+#import "UIDevice+JSQMessages.h"
 
 
 @interface JSQMessagesCollectionViewCell ()
@@ -155,7 +156,7 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-    
+
     self.cellTopLabel.text = nil;
     self.messageBubbleTopLabel.text = nil;
     self.cellBottomLabel.text = nil;
@@ -222,7 +223,10 @@
 - (void)setBounds:(CGRect)bounds
 {
     [super setBounds:bounds];
-    self.contentView.frame = bounds;
+    
+    if ([UIDevice jsq_isCurrentDeviceBeforeiOS8]) {
+        self.contentView.frame = bounds;
+    }
 }
 
 #pragma mark - Setters
@@ -266,25 +270,29 @@
 
 - (void)setMediaView:(UIView *)mediaView
 {
-    if (mediaView == _mediaView) {
+    if ([_mediaView isEqual:mediaView]) {
         return;
     }
-    
-    if (_mediaView) {
-        [_mediaView removeFromSuperview];
-        _mediaView = nil;
-    }
-    
+
     [self.messageBubbleImageView removeFromSuperview];
     [self.textView removeFromSuperview];
     
-    mediaView.translatesAutoresizingMaskIntoConstraints = NO;
+    [mediaView setTranslatesAutoresizingMaskIntoConstraints:NO];
     mediaView.frame = self.messageBubbleContainerView.bounds;
     
     [self.messageBubbleContainerView addSubview:mediaView];
     [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:mediaView];
     [self setNeedsUpdateConstraints];
     _mediaView = mediaView;
+    
+    //  because of cell re-use (and caching media views, if using built-in library media item)
+    //  we may have dequeued a cell with a media view and add this one on top
+    //  thus, remove any additional subviews hidden behind the new media view
+    for (NSUInteger i = 0; i < self.messageBubbleContainerView.subviews.count; i++) {
+        if (self.messageBubbleContainerView.subviews[i] != _mediaView) {
+            [self.messageBubbleContainerView.subviews[i] removeFromSuperview];
+        }
+    }
 }
 
 #pragma mark - Getters
@@ -330,6 +338,17 @@
     else {
         [self.delegate messagesCollectionViewCellDidTapCell:self atPosition:touchPt];
     }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    CGPoint touchPt = [touch locationInView:self];
+    
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        return CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt);
+    }
+    
+    return YES;
 }
 
 @end
