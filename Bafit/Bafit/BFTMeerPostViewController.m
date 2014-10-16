@@ -35,6 +35,9 @@
     [[BFTDataHandler sharedInstance] setPostView:YES];
     BOOL test = [[BFTDataHandler sharedInstance] postView];
     NSLog(test ? @"YES" : @"NO");
+    
+    BFTCameraView *camerView = [[BFTCameraView alloc] init];
+    camerView.delegate = self;
 
     [self MP4NameGet];
 
@@ -98,6 +101,11 @@
 -(void)popVC {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)returnToMain {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 -(void)stateChangedLocation {
     if ([_locationSwitch isOn]) {

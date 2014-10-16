@@ -89,6 +89,10 @@
                 [longPress setDelegate:self];
                 [_overlayButton addGestureRecognizer:longPress];
                 //Camera Switch Button (top right corner)
+                _camerasSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _videoPreviewView.frame.size.width, 20)];
+                [_camerasSwitchBtn setBackgroundImage:[UIImage imageNamed:@"switchCamera.png"] forState:UIControlStateNormal];
+                [_camerasSwitchBtn addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
+                [_videoPreviewView addSubview:_camerasSwitchBtn];
                 
                 
             }
@@ -164,9 +168,19 @@
         
         if (success == YES) {
             NSLog(@"Navigate to main view");
+            id<BFTCameraViewDelegate> strongDelegate = self.delegate;
+            
+            if ([strongDelegate respondsToSelector:@selector(returnToMain)]) {
+                [strongDelegate returnToMain];
+            }
         }
     }];
     
+}
+
+-(void)switchCamera
+{
+    [self.captureManager switchCamera];
 }
 
 -(void)refresh
@@ -231,6 +245,7 @@
 {
     //Do something
 }
+
 
 
 /*

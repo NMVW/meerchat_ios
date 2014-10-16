@@ -11,15 +11,10 @@
 #import "BFTDataHandler.h"
 #import "BFTCameraView.h"
 
-@protocol MeerPostDelegate <NSObject>
-@optional
-
--(void)doneSavingAtURL:(NSString *)url;
-
-@end
 
 
-@interface BFTMeerPostViewController : UIViewController
+@interface BFTMeerPostViewController : UIViewController <BFTCameraViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) IBOutlet UIImageView *btmTrapazoid;
 @property (strong, nonatomic) IBOutlet UILabel *userLabel;
@@ -40,6 +35,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *studyButton;
 
 -(void)uploadToMain;
+-(void)popVC;
 
 - (IBAction)moveClicked:(id)sender;
 - (IBAction)grubClicked:(id)sender;

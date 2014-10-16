@@ -10,10 +10,20 @@
 
 @class CaptureManager, AVCamPreviewView, AVCaptureVideoPreviewLayer;
 
+@protocol BFTCameraViewDelegate;
+
 @interface BFTCameraView : UIView
 
+@property (nonatomic,weak) id<BFTCameraViewDelegate> delegate;
 @property (nonatomic, assign) float maxDuration;
 @property (nonatomic, strong) CaptureManager *captureManager;
 
 
 @end
+
+@protocol BFTCameraViewDelegate <NSObject>
+
+-(void)returnToMain;
+
+@end
+
