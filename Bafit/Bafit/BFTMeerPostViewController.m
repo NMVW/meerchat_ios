@@ -35,9 +35,6 @@
     [[BFTDataHandler sharedInstance] setPostView:YES];
     BOOL test = [[BFTDataHandler sharedInstance] postView];
     NSLog(test ? @"YES" : @"NO");
-    
-    BFTCameraView *camerView = [[BFTCameraView alloc] init];
-    camerView.delegate = self;
 
     [self MP4NameGet];
 
@@ -69,6 +66,7 @@
     //Setup reply record function
     _embeddedRecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
     _embeddedRecordView.maxDuration = 10.0;
+    _embeddedRecordView.delegate = self;
     [_recordView addSubview:_embeddedRecordView];
 //    _embeddedRecordView = [[KZCameraView alloc] initWithFrame:_recordView.frame withVideoPreviewFrame:CGRectMake(0, 0, 275, 275)];
 //    _embeddedRecordView.maxDuration = 10.0;
