@@ -18,6 +18,7 @@
 #import "BFTMessageThreads.h"
 #import "BFTMeerPostViewController.h"
 #import "BFTVideoPlaybackController.h"
+#import "BFTCarouselView.h"
 
 @interface BFTMainViewController ()
 
@@ -220,115 +221,35 @@
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 {
-    _usernameLabel = nil;
-    UILabel *postTimeLabel = nil;
-    UILabel *distanceLabel = nil;
     BFTDataHandler *handler = [BFTDataHandler sharedInstance];
     
+    BFTCarouselView *mainView;
     
-    //don't do anything specific to the index within
-    //this `if (view == nil) {...}` statement because the view will be
-    //recycled and used with other index values later
-    UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200.0f, 370.0f)];
-    view = mainView;
-    CGFloat mainViewWidth = mainView.bounds.size.width;
-        
-    //Header
-    UIImageView *topTrapazoid = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, mainViewWidth, 60)];
-    topTrapazoid.image = [UIImage imageNamed:@"trapezoid_menu_top.png"];
-    topTrapazoid.tag = 4;
-    [mainView addSubview:topTrapazoid];
-    
-    //hashtags
-    UILabel *hashTagLabel = [[UILabel alloc] initWithFrame:topTrapazoid.bounds];
-    hashTagLabel.center = CGPointMake(125, 45);
-    hashTagLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
-    hashTagLabel.font = [hashTagLabel.font fontWithSize:11];
-    hashTagLabel.tag = 13;
-    hashTagLabel.text = [NSString stringWithFormat:@"%@ %@ %@", _tempHashTags[0],_tempHashTags[1], _tempHashTags[2]];
-    [mainView addSubview:hashTagLabel];
-    
-    UILabel *responseLabel = [[UILabel alloc] initWithFrame:topTrapazoid.bounds];
-    responseLabel.center = CGPointMake(178, 15);
-    responseLabel.textColor = [UIColor colorWithRed:204/255.0f green:204/255.0f blue:204/255.0f alpha:1.0];
-    responseLabel.font = [responseLabel.font fontWithSize:13];
-    responseLabel.tag = 8;
-    responseLabel.text = @"respond";
-    [mainView addSubview:responseLabel];
-        
-//    UIImageView *dividerTop = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 167, 1)];
-//    dividerTop.image = [UIImage imageNamed:@"dividerbar.png"];
-//    dividerTop.center = CGPointMake(100, 30);
-//    [mainView addSubview:dividerTop];
+    if (!view) {
+        mainView = [[BFTCarouselView alloc] init];
+    }
+    else {
+        mainView = (BFTCarouselView*)view;
+    }
     
     //Video Player View
     NSURL *thumbURL = [[NSURL alloc] initWithString:[[_videoPosts objectAtIndex:index] thumbURL]];
     NSURL *videoURL = [[NSURL alloc] initWithString:[[_videoPosts objectAtIndex:index] videoURL]];
     
-    BFTVideoPlaybackController* videoPlayer = [[BFTVideoPlaybackController alloc] initWithVideoURL:videoURL andThumbURL:thumbURL frame:CGRectMake(0, 60, 200, 220)];
+    BFTVideoPlaybackController* videoPlayer = [[BFTVideoPlaybackController alloc] initWithVideoURL:videoURL andThumbURL:thumbURL frame:CGRectMake(0, 72, 216, 216)];
     [_videoPlaybackControllers setObject:videoPlayer forKey:[NSNumber numberWithUnsignedInteger:index]];
     
     _videoView = videoPlayer.view;
-    [view addSubview:videoPlayer.view];
-        
-    //Username Display
-    _usernameLabel = [[UILabel alloc] initWithFrame:_videoView.bounds];
-    _usernameLabel.font = [_usernameLabel.font fontWithSize:15];
-    _usernameLabel.textColor = [UIColor colorWithWhite:100 alpha:1.0];
-    _usernameLabel.center = CGPointMake(_videoView.center.x + 65, 270);
-    _usernameLabel.tag = 10;
-    [mainView addSubview:_usernameLabel];
-    
-        
-    //footer
-    UIImageView *bottomTrapazoid = [[UIImageView alloc] initWithFrame:CGRectMake(0, 280, mainViewWidth, 60)];
-    bottomTrapazoid.image = [UIImage imageNamed:@"trapezoid_menu_bottom_segmented.png"];
-    bottomTrapazoid.tag = 6;
-    bottomTrapazoid.contentMode = UIViewContentModeScaleToFill;
-    [view addSubview:bottomTrapazoid];
-
-    //Labels
-    UILabel *notTodayLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    notTodayLabel.center = CGPointMake(175, 325);
-    notTodayLabel.textColor = [UIColor colorWithRed:204/255.0f green:204/255.0f blue:204/255.0f alpha:1.0];
-    notTodayLabel.font = [notTodayLabel.font fontWithSize:13];
-    notTodayLabel.tag = 11;
-    notTodayLabel.text = @"not today";
-    [mainView addSubview:notTodayLabel];
-
-    
-    postTimeLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    postTimeLabel.center = CGPointMake(225, 295);
-    postTimeLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
-    postTimeLabel.font = [postTimeLabel.font fontWithSize:9];
-    postTimeLabel.tag = 14;
-    [mainView addSubview:postTimeLabel];
-        
-    distanceLabel = [[UILabel alloc] initWithFrame:bottomTrapazoid.bounds];
-    distanceLabel.center = CGPointMake(130, 295);
-    distanceLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
-    distanceLabel.font = [distanceLabel.font fontWithSize:9];
-    distanceLabel.tag = 15;
-    [mainView addSubview:distanceLabel];
-    
-    UIImageView *timeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clock_icon"]];
-    [timeIcon setFrame:CGRectMake(bottomTrapazoid.frame.size.width/2 + 5, 5, 17, 17)];
-    [timeIcon setContentMode:UIViewContentModeScaleAspectFit];
-    [bottomTrapazoid addSubview:timeIcon];
-    
-    UIImageView *locationIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location_icon"]];
-    [locationIcon setFrame:CGRectMake(10, 5, 18, 18)];
-    [locationIcon setContentMode:UIViewContentModeScaleAspectFit];
-    [bottomTrapazoid addSubview:locationIcon];
-    
+    mainView.videoPlaybackView = videoPlayer.view;
     
     //Assign Item to Labels
     BFTVideoPost *post = [self.videoPosts objectAtIndex:index];
-    _usernameLabel.text = handler.Username[index%10];
-    postTimeLabel.text = [NSString stringWithFormat:@"%.0f hours ago", [[post timeStamp] timeIntervalSinceNow]/-3600.0];
-    distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
+    mainView.usernameLabel.text = handler.Username[index%10];
+    mainView.postTimeLabel.text = [NSString stringWithFormat:@"%.0f hours ago", [[post timeStamp] timeIntervalSinceNow]/-3600.0];
+    mainView.distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
+    mainView.hashTagLabel.text = [NSString stringWithFormat:@"%@ %@ %@", _tempHashTags[0],_tempHashTags[1], _tempHashTags[2]];
     
-    return view;
+    return mainView;
 }
 
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {

@@ -71,6 +71,7 @@
 		7CC2955919DBD4410012B93A /* clock_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC2955819DBD4410012B93A /* clock_icon.png */; };
 		7CC2E77E19E6496C004EECC0 /* BFTVideoPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */; };
 		7CCB382219BED3C00057D2F1 /* BFTMessageThreads.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */; };
+		7CD38DFA19F0B45B001DC8EF /* BFTCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD38DF919F0B45B001DC8EF /* BFTCarouselView.m */; };
 		7CF791F919C250BF003EB61F /* AVCamRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791F219C250BF003EB61F /* AVCamRecorder.m */; };
 		7CF791FA19C250BF003EB61F /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791F419C250BF003EB61F /* AVCamUtilities.m */; };
 		7CF791FB19C250BF003EB61F /* CaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791F619C250BF003EB61F /* CaptureManager.m */; };
@@ -351,6 +352,8 @@
 		7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoPlaybackController.m; sourceTree = "<group>"; };
 		7CCB382019BED3C00057D2F1 /* BFTMessageThreads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMessageThreads.h; sourceTree = "<group>"; };
 		7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMessageThreads.m; sourceTree = "<group>"; };
+		7CD38DF819F0B45B001DC8EF /* BFTCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTCarouselView.h; sourceTree = "<group>"; };
+		7CD38DF919F0B45B001DC8EF /* BFTCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTCarouselView.m; sourceTree = "<group>"; };
 		7CF791F119C250BF003EB61F /* AVCamRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamRecorder.h; sourceTree = "<group>"; };
 		7CF791F219C250BF003EB61F /* AVCamRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamRecorder.m; sourceTree = "<group>"; };
 		7CF791F319C250BF003EB61F /* AVCamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamUtilities.h; sourceTree = "<group>"; };
@@ -848,6 +851,15 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		7CD38DF719F0B42B001DC8EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7CD38DF819F0B45B001DC8EF /* BFTCarouselView.h */,
+				7CD38DF919F0B45B001DC8EF /* BFTCarouselView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		7CF791EE19C250BF003EB61F /* NewVideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
@@ -1076,6 +1088,7 @@
 				8040E9781978FD59000D66C7 /* Main.storyboard */,
 				80F650FD198097A400443673 /* Modal */,
 				8040E9AD197E080D000D66C7 /* Controller */,
+				7CD38DF719F0B42B001DC8EF /* View */,
 				8040E9AB197E07ED000D66C7 /* API */,
 				8040E96D1978FD59000D66C7 /* Supporting Files */,
 			);
@@ -1487,6 +1500,7 @@
 				7C64470119BCE6440071D444 /* GCDMulticastDelegate.m in Sources */,
 				7C6446F119BCE6440071D444 /* XMPPPlainAuthentication.m in Sources */,
 				7C6446F619BCE6440071D444 /* NSNumber+XMPP.m in Sources */,
+				7CD38DFA19F0B45B001DC8EF /* BFTCarouselView.m in Sources */,
 				7C64470619BCE6440071D444 /* XMPPTimer.m in Sources */,
 				807F5B9C198F1D5000528829 /* BFTPostViewController.m in Sources */,
 				8058E1B6198855A600DF2F4F /* BFTMessage.m in Sources */,
