@@ -262,7 +262,9 @@
 }
 
 -(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
-    //dont need this code anymore. that was only for loading the next segment (but we only have one segment now)
+    if (!(self.carousel.currentItemIndex == self.currentVideoPlaybackIndex)) {
+        [self pauseLastVideo];
+    }
 }
 
 - (NSUInteger)numberOfVisibleItemsInCarousel:(iCarousel *)carousel
