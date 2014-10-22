@@ -9,6 +9,7 @@
 #import "BFTPostViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTCameraView.h"
+#import "BFTVideoPlaybackController.h"
 
 @interface BFTPostViewController ()
 
@@ -23,7 +24,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
     }
     return self;
 }
@@ -35,6 +35,11 @@
     _customNavView = [[UIView alloc] init];
     [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     
+    //enable scroll view
+    [_scrollView setScrollEnabled:YES];
+    [_scrollView setScrollsToTop:YES];
+    [_scrollView setContentSize:CGSizeMake(320, 500)];
+//    [_scrollView setContentOffset:CGPointMake(0, 30) animated:YES];
     
     
     _FrontCamera = NO;
@@ -61,6 +66,7 @@
     
     _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
     _embeddedrecordView.maxDuration = 10.0;
+//    _embeddedrecordView.delegate = self;
     [_recordView addSubview:_embeddedrecordView];
     
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
@@ -75,9 +81,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification
 object:_player1];
+
     
-    
-    
+}
+
+-(void)returnToMain {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -101,17 +110,17 @@ object:_player1];
 }
 
 
--(void)longPressRecord:(UILongPressGestureRecognizer *)sender {
-    NSLog(@"Sender being called");
-    if ([sender isEqual:_recordGesture]) {
-        if (sender.state == UIGestureRecognizerStateBegan) {
-            NSLog(@"Recording should start");
-            [self initializeCamera];
-        }else{
-            NSLog(@"State was not started");
-        }
-    }
-}
+//-(void)longPressRecord:(UILongPressGestureRecognizer *)sender {
+//    NSLog(@"Sender being called");
+//    if ([sender isEqual:_recordGesture]) {
+//        if (sender.state == UIGestureRecognizerStateBegan) {
+//            NSLog(@"Recording should start");
+//            [self initializeCamera];
+//        }else{
+//            NSLog(@"State was not started");
+//        }
+//    }
+//}
 
 //-(IBAction)saveVideo:(id)sender
 //{
@@ -123,9 +132,9 @@ object:_player1];
 //    }];
 //}
 
-- (IBAction)captureVideo:(id)sender {
-    [self initializeCamera];
-}
+//- (IBAction)captureVideo:(id)sender {
+//    [self initializeCamera];
+//}
 
 - (IBAction)playButtonPress:(id)sender {
     
@@ -165,84 +174,76 @@ object:_player1];
 
 
 //AVCaptureSession to show live video feed in view
-- (void) initializeCamera {
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-	session.sessionPreset = AVCaptureSessionPresetMedium;
-	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-    [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-	captureVideoPreviewLayer.frame = _recordView.bounds;
-	[_recordView.layer addSublayer:captureVideoPreviewLayer];
-	
-    UIView *view = _recordView;
-    CALayer *viewLayer = [view layer];
-    [viewLayer setMasksToBounds:YES];
-    
-    CGRect bounds = [view bounds];
-    [captureVideoPreviewLayer setFrame:bounds];
-    
-    NSArray *devices = [AVCaptureDevice devices];
-    AVCaptureDevice *frontCamera;
-    AVCaptureDevice *backCamera;
-    
-    for (AVCaptureDevice *device in devices) {
-        NSLog(@"Device name: %@", [device localizedName]);
-        if ([device hasMediaType:AVMediaTypeVideo]) {
-            if ([device position] == AVCaptureDevicePositionBack) {
-                NSLog(@"Device position : back");
-                backCamera = device;
-            }
-            else {
-                NSLog(@"Device position : front");
-                frontCamera = device;
-            }
-        }
-    }
-    
-    if (!_FrontCamera) {
-        NSError *error = nil;
-        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:&error];
-        if (!input) {
-            NSLog(@"ERROR: trying to open camera: %@", error);
-        }
-        [session addInput:input];
-    }
-    
-    if (_FrontCamera) {
-        NSError *error = nil;
-        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:frontCamera error:&error];
-        if (!input) {
-            NSLog(@"ERROR: trying to open camera: %@", error);
-        }
-        [session addInput:input];
-    }
-    
-    //ADD AUDIO INPUT
-	NSLog(@"Adding audio input");
-	AVCaptureDevice *audioCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-	NSError *error = nil;
-	AVCaptureDeviceInput *audioInput = [AVCaptureDeviceInput deviceInputWithDevice:audioCaptureDevice error:&error];
-	if (audioInput)
-	{
-		[session addInput:audioInput];
-	}
-    
-    //Add capture output
-    if ([session canAddOutput:_output]) {
-        [session addOutput:_output];
-    }else{
-        NSLog(@"Was unable to add output for recording video");
-    }
-    
-	[session startRunning];
-}
-
--(void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections{
-    
-}
-
--(void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error{
-    
-}
+//- (void) initializeCamera {
+//    AVCaptureSession *session = [[AVCaptureSession alloc] init];
+//	session.sessionPreset = AVCaptureSessionPresetMedium;
+//	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+//    [captureVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+//	captureVideoPreviewLayer.frame = _recordView.bounds;
+//	[_recordView.layer addSublayer:captureVideoPreviewLayer];
+//	
+//    UIView *view = _recordView;
+//    CALayer *viewLayer = [view layer];
+//    [viewLayer setMasksToBounds:YES];
+//    
+//    CGRect bounds = [view bounds];
+//    [captureVideoPreviewLayer setFrame:bounds];
+//    
+//    NSArray *devices = [AVCaptureDevice devices];
+//    AVCaptureDevice *frontCamera;
+//    AVCaptureDevice *backCamera;
+//    
+//    for (AVCaptureDevice *device in devices) {
+//        NSLog(@"Device name: %@", [device localizedName]);
+//        if ([device hasMediaType:AVMediaTypeVideo]) {
+//            if ([device position] == AVCaptureDevicePositionBack) {
+//                NSLog(@"Device position : back");
+//                backCamera = device;
+//            }
+//            else {
+//                NSLog(@"Device position : front");
+//                frontCamera = device;
+//            }
+//        }
+//    }
+//    
+//    if (!_FrontCamera) {
+//        NSError *error = nil;
+//        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:&error];
+//        if (!input) {
+//            NSLog(@"ERROR: trying to open camera: %@", error);
+//        }
+//        [session addInput:input];
+//    }
+//    
+//    if (_FrontCamera) {
+//        NSError *error = nil;
+//        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:frontCamera error:&error];
+//        if (!input) {
+//            NSLog(@"ERROR: trying to open camera: %@", error);
+//        }
+//        [session addInput:input];
+//    }
+//    
+//    //ADD AUDIO INPUT
+//	NSLog(@"Adding audio input");
+//	AVCaptureDevice *audioCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+//	NSError *error = nil;
+//	AVCaptureDeviceInput *audioInput = [AVCaptureDeviceInput deviceInputWithDevice:audioCaptureDevice error:&error];
+//	if (audioInput)
+//	{
+//		[session addInput:audioInput];
+//	}
+//    
+//    //Add capture output
+//    if ([session canAddOutput:_output]) {
+//        [session addOutput:_output];
+//    }else{
+//        NSLog(@"Was unable to add output for recording video");
+//    }
+//    
+//	[session startRunning];
+//}
 
 //Keyboard start
 - (void)registerForKeyboardNotifications {
@@ -290,10 +291,13 @@ object:_player1];
     
 }
 
-- (void)keyboardWillBeHidden:(NSNotification *)notification {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    //[_scrollView setContentOffset:CGPointZero animated:YES];
-    
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([_userInput isFirstResponder] && [touch view] != _userInput) {
+        [_userInput resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
 }
 //keyboard end
 

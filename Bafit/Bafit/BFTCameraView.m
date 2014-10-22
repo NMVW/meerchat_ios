@@ -89,10 +89,18 @@
                 [longPress setDelegate:self];
                 [_overlayButton addGestureRecognizer:longPress];
                 //Camera Switch Button (top right corner)
-                _camerasSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _videoPreviewView.frame.size.width, 20)];
+                _camerasSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, 0, _videoPreviewView.frame.size.width - 200, 20)];
                 [_camerasSwitchBtn setBackgroundImage:[UIImage imageNamed:@"switchCamera.png"] forState:UIControlStateNormal];
                 [_camerasSwitchBtn addTarget:self action:@selector(switchCamera) forControlEvents:UIControlEventTouchUpInside];
                 [_videoPreviewView addSubview:_camerasSwitchBtn];
+                
+                //progresBar
+                self.durationProgressBar = [[UIProgressView alloc] initWithFrame:CGRectMake(0, _videoPreviewView.frame.origin.y + _videoPreviewView.frame.size.height, _videoPreviewView.frame.size.width, 2)];
+                [self.durationProgressBar setTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+                [self addSubview:self.durationProgressBar];
+                
+//                 self.progressBar = [[UIProgressView alloc]initWithFrame:CGRectMake(0.0, 0.0, _videoPreviewView.frame.size.width - 60.0, 2.0)];
+//                self.progressBar.center = self.progressView.center;
                 
                 
             }
@@ -105,6 +113,7 @@
 
 - (IBAction)startRecording:(UILongPressGestureRecognizer*)recognizer
 {
+    NSLog(@"Recognizer entered");
     switch (recognizer.state)
     {
         case UIGestureRecognizerStateBegan:
@@ -127,8 +136,8 @@
                 [self.durationTimer invalidate];
                 [[self captureManager] stopRecording];
                 self.videoPreviewView.layer.borderColor = [UIColor clearColor].CGColor;
-                UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _videoPreviewView.frame.size.width, 30)];
-                [saveButton setTitle:@"Save" forState:UIControlStateNormal];
+                UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(-10, 210, _videoPreviewView.frame.size.width, 30)];
+                [saveButton setTitle:@"Post" forState:UIControlStateNormal];
                 [saveButton addTarget:self
                            action:@selector(saveVideo:)
                  forControlEvents:UIControlEventTouchUpInside];
@@ -178,6 +187,31 @@
     
 }
 
+-(void)updateDuration{
+    if ([[[self captureManager] recorder] isRecording])
+    {
+        self.duration = self.duration + 0.1;
+        self.durationProgressBar.progress = self.duration/self.maxDuration;
+        NSLog(@"self.duration %f, self.progressBar %f", self.duration, self.durationProgressBar.progress);
+        if (self.durationProgressBar.progress > .99) {
+            [self.durationTimer invalidate];
+            self.durationTimer = nil;
+            [[self captureManager] stopRecording];
+        }
+    }
+    else
+    {
+        [self.durationTimer invalidate];
+        self.durationTimer = nil;
+    }
+}
+
+- (void) removeTimeFromDuration:(float)removeTime;
+{
+    self.duration = self.duration - removeTime;
+    self.durationProgressBar.progress = self.duration/self.maxDuration;
+}
+
 -(void)switchCamera
 {
     [self.captureManager switchCamera];
@@ -187,7 +221,7 @@
 {
 //    self.progressView.hidden = YES;
     self.duration = 0.0;
-//    self.durationProgressBar.progress = 0.0;
+    self.durationProgressBar.progress = 0.0;
     [self.durationTimer invalidate];
     self.durationTimer = nil;
 }
@@ -200,10 +234,7 @@
 
 - (void) updateProgress
 {
-    self.progressView.hidden = NO;
     self.progressBar.hidden = NO;
-    self.activityView.hidden = YES;
-    self.progressLabel.text = @"Creating the video";
     self.progressBar.progress = self.captureManager.exportSession.progress;
     if (self.progressBar.progress > .99) {
         [self.captureManager.exportProgressBarTimer invalidate];
@@ -214,8 +245,6 @@
 - (void) removeProgress
 {
     self.progressBar.hidden = YES;
-    [self.activityView startAnimating];
-    self.progressLabel.text = @"Saving to Camera Roll";
 }
 
 - (void)captureManager:(CaptureManager *)captureManager didFailWithError:(NSError *)error
@@ -234,6 +263,7 @@
 {
     _videoPreviewView.layer.borderColor = [UIColor whiteColor].CGColor;
     _videoPreviewView.layer.borderWidth = 2.0;
+    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateDuration) userInfo:nil repeats:YES];
 }
 
 - (void)captureManagerRecordingFinished:(CaptureManager *)captureManager

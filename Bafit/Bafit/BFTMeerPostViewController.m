@@ -246,13 +246,13 @@
         [_grubButton setSelected:NO];
         [_categoryLabel setText:@"Study"];
         [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-        _categoryLabel.center = CGPointMake(0, 13);
+//        _categoryLabel.center = CGPointMake(0, 13);
     }else{
         [_studyButton setSelected:NO];
         [[BFTPostHandler sharedInstance] setPostCategory:0];
         [_categoryLabel setText:@"Choose Category"];
         [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
-        _categoryLabel.center = CGPointMake(55,12);
+//        _categoryLabel.center = CGPointMake(55,12);
     }
 }
 

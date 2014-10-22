@@ -22,6 +22,9 @@
         _postGPSLon = -81.38122;
         _postFName = @"";
         _postMC = @"";
+        _xmmpToUser = @"";
+        _xmppThumbURL = @"";
+        _xmppVideoURL = @"";
     }
     return self;
 }

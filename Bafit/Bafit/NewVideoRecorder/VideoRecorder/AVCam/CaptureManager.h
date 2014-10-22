@@ -52,6 +52,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BFTDataHandler.h"
 #import "BFTMeerPostViewController.h"
+#import "BFTAppDelegate.h"
 
 @class AVCamRecorder;
 @protocol CaptureManagerDelegate;
@@ -76,6 +77,7 @@
 @property (nonatomic, assign) NSString *postView;
 @property (nonatomic, assign) NSString *mp4Name;
 @property (nonatomic, strong) UIImage *thumbImg;
+@property (nonatomic, weak) BFTAppDelegate *appDelegate;
 
 
 - (BOOL) setupSession;

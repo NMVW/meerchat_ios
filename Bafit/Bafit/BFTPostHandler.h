@@ -20,5 +20,8 @@
 @property (assign) double postGPSLon;
 @property (nonatomic,strong) NSString *postFName;
 @property (nonatomic,strong) NSString *postMC;
+@property (nonatomic, strong) NSString *xmppVideoURL;
+@property (nonatomic, strong) NSString *xmppThumbURL;
+@property (nonatomic, strong) NSString *xmmpToUser;
 
 @end

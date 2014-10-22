@@ -59,6 +59,8 @@
 #import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "AFNetworking.h"
+#import "BFTAppDelegate.h"
+#import "BFTMessageThreads.h"
 
 #define MAX_DURATION 0.25
 
@@ -359,13 +361,13 @@
 
         // 5 - Create exporter
         self.exportSession = [[AVAssetExportSession alloc] initWithAsset:mixComposition
-                                                                          presetName:AVAssetExportPresetPassthrough];
+                                                               presetName:AVAssetExportPresetMediumQuality];
         self.exportSession.outputURL = url;
         self.exportSession.outputFileType = AVFileTypeQuickTimeMovie;
         self.exportSession.shouldOptimizeForNetworkUse = YES;
         self.exportSession.videoComposition = videoComposition;
         
-        //self.exportProgressBarTimer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self.delegate selector:@selector(updateProgress) userInfo:nil repeats:YES];
+        self.exportProgressBarTimer = [NSTimer scheduledTimerWithTimeInterval:.1 target:self.delegate selector:@selector(updateProgress) userInfo:nil repeats:YES];
         
         __block id weakSelf = self;
         
@@ -427,6 +429,7 @@
         }else{
             //post to user
             NSLog(@"inside post to user");
+            [self uploadToUserWithURL:outputURL];
         }
     }
     
@@ -474,6 +477,41 @@
     
 }
 
+-(void)uploadToUserWithURL:(NSURL *)URL {
+    NSString* videoName = [NSString stringWithFormat:@"%@.mp4", [[BFTDataHandler sharedInstance] mp4Name]];
+    NSString *thumbName = [NSString stringWithFormat:@"%@.jpeg", [[BFTDataHandler sharedInstance] mp4Name]];
+    NSString *urlString = [NSString stringWithFormat:@"http:www.bafit.mobi/cScripts/v1/uploadVid.php"];
+    NSString *videoSaveString = [NSString stringWithFormat:@"http://www.bafit.mobi/userPosts/%@", videoName];
+    NSString *thumbSaveString = [NSString stringWithFormat:@"http://bafit.mobi/userPosts/thumb/%@",thumbName];
+    [[BFTPostHandler sharedInstance] setXmppVideoURL:videoSaveString];
+    [[BFTPostHandler sharedInstance] setXmppThumbURL:thumbSaveString];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileURL:URL name:@"file" fileName:videoName mimeType:@"video/mp4" error:nil];
+    } error:nil];
+    
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSProgress *progress = nil;
+    
+    NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            
+        } else {
+            NSLog(@"%@ %@", response, responseObject);
+            //upload thumb and postVideo to Main
+            //genrates and handles upload request
+            [self generateImageFromURI:URL];
+            [self sendVideoToUser];
+        }
+    }];
+    
+    [uploadTask resume];
+    
+}
+
 -(void)PostVideoToMain {
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"postVideo.php?UIDr=%@&at_tag=%@&hash_tag=%@&category=%f&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[[BFTPostHandler sharedInstance] postUID], [[BFTPostHandler sharedInstance] postAT_Tag], [[BFTPostHandler sharedInstance]postHash_tag], [[BFTPostHandler sharedInstance] postCategory], [[BFTPostHandler sharedInstance] postGPSLat], [[BFTPostHandler sharedInstance] postGPSLon], [[BFTPostHandler sharedInstance] postFName], [[BFTPostHandler sharedInstance] postMC]] completionBlock:^(NSMutableData *data, NSError *error) {
         
@@ -487,6 +525,15 @@
             NSLog(@"No Data recived for file type");
         }
     }] startConnection];
+}
+
+-(void)sendVideoToUser {
+    //xmpp toUser
+    self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [self.appDelegate sendVideoMessageWithURL:[[BFTPostHandler sharedInstance] xmppVideoURL] thumbURL:[[BFTPostHandler sharedInstance] xmppThumbURL] toUser:[[BFTPostHandler sharedInstance] xmmpToUser]];
+    BFTMessageThreads *messageThread  = [[BFTMessageThreads alloc] init];
+    [messageThread addVideoToThreadWithURL:[[BFTPostHandler sharedInstance] xmppVideoURL] thumbURL:[[BFTPostHandler sharedInstance] xmppThumbURL] from:[[BFTDataHandler sharedInstance] UID]];
+    
 }
 
 -(NSString *)MP4NameGet {
@@ -528,7 +575,7 @@
 
 -(void)uploadImageThumb:(UIImage *)imageThumb{
     //upload thumb image
-    NSLog(@"Entered Uplod for Thumb");
+    NSLog(@"Entered Upload for Thumb");
     //save image locally to upload
     NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSLog(@"Document Directory: %@", docDir);
@@ -760,5 +807,7 @@
         [[self delegate] captureManagerRecordingFinished:self];
     }
 }
+@end
+@implementation BFTCameraView (CaptureManagerDelegate)
 
 @end
