@@ -192,7 +192,7 @@
     {
         self.duration = self.duration + 0.1;
         self.durationProgressBar.progress = self.duration/self.maxDuration;
-        NSLog(@"self.duration %f, self.progressBar %f", self.duration, self.durationProgressBar.progress);
+        //NSLog(@"self.duration %f, self.progressBar %f", self.duration, self.durationProgressBar.progress);
         if (self.durationProgressBar.progress > .99) {
             [self.durationTimer invalidate];
             self.durationTimer = nil;

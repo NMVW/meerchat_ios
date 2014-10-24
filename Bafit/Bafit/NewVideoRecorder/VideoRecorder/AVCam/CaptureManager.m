@@ -442,14 +442,10 @@
 
 #pragma mark upload Methods
 -(void)uploadToMainWithURL:(NSURL *)URL {
-
-    NSLog(@"URL: %@", URL);
-    //upload video
-    
     NSString* videoName = [NSString stringWithFormat:@"%@.mp4",[[BFTDataHandler sharedInstance] mp4Name]];
     
     //NSData *imageData = UIImagePNGRepresentation(uploadThumb);
-    NSString *urlString = [NSString stringWithFormat:@"http:www.bafit.mobi/cScripts/v1/uploadVid.php"];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadVid.php"];
 
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileURL:URL name:@"file" fileName:videoName mimeType:@"video/mp4" error:nil];
@@ -465,7 +461,7 @@
             NSLog(@"Error: %@", error);
             
         } else {
-            NSLog(@"%@ %@", response, responseObject);
+            NSLog(@"Video Upload Success");
             //upload thumb and postVideo to Main
             //genrates and handles upload request
             [self generateImageFromURI:URL];
@@ -480,7 +476,7 @@
 -(void)uploadToUserWithURL:(NSURL *)URL {
     NSString* videoName = [NSString stringWithFormat:@"%@.mp4", [[BFTDataHandler sharedInstance] mp4Name]];
     NSString *thumbName = [NSString stringWithFormat:@"%@.jpeg", [[BFTDataHandler sharedInstance] mp4Name]];
-    NSString *urlString = [NSString stringWithFormat:@"http:www.bafit.mobi/cScripts/v1/uploadVid.php"];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadVid.php"];
     NSString *videoSaveString = [NSString stringWithFormat:@"http://www.bafit.mobi/userPosts/%@", videoName];
     NSString *thumbSaveString = [NSString stringWithFormat:@"http://bafit.mobi/userPosts/thumb/%@",thumbName];
     [[BFTPostHandler sharedInstance] setXmppVideoURL:videoSaveString];
@@ -513,7 +509,7 @@
 }
 
 -(void)PostVideoToMain {
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"postVideo.php?UIDr=%@&at_tag=%@&hash_tag=%@&category=%f&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[[BFTPostHandler sharedInstance] postUID], [[BFTPostHandler sharedInstance] postAT_Tag], [[BFTPostHandler sharedInstance]postHash_tag], [[BFTPostHandler sharedInstance] postCategory], [[BFTPostHandler sharedInstance] postGPSLat], [[BFTPostHandler sharedInstance] postGPSLon], [[BFTPostHandler sharedInstance] postFName], [[BFTPostHandler sharedInstance] postMC]] completionBlock:^(NSMutableData *data, NSError *error) {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[[BFTPostHandler sharedInstance] postUID], [[BFTDataHandler sharedInstance] BUN], [[BFTPostHandler sharedInstance]postHash_tag], [[BFTPostHandler sharedInstance] postCategory], [[BFTPostHandler sharedInstance] postGPSLat], [[BFTPostHandler sharedInstance] postGPSLon], [[BFTPostHandler sharedInstance] postFName], [[BFTPostHandler sharedInstance] postMC]] completionBlock:^(NSMutableData *data, NSError *error) {
         
         //handle JSON from step one
         if (!error) {
@@ -578,30 +574,30 @@
     NSLog(@"Entered Upload for Thumb");
     //save image locally to upload
     NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSLog(@"Document Directory: %@", docDir);
     
     //write Jpeg to file
     NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@.jpeg", docDir, [[BFTDataHandler sharedInstance] mp4Name]];
-    NSData *imageData = [NSData dataWithData:UIImageJPEGRepresentation(imageThumb, 1)];
+    NSData *imageData = UIImageJPEGRepresentation(imageThumb, 1);
     [imageData writeToFile:jpegFilePath atomically:YES];
     
     NSString* thumbName = [NSString stringWithFormat:@"%@.jpeg",[[BFTDataHandler sharedInstance] mp4Name]];
     
-//    NSData *imageData = UIImagePNGRepresentation(imageThumb);
-    NSString *urlString = [NSString stringWithFormat:@"http:www.bafit.mobi/cScripts/v1/uploadThumb.php"];
-    
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadThumb.php"];
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileURL:[NSURL URLWithString:jpegFilePath] name:@"file" fileName:thumbName mimeType:@"image/jpeg" error:nil];
+        [formData appendPartWithFileData:imageData name:@"file" fileName:thumbName mimeType:@"image/jpeg"];
     } error:nil];
     
+    
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     NSProgress *progress = nil;
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Error for Thumb upload: %@", error);
+            NSLog(@"\n\nError for Thumb upload: %@\n\n", error);
         } else {
-            NSLog(@"%@ %@", response, responseObject);
+            NSLog(@"Thumb Upload Success");
         }
     }];
     
