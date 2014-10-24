@@ -458,7 +458,7 @@
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", error);
+            NSLog(@"Error: %@", error.localizedDescription);
             
         } else {
             NSLog(@"Video Upload Success");
@@ -576,24 +576,39 @@
     NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
     //write Jpeg to file
-    NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@.jpeg", docDir, [[BFTDataHandler sharedInstance] mp4Name]];
-    NSData *imageData = UIImageJPEGRepresentation(imageThumb, 1);
+    NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@.jpg", docDir, [[BFTDataHandler sharedInstance] mp4Name]];
+    NSData *imageData = UIImageJPEGRepresentation(imageThumb, .8);
     [imageData writeToFile:jpegFilePath atomically:YES];
     
-    NSString* thumbName = [NSString stringWithFormat:@"%@.jpeg",[[BFTDataHandler sharedInstance] mp4Name]];
+    NSString* thumbName = [NSString stringWithFormat:@"%@.jpg",[[BFTDataHandler sharedInstance] mp4Name]];
     
-    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadThumb.php"];
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.bafit.mobi/"]];
+    
+    AFHTTPRequestOperation *op = [manager POST:@"cScripts/v1/uploadThumb.php" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"file" fileName:thumbName mimeType:@"image/jpeg"];
-    } error:nil];
+        NSLog(@"%@", formData);
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Success: %@ \n\n%@", operation.responseString, responseObject);
+        NSLog(@"\n\n%@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@ \n\n%@", operation.responseString, error);
+    }];
+    op.responseSerializer = [AFHTTPResponseSerializer serializer];
+    op.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [op start];
     
-    
+    /*
+     NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadThumb.php"];
+     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+     [formData appendPartWithFileData:imageData name:@"image" fileName:thumbName mimeType:@"image/jpeg"];
+     } error:nil];
+     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSProgress *progress = nil;
-    
+
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        NSLog(@"Response: %@\n\n Response Object: %@", response, responseObject);
         if (error) {
             NSLog(@"\n\nError for Thumb upload: %@\n\n", error);
         } else {
@@ -602,7 +617,7 @@
     }];
     
     [uploadTask resume];
-    
+    */
     //remove file form directory
     [self removeImage:[NSString stringWithFormat:@"%@.jpeg", [[BFTDataHandler sharedInstance] mp4Name]]];
 }
