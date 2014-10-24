@@ -113,7 +113,7 @@
 
 - (IBAction)startRecording:(UILongPressGestureRecognizer*)recognizer
 {
-    NSLog(@"Recognizer entered");
+    //NSLog(@"Recognizer entered");
     switch (recognizer.state)
     {
         case UIGestureRecognizerStateBegan:
@@ -144,7 +144,7 @@
                 
                 
                 [_videoPreviewView addSubview:saveButton];
-                NSLog(@"END number of pieces %lu", (unsigned long)[self.captureManager.assets count]);
+                //NSLog(@"END number of pieces %lu", (unsigned long)[self.captureManager.assets count]);
             }
             break;
         }

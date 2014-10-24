@@ -82,7 +82,6 @@
         if (!error) {
             NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             for (NSDictionary *dict in responseJSON) {
-                NSLog(@"Object value: %@", [dict allKeys]);
                 [[BFTDataHandler sharedInstance] setMp4Name:[dict objectForKey:@"FName"]];
                 [[BFTPostHandler sharedInstance] setPostMC:[dict objectForKey:@"MC"]];
                 [[BFTPostHandler sharedInstance] setPostFName:[dict objectForKey:@"FName"]];

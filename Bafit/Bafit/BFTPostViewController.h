@@ -13,7 +13,7 @@
 #import "BFTCameraView.h"
 
 
-@interface BFTPostViewController : UIViewController <UIImagePickerControllerDelegate, UIScrollViewDelegate, AVCaptureFileOutputRecordingDelegate, BFTCameraViewDelegate>
+@interface BFTPostViewController : UIViewController <UIScrollViewDelegate, AVCaptureFileOutputRecordingDelegate, BFTCameraViewDelegate>
 @property (strong, nonatomic) IBOutlet UIToolbar *bottomToolbar;
 @property (strong, nonatomic) MPMoviePlayerController *player;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;

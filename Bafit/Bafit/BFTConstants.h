@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
+#import "ExtendedNSLog.h"
+
 #ifndef Bafit_BFTConstants_h
 #define Bafit_BFTConstants_h
 

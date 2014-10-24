@@ -357,7 +357,7 @@
         NSString *path =  [documentsDirectory stringByAppendingPathComponent:
                                  [NSString stringWithFormat:@"%@.mp4", [[BFTDataHandler sharedInstance] mp4Name]]];
         NSURL *url = [NSURL fileURLWithPath:path];
-        NSLog(@"Path of URL File: %@", path);
+        //NSLog(@"Path of URL File: %@", path);
 
         // 5 - Create exporter
         self.exportSession = [[AVAssetExportSession alloc] initWithAsset:mixComposition
@@ -372,7 +372,7 @@
         __block id weakSelf = self;
         
         [self.exportSession exportAsynchronouslyWithCompletionHandler:^{
-            NSLog (@"i is in your block, exportin. status is %ld",(long)self.exportSession.status);
+            //NSLog (@"i is in your block, exportin. status is %ld",(long)self.exportSession.status);
             dispatch_async(dispatch_get_main_queue(), ^{
                 //Try to set Bool for View in DataHandler and Pass it with Completion Block, handle in exportDidFinish
                 [weakSelf exportDidFinish:self.exportSession withCompletionBlock:completion];
@@ -397,7 +397,7 @@
         
         if (fileURL)
             [weakSelf removeFile:fileURL];
-        NSLog(@"File Url: %@", fileURL);
+        //NSLog(@"File Url: %@", fileURL);
     }];
     
     //[self.assets removeAllObjects];
@@ -405,7 +405,7 @@
     
     if (session.status == AVAssetExportSessionStatusCompleted) {
         NSURL *outputURL = session.outputURL;
-        NSLog(@" Output URL: %@", outputURL);
+        //NSLog(@" Output URL: %@", outputURL);
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 //        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputURL]) {
 //            [library writeVideoAtPathToSavedPhotosAlbum:outputURL completionBlock:^(NSURL *assetURL, NSError *error){
@@ -509,7 +509,14 @@
 }
 
 -(void)PostVideoToMain {
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[[BFTPostHandler sharedInstance] postUID], [[BFTDataHandler sharedInstance] BUN], [[BFTPostHandler sharedInstance]postHash_tag], [[BFTPostHandler sharedInstance] postCategory], [[BFTPostHandler sharedInstance] postGPSLat], [[BFTPostHandler sharedInstance] postGPSLon], [[BFTPostHandler sharedInstance] postFName], [[BFTPostHandler sharedInstance] postMC]] completionBlock:^(NSMutableData *data, NSError *error) {
+    //http://bafit.mobi/cScripts/v1/postVideo.php?UIDr=abcd&BUN=user&hash_tag=tag&category=1&GPSLat=11.11&GPSLon=11.11&FName=kjdhfksjdhf&MC=11
+    //http://bafit.mobi/cScripts/v1/postVideo.php?UIDr=FB28EB1B-3C44-4284-B0A8-2DA041658936&BUN=jpecoraro&hash_tag=&category=0&GPSLat=28.548180&GPSLon=-81.381220&FName=FB28EB1B-3C44-4284-B0A8-2DA041658936_FB28EB1B-3C44-4284-B0A8-2DA041658936_106&MC=106
+    
+    BFTDataHandler *data = [BFTDataHandler sharedInstance];
+    BFTPostHandler *post = [BFTPostHandler sharedInstance];
+    
+    NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [[post postHash_tag] isEqualToString:@""] ? [post postHash_tag] : @"\"\"" , [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
+    [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
         
         //handle JSON from step one
         if (!error) {
@@ -589,7 +596,6 @@
         NSLog(@"%@", formData);
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success: %@ \n\n%@", operation.responseString, responseObject);
-        NSLog(@"\n\n%@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@ \n\n%@", operation.responseString, error);
     }];
@@ -597,27 +603,6 @@
     op.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [op start];
     
-    /*
-     NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadThumb.php"];
-     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-     [formData appendPartWithFileData:imageData name:@"image" fileName:thumbName mimeType:@"image/jpeg"];
-     } error:nil];
-     
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSProgress *progress = nil;
-
-    NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        NSLog(@"Response: %@\n\n Response Object: %@", response, responseObject);
-        if (error) {
-            NSLog(@"\n\nError for Thumb upload: %@\n\n", error);
-        } else {
-            NSLog(@"Thumb Upload Success");
-        }
-    }];
-    
-    [uploadTask resume];
-    */
     //remove file form directory
     [self removeImage:[NSString stringWithFormat:@"%@.jpeg", [[BFTDataHandler sharedInstance] mp4Name]]];
 }

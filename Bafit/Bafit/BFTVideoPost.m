@@ -20,7 +20,7 @@
         self.UID = [jsonDictionary objectForKey:@"UID"];
         self.BUN = [jsonDictionary objectForKey:@"BUN"];
         self.videoURL = [baseVideoURL stringByAppendingPathComponent:[jsonDictionary objectForKey:@"vidURI"]];
-        self.thumbURL = [[baseThumbURL stringByAppendingPathComponent:[jsonDictionary objectForKey:@"vidURI"]] stringByAppendingPathExtension:@"jpg"];
+        self.thumbURL = [[[baseThumbURL stringByAppendingPathComponent:[jsonDictionary objectForKey:@"vidURI"]] stringByDeletingPathExtension] stringByAppendingPathExtension:@"jpg"];
         self.MC = [[jsonDictionary objectForKey:@"MC"] integerValue];
         self.category = [[jsonDictionary objectForKey:@"category"] integerValue];
         self.distance = [[jsonDictionary objectForKey:@"dist"] floatValue];
