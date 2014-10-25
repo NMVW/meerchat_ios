@@ -16,7 +16,7 @@
     if(self){
         _postUID = @"";
         _postAT_Tag = @"";
-        _postHash_tag = @"";
+        _postHash_tag = @"none";
         _postCategory = 0;
         _postGPSLat = 28.54818;
         _postGPSLon = -81.38122;

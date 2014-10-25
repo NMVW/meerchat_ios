@@ -509,13 +509,10 @@
 }
 
 -(void)PostVideoToMain {
-    //http://bafit.mobi/cScripts/v1/postVideo.php?UIDr=abcd&BUN=user&hash_tag=tag&category=1&GPSLat=11.11&GPSLon=11.11&FName=kjdhfksjdhf&MC=11
-    //http://bafit.mobi/cScripts/v1/postVideo.php?UIDr=FB28EB1B-3C44-4284-B0A8-2DA041658936&BUN=jpecoraro&hash_tag=&category=0&GPSLat=28.548180&GPSLon=-81.381220&FName=FB28EB1B-3C44-4284-B0A8-2DA041658936_FB28EB1B-3C44-4284-B0A8-2DA041658936_106&MC=106
-    
     BFTDataHandler *data = [BFTDataHandler sharedInstance];
     BFTPostHandler *post = [BFTPostHandler sharedInstance];
     
-    NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [[post postHash_tag] isEqualToString:@""] ? [post postHash_tag] : @"\"\"" , [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
+    NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
         
         //handle JSON from step one
