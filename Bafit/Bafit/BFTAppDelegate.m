@@ -218,7 +218,6 @@
     NSString *presenceFromUser = [[presence from] user];
     
     if ([myUsername isEqualToString:presenceFromUser]) {
-        NSLog(@"It's just one of my updates...");
         return;
     }
     
@@ -229,7 +228,7 @@
         //[self.messageDelegate friendOffline:presenceFromUser];
     }
     
-    NSLog(@"%@ just changed his status to %@", presenceFromUser, presenceType);
+    //NSLog(@"%@ just changed his status to %@", presenceFromUser, presenceType);
 }
 
 -(void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
@@ -290,6 +289,7 @@
 }
 
 -(void)sendVideoMessageWithURL:(NSString *)videoURL thumbURL:(NSString *)thumbURL toUser:(NSString *)user {
+    [[BFTMessageThreads sharedInstance]  videoSentWithURL:videoURL thumbURL:thumbURL to:user];
     user = [[NSString alloc] initWithFormat:@"%@@meerchat.mobi", user];
     
     NSXMLElement *body = [NSXMLElement elementWithName:@"body"];

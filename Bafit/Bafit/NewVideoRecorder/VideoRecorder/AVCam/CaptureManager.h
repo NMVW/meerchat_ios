@@ -55,7 +55,7 @@
 #import "BFTAppDelegate.h"
 
 @class AVCamRecorder;
-@protocol CaptureManagerDelegate;
+@protocol BFTCaptureManagerDelegate;
 
 @interface CaptureManager : NSObject {
 }
@@ -69,7 +69,7 @@
 @property (nonatomic,assign) id deviceConnectedObserver;
 @property (nonatomic,assign) id deviceDisconnectedObserver;
 @property (nonatomic,assign) UIBackgroundTaskIdentifier backgroundRecordingID;
-@property (nonatomic,assign) id <CaptureManagerDelegate> delegate;
+@property (nonatomic,assign) id <BFTCaptureManagerDelegate> delegate;
 @property (nonatomic,strong) NSMutableArray *assets;
 @property (nonatomic,assign) NSTimer *exportProgressBarTimer;
 @property (nonatomic,strong) AVAssetExportSession *exportSession;
@@ -91,19 +91,4 @@
 - (void) switchCamera;
 - (void) deleteLastAsset;
 
-@end
-
-// These delegate methods can be called on any arbitrary thread. If the delegate does something with the UI when called, make sure to send it to the main thread.
-@protocol CaptureManagerDelegate <NSObject>
-@optional
-
-- (void) removeTimeFromDuration:(float)removeTime;
-- (void) updateProgress;
-- (void) removeProgress;
-
-- (void) captureManager:(CaptureManager *)captureManager didFailWithError:(NSError *)error;
-- (void) captureManagerRecordingBegan:(CaptureManager *)captureManager;
-- (void) captureManagerRecordingFinished:(CaptureManager *)captureManager;
-- (void) captureManagerStillImageCaptured:(CaptureManager *)captureManager;
-- (void) captureManagerDeviceConfigurationChanged:(CaptureManager *)captureManager;
 @end

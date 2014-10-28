@@ -61,6 +61,7 @@
 #import "AFNetworking.h"
 #import "BFTAppDelegate.h"
 #import "BFTMessageThreads.h"
+#import "BFTCaptureManagerDelegate.h"
 
 #define MAX_DURATION 0.25
 
@@ -158,28 +159,8 @@
     [[self session] stopRunning];
 }
 
-- (BOOL) setupSession
-{
+- (BOOL) setupSession {
     BOOL success = NO;
-    
-    //Torch or flash can be set here. I personaly don't like it 
-	// Set torch and flash mode to auto
-/*	if ([[self backFacingCamera] hasFlash]) {
-		if ([[self backFacingCamera] lockForConfiguration:nil]) {
-			if ([[self backFacingCamera] isFlashModeSupported:AVCaptureFlashModeAuto]) {
-				[[self backFacingCamera] setFlashMode:AVCaptureFlashModeAuto];
-			}
-			[[self backFacingCamera] unlockForConfiguration];
-		}
-	}
-	if ([[self backFacingCamera] hasTorch]) {
-		if ([[self backFacingCamera] lockForConfiguration:nil]) {
-			if ([[self backFacingCamera] isTorchModeSupported:AVCaptureTorchModeAuto]) {
-				[[self backFacingCamera] setTorchMode:AVCaptureTorchModeAuto];
-			}
-			[[self backFacingCamera] unlockForConfiguration];
-		}
-	}*/
 	
     // Init the device inputs
     AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:nil];
@@ -272,22 +253,17 @@
     [[self recorder] startRecordingWithOrientation:self.orientation];
 }
 
-- (void) stopRecording
-{
+- (void) stopRecording {
     [[self recorder] stopRecording];
 }
 
 - (void) saveVideoWithCompletionBlock:(void (^)(BOOL))completion
 {
     if ([self.assets count] != 0) {
-
-        // 1 - Create AVMutableComposition object. This object will hold your AVMutableCompositionTrack instances.
         AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
-        // 2 - Video track
-        AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo
-                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];
-        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio
-                                                                            preferredTrackID:kCMPersistentTrackID_Invalid];        
+        AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+        AVMutableCompositionTrack *audioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        
         __block CMTime time = kCMTimeZero;
         __block CGAffineTransform translate;
         __block CGSize size;
@@ -333,8 +309,6 @@
         
         AVMutableVideoCompositionInstruction *vtemp = [AVMutableVideoCompositionInstruction videoCompositionInstruction];
         vtemp.timeRange = CMTimeRangeMake(kCMTimeZero, time);
-        NSLog(@"\nInstruction vtemp's time range is %f %f", CMTimeGetSeconds( vtemp.timeRange.start),
-              CMTimeGetSeconds(vtemp.timeRange.duration));
         
         // Also tried videoCompositionLayerInstructionWithAssetTrack:compositionVideoTrack
         AVMutableVideoCompositionLayerInstruction *vLayerInstruction = [AVMutableVideoCompositionLayerInstruction
@@ -349,17 +323,13 @@
         videoComposition.frameDuration = CMTimeMake(1,30);
         videoComposition.instructions = @[vtemp];
         
-        // 4 - Get path
-//        NSString *nameOfMP4 = self.mp4Name;
-//        nameOfMP4 = [self MP4NameGet];
+        
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *path =  [documentsDirectory stringByAppendingPathComponent:
                                  [NSString stringWithFormat:@"%@.mp4", [[BFTDataHandler sharedInstance] mp4Name]]];
         NSURL *url = [NSURL fileURLWithPath:path];
-        //NSLog(@"Path of URL File: %@", path);
-
-        // 5 - Create exporter
+        
         self.exportSession = [[AVAssetExportSession alloc] initWithAsset:mixComposition
                                                                presetName:AVAssetExportPresetMediumQuality];
         self.exportSession.outputURL = url;
@@ -372,9 +342,8 @@
         __block id weakSelf = self;
         
         [self.exportSession exportAsynchronouslyWithCompletionHandler:^{
-            //NSLog (@"i is in your block, exportin. status is %ld",(long)self.exportSession.status);
             dispatch_async(dispatch_get_main_queue(), ^{
-                //Try to set Bool for View in DataHandler and Pass it with Completion Block, handle in exportDidFinish
+                NSLog(@"URL: %@\nError: %@\n%@", self.exportSession.outputURL.absoluteString, self.exportSession.error.localizedDescription, self.exportSession.error);
                 [weakSelf exportDidFinish:self.exportSession withCompletionBlock:completion];
             });
         }];
@@ -397,38 +366,17 @@
         
         if (fileURL)
             [weakSelf removeFile:fileURL];
-        //NSLog(@"File Url: %@", fileURL);
     }];
     
-    //[self.assets removeAllObjects];
-    //[self.delegate removeProgress];
-    
+    NSLog(@"Session Status: %zd", session.status);
     if (session.status == AVAssetExportSessionStatusCompleted) {
         NSURL *outputURL = session.outputURL;
-        //NSLog(@" Output URL: %@", outputURL);
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//        if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:outputURL]) {
-//            [library writeVideoAtPathToSavedPhotosAlbum:outputURL completionBlock:^(NSURL *assetURL, NSError *error){
-//                //delete file from documents after saving to camera roll
-//                [weakSelf removeFile:outputURL];
-//        
-//                if (error) {
-//                    completion (NO);
-//                } else {
-//                    completion (YES);
-//                }
-//            }];
-//        }
-        BOOL test = [[BFTDataHandler sharedInstance] postView];
-        NSLog(test ? @"Test is YES" : @"Test is NO");
         if ([[BFTDataHandler sharedInstance] postView]) {
-            //post to main
-            NSLog(@"inside post to main");
+            NSLog(@"Upload To Post View")
             [self uploadToMainWithURL:outputURL];
             
         }else{
-            //post to user
-            NSLog(@"inside post to user");
+            NSLog(@"Upload To User");
             [self uploadToUserWithURL:outputURL];
         }
     }
@@ -462,6 +410,7 @@
             
         } else {
             NSLog(@"Video Upload Success");
+            [self.delegate videoUploadedToNetwork];
             //upload thumb and postVideo to Main
             //genrates and handles upload request
             [self generateImageFromURI:URL];
@@ -475,7 +424,7 @@
 
 -(void)uploadToUserWithURL:(NSURL *)URL {
     NSString* videoName = [NSString stringWithFormat:@"%@.mp4", [[BFTDataHandler sharedInstance] mp4Name]];
-    NSString *thumbName = [NSString stringWithFormat:@"%@.jpeg", [[BFTDataHandler sharedInstance] mp4Name]];
+    NSString *thumbName = [NSString stringWithFormat:@"%@.jpg", [[BFTDataHandler sharedInstance] mp4Name]];
     NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadVid.php"];
     NSString *videoSaveString = [NSString stringWithFormat:@"http://www.bafit.mobi/userPosts/%@", videoName];
     NSString *thumbSaveString = [NSString stringWithFormat:@"http://bafit.mobi/userPosts/thumb/%@",thumbName];
@@ -493,12 +442,13 @@
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", error);
+            NSLog(@"Error: %@", error.localizedDescription);
             
         } else {
-            NSLog(@"%@ %@", response, responseObject);
+            NSLog(@"%@", response);
             //upload thumb and postVideo to Main
             //genrates and handles upload request
+            [self.delegate videoUploadedToNetwork];
             [self generateImageFromURI:URL];
             [self sendVideoToUser];
         }
@@ -512,7 +462,8 @@
     BFTDataHandler *data = [BFTDataHandler sharedInstance];
     BFTPostHandler *post = [BFTPostHandler sharedInstance];
     
-    NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
+    //TODO: Fix Category Stuff
+    NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory] == 0 ? 1 : [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
         
         //handle JSON from step one
@@ -529,24 +480,19 @@
 
 -(void)sendVideoToUser {
     //xmpp toUser
+    NSLog(@"\n\nSending Video To: %@\nWith URL: %@\nThumb URL: %@\n\n", [[BFTPostHandler sharedInstance] xmmpToUser], [[BFTPostHandler sharedInstance] xmppVideoURL], [[BFTPostHandler sharedInstance] xmppThumbURL])
     self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
     [self.appDelegate sendVideoMessageWithURL:[[BFTPostHandler sharedInstance] xmppVideoURL] thumbURL:[[BFTPostHandler sharedInstance] xmppThumbURL] toUser:[[BFTPostHandler sharedInstance] xmmpToUser]];
-    BFTMessageThreads *messageThread  = [[BFTMessageThreads alloc] init];
-    [messageThread addVideoToThreadWithURL:[[BFTPostHandler sharedInstance] xmppVideoURL] thumbURL:[[BFTPostHandler sharedInstance] xmppThumbURL] from:[[BFTDataHandler sharedInstance] UID]];
-    
 }
 
 -(NSString *)MP4NameGet {
-    
-//    __block NSString *mp4Name = nil;
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
         
-        //handle JSON from step one
         if (!error) {
             NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             for (NSDictionary *dict in responseJSON) {
-                NSLog(@"Object value: %@", [dict allKeys]);
                 self.mp4Name = [dict objectForKey:@"FName"];
+                NSLog(@"Video Name: %@", self.mp4Name);
             }
         }else{
             NSLog(@"No Data recived for file type");
@@ -569,14 +515,10 @@
     CGImageRef imageRef = [generator copyCGImageAtTime:thumbTime actualTime:nil error:nil];
     _thumbImg = [UIImage imageWithCGImage:imageRef];
 
-//    UIImageWriteToSavedPhotosAlbum(_thumbImg, nil, nil, nil);
     [self uploadImageThumb:_thumbImg];
 }
 
 -(void)uploadImageThumb:(UIImage *)imageThumb{
-    //upload thumb image
-    NSLog(@"Entered Upload for Thumb");
-    //save image locally to upload
     NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
     //write Jpeg to file
@@ -590,11 +532,10 @@
     
     AFHTTPRequestOperation *op = [manager POST:@"cScripts/v1/uploadThumb.php" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"file" fileName:thumbName mimeType:@"image/jpeg"];
-        NSLog(@"%@", formData);
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Success: %@ \n\n%@", operation.responseString, responseObject);
+        NSLog(@"Success: %@ \n\n%@", operation.responseString);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ \n\n%@", operation.responseString, error);
+        NSLog(@"Error: %@ \n\n%@", operation.responseString);
     }];
     op.responseSerializer = [AFHTTPResponseSerializer serializer];
     op.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -615,22 +556,18 @@
     if (success) {
         NSLog(@"File removed succesfully");
     }
-    else
-    {
+    else {
         NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
     }
 }
 
 
 #pragma mark Device Counts
-- (NSUInteger) cameraCount
-{
-    NSLog(@"COUNT");
+- (NSUInteger) cameraCount {
     return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] count];
 }
 
-- (NSUInteger) micCount
-{
+- (NSUInteger) micCount {
     return [[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio] count];
 }
 
@@ -789,9 +726,6 @@
     //save file in the app's Documents directory for this session
     [self copyFileToDocuments:outputFileURL];
     
-    //Upload instead of Save *TEST*
-    NSLog(@"File url in Recorder: %@", outputFileURL);
-    
     if ([[UIDevice currentDevice] isMultitaskingSupported]) {
         [[UIApplication sharedApplication] endBackgroundTask:[self backgroundRecordingID]];
     }
@@ -800,7 +734,6 @@
         [[self delegate] captureManagerRecordingFinished:self];
     }
 }
-@end
-@implementation BFTCameraView (CaptureManagerDelegate)
 
 @end
+

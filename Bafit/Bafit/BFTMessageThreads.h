@@ -20,6 +20,9 @@
 -(void)addVideoToThreadWithURL:(NSString*)url thumbURL:(NSString*)thumbURL from:(NSString*)sender;
 -(void)removeThreadAtIndex:(NSInteger)index;
 
+-(void)videoSentWithURL:(NSString*)url thumbURL:(NSString*)thumbURL to:(NSString*)sender;
+-(void)messageSentWithMessage:(NSString*)message to:(NSString*)sender;
+
 -(void)saveThreads;
 -(void)loadThreadsFromStorage;
 

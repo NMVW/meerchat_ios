@@ -10,10 +10,9 @@
 #import "iCarousel.h"
 #import "BFTDataHandler.h"
 #import "BFTCameraView.h"
+#import "BFTCameraViewDelegate.h"
 
-
-
-@interface BFTMainPostViewController : UIViewController <BFTCameraViewDelegate>
+@interface BFTMainPostViewController : UIViewController <BFTCameraViewDelegate, UINavigationBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) IBOutlet UIImageView *btmTrapazoid;

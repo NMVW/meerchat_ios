@@ -18,40 +18,24 @@
 
 @implementation BFTMainPostViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setPostToMainView];
     //Set Data Handler for Post View
     [[BFTDataHandler sharedInstance] setPostView:YES];
-    BOOL test = [[BFTDataHandler sharedInstance] postView];
-    NSLog(test ? @"YES" : @"NO");
 
-    [self MP4NameGet];
-
+    [self getVideoName];
     
     //set Naivagtion for View
     [self.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [self.navigationBar setTranslucent:NO];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"post_center.png"]];
-    UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 30, 30)];
-    [backButton setImage:[UIImage imageNamed:@"milo_backtohome.png"]  forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(popVC) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barbtn = [[UIBarButtonItem alloc]initWithCustomView:backButton];
-    navItem.leftBarButtonItem = barbtn;
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"milo_backtohome.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popVC)];
+    navItem.leftBarButtonItem = backButton;
     [self.navigationBar setItems:@[navItem]];
     
-
     //Switch handler
     [_locationSwitch addTarget:self action:@selector(stateChangedLocation) forControlEvents:UIControlEventValueChanged];
     [_anonymousSwitch addTarget:self action:@selector(stateChangedUser) forControlEvents:UIControlEventValueChanged];
@@ -68,17 +52,14 @@
     _embeddedRecordView.maxDuration = 10.0;
     _embeddedRecordView.delegate = self;
     [_recordView addSubview:_embeddedRecordView];
-//    _embeddedRecordView = [[KZCameraView alloc] initWithFrame:_recordView.frame withVideoPreviewFrame:CGRectMake(0, 0, 275, 275)];
-//    _embeddedRecordView.maxDuration = 10.0;
-//    [_recordView addSubview:_embeddedRecordView];
 }
 
--(void)MP4NameGet {
-    
-    //    __block NSString *mp4Name = nil;
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
-        
-        //handle JSON from step one
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
+}
+
+-(void)getVideoName {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             for (NSDictionary *dict in responseJSON) {
@@ -94,15 +75,6 @@
     [[BFTPostHandler sharedInstance] setPostAT_Tag:[[BFTDataHandler sharedInstance] BUN]];
     NSLog(@"%@", [[BFTDataHandler sharedInstance] mp4Name]);
 }
-
--(void)popVC {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)returnToMain {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 -(void)stateChangedLocation {
     if ([_locationSwitch isOn]) {
@@ -142,9 +114,6 @@
 }
 
 -(void)setPostToMainView {
-    //set Bool for Post from Meerchat
-    [self setPostFromView:@"toMainView"];
-    
     _anonymousSwitch =[[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     _anonymousSwitch.transform = CGAffineTransformMakeScale(0.50f, 0.50f);
     [_anonymousSwitch setOnTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
@@ -158,24 +127,6 @@
     [self.view addSubview:_locationSwitch];
 }
 
--(void)uploadToMain {
-    
-    BFTDataHandler *userData = [BFTDataHandler sharedInstance];
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/registerVid.php?UIDr=%@&UIDp=%@", userData.UID, userData.UID] completionBlock:^(NSMutableData *data, NSError *error) {
-        
-        //handle JSON from step one
-        if (!error) {
-            NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            for (NSDictionary *dict in responseJSON) {
-                NSLog(@"Object value: %@", [dict allValues]);
-            }
-        }else{
-            NSLog(@"No Data recived for file type");
-        }
-    }] startConnection];
-    
-}
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [[event allTouches] anyObject];
@@ -184,6 +135,42 @@
     }
     [super touchesBegan:touches withEvent:event];
 }
+
+-(void)popVC {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - BFTCameraViewDelegate
+
+-(void)recordingFinished {
+    
+}
+
+-(void)recordingPaused {
+    
+}
+
+-(void)recordingTimeFull {
+    
+}
+
+-(void)receivedVideoName:(NSString*)videoName {
+    
+}
+
+-(void)videoPostedToMain {
+    
+}
+
+-(void)videoUploadedToNetwork {
+    
+}
+
+-(void)videoSavedToDisk {
+    [self popVC];
+}
+
+#pragma mark - Button Actions
 
 - (IBAction)moveClicked:(id)sender {
     if(![_moveButton isSelected]){

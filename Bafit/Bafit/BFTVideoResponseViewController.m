@@ -10,6 +10,9 @@
 #import "BFTDataHandler.h"
 #import "BFTCameraView.h"
 #import "BFTVideoPlaybackController.h"
+#import "BFTDatabaseRequest.h"
+#import "BFTDataHandler.h"
+#import "BFTPostHandler.h"
 
 @interface BFTVideoResponseViewController ()
 
@@ -19,18 +22,11 @@
 
 @implementation BFTVideoResponseViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self getVideoName];
+    
     //Setup Navigation
     _customNavView = [[UIView alloc] init];
     [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
@@ -39,15 +35,12 @@
     [_scrollView setScrollEnabled:YES];
     [_scrollView setScrollsToTop:YES];
     [_scrollView setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 504)];
-//    [_scrollView setContentOffset:CGPointMake(0, 30) animated:YES];
-    
     
     _FrontCamera = NO;
     self.replyURL = self.replyURL;
+    
     //set Data Handler for View
     [[BFTDataHandler sharedInstance] setPostView:NO];
-    BOOL test = [[BFTDataHandler sharedInstance] postView];
-    NSLog(test ? @"YES" : @"NO");
     
     //Create output.
     _output = [[AVCaptureMovieFileOutput alloc] init];
@@ -58,14 +51,10 @@
 //        [self setReplyURL:@"http://bafit.mobi/userPosts/v2.mp4"];
 //    }
     
-//    //Setup reply record function
-//    _embeddedrecordView = [[KZCameraView alloc] initWithFrame:_recordView.frame withVideoPreviewFrame:CGRectMake(0, 0, 275, 275)];
-//    _embeddedrecordView.maxDuration = 10.0;
-//    [_recordView addSubview:_embeddedrecordView];
-    
     _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
     _embeddedrecordView.maxDuration = 10.0;
-//    _embeddedrecordView.delegate = self;
+    _embeddedrecordView.delegate = self;
+    
     [_recordView addSubview:_embeddedrecordView];
     
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
@@ -91,57 +80,23 @@ object:_player1];
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:(BOOL)animated];
     [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-//    [_postToolBar setHidden:YES];
-    
-    [_postToolBar setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    //UIToolbar *recordToolbar = [[UIToolbar alloc] initWithFrame:_postToolBar.frame];
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
-    
     NSLog(@"In Finish");
-    
     [_player1 seekToTime:kCMTimeZero];
     if ([_playButton isHidden]) {
         [_playButton setHidden:NO];
     }
 }
 
-
-//-(void)longPressRecord:(UILongPressGestureRecognizer *)sender {
-//    NSLog(@"Sender being called");
-//    if ([sender isEqual:_recordGesture]) {
-//        if (sender.state == UIGestureRecognizerStateBegan) {
-//            NSLog(@"Recording should start");
-//            [self initializeCamera];
-//        }else{
-//            NSLog(@"State was not started");
-//        }
-//    }
-//}
-
-//-(IBAction)saveVideo:(id)sender
-//{
-//    [_embeddedrecordView saveVideoWithCompletionBlock:^(BOOL success) {
-//        if (success)
-//        {
-//            //Do something after video got succesfully saved
-//        }
-//    }];
-//}
-
-//- (IBAction)captureVideo:(id)sender {
-//    [self initializeCamera];
-//}
-
 - (IBAction)playButtonPress:(id)sender {
-    
     [_playButton setHidden:YES];
     [_player1 play];
 }
 
 -(void)popVC {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -151,7 +106,57 @@ object:_player1];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self popVC];
+}
+
+-(void)getVideoName {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], self.userReply] completionBlock:^(NSMutableData *data, NSError *error) {
+        if (!error) {
+            NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            for (NSDictionary *dict in responseJSON) {
+                [[BFTDataHandler sharedInstance] setMp4Name:[dict objectForKey:@"FName"]];
+                [[BFTPostHandler sharedInstance] setPostMC:[dict objectForKey:@"MC"]];
+                [[BFTPostHandler sharedInstance] setPostFName:[dict objectForKey:@"FName"]];
+                [[BFTPostHandler sharedInstance] setXmmpToUser:self.userReply];
+            }
+        }else{
+            NSLog(@"No Data recived for file type");
+        }
+    }] startConnection];
+    //while here set the Username
+    [[BFTPostHandler sharedInstance] setPostAT_Tag:[[BFTDataHandler sharedInstance] BUN]];
+    NSLog(@"%@", [[BFTDataHandler sharedInstance] mp4Name]);
+}
+
+#pragma mark - BFTCameraViewDelegate
+
+-(void)recordingFinished {
+    NSLog(@"Recording Finished");
+}
+
+-(void)recordingPaused {
+    NSLog(@"Recording Paused");
+}
+
+-(void)recordingTimeFull {
+    NSLog(@"Recording Time Full");
+}
+
+-(void)receivedVideoName:(NSString*)videoName {
+    NSLog(@"Received Video Name");
+}
+
+-(void)videoPostedToMain {
+    NSLog(@"Video Posted To Main");
+}
+
+-(void)videoUploadedToNetwork {
+    NSLog(@"Video Uploaded To Network");
+    [self popVC];
+}
+
+-(void)videoSavedToDisk {
+    NSLog(@"Video Saved To Disk");
 }
 
 @end

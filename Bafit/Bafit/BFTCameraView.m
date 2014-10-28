@@ -12,8 +12,10 @@
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
 #import "BFTMainPostViewController.h"
+#import "BFTCameraViewDelegate.h"
+#import "BFTCaptureManagerDelegate.h"
 
-@interface BFTCameraView () <UIGestureRecognizerDelegate>
+@interface BFTCameraView () <UIGestureRecognizerDelegate, BFTCaptureManagerDelegate>
 
 @property (strong, nonatomic) UIView *videoPreviewView;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
@@ -34,9 +36,6 @@
 //Button to switch between back and front cameras
 @property (nonatomic,strong) UIButton *camerasSwitchBtn;
 
-@end
-
-@interface BFTCameraView (CaptureManagerDelegate) <CaptureManagerDelegate>
 @end
 
 @implementation BFTCameraView
@@ -98,11 +97,6 @@
                 self.durationProgressBar = [[UIProgressView alloc] initWithFrame:CGRectMake(0, _videoPreviewView.frame.origin.y + _videoPreviewView.frame.size.height, _videoPreviewView.frame.size.width, 2)];
                 [self.durationProgressBar setTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
                 [self addSubview:self.durationProgressBar];
-                
-//                 self.progressBar = [[UIProgressView alloc]initWithFrame:CGRectMake(0.0, 0.0, _videoPreviewView.frame.size.width - 60.0, 2.0)];
-//                self.progressBar.center = self.progressView.center;
-                
-                
             }
         }
     }
@@ -113,12 +107,11 @@
 
 - (IBAction)startRecording:(UILongPressGestureRecognizer*)recognizer
 {
-    //NSLog(@"Recognizer entered");
     switch (recognizer.state)
     {
         case UIGestureRecognizerStateBegan:
         {
-            NSLog(@"START");
+            NSLog(@"Recording Started");
             if (![[[self captureManager] recorder] isRecording])
             {
                 if (self.duration < self.maxDuration)
@@ -142,7 +135,6 @@
                            action:@selector(saveVideo:)
                  forControlEvents:UIControlEventTouchUpInside];
                 
-                
                 [_videoPreviewView addSubview:saveButton];
                 //NSLog(@"END number of pieces %lu", (unsigned long)[self.captureManager.assets count]);
             }
@@ -153,38 +145,19 @@
     }
 }
 
-
-//- (void)saveVideoWithCompletionBlock:(void(^)(BOOL success))completion {
-
--(IBAction)saveVideo:(id)sender
-{
-     __block id weakSelf = self;
+-(IBAction)saveVideo:(id)sender {
+    __block id weakSelf = self;
     [self.captureManager saveVideoWithCompletionBlock:^(BOOL success) {
-       
-        if (success)
-        {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test" message:@"video saved to photo album" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
-//            [alert show];
-            
+        if (success) {
+            NSLog(@"Video Saved To Disk");
             [weakSelf performSelector:@selector(refresh) withObject:nil afterDelay:0.5];
-            NSLog(@"Save Success");
+            [self.delegate videoSavedToDisk];
         }
-        else
-        {
+        else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Error" message:@"video unable to be saved, please contact support" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
             [alert show];
         }
-        
-        if (success == YES) {
-            NSLog(@"Navigate to main view");
-            id<BFTCameraViewDelegate> strongDelegate = self.delegate;
-            
-            if ([strongDelegate respondsToSelector:@selector(returnToMain)]) {
-                [strongDelegate returnToMain];
-            }
-        }
     }];
-    
 }
 
 -(void)updateDuration{
@@ -197,28 +170,25 @@
             [self.durationTimer invalidate];
             self.durationTimer = nil;
             [[self captureManager] stopRecording];
+            [self.delegate recordingTimeFull];
         }
     }
-    else
-    {
+    else {
         [self.durationTimer invalidate];
         self.durationTimer = nil;
     }
 }
 
-- (void) removeTimeFromDuration:(float)removeTime;
-{
+- (void) removeTimeFromDuration:(float)removeTime; {
     self.duration = self.duration - removeTime;
     self.durationProgressBar.progress = self.duration/self.maxDuration;
 }
 
--(void)switchCamera
-{
+-(void)switchCamera {
     [self.captureManager switchCamera];
 }
 
--(void)refresh
-{
+-(void)refresh {
 //    self.progressView.hidden = YES;
     self.duration = 0.0;
     self.durationProgressBar.progress = 0.0;
@@ -227,13 +197,9 @@
 }
 
 
+#pragma mark - BFT Capture Manager Delegate
 
-@end
-
-@implementation BFTCameraView (CaptureManagerDelegate)
-
-- (void) updateProgress
-{
+-(void)updateProgress {
     self.progressBar.hidden = NO;
     self.progressBar.progress = self.captureManager.exportSession.progress;
     if (self.progressBar.progress > .99) {
@@ -242,13 +208,11 @@
     }
 }
 
-- (void) removeProgress
-{
+-(void)removeProgress {
     self.progressBar.hidden = YES;
 }
 
-- (void)captureManager:(CaptureManager *)captureManager didFailWithError:(NSError *)error
-{
+-(void)captureManager:(CaptureManager *)captureManager didFailWithError:(NSError *)error {
     CFRunLoopPerformBlock(CFRunLoopGetMain(), kCFRunLoopCommonModes, ^(void) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[error localizedDescription]
                                                             message:[error localizedFailureReason]
@@ -259,32 +223,47 @@
     });
 }
 
-- (void)captureManagerRecordingBegan:(CaptureManager *)captureManager
-{
+-(void)captureManagerRecordingBegan:(CaptureManager *)captureManager {
     _videoPreviewView.layer.borderColor = [UIColor whiteColor].CGColor;
     _videoPreviewView.layer.borderWidth = 2.0;
     self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateDuration) userInfo:nil repeats:YES];
 }
 
-- (void)captureManagerRecordingFinished:(CaptureManager *)captureManager
-{
-    NSLog(@"Recording finsihed called");
+-(void)captureManagerRecordingFinished:(CaptureManager *)captureManager {
+    [self.delegate recordingFinished];
 }
 
-- (void)captureManagerDeviceConfigurationChanged:(CaptureManager *)captureManager
-{
+-(void)captureManagerDeviceConfigurationChanged:(CaptureManager *)captureManager {
     //Do something
 }
 
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+-(void)recordingFinished {
+    [self.delegate recordingFinished];
 }
-*/
+
+-(void)recordingPaused {
+    [self.delegate recordingPaused];
+}
+
+-(void)recordingTimeFull {
+    [self.delegate recordingTimeFull];
+}
+
+-(void)receivedVideoName:(NSString*)videoName {
+    [self.delegate receivedVideoName:videoName];
+}
+
+-(void)videoPostedToMain {
+    [self.delegate videoPostedToMain];
+}
+
+-(void)videoUploadedToNetwork {
+    [self.delegate videoUploadedToNetwork];
+}
+
+-(void)videoSavedToDisk {
+    [self.delegate videoSavedToDisk];
+}
 
 @end
+
