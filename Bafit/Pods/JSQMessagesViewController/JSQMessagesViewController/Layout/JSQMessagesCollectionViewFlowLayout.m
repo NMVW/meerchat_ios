@@ -57,7 +57,6 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 - (void)jsq_resetLayout;
 - (void)jsq_resetDynamicAnimator;
 
-- (CGSize)messageBubbleSizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)jsq_configureMessageCellLayoutAttributes:(JSQMessagesCollectionViewLayoutAttributes *)layoutAttributes;
 - (CGSize)jsq_avatarSizeForIndexPath:(NSIndexPath *)indexPath;
 
@@ -452,7 +451,8 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
         //  not sure why. magix. (shrug) if you know, submit a PR
         CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + 2.0f;
         
-        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.bubbleImageAssetWidth);
+        //  same as above, an extra 2 points of magix
+        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.bubbleImageAssetWidth) + 2.0f;
         
         finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
     }
@@ -460,6 +460,19 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     [self.messageBubbleSizes setObject:[NSValue valueWithCGSize:finalSize] forKey:indexPath];
     
     return finalSize;
+}
+
+- (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize messageBubbleSize = [self messageBubbleSizeForItemAtIndexPath:indexPath];
+    JSQMessagesCollectionViewLayoutAttributes *attributes = (JSQMessagesCollectionViewLayoutAttributes *)[self layoutAttributesForItemAtIndexPath:indexPath];
+    
+    CGFloat finalHeight = messageBubbleSize.height;
+    finalHeight += attributes.cellTopLabelHeight;
+    finalHeight += attributes.messageBubbleTopLabelHeight;
+    finalHeight += attributes.cellBottomLabelHeight;
+    
+    return CGSizeMake(self.itemWidth, ceilf(finalHeight));
 }
 
 - (void)jsq_configureMessageCellLayoutAttributes:(JSQMessagesCollectionViewLayoutAttributes *)layoutAttributes

@@ -9,7 +9,6 @@
 #import "BFTViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTPostHandler.h"
-#import "BFTLoginhandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTAppDelegate.h"
 
@@ -101,20 +100,7 @@
 #pragma mark FBLoginView Delegate
 
 -(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
-    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Logged in " message:@"You are logged in" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
-    //[alert show];
-    //[[BFTDataHandler sharedInstance] setPPAccepted:YES];
-    
-    //moved this check to the
-    //check initial or Not and Facebook
-    /*
-    if([BFTLoginhandler initialLogin] == YES){
-        [self performSegueWithIdentifier:@"initiallogin" sender:self];
-    }else{
-        [self performSegueWithIdentifier:@"mainview" sender:self];
-    }*/
-    
-    //NSLog(@"%@", [[BFTDataHandler sharedInstance] PPAccepted]);
+
 }
 
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {

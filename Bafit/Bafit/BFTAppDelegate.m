@@ -8,7 +8,6 @@
 
 #import "BFTAppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "BFTLoginhandler.h"
 #import "BFTMessageThreads.h"
 #import "BFTDataHandler.h"
 #import "Flurry.h"

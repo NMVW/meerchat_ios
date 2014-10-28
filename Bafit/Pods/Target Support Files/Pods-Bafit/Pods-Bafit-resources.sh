@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
+
 RESOURCES_TO_COPY=${PODS_ROOT}/resources-to-copy-${TARGETNAME}.txt
 > "$RESOURCES_TO_COPY"
 
@@ -41,35 +43,23 @@ install_resource()
       ;;
   esac
 }
-          install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_min.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_min@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_min@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_min_tailless.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_min_tailless@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_min_tailless@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_stroked.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_stroked@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_stroked@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_stroked_tailless.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_stroked_tailless@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_stroked_tailless@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_tailless.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_tailless@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/bubble_tailless@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/clip.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/clip@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/clip@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/play.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/play@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/play@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/typing.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/typing@2x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Images/typing@3x.png"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Sounds/message_received.aiff"
-                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Sounds/message_sent.aiff"
+          install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/JSQMessagesAssets.bundle"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/Base.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/de.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/en.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/es.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/fr.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/he.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/it.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/nl.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/pl.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/pt.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/ro.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/ru.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/tr.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/zh-Hans.lproj"
+                    install_resource "JSQMessagesViewController/JSQMessagesViewController/Assets/Strings/zh-Hant.lproj"
                     install_resource "JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.xib"
                     install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellIncoming.xib"
                     install_resource "JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesCollectionViewCellOutgoing.xib"
@@ -83,7 +73,7 @@ if [[ "${ACTION}" == "install" ]]; then
 fi
 rm -f "$RESOURCES_TO_COPY"
 
-if [[ -n "${WRAPPER_EXTENSION}" ]] && [ `xcrun --find actool` ] && [ `find . -name '*.xcassets' | wc -l` -ne 0 ]
+if [[ -n "${WRAPPER_EXTENSION}" ]] && [ "`xcrun --find actool`" ] && [ `find . -name '*.xcassets' | wc -l` -ne 0 ]
 then
   case "${TARGETED_DEVICE_FAMILY}" in
     1,2)

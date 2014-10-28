@@ -7,7 +7,6 @@
 //
 
 #import "BFTMainViewController.h"
-#import "BFTHTTPCLIENT.h"
 #import "BFTDataHandler.h"
 #import "BFTAppDelegate.h"
 #import "BFTPostViewController.h"

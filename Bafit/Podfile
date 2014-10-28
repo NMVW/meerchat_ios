@@ -7,6 +7,7 @@ target "Bafit" do
 
 pod 'JSQMessagesViewController'
 pod 'AFNetworking', '~> 2.0'
+pod 'Facebook-iOS-SDK'
 
 end
 

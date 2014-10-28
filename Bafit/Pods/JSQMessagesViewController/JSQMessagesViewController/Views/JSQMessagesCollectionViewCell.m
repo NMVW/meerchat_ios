@@ -93,6 +93,9 @@
     [super awakeFromNib];
     
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.messageBubbleContainerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.avatarContainerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
     self.backgroundColor = [UIColor whiteColor];
     
     self.cellTopLabelHeightConstraint.constant = 0.0f;
@@ -164,6 +167,9 @@
     self.textView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.textView.text = nil;
     self.textView.attributedText = nil;
+    
+    self.avatarImageView.image = nil;
+    self.avatarImageView.highlightedImage = nil;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
@@ -282,7 +288,6 @@
     
     [self.messageBubbleContainerView addSubview:mediaView];
     [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:mediaView];
-    [self setNeedsUpdateConstraints];
     _mediaView = mediaView;
     
     //  because of cell re-use (and caching media views, if using built-in library media item)
@@ -320,7 +325,6 @@
     }
     
     constraint.constant = constant;
-    [self setNeedsUpdateConstraints];
 }
 
 #pragma mark - Gesture recognizers
