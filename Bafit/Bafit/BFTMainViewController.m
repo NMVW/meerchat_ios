@@ -9,13 +9,13 @@
 #import "BFTMainViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTAppDelegate.h"
-#import "BFTPostViewController.h"
+#import "BFTVideoResponseViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTVideoPost.h"
 #import "BFTMessageThreads.h"
-#import "BFTMeerPostViewController.h"
+#import "BFTMainPostViewController.h"
 #import "BFTVideoPlaybackController.h"
 #import "BFTCarouselView.h"
 
@@ -312,14 +312,14 @@
         }else{
             //swipe up to post
             [self setSwipeUp:NO];
-            BFTPostViewController *postView = segue.destinationViewController;
+            BFTVideoResponseViewController *postView = segue.destinationViewController;
             postView.replyURL = [[_videoPosts objectAtIndex:_carousel.currentItemIndex] videoURL];
             postView.userReply = [[_videoPosts objectAtIndex:_carousel.currentItemIndex] BUN];
         }
     }
     
     if ([segue.identifier isEqualToString:@"newpostview"]) {
-        BFTMeerPostViewController *meerPost = segue.destinationViewController;
+        BFTMainPostViewController *meerPost = segue.destinationViewController;
         meerPost.postFromView = YES;
     }
     

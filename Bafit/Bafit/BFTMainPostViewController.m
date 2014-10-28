@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
-#import "BFTMeerPostViewController.h"
+#import "BFTMainPostViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "CaptureManager.h"
 
-@interface BFTMeerPostViewController ()
+@interface BFTMainPostViewController ()
 
 @end
 
-@implementation BFTMeerPostViewController
+@implementation BFTMainPostViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

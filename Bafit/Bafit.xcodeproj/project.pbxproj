@@ -124,21 +124,21 @@
 		7CF791FB19C250BF003EB61F /* CaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791F619C250BF003EB61F /* CaptureManager.m */; };
 		7CF791FC19C250BF003EB61F /* KZCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791F819C250BF003EB61F /* KZCameraView.m */; };
 		7CF791FF19C250FA003EB61F /* BFTCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791FE19C250FA003EB61F /* BFTCameraView.m */; };
-		801AE87A1985C023006EA19B /* BFTBackThreadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 801AE8791985C023006EA19B /* BFTBackThreadTableViewController.m */; };
+		801AE87A1985C023006EA19B /* BFTMessagesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */; };
 		801AE87D1985E082006EA19B /* BFTThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 801AE87C1985E082006EA19B /* BFTThreadTableViewCell.m */; };
 		8021993619A91D240042597A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8021993519A91D240042597A /* SystemConfiguration.framework */; };
 		8021993819A91D2F0042597A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8021993719A91D2F0042597A /* CoreVideo.framework */; };
 		8021999C19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */; };
 		802199A519AFB6E90042597A /* BFTFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 802199A119AFB6E80042597A /* BFTFeedbackViewController.m */; };
 		802199A619AFB6E90042597A /* BFTBackThreadItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 802199A319AFB6E90042597A /* BFTBackThreadItem.m */; };
-		803EE0F51984CD1600B86ACE /* BFTInitialLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 803EE0F41984CD1600B86ACE /* BFTInitialLoginViewController.m */; };
+		803EE0F51984CD1600B86ACE /* BFTSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 803EE0F41984CD1600B86ACE /* BFTSignupViewController.m */; };
 		8040E9671978FD59000D66C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8040E9661978FD59000D66C7 /* Foundation.framework */; };
 		8040E9691978FD59000D66C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8040E9681978FD59000D66C7 /* CoreGraphics.framework */; };
 		8040E96B1978FD59000D66C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8040E96A1978FD59000D66C7 /* UIKit.framework */; };
 		8040E9711978FD59000D66C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8040E96F1978FD59000D66C7 /* InfoPlist.strings */; };
 		8040E9731978FD59000D66C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9721978FD59000D66C7 /* main.m */; };
 		8040E9771978FD59000D66C7 /* BFTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9761978FD59000D66C7 /* BFTAppDelegate.m */; };
-		8040E97D1978FD59000D66C7 /* BFTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E97C1978FD59000D66C7 /* BFTViewController.m */; };
+		8040E97D1978FD59000D66C7 /* BFTFacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */; };
 		8040E9871978FD59000D66C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8040E9661978FD59000D66C7 /* Foundation.framework */; };
 		8040E9881978FD59000D66C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8040E96A1978FD59000D66C7 /* UIKit.framework */; };
 		8040E9901978FD59000D66C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8040E98E1978FD59000D66C7 /* InfoPlist.strings */; };
@@ -146,14 +146,13 @@
 		8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */; };
 		80417BCD19DA075C0076ACD7 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */; };
 		8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */; };
-		8053BDBB19A5CE54006E9D13 /* BFTMeerPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDBA19A5CE54006E9D13 /* BFTMeerPostViewController.m */; };
+		8053BDBB19A5CE54006E9D13 /* BFTMainPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */; };
 		8058E1AF1988436100DF2F4F /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1AE1988436100DF2F4F /* iCarousel.m */; };
-		8058E1B3198843ED00DF2F4F /* BFTICarouselViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1B2198843ED00DF2F4F /* BFTICarouselViewController.m */; };
 		8058E1B6198855A600DF2F4F /* BFTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1B5198855A600DF2F4F /* BFTMessage.m */; };
 		8058E1B91988722400DF2F4F /* BFTLocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1B81988722400DF2F4F /* BFTLocationHandler.m */; };
 		8058E1BB1988725C00DF2F4F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8058E1BA1988725C00DF2F4F /* CoreLocation.framework */; };
-		807F5B6F198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5B6E198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m */; };
-		807F5B9C198F1D5000528829 /* BFTPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5B9B198F1D5000528829 /* BFTPostViewController.m */; };
+		807F5B6F198DBF8E00528829 /* BFTMessageThreadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5B6E198DBF8E00528829 /* BFTMessageThreadTableViewController.m */; };
+		807F5B9C198F1D5000528829 /* BFTVideoResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807F5B9B198F1D5000528829 /* BFTVideoResponseViewController.m */; };
 		80CE6E38199CB973006543B2 /* BFTDatabaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */; };
 		80F650E31980814B00443673 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E21980814B00443673 /* AssetsLibrary.framework */; };
 		80F650E51980815300443673 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F650E41980815300443673 /* AVFoundation.framework */; };
@@ -363,8 +362,8 @@
 		7CF791F819C250BF003EB61F /* KZCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KZCameraView.m; sourceTree = "<group>"; };
 		7CF791FD19C250FA003EB61F /* BFTCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTCameraView.h; sourceTree = "<group>"; };
 		7CF791FE19C250FA003EB61F /* BFTCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTCameraView.m; sourceTree = "<group>"; };
-		801AE8781985C023006EA19B /* BFTBackThreadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTBackThreadTableViewController.h; sourceTree = "<group>"; };
-		801AE8791985C023006EA19B /* BFTBackThreadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTBackThreadTableViewController.m; sourceTree = "<group>"; };
+		801AE8781985C023006EA19B /* BFTMessagesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMessagesListTableViewController.h; sourceTree = "<group>"; };
+		801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMessagesListTableViewController.m; sourceTree = "<group>"; };
 		801AE87B1985E082006EA19B /* BFTThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTThreadTableViewCell.h; sourceTree = "<group>"; };
 		801AE87C1985E082006EA19B /* BFTThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTThreadTableViewCell.m; sourceTree = "<group>"; };
 		8021993519A91D240042597A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -375,8 +374,8 @@
 		802199A219AFB6E90042597A /* BFTFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTFeedbackViewController.h; sourceTree = "<group>"; };
 		802199A319AFB6E90042597A /* BFTBackThreadItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTBackThreadItem.m; sourceTree = "<group>"; };
 		802199A419AFB6E90042597A /* BFTBackThreadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTBackThreadItem.h; sourceTree = "<group>"; };
-		803EE0F31984CD1600B86ACE /* BFTInitialLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTInitialLoginViewController.h; sourceTree = "<group>"; };
-		803EE0F41984CD1600B86ACE /* BFTInitialLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTInitialLoginViewController.m; sourceTree = "<group>"; };
+		803EE0F31984CD1600B86ACE /* BFTSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTSignupViewController.h; sourceTree = "<group>"; };
+		803EE0F41984CD1600B86ACE /* BFTSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTSignupViewController.m; sourceTree = "<group>"; };
 		8040E9631978FD59000D66C7 /* Bafit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bafit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8040E9661978FD59000D66C7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8040E9681978FD59000D66C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -387,8 +386,8 @@
 		8040E9741978FD59000D66C7 /* Bafit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bafit-Prefix.pch"; sourceTree = "<group>"; };
 		8040E9751978FD59000D66C7 /* BFTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTAppDelegate.h; sourceTree = "<group>"; };
 		8040E9761978FD59000D66C7 /* BFTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTAppDelegate.m; sourceTree = "<group>"; };
-		8040E97B1978FD59000D66C7 /* BFTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTViewController.h; sourceTree = "<group>"; };
-		8040E97C1978FD59000D66C7 /* BFTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTViewController.m; sourceTree = "<group>"; };
+		8040E97B1978FD59000D66C7 /* BFTFacebookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTFacebookViewController.h; sourceTree = "<group>"; };
+		8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTFacebookViewController.m; sourceTree = "<group>"; };
 		8040E9841978FD59000D66C7 /* BafitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BafitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8040E98D1978FD59000D66C7 /* BafitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BafitTests-Info.plist"; sourceTree = "<group>"; };
 		8040E98F1978FD59000D66C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -399,21 +398,19 @@
 		80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTEmailConfirmationViewController.h; sourceTree = "<group>"; };
-		8053BDB919A5CE54006E9D13 /* BFTMeerPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMeerPostViewController.h; sourceTree = "<group>"; };
-		8053BDBA19A5CE54006E9D13 /* BFTMeerPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMeerPostViewController.m; sourceTree = "<group>"; };
+		8053BDB919A5CE54006E9D13 /* BFTMainPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMainPostViewController.h; sourceTree = "<group>"; };
+		8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMainPostViewController.m; sourceTree = "<group>"; };
 		8058E1AD1988436100DF2F4F /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		8058E1AE1988436100DF2F4F /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
-		8058E1B1198843ED00DF2F4F /* BFTICarouselViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTICarouselViewController.h; sourceTree = "<group>"; };
-		8058E1B2198843ED00DF2F4F /* BFTICarouselViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTICarouselViewController.m; sourceTree = "<group>"; };
 		8058E1B4198855A600DF2F4F /* BFTMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMessage.h; sourceTree = "<group>"; };
 		8058E1B5198855A600DF2F4F /* BFTMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMessage.m; sourceTree = "<group>"; };
 		8058E1B71988722400DF2F4F /* BFTLocationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTLocationHandler.h; sourceTree = "<group>"; };
 		8058E1B81988722400DF2F4F /* BFTLocationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTLocationHandler.m; sourceTree = "<group>"; };
 		8058E1BA1988725C00DF2F4F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		807F5B6D198DBF8E00528829 /* BFTForthThreadControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTForthThreadControllerTableViewController.h; sourceTree = "<group>"; };
-		807F5B6E198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTForthThreadControllerTableViewController.m; sourceTree = "<group>"; };
-		807F5B9A198F1D5000528829 /* BFTPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPostViewController.h; sourceTree = "<group>"; };
-		807F5B9B198F1D5000528829 /* BFTPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPostViewController.m; sourceTree = "<group>"; };
+		807F5B6D198DBF8E00528829 /* BFTMessageThreadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMessageThreadTableViewController.h; sourceTree = "<group>"; };
+		807F5B6E198DBF8E00528829 /* BFTMessageThreadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMessageThreadTableViewController.m; sourceTree = "<group>"; };
+		807F5B9A198F1D5000528829 /* BFTVideoResponseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTVideoResponseViewController.h; sourceTree = "<group>"; };
+		807F5B9B198F1D5000528829 /* BFTVideoResponseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoResponseViewController.m; sourceTree = "<group>"; };
 		80CE6E37199CB973006543B2 /* BFTDatabaseRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTDatabaseRequest.m; sourceTree = "<group>"; };
 		80CE6E39199CB9EA006543B2 /* BFTDatabaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTDatabaseRequest.h; sourceTree = "<group>"; };
 		80F650E0197EBEC300443673 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -798,6 +795,8 @@
 				7CF791FE19C250FA003EB61F /* BFTCameraView.m */,
 				7CD38DF819F0B45B001DC8EF /* BFTCarouselView.h */,
 				7CD38DF919F0B45B001DC8EF /* BFTCarouselView.m */,
+				801AE87B1985E082006EA19B /* BFTThreadTableViewCell.h */,
+				801AE87C1985E082006EA19B /* BFTThreadTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -988,32 +987,28 @@
 		8040E9AD197E080D000D66C7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				801AE8781985C023006EA19B /* BFTBackThreadTableViewController.h */,
-				801AE8791985C023006EA19B /* BFTBackThreadTableViewController.m */,
-				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
-				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
-				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
-				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
-				807F5B6D198DBF8E00528829 /* BFTForthThreadControllerTableViewController.h */,
-				807F5B6E198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m */,
-				8058E1B1198843ED00DF2F4F /* BFTICarouselViewController.h */,
-				8058E1B2198843ED00DF2F4F /* BFTICarouselViewController.m */,
-				803EE0F31984CD1600B86ACE /* BFTInitialLoginViewController.h */,
-				803EE0F41984CD1600B86ACE /* BFTInitialLoginViewController.m */,
-				80F650FE1980A4DD00443673 /* BFTMainViewController.h */,
-				80F650FF1980A4DD00443673 /* BFTMainViewController.m */,
-				8053BDB919A5CE54006E9D13 /* BFTMeerPostViewController.h */,
-				8053BDBA19A5CE54006E9D13 /* BFTMeerPostViewController.m */,
-				807F5B9A198F1D5000528829 /* BFTPostViewController.h */,
-				807F5B9B198F1D5000528829 /* BFTPostViewController.m */,
+				8040E97B1978FD59000D66C7 /* BFTFacebookViewController.h */,
+				8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */,
+				803EE0F31984CD1600B86ACE /* BFTSignupViewController.h */,
+				803EE0F41984CD1600B86ACE /* BFTSignupViewController.m */,
 				8021999A19A9AC4E0042597A /* BFTPrivacyPolicyViewController.h */,
 				8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */,
-				801AE87B1985E082006EA19B /* BFTThreadTableViewCell.h */,
-				801AE87C1985E082006EA19B /* BFTThreadTableViewCell.m */,
+				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
+				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
+				80F650FE1980A4DD00443673 /* BFTMainViewController.h */,
+				80F650FF1980A4DD00443673 /* BFTMainViewController.m */,
+				8053BDB919A5CE54006E9D13 /* BFTMainPostViewController.h */,
+				8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */,
+				807F5B9A198F1D5000528829 /* BFTVideoResponseViewController.h */,
+				807F5B9B198F1D5000528829 /* BFTVideoResponseViewController.m */,
+				801AE8781985C023006EA19B /* BFTMessagesListTableViewController.h */,
+				801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */,
+				807F5B6D198DBF8E00528829 /* BFTMessageThreadTableViewController.h */,
+				807F5B6E198DBF8E00528829 /* BFTMessageThreadTableViewController.m */,
+				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
+				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
 				7CC2E77C19E6496B004EECC0 /* BFTVideoPlaybackController.h */,
 				7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */,
-				8040E97B1978FD59000D66C7 /* BFTViewController.h */,
-				8040E97C1978FD59000D66C7 /* BFTViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1252,11 +1247,11 @@
 				7C6446F619BCE6440071D444 /* NSNumber+XMPP.m in Sources */,
 				7CD38DFA19F0B45B001DC8EF /* BFTCarouselView.m in Sources */,
 				7C64470619BCE6440071D444 /* XMPPTimer.m in Sources */,
-				807F5B9C198F1D5000528829 /* BFTPostViewController.m in Sources */,
+				807F5B9C198F1D5000528829 /* BFTVideoResponseViewController.m in Sources */,
 				8058E1B6198855A600DF2F4F /* BFTMessage.m in Sources */,
 				7C64469D19BCE2B10071D444 /* NSString+DDXML.m in Sources */,
 				7C64468519BCE1E10071D444 /* DDDispatchQueueLogFormatter.m in Sources */,
-				8053BDBB19A5CE54006E9D13 /* BFTMeerPostViewController.m in Sources */,
+				8053BDBB19A5CE54006E9D13 /* BFTMainPostViewController.m in Sources */,
 				7C6446F719BCE6440071D444 /* NSXMLElement+XMPP.m in Sources */,
 				7C64468319BCE1E10071D444 /* DDTTYLogger.m in Sources */,
 				8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */,
@@ -1276,7 +1271,7 @@
 				8040E9771978FD59000D66C7 /* BFTAppDelegate.m in Sources */,
 				7C6446F319BCE6440071D444 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				7CF791FB19C250BF003EB61F /* CaptureManager.m in Sources */,
-				8040E97D1978FD59000D66C7 /* BFTViewController.m in Sources */,
+				8040E97D1978FD59000D66C7 /* BFTFacebookViewController.m in Sources */,
 				7C6446F419BCE6440071D444 /* XMPPXOAuth2Google.m in Sources */,
 				7C64468019BCE1E10071D444 /* DDASLLogger.m in Sources */,
 				7CC2E77E19E6496C004EECC0 /* BFTVideoPlaybackController.m in Sources */,
@@ -1291,7 +1286,7 @@
 				8058E1B91988722400DF2F4F /* BFTLocationHandler.m in Sources */,
 				7CF791FF19C250FA003EB61F /* BFTCameraView.m in Sources */,
 				80F651001980A4DD00443673 /* BFTMainViewController.m in Sources */,
-				803EE0F51984CD1600B86ACE /* BFTInitialLoginViewController.m in Sources */,
+				803EE0F51984CD1600B86ACE /* BFTSignupViewController.m in Sources */,
 				7C6446ED19BCE6440071D444 /* XMPPAnonymousAuthentication.m in Sources */,
 				7CF791F919C250BF003EB61F /* AVCamRecorder.m in Sources */,
 				7C64468619BCE1E10071D444 /* DDMultiFormatter.m in Sources */,
@@ -1299,12 +1294,11 @@
 				7CB7127E19F9A9A2008935E6 /* ExtendedNSLog.m in Sources */,
 				7C64467F19BCE1E10071D444 /* DDAbstractDatabaseLogger.m in Sources */,
 				7C6446F019BCE6440071D444 /* XMPPDigestMD5Authentication.m in Sources */,
-				8058E1B3198843ED00DF2F4F /* BFTICarouselViewController.m in Sources */,
-				801AE87A1985C023006EA19B /* BFTBackThreadTableViewController.m in Sources */,
+				801AE87A1985C023006EA19B /* BFTMessagesListTableViewController.m in Sources */,
 				7C6446EE19BCE6440071D444 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				8021999C19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m in Sources */,
 				7C6446FD19BCE6440071D444 /* XMPPParser.m in Sources */,
-				807F5B6F198DBF8E00528829 /* BFTForthThreadControllerTableViewController.m in Sources */,
+				807F5B6F198DBF8E00528829 /* BFTMessageThreadTableViewController.m in Sources */,
 				7C6446F519BCE6440071D444 /* NSData+XMPP.m in Sources */,
 				7C6446FF19BCE6440071D444 /* XMPPStream.m in Sources */,
 				8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */,
@@ -1444,13 +1438,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/keeanomartin/Documents/FacebookSDK,
-					/Users/keeanomartin/Desktop/Bafit/AppSee/Appsee,
-					/Users/Joseph/Documents,
-					/Users/Joseph/Documents/FacebookSDK,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1492,13 +1480,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/keeanomartin/Documents/FacebookSDK,
-					/Users/keeanomartin/Desktop/Bafit/AppSee/Appsee,
-					/Users/Joseph/Documents,
-					/Users/Joseph/Documents/FacebookSDK,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

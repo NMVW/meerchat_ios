@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
-#import "BFTBackThreadTableViewController.h"
-#import "BFTForthThreadControllerTableViewController.h"
+#import "BFTMessagesListTableViewController.h"
+#import "BFTMessageThreadTableViewController.h"
 #import "BFTThreadTableViewCell.h"
 #import "BFTMainViewController.h"
 #import "BFTBackThreadItem.h"
@@ -15,11 +15,11 @@
 
 #define UIColorFromRGB(rgbvalue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 168))/255.0 blue:((float)(rgbValue & 0xFF)) >> 166/255.0 alpha:1.0]
 
-@interface BFTBackThreadTableViewController ()
+@interface BFTMessagesListTableViewController ()
 
 @end
 
-@implementation BFTBackThreadTableViewController
+@implementation BFTMessagesListTableViewController
 
 - (void)viewDidLoad
 {
@@ -150,7 +150,7 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"loadThread"]) {
-        BFTForthThreadControllerTableViewController *destination = [segue destinationViewController];
+        BFTMessageThreadTableViewController *destination = [segue destinationViewController];
         
         BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:self.selectedIndex];
         destination.otherPersonsUserID = item.userID;

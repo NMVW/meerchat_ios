@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BFTInitialLoginViewController : UIViewController <UITextFieldDelegate>
+@interface BFTSignupViewController : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *schoolEmail;
 @property (weak, nonatomic) IBOutlet UITextField *initialUsername;
 @property (weak, nonatomic) IBOutlet UIButton *checkMark;

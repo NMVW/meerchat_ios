@@ -22,10 +22,10 @@
             </objects>
             <point key="canvasLocation" x="-3672" y="-179"/>
         </scene>
-        <!--View Controller-->
+        <!--Facebook View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="fbVC" id="vXZ-lx-hvc" customClass="BFTViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="fbVC" id="vXZ-lx-hvc" customClass="BFTFacebookViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iTe-Na-sVs"/>
                         <viewControllerLayoutGuide type="bottom" id="Lrq-ik-mbm"/>
@@ -56,10 +56,10 @@
             </objects>
             <point key="canvasLocation" x="-3171" y="-179"/>
         </scene>
-        <!--Initial Login View Controller-->
+        <!--Signup View Controller-->
         <scene sceneID="8fp-NH-HT2">
             <objects>
-                <viewController storyboardIdentifier="initialLoginVC" id="po8-c2-nTd" customClass="BFTInitialLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initialLoginVC" id="po8-c2-nTd" customClass="BFTSignupViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g2P-dR-pNp"/>
                         <viewControllerLayoutGuide type="bottom" id="AEV-Wz-J5r"/>
@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="-2679" y="-179"/>
         </scene>
-        <!--Post View Controller-->
+        <!--Video Response View Controller-->
         <scene sceneID="ZTm-ND-d7r">
             <objects>
-                <viewController id="JyZ-0a-e6Y" customClass="BFTPostViewController" sceneMemberID="viewController">
+                <viewController id="JyZ-0a-e6Y" customClass="BFTVideoResponseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hYE-81-PuO"/>
                         <viewControllerLayoutGuide type="bottom" id="686-Uw-zG9"/>
@@ -296,7 +296,7 @@
         <!--postView-->
         <scene sceneID="Bxx-hz-cgd">
             <objects>
-                <viewController title="postView" id="J4A-kE-uG9" customClass="BFTMeerPostViewController" sceneMemberID="viewController">
+                <viewController title="postView" id="J4A-kE-uG9" customClass="BFTMainPostViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VuX-vD-2tM"/>
                         <viewControllerLayoutGuide type="bottom" id="1Ck-vW-xjZ"/>
@@ -872,7 +872,7 @@
         <!--Back-->
         <scene sceneID="KWj-6R-maa">
             <objects>
-                <tableViewController id="RcN-Gc-fEK" customClass="BFTBackThreadTableViewController" sceneMemberID="viewController">
+                <tableViewController id="RcN-Gc-fEK" customClass="BFTMessagesListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="52" sectionHeaderHeight="22" sectionFooterHeight="22" id="ebY-Df-fbj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -938,10 +938,10 @@
             </objects>
             <point key="canvasLocation" x="-145" y="534"/>
         </scene>
-        <!--Forth Thread Controller Table View Controller-->
+        <!--Message Thread Table View Controller-->
         <scene sceneID="GzM-Ej-dYh">
             <objects>
-                <viewController id="o7d-dj-EKV" customClass="BFTForthThreadControllerTableViewController" sceneMemberID="viewController">
+                <viewController id="o7d-dj-EKV" customClass="BFTMessageThreadTableViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F9a-vQ-rKI"/>
                         <viewControllerLayoutGuide type="bottom" id="2sY-54-5F4"/>
@@ -1002,7 +1002,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hmw-A7-sAG"/>
+        <segue reference="5yH-kS-ND2"/>
         <segue reference="OrP-gC-r7e"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,7 +12,7 @@
 #import "BFTMessageDelegate.h"
 #import "BFTBackThreadItem.h"
 
-@interface BFTForthThreadControllerTableViewController : JSQMessagesViewController <BFTMessageDelegate, JSQMessagesInputToolbarDelegate>
+@interface BFTMessageThreadTableViewController : JSQMessagesViewController <BFTMessageDelegate, JSQMessagesInputToolbarDelegate>
 
 @property (nonatomic, copy) NSString *otherPersonsUserID;
 @property (nonatomic, copy) NSString *otherPersonsUserName;

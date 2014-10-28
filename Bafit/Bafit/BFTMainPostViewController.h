@@ -13,7 +13,7 @@
 
 
 
-@interface BFTMeerPostViewController : UIViewController <BFTCameraViewDelegate>
+@interface BFTMainPostViewController : UIViewController <BFTCameraViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (strong, nonatomic) IBOutlet UIImageView *btmTrapazoid;

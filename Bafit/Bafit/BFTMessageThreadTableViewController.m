@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
-#import "BFTForthThreadControllerTableViewController.h"
+#import "BFTMessageThreadTableViewController.h"
 #import <JSQMessagesViewController/JSQMessages.h>
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
 #import "BFTVideoMediaItem.h"
 
-@interface BFTForthThreadControllerTableViewController ()
+@interface BFTMessageThreadTableViewController ()
 
 @end
 
-@implementation BFTForthThreadControllerTableViewController
+@implementation BFTMessageThreadTableViewController
 
 -(void)viewDidLoad {
     [super viewDidLoad];

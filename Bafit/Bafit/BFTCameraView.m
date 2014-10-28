@@ -11,7 +11,7 @@
 #import "AVCamRecorder.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
-#import "BFTMeerPostViewController.h"
+#import "BFTMainPostViewController.h"
 
 @interface BFTCameraView () <UIGestureRecognizerDelegate>
 

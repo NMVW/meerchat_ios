@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
-#import "BFTPostViewController.h"
+#import "BFTVideoResponseViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTCameraView.h"
 #import "BFTVideoPlaybackController.h"
 
-@interface BFTPostViewController ()
+@interface BFTVideoResponseViewController ()
 
 @end
 
 #define CAPTURE_FRAMES_PER_SECOND 20
 
-@implementation BFTPostViewController
+@implementation BFTVideoResponseViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "BFTDataHandler.h"
 
-@interface BFTViewController : UIViewController<UIAlertViewDelegate, FBLoginViewDelegate, UINavigationControllerDelegate>
+@interface BFTFacebookViewController : UIViewController<UIAlertViewDelegate, FBLoginViewDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *PolicyButton;
 @property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
 @property (strong, nonatomic) BFTDataHandler *data;

@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
-#import "BFTInitialLoginViewController.h"
+#import "BFTSignupViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTDatabaseRequest.h"
 
-@interface BFTInitialLoginViewController ()
+@interface BFTSignupViewController ()
 
 @end
 
-@implementation BFTInitialLoginViewController
+@implementation BFTSignupViewController
 
 - (void)viewDidLoad
 {

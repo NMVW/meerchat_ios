@@ -51,7 +51,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "BFTDataHandler.h"
-#import "BFTMeerPostViewController.h"
+#import "BFTMainPostViewController.h"
 #import "BFTAppDelegate.h"
 
 @class AVCamRecorder;
@@ -73,7 +73,7 @@
 @property (nonatomic,strong) NSMutableArray *assets;
 @property (nonatomic,assign) NSTimer *exportProgressBarTimer;
 @property (nonatomic,strong) AVAssetExportSession *exportSession;
-@property (nonatomic, strong) BFTMeerPostViewController *meerPost;
+@property (nonatomic, strong) BFTMainPostViewController *meerPost;
 @property (nonatomic, assign) NSString *postView;
 @property (nonatomic, assign) NSString *mp4Name;
 @property (nonatomic, strong) UIImage *thumbImg;

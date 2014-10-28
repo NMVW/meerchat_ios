@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
-#import "BFTViewController.h"
+#import "BFTFacebookViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTAppDelegate.h"
 
-@interface BFTViewController ()
+@interface BFTFacebookViewController ()
 
 @end
 
 
-@implementation BFTViewController
+@implementation BFTFacebookViewController
 
 - (void)viewDidLoad
 {

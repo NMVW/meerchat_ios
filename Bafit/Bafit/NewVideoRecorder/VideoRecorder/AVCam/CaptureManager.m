@@ -49,7 +49,7 @@
  */
 
 #import "CaptureManager.h"
-#import "BFTMeerPostViewController.h"
+#import "BFTMainPostViewController.h"
 #import "AVCamRecorder.h"
 #import "AVCamUtilities.h"
 #import <MobileCoreServices/UTCoreTypes.h>
