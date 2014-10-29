@@ -11,6 +11,7 @@
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
 #import "BFTVideoMediaItem.h"
+#import "BFTVideoMessageViewController.h"
 
 @interface BFTMessageThreadTableViewController ()
 
@@ -214,7 +215,7 @@
 #pragma mark - Toolbar Delegate
 
 -(void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressLeftBarButton:(UIButton *)sender {
-    //Go to record view
+    [self performSegueWithIdentifier:@"messagesToVideoMessage" sender:self];
 }
 
 #pragma mark - Message Delegate
@@ -280,6 +281,15 @@
 
 -(void)record:(id)sender {
     
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"messagesToVideoMessage"]) {
+        BFTVideoMessageViewController *destinationVC = (BFTVideoMessageViewController*)[segue destinationViewController];
+        destinationVC.otherPersonsUserName = self.otherPersonsUserName;
+        destinationVC.otherPersonsUserID = self.otherPersonsUserID;
+    }
 }
 
 @end

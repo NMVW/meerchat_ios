@@ -987,10 +987,50 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="mTA-JN-c7X"/>
+                    <connections>
+                        <segue destination="ft3-dp-llc" kind="push" identifier="messagesToVideoMessage" id="fks-9c-a9y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7wu-dJ-hlB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="305" y="534"/>
+        </scene>
+        <!--Video Message View Controller-->
+        <scene sceneID="wjG-HV-wGd">
+            <objects>
+                <viewController id="ft3-dp-llc" customClass="BFTVideoMessageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nCi-7R-mB8"/>
+                        <viewControllerLayoutGuide type="bottom" id="l92-Ju-Ok7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hSC-rL-v2p">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wef-cb-vs0" customClass="BFTCameraView">
+                                <rect key="frame" x="40" y="132" width="240" height="240"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="njP-uZ-7sn"/>
+                                    <constraint firstAttribute="height" constant="240" id="oEQ-hX-ZLl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="wef-cb-vs0" secondAttribute="centerY" id="Ndy-8k-dv8"/>
+                            <constraint firstAttribute="centerX" secondItem="wef-cb-vs0" secondAttribute="centerX" id="kkR-am-Obe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZJU-aP-qi5"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="recordView" destination="wef-cb-vs0" id="HSO-HG-KSF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="adU-En-xXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="813" y="540"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jcm-Lj-FRb">
@@ -1037,7 +1077,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5yH-kS-ND2"/>
         <segue reference="OrP-gC-r7e"/>
+        <segue reference="hmw-A7-sAG"/>
     </inferredMetricsTieBreakers>
 </document>

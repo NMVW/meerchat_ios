@@ -13,7 +13,7 @@
     static NSString *baseVideoURL = @"http://bafit.mobi/userPosts";
     static NSString *baseThumbURL = @"http://bafit.mobi/userPosts/thumb";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     self = [super init];
     if (self) {
@@ -32,7 +32,6 @@
         self.distance = [[jsonDictionary objectForKey:@"dist"] floatValue];
         self.atTag = [jsonDictionary objectForKey:@"at_tag"];
         self.hashTag = [jsonDictionary objectForKey:@"hash_tag"];
-        //TODO:Use date formatter to make this a date object instead of a string;
         self.timeStamp = [dateFormatter dateFromString:[jsonDictionary objectForKey:@"TS"]];
     }
     return self;
@@ -47,7 +46,7 @@
         return YES;
     if (!object || ![object isKindOfClass:[self class]])
         return NO;
-    return [self.videoURL isEqualToString:[object videoURL]];
+    return [self.videoURL isEqualToString:[object videoURL]] && [self.timeStamp isEqualToDate:[object timeStamp]] && self.MC == [object MC];
 }
 
 -(NSString *)description {

@@ -246,7 +246,7 @@
     mainView.usernameLabel.text = [post BUN];
     mainView.postTimeLabel.text = [NSString stringWithFormat:@"%.0f hours ago", [[post timeStamp] timeIntervalSinceNow]/-3600.0];
     mainView.distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
-    mainView.hashTagLabel.text = [NSString stringWithFormat:@"%@ %@ %@", _tempHashTags[0],_tempHashTags[1], _tempHashTags[2]];
+    mainView.hashTagLabel.text = [NSString stringWithFormat:@"%@", [post hashTag]];
     
     return mainView;
 }
