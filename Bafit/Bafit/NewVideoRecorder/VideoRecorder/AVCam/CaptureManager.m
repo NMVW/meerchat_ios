@@ -62,6 +62,7 @@
 #import "BFTAppDelegate.h"
 #import "BFTMessageThreads.h"
 #import "BFTCaptureManagerDelegate.h"
+#import "BFTConstants.h"
 
 #define MAX_DURATION 0.25
 
@@ -372,7 +373,7 @@
     if (session.status == AVAssetExportSessionStatusCompleted) {
         NSURL *outputURL = session.outputURL;
         if ([[BFTDataHandler sharedInstance] postView]) {
-            NSLog(@"Upload To Post View")
+            NSLog(@"Upload To Post View");
             [self uploadToMainWithURL:outputURL];
             
         }else{
@@ -480,7 +481,7 @@
 
 -(void)sendVideoToUser {
     //xmpp toUser
-    NSLog(@"\n\nSending Video To: %@\nWith URL: %@\nThumb URL: %@\n\n", [[BFTPostHandler sharedInstance] xmmpToUser], [[BFTPostHandler sharedInstance] xmppVideoURL], [[BFTPostHandler sharedInstance] xmppThumbURL])
+    NSLog(@"\n\nSending Video To: %@\nWith URL: %@\nThumb URL: %@\n\n", [[BFTPostHandler sharedInstance] xmmpToUser], [[BFTPostHandler sharedInstance] xmppVideoURL], [[BFTPostHandler sharedInstance] xmppThumbURL]);
     self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
     [self.appDelegate sendVideoMessageWithURL:[[BFTPostHandler sharedInstance] xmppVideoURL] thumbURL:[[BFTPostHandler sharedInstance] xmppThumbURL] toUser:[[BFTPostHandler sharedInstance] xmmpToUser]];
 }

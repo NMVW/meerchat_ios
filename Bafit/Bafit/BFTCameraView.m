@@ -14,6 +14,7 @@
 #import "BFTMainPostViewController.h"
 #import "BFTCameraViewDelegate.h"
 #import "BFTCaptureManagerDelegate.h"
+#import "BFTConstants.h"
 
 @interface BFTCameraView () <UIGestureRecognizerDelegate, BFTCaptureManagerDelegate>
 

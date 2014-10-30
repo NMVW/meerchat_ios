@@ -9,6 +9,7 @@
 #import "BFTEmailConfirmationViewController.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
+#import "BFTConstants.h"
 
 @interface BFTEmailConfirmationViewController () <UITextFieldDelegate>
 

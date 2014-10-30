@@ -11,6 +11,7 @@
 		7C13CDFB19E139BB00E54557 /* BFTVideoMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C13CDFA19E139BB00E54557 /* BFTVideoMediaItem.m */; };
 		7C14975919DF4D2E00DFAF7D /* BFTLeftRightSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14975819DF4D2E00DFAF7D /* BFTLeftRightSegue.m */; };
 		7C425A901A0181F5004FBBC3 /* BFTVideoMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C425A8F1A0181F5004FBBC3 /* BFTVideoMessageViewController.m */; };
+		7C425A961A01B7E2004FBBC3 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C425A951A01B7E2004FBBC3 /* Crashlytics.framework */; };
 		7C64467F19BCE1E10071D444 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C64466D19BCE1E10071D444 /* DDAbstractDatabaseLogger.m */; };
 		7C64468019BCE1E10071D444 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C64466F19BCE1E10071D444 /* DDASLLogger.m */; };
 		7C64468119BCE1E10071D444 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C64467119BCE1E10071D444 /* DDFileLogger.m */; };
@@ -184,6 +185,7 @@
 		7C14975819DF4D2E00DFAF7D /* BFTLeftRightSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTLeftRightSegue.m; sourceTree = "<group>"; };
 		7C425A8E1A0181F5004FBBC3 /* BFTVideoMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTVideoMessageViewController.h; sourceTree = "<group>"; };
 		7C425A8F1A0181F5004FBBC3 /* BFTVideoMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoMessageViewController.m; sourceTree = "<group>"; };
+		7C425A951A01B7E2004FBBC3 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		7C64466C19BCE1E10071D444 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		7C64466D19BCE1E10071D444 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
 		7C64466E19BCE1E10071D444 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			files = (
 				7C64470819BCEFF10071D444 /* libresolv.dylib in Frameworks */,
 				7C64468F19BCE26D0071D444 /* Security.framework in Frameworks */,
+				7C425A961A01B7E2004FBBC3 /* Crashlytics.framework in Frameworks */,
 				7C64468D19BCE2500071D444 /* CFNetwork.framework in Frameworks */,
 				7C6446A719BCE6130071D444 /* libidn.a in Frameworks */,
 				8021993819A91D2F0042597A /* CoreVideo.framework in Frameworks */,
@@ -826,9 +829,9 @@
 		7C8CCDD119FF58B500D27D24 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7CB7127F19F9A9D6008935E6 /* BFTConstants.h */,
 				8040E9751978FD59000D66C7 /* BFTAppDelegate.h */,
 				8040E9761978FD59000D66C7 /* BFTAppDelegate.m */,
-				7CB7127F19F9A9D6008935E6 /* BFTConstants.h */,
 				7CB7127C19F9A9A2008935E6 /* ExtendedNSLog.h */,
 				7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */,
 			);
@@ -901,6 +904,7 @@
 		8040E9651978FD59000D66C7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C425A951A01B7E2004FBBC3 /* Crashlytics.framework */,
 				7C82BF7419E13FCC000598FA /* FacebookSDK.framework */,
 				7C64470719BCEFF10071D444 /* libresolv.dylib */,
 				7C64468E19BCE26D0071D444 /* Security.framework */,
@@ -1056,6 +1060,8 @@
 				8040E9601978FD59000D66C7 /* Frameworks */,
 				8040E9611978FD59000D66C7 /* Resources */,
 				3F922514416E4475A27BFF4E /* Copy Pods Resources */,
+				7C425A931A01B69C004FBBC3 /* ShellScript */,
+				7C425A941A01B7B0004FBBC3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1217,6 +1223,32 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bafit/Pods-Bafit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7C425A931A01B69C004FBBC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#Update build number with number of git commits if in release mode\nif [ ${CONFIGURATION} == \"Release\" ]; then\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nfi;";
+		};
+		7C425A941A01B7B0004FBBC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 79408de8296f5247d8a98cf57977f3ddc206c935 62e9dc50934da444e1303f26a0e1b8a65c96e969af3ed39babd39fda702b3eb6";
 		};
 		F736FEC1851A437C8A6C6FDC /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1442,7 +1474,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1484,7 +1519,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

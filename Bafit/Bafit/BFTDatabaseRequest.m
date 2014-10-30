@@ -7,6 +7,7 @@
 //
 
 #import "BFTDatabaseRequest.h"
+#import "BFTConstants.h"
 
 @implementation BFTDatabaseRequest
 
@@ -107,8 +108,9 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
 }
 
 -(void)completeConnection:(NSError*)error {
-    if (self.logMessage)
-        NSLog(@"%@", self.logMessage);
+    if (self.logMessage) {
+        //NSLog(@"%@", self.logMessage);
+    }
     
     if (_responseHandler) {
         _responseHandler(self.data, error);

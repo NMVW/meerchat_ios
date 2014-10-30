@@ -12,6 +12,7 @@
 #import "BFTDataHandler.h"
 #import "JSQTextMessage.h"
 #import "JSQMediaMessage.h"
+#import "BFTConstants.h"
 
 @implementation BFTMessageThreads
 

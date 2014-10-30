@@ -12,6 +12,7 @@
 #import "BFTDataHandler.h"
 #import "BFTVideoMediaItem.h"
 #import "BFTVideoMessageViewController.h"
+#import "BFTConstants.h"
 
 @interface BFTMessageThreadTableViewController ()
 

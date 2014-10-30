@@ -8,6 +8,7 @@
 
 #import "BFTVideoPlaybackController.h"
 #import "BFTDatabaseRequest.h"
+#import "BFTConstants.h"
 @import AVFoundation;
 
 @implementation BFTVideoPlaybackController {

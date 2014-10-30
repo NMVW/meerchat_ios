@@ -13,6 +13,7 @@
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
 #import "BFTPostHandler.h"
+#import "BFTConstants.h"
 
 @interface BFTVideoResponseViewController ()
 

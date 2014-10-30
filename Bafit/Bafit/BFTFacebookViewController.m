@@ -11,6 +11,7 @@
 #import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTAppDelegate.h"
+#import "BFTConstants.h"
 
 @interface BFTFacebookViewController ()
 

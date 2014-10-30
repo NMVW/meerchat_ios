@@ -12,6 +12,7 @@
 #import "BFTMainViewController.h"
 #import "BFTBackThreadItem.h"
 #import "BFTMessage.h"
+#import "BFTConstants.h"
 
 #define UIColorFromRGB(rgbvalue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 168))/255.0 blue:((float)(rgbValue & 0xFF)) >> 166/255.0 alpha:1.0]
 

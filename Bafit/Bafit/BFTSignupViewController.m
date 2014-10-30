@@ -9,6 +9,7 @@
 #import "BFTSignupViewController.h"
 #import "BFTDataHandler.h"
 #import "BFTDatabaseRequest.h"
+#import "BFTConstants.h"
 
 @interface BFTSignupViewController ()
 

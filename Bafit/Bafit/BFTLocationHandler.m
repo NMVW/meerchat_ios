@@ -7,6 +7,7 @@
 //
 
 #import "BFTLocationHandler.h"
+#import "BFTConstants.h"
 
 @implementation BFTLocationHandler
 

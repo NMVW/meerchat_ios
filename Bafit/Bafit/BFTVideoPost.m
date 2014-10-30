@@ -6,6 +6,7 @@
 //
 
 #import "BFTVideoPost.h"
+#import "BFTConstants.h"
 
 @implementation BFTVideoPost
 

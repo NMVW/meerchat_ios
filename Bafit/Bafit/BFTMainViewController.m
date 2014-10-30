@@ -18,6 +18,7 @@
 #import "BFTMainPostViewController.h"
 #import "BFTVideoPlaybackController.h"
 #import "BFTCarouselView.h"
+#import "BFTConstants.h"
 
 @interface BFTMainViewController ()
 

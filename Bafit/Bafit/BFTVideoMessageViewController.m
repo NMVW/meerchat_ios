@@ -10,6 +10,7 @@
 #import "BFTDataHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTPostHandler.h"
+#import "BFTConstants.h"
 @import AVFoundation;
 
 @interface BFTVideoMessageViewController ()

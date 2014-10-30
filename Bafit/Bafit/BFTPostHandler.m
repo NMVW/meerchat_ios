@@ -7,6 +7,7 @@
 //
 
 #import "BFTPostHandler.h"
+#import "BFTConstants.h"
 
 @implementation BFTPostHandler
 

@@ -11,6 +11,7 @@
 #import "BFTPostHandler.h"
 #import "BFTDatabaseRequest.h"
 #import "CaptureManager.h"
+#import "BFTConstants.h"
 
 @interface BFTMainPostViewController ()
 

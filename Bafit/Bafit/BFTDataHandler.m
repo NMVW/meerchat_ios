@@ -7,6 +7,7 @@
 //
 
 #import "BFTDataHandler.h"
+#import "BFTConstants.h"
 
 @implementation BFTDataHandler
 

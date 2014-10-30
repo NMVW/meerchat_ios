@@ -8,6 +8,7 @@
 
 #import "BFTPrivacyPolicyViewController.h"
 #import "BFTDataHandler.h"
+#import "BFTConstants.h"
 
 @interface BFTPrivacyPolicyViewController ()
 

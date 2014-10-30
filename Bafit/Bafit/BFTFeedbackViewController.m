@@ -9,6 +9,7 @@
 #import "BFTFeedbackViewController.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
+#import "BFTConstants.h"
 
 @interface BFTFeedbackViewController () <UIPickerViewDataSource, UIPickerViewDelegate, UITextViewDelegate, UIAlertViewDelegate>
 
