@@ -144,31 +144,40 @@
 #pragma mark - BFTCameraViewDelegate
 
 -(void)recordingFinished {
-    
+    NSLog(@"Recording Finished");
 }
 
 -(void)recordingPaused {
-    
+    NSLog(@"Recording Paused");
 }
 
 -(void)recordingTimeFull {
-    
+    NSLog(@"Recording Time Full");
 }
 
 -(void)receivedVideoName:(NSString*)videoName {
-    
+    NSLog(@"Received Video Name");
 }
 
 -(void)videoPostedToMain {
-    
+    NSLog(@"Video Posted To Main");
+    [self popVC];
+}
+
+-(void)videoSentToUser {
+    NSLog(@"Video Sent To User");
 }
 
 -(void)videoUploadedToNetwork {
-    
+    NSLog(@"Video Uploaded To Network");
 }
 
 -(void)videoSavedToDisk {
-    [self popVC];
+    NSLog(@"Video Saved To Disk");
+}
+
+-(void)postingFailedWithError:(NSError *)error {
+    NSLog(@"Video Message Not Uploaded: %@\n%@", error.localizedDescription, [error.userInfo objectForKey:NSUnderlyingErrorKey]);
 }
 
 #pragma mark - Button Actions

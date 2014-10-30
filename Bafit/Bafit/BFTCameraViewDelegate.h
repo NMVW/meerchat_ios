@@ -17,5 +17,8 @@
 -(void)videoPostedToMain;
 -(void)videoUploadedToNetwork;
 -(void)videoSavedToDisk;
+-(void)videoSentToUser;
+
+-(void)postingFailedWithError:(NSError*)error;
 
 @end

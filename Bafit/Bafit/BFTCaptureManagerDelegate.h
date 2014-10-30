@@ -22,6 +22,9 @@
 -(void)videoPostedToMain;
 -(void)videoUploadedToNetwork;
 -(void)videoSavedToDisk;
+-(void)videoSentToUser;
+
+-(void)postingFailedWithError:(NSError*)error;
 
 @optional
 -(void)removeTimeFromDuration:(float)removeTime;

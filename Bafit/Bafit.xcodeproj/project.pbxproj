@@ -469,6 +469,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C425A971A01DF86004FBBC3 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				8040E97B1978FD59000D66C7 /* BFTFacebookViewController.h */,
+				803EE0F31984CD1600B86ACE /* BFTSignupViewController.h */,
+				8021999A19A9AC4E0042597A /* BFTPrivacyPolicyViewController.h */,
+				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
+				80F650FE1980A4DD00443673 /* BFTMainViewController.h */,
+				8053BDB919A5CE54006E9D13 /* BFTMainPostViewController.h */,
+				807F5B9A198F1D5000528829 /* BFTVideoResponseViewController.h */,
+				7C425A8E1A0181F5004FBBC3 /* BFTVideoMessageViewController.h */,
+				801AE8781985C023006EA19B /* BFTMessagesListTableViewController.h */,
+				807F5B6D198DBF8E00528829 /* BFTMessageThreadTableViewController.h */,
+				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
+				7CC2E77C19E6496B004EECC0 /* BFTVideoPlaybackController.h */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
+		7C425A981A01DF8C004FBBC3 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */,
+				803EE0F41984CD1600B86ACE /* BFTSignupViewController.m */,
+				8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */,
+				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
+				80F650FF1980A4DD00443673 /* BFTMainViewController.m */,
+				8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */,
+				807F5B9B198F1D5000528829 /* BFTVideoResponseViewController.m */,
+				7C425A8F1A0181F5004FBBC3 /* BFTVideoMessageViewController.m */,
+				801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */,
+				807F5B6E198DBF8E00528829 /* BFTMessageThreadTableViewController.m */,
+				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
+				7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */,
+			);
+			name = Implementation;
+			sourceTree = "<group>";
+		};
 		7C64466919BCE1AA0071D444 /* XMPPFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -993,30 +1031,8 @@
 		8040E9AD197E080D000D66C7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8040E97B1978FD59000D66C7 /* BFTFacebookViewController.h */,
-				8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */,
-				803EE0F31984CD1600B86ACE /* BFTSignupViewController.h */,
-				803EE0F41984CD1600B86ACE /* BFTSignupViewController.m */,
-				8021999A19A9AC4E0042597A /* BFTPrivacyPolicyViewController.h */,
-				8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */,
-				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
-				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
-				80F650FE1980A4DD00443673 /* BFTMainViewController.h */,
-				80F650FF1980A4DD00443673 /* BFTMainViewController.m */,
-				8053BDB919A5CE54006E9D13 /* BFTMainPostViewController.h */,
-				8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */,
-				807F5B9A198F1D5000528829 /* BFTVideoResponseViewController.h */,
-				807F5B9B198F1D5000528829 /* BFTVideoResponseViewController.m */,
-				7C425A8E1A0181F5004FBBC3 /* BFTVideoMessageViewController.h */,
-				7C425A8F1A0181F5004FBBC3 /* BFTVideoMessageViewController.m */,
-				801AE8781985C023006EA19B /* BFTMessagesListTableViewController.h */,
-				801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */,
-				807F5B6D198DBF8E00528829 /* BFTMessageThreadTableViewController.h */,
-				807F5B6E198DBF8E00528829 /* BFTMessageThreadTableViewController.m */,
-				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
-				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
-				7CC2E77C19E6496B004EECC0 /* BFTVideoPlaybackController.h */,
-				7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */,
+				7C425A971A01DF86004FBBC3 /* Header */,
+				7C425A981A01DF8C004FBBC3 /* Implementation */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

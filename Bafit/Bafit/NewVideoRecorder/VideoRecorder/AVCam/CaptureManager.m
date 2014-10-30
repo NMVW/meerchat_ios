@@ -406,21 +406,18 @@
     NSProgress *progress = nil;
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error.localizedDescription);
-            
-        } else {
+        if (!error) {
             NSLog(@"Video Upload Success");
             [self.delegate videoUploadedToNetwork];
-            //upload thumb and postVideo to Main
-            //genrates and handles upload request
             [self generateImageFromURI:URL];
             [self PostVideoToMain];
+        }
+        else {
+            [self.delegate postingFailedWithError:error];
         }
     }];
     
     [uploadTask resume];
-    
 }
 
 -(void)uploadToUserWithURL:(NSURL *)URL {
@@ -442,16 +439,14 @@
     NSProgress *progress = nil;
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error.localizedDescription);
-            
-        } else {
-            NSLog(@"%@", response);
-            //upload thumb and postVideo to Main
-            //genrates and handles upload request
+        if (!error) {
+            NSLog(@"Video Upload Success");
             [self.delegate videoUploadedToNetwork];
             [self generateImageFromURI:URL];
             [self sendVideoToUser];
+        }
+        else {
+            [self.delegate postingFailedWithError:error];
         }
     }];
     
@@ -466,15 +461,24 @@
     //TODO: Fix Category Stuff
     NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory] == 0 ? 1 : [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
-        
-        //handle JSON from step one
         if (!error) {
-//            NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//            for (NSDictionary *dict in responseJSON) {
-//                NSLog(@"Object value: %@", [dict allKeys]);
-//            }
-        }else{
-            NSLog(@"No Data recived for file type");
+            NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            if ([responseString boolValue]) {
+                NSLog(@"Video Successfully Posted To Main");
+                [self.delegate videoPostedToMain];
+            }
+            else {
+                NSMutableDictionary* details = [NSMutableDictionary dictionary];
+                [details setValue:responseString forKey:NSUnderlyingErrorKey];
+                [details setValue:@"Video could not be posted to main" forKey:NSLocalizedDescriptionKey];
+                
+                NSError *error = [[NSError alloc] initWithDomain:@"com.bafit.videopostingerror" code:1 userInfo:details];
+                [self.delegate postingFailedWithError:error];
+            }
+        }
+        else{
+            NSLog(@"Could Not Post Video To Main");
+            [self.delegate postingFailedWithError:error];
         }
     }] startConnection];
 }
@@ -484,6 +488,7 @@
     NSLog(@"\n\nSending Video To: %@\nWith URL: %@\nThumb URL: %@\n\n", [[BFTPostHandler sharedInstance] xmmpToUser], [[BFTPostHandler sharedInstance] xmppVideoURL], [[BFTPostHandler sharedInstance] xmppThumbURL]);
     self.appDelegate = (BFTAppDelegate*)[[UIApplication sharedApplication] delegate];
     [self.appDelegate sendVideoMessageWithURL:[[BFTPostHandler sharedInstance] xmppVideoURL] thumbURL:[[BFTPostHandler sharedInstance] xmppThumbURL] toUser:[[BFTPostHandler sharedInstance] xmmpToUser]];
+    [self.delegate videoSentToUser];
 }
 
 -(NSString *)MP4NameGet {
@@ -495,8 +500,9 @@
                 self.mp4Name = [dict objectForKey:@"FName"];
                 NSLog(@"Video Name: %@", self.mp4Name);
             }
-        }else{
-            NSLog(@"No Data recived for file type");
+        }
+        else{
+            [self.delegate postingFailedWithError:error];
         }
     }] startConnection];
     
@@ -634,7 +640,7 @@
 @end
 
 
-#pragma mark -
+#pragma mark - CaptureManager Internal Utility Methods
 @implementation CaptureManager (InternalUtilityMethods)
 
 // Find a camera with the specificed AVCaptureDevicePosition, returning nil if one is not found

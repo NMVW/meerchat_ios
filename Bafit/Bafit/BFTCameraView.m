@@ -258,12 +258,20 @@
     [self.delegate videoPostedToMain];
 }
 
+-(void)videoSentToUser {
+    [self.delegate videoSentToUser];
+}
+
 -(void)videoUploadedToNetwork {
     [self.delegate videoUploadedToNetwork];
 }
 
 -(void)videoSavedToDisk {
     [self.delegate videoSavedToDisk];
+}
+
+-(void)postingFailedWithError:(NSError*)error {
+    [self.delegate postingFailedWithError:error];
 }
 
 @end

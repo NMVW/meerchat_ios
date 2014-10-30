@@ -94,13 +94,21 @@
     NSLog(@"Video Posted To Main");
 }
 
+-(void)videoSentToUser {
+    NSLog(@"Video Sent To User");
+    [self popVC];
+}
+
 -(void)videoUploadedToNetwork {
     NSLog(@"Video Uploaded To Network");
-    [self popVC];
 }
 
 -(void)videoSavedToDisk {
     NSLog(@"Video Saved To Disk");
+}
+
+-(void)postingFailedWithError:(NSError *)error {
+    NSLog(@"Video Message Not Uploaded: %@\n%@", error.localizedDescription, [error.userInfo objectForKey:NSUnderlyingErrorKey]);
 }
 
 @end
