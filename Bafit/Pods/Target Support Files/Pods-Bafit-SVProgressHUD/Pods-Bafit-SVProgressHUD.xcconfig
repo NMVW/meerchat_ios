@@ -1,0 +1,1 @@
+PODS_BAFIT_SVPROGRESSHUD_OTHER_LDFLAGS = -framework "QuartzCore"

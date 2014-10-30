@@ -258,8 +258,10 @@
     [[self recorder] stopRecording];
 }
 
-- (void) saveVideoWithCompletionBlock:(void (^)(BOOL))completion
-{
+- (void) saveVideoWithCompletionBlock:(void (^)(BOOL))completion {
+    //Should really be video began saving
+    [self.delegate videoUploadBegan];
+    
     if ([self.assets count] != 0) {
         AVMutableComposition *mixComposition = [[AVMutableComposition alloc] init];
         AVMutableCompositionTrack *videoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
@@ -344,8 +346,12 @@
         
         [self.exportSession exportAsynchronouslyWithCompletionHandler:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"URL: %@\nError: %@\n%@", self.exportSession.outputURL.absoluteString, self.exportSession.error.localizedDescription, self.exportSession.error);
-                [weakSelf exportDidFinish:self.exportSession withCompletionBlock:completion];
+                if (self.exportSession.error) {
+                    [self.delegate postingFailedWithError:self.exportSession.error];
+                }
+                else {
+                    [weakSelf exportDidFinish:self.exportSession withCompletionBlock:completion];
+                }
             });
         }];
     }
@@ -369,7 +375,6 @@
             [weakSelf removeFile:fileURL];
     }];
     
-    NSLog(@"Session Status: %zd", session.status);
     if (session.status == AVAssetExportSessionStatusCompleted) {
         NSURL *outputURL = session.outputURL;
         if ([[BFTDataHandler sharedInstance] postView]) {
@@ -516,8 +521,6 @@
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     generator.appliesPreferredTrackTransform = TRUE;
-//    CGSize maxSize = CGSizeMake(320, 180);
-//    generator.maximumSize = maxSize;
     CMTime thumbTime = CMTimeMakeWithSeconds(1,1);
     CGImageRef imageRef = [generator copyCGImageAtTime:thumbTime actualTime:nil error:nil];
     _thumbImg = [UIImage imageWithCGImage:imageRef];
@@ -552,8 +555,7 @@
     [self removeImage:[NSString stringWithFormat:@"%@.jpeg", [[BFTDataHandler sharedInstance] mp4Name]]];
 }
 
-- (void)removeImage:(NSString *)fileName
-{
+- (void)removeImage:(NSString *)fileName {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     

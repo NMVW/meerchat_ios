@@ -1,1 +1,1 @@
-../../../JSQMessagesViewController/JSQMessagesViewController/Model/JSQVideoMediaItem.h
+../../../JSQMessagesViewController/JSQMessagesViewController/Model/JSQVideoMediaitem.h

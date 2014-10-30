@@ -12,6 +12,7 @@
 #import "BFTDatabaseRequest.h"
 #import "CaptureManager.h"
 #import "BFTConstants.h"
+#import "SVProgressHUD.h"
 
 @interface BFTMainPostViewController ()
 
@@ -161,6 +162,7 @@
 
 -(void)videoPostedToMain {
     NSLog(@"Video Posted To Main");
+    [SVProgressHUD dismiss];
     [self popVC];
 }
 
@@ -176,8 +178,18 @@
     NSLog(@"Video Saved To Disk");
 }
 
+-(void)videoUploadBegan {
+    [SVProgressHUD showWithStatus:@"Uploading Video" maskType:SVProgressHUDMaskTypeGradient];
+}
+
+-(void)videoUploadMadeProgress:(CGFloat)progress {
+    
+}
+
 -(void)postingFailedWithError:(NSError *)error {
     NSLog(@"Video Message Not Uploaded: %@\n%@", error.localizedDescription, [error.userInfo objectForKey:NSUnderlyingErrorKey]);
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    [self popVC];
 }
 
 #pragma mark - Button Actions

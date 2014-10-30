@@ -132,9 +132,7 @@
                 self.videoPreviewView.layer.borderColor = [UIColor clearColor].CGColor;
                 UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(-10, 210, _videoPreviewView.frame.size.width, 30)];
                 [saveButton setTitle:@"Post" forState:UIControlStateNormal];
-                [saveButton addTarget:self
-                           action:@selector(saveVideo:)
-                 forControlEvents:UIControlEventTouchUpInside];
+                [saveButton addTarget:self action:@selector(saveVideo:) forControlEvents:UIControlEventTouchUpInside];
                 
                 [_videoPreviewView addSubview:saveButton];
                 //NSLog(@"END number of pieces %lu", (unsigned long)[self.captureManager.assets count]);
@@ -268,6 +266,14 @@
 
 -(void)videoSavedToDisk {
     [self.delegate videoSavedToDisk];
+}
+
+-(void)videoUploadBegan {
+    [self.delegate videoUploadBegan];
+}
+
+-(void)videoUploadMadeProgress:(CGFloat)progress {
+    [self.delegate videoUploadMadeProgress:progress];
 }
 
 -(void)postingFailedWithError:(NSError*)error {

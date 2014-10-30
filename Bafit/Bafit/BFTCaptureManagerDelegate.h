@@ -24,6 +24,10 @@
 -(void)videoSavedToDisk;
 -(void)videoSentToUser;
 
+//Upload progress
+-(void)videoUploadBegan;
+-(void)videoUploadMadeProgress:(CGFloat)progress;
+
 -(void)postingFailedWithError:(NSError*)error;
 
 @optional
