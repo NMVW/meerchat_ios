@@ -18,7 +18,10 @@
 
 @end
 
-@implementation BFTVideoMessageViewController
+@implementation BFTVideoMessageViewController {
+    BOOL _videoPosted;
+    BOOL _thumbUploaded;
+}
 
 - (void)viewDidLoad
 {
@@ -97,8 +100,10 @@
 
 -(void)videoSentToUser {
     NSLog(@"Video Sent To User");
-    [SVProgressHUD dismiss];
-    [self popVC];
+    _videoPosted = YES;
+    if (_thumbUploaded && _videoPosted) {
+        [self everythingFinished];
+    }
 }
 
 -(void)videoUploadedToNetwork {
@@ -109,17 +114,29 @@
     NSLog(@"Video Saved To Disk");
 }
 
+-(void)imageUploaded {
+    _thumbUploaded = YES;
+    if (_thumbUploaded && _videoPosted) {
+        [self everythingFinished];
+    }
+}
+
 -(void)videoUploadBegan {
-    [SVProgressHUD showWithStatus:@"Uploading Video" maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Saving Video" maskType:SVProgressHUDMaskTypeGradient];
 }
 
 -(void)videoUploadMadeProgress:(CGFloat)progress {
-    
+    [SVProgressHUD showProgress:progress status:@"Uploading Video to Server..." maskType:SVProgressHUDMaskTypeGradient];
 }
 
 -(void)postingFailedWithError:(NSError *)error {
     NSLog(@"Video Message Not Uploaded: %@\n%@", error.localizedDescription, [error.userInfo objectForKey:NSUnderlyingErrorKey]);
     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    [self popVC];
+}
+
+-(void)everythingFinished {
+    [SVProgressHUD dismiss];
     [self popVC];
 }
 

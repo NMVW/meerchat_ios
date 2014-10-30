@@ -29,8 +29,6 @@
 @property (strong, nonatomic) IBOutlet UIView *recordView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
-
-
 //AVFoundation Controls
 @property BOOL FrontCamera;
 @property (strong, nonatomic) AVCaptureMovieFileOutput *output;

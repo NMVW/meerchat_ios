@@ -18,6 +18,7 @@
 -(void)videoUploadedToNetwork;
 -(void)videoSavedToDisk;
 -(void)videoSentToUser;
+-(void)imageUploaded;
 
 -(void)videoUploadBegan;
 -(void)videoUploadMadeProgress:(CGFloat)progress;

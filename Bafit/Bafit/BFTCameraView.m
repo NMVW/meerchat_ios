@@ -272,6 +272,10 @@
     [self.delegate videoUploadBegan];
 }
 
+-(void)imageUploaded {
+    [self.delegate imageUploaded];
+}
+
 -(void)videoUploadMadeProgress:(CGFloat)progress {
     [self.delegate videoUploadMadeProgress:progress];
 }

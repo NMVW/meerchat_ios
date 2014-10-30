@@ -23,6 +23,7 @@
 -(void)videoUploadedToNetwork;
 -(void)videoSavedToDisk;
 -(void)videoSentToUser;
+-(void)imageUploaded;
 
 //Upload progress
 -(void)videoUploadBegan;

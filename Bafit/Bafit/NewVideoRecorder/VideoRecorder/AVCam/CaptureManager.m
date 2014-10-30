@@ -408,12 +408,16 @@
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSProgress *progress = nil;
+    NSProgress *progress = [NSProgress progressWithTotalUnitCount:1];
+    [progress addObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) options:NSKeyValueObservingOptionInitial context:nil];
+    [progress becomeCurrentWithPendingUnitCount:1];
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"Video Upload Success");
             [self.delegate videoUploadedToNetwork];
+            [progress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) context:nil];
+            
             [self generateImageFromURI:URL];
             [self PostVideoToMain];
         }
@@ -441,12 +445,16 @@
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSProgress *progress = nil;
+    NSProgress *progress = [NSProgress progressWithTotalUnitCount:1];
+    [progress addObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) options:NSKeyValueObservingOptionInitial context:nil];
+    [progress becomeCurrentWithPendingUnitCount:1];
     
     NSURLSessionUploadTask *uploadTask = [manager uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (!error) {
             NSLog(@"Video Upload Success");
             [self.delegate videoUploadedToNetwork];
+            [progress removeObserver:self forKeyPath:NSStringFromSelector(@selector(fractionCompleted)) context:nil];
+            
             [self generateImageFromURI:URL];
             [self sendVideoToUser];
         }
@@ -543,9 +551,10 @@
     AFHTTPRequestOperation *op = [manager POST:@"cScripts/v1/uploadThumb.php" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"file" fileName:thumbName mimeType:@"image/jpeg"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Success: %@ \n\n%@", operation.responseString);
+        NSLog(@"Success: %@", operation.responseString);
+        [self.delegate imageUploaded];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@ \n\n%@", operation.responseString);
+        [self.delegate postingFailedWithError:error];
     }];
     op.responseSerializer = [AFHTTPResponseSerializer serializer];
     op.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -639,8 +648,16 @@
     [self.assets removeLastObject];
 }
 
-@end
+#pragma mark delegate stuff
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSProgress *progress = object;
+        [self.delegate videoUploadMadeProgress:progress.fractionCompleted];
+    }];
+}
+
+@end
 
 #pragma mark - CaptureManager Internal Utility Methods
 @implementation CaptureManager (InternalUtilityMethods)

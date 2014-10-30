@@ -75,9 +75,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:(BOOL)animated];
-    //Create and handle Video Player for Videos in thread
+    
     _videoPlayback = [[UIView alloc] initWithFrame:CGRectMake(60, 210,200, 220)];
-    //    [_videoPlayback setBackgroundColor:[UIColor colorWithWhite:-100 alpha:1.0]];
     [_videoPlayback setHidden:YES];
     [self.view addSubview:_videoPlayback];
 }
@@ -88,6 +87,8 @@
     
     //set us as the message delegate so we can change the backbutton image if we need to
     [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) setMessageDelegate:self];
+    
+    [self.carousel reloadData];
     
     if ([[BFTMessageThreads sharedInstance] unreadMessages]) {
         [self.backButton setImage:[UIImage imageNamed:@"baf_left_active.png"] forState:UIControlStateNormal];
