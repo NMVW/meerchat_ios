@@ -35,23 +35,23 @@
     return self;
 }
 
--(void)addMessageToThread:(NSString *)message from:(NSString *)sender {
+-(void)addMessageToThread:(NSString *)message from:(NSString *)sender date:(NSDate*)date {
     self.unreadMessages = YES;
     
-    JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:sender senderDisplayName:sender date:[NSDate new] text:message];
+    JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date text:message];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
     
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
     if (indexOfOldObject == NSNotFound) {
-        newItem.lastMessageTime = [NSDate new];
+        newItem.lastMessageTime = date;
         [newItem.listOfMessages addObject:msg];
         [self.listOfThreads addObject:newItem];
     }
     else {
         BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
-        item.lastMessageTime = [NSDate new];
+        item.lastMessageTime = date;
         [item.listOfMessages addObject:msg];
     }
 }
@@ -75,24 +75,24 @@
     }
 }
 
--(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender {
+-(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender date:(NSDate*)date {
     self.unreadMessages = YES;
     
     BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL];
-    JSQMediaMessage *msg = [[JSQMediaMessage alloc] initWithSenderId:sender senderDisplayName:sender date:[NSDate new] media:videoItem];
+    JSQMediaMessage *msg = [[JSQMediaMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date media:videoItem];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
     
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
     if (indexOfOldObject == NSNotFound) {
-        newItem.lastMessageTime = [NSDate new];
+        newItem.lastMessageTime = date;
         [newItem.listOfMessages addObject:msg];
         [self.listOfThreads addObject:newItem];
     }
     else {
         BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
-        item.lastMessageTime = [NSDate new];
+        item.lastMessageTime = date;
         [item.listOfMessages addObject:msg];
     }
 }
@@ -134,13 +134,14 @@
 }
 
 -(void)saveThreads {
+    NSDate *date = [NSDate date];
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
     [coder encodeObject:self.listOfThreads forKey:@"messageThreads"];
     [coder finishEncoding];
     
     [data writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"] atomically:YES];
-    NSLog(@"Messages Saved");
+    NSLog(@"Messages Saved in %.4f milliseconds", -1*[date timeIntervalSinceNow]*1000);
 }
 
 -(void)clearThreads {

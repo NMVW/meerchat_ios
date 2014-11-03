@@ -248,12 +248,13 @@
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *from = [[message attributeForName:@"from"] stringValue];
     NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
+    double date = [message attributeDoubleValueForName:@"date"];
     
     if (!msg) {
         return;
     }
     
-    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
+    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username date:[NSDate dateWithTimeIntervalSince1970:date]]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
     
     [self.messageDelegate recievedMessage]; //notify the current mesage delegate of recieved message
     
@@ -267,8 +268,10 @@
     
     NSString *from = [[message attributeForName:@"from"] stringValue];
     NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
+    double date = [message attributeDoubleValueForName:@"date"];
     
-    [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username];
+    
+    [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username date:[NSDate dateWithTimeIntervalSince1970:date]];
     
     [self.messageDelegate recievedMessage];
     NSLog(@"Video Message Recieved:\nFrom: %@\nMessage:\n%@", username, videoURL);
@@ -284,6 +287,7 @@
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
     [message addAttributeWithName:@"type" stringValue:@"chat"];
     [message addAttributeWithName:@"to" stringValue:user];
+    [message addAttributeWithName:@"date" doubleValue:[[NSDate date] timeIntervalSince1970]];
     [message addChild:body];
     
     [self.xmppStream sendElement:message];
@@ -302,6 +306,7 @@
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
     [message addAttributeWithName:@"type" stringValue:@"video"];
     [message addAttributeWithName:@"to" stringValue:user];
+    [message addAttributeWithName:@"date" doubleValue:[[NSDate date] timeIntervalSince1970]];
     [message addChild:body];
     
     [self.xmppStream sendElement:message];

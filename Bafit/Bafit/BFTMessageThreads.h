@@ -16,8 +16,8 @@
 
 +(instancetype)sharedInstance;
 
--(void)addMessageToThread:(NSString*)message from:(NSString*)sender;
--(void)addVideoToThreadWithURL:(NSString*)url thumbURL:(NSString*)thumbURL from:(NSString*)sender;
+-(void)addMessageToThread:(NSString*)message from:(NSString*)sender date:(NSDate*) date;
+-(void)addVideoToThreadWithURL:(NSString*)url thumbURL:(NSString*)thumbURL from:(NSString*)sender date:(NSDate*)date;
 -(void)removeThreadAtIndex:(NSInteger)index;
 
 -(void)videoSentWithURL:(NSString*)url thumbURL:(NSString*)thumbURL to:(NSString*)sender;

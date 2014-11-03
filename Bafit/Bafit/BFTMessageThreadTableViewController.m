@@ -13,6 +13,7 @@
 #import "BFTVideoMediaItem.h"
 #import "BFTVideoMessageViewController.h"
 #import "BFTConstants.h"
+#import "BFTMessageThreads.h"
 
 @interface BFTMessageThreadTableViewController ()
 
@@ -64,6 +65,7 @@
     [super viewWillDisappear:animated];
     self.appDelegate.messageDelegate = nil;
     [self stopPlayingLastVideo];
+    [[BFTMessageThreads sharedInstance] saveThreads];
 }
 
 #pragma mark - JSQMessagesViewController

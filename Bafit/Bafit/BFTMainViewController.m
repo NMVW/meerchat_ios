@@ -59,7 +59,7 @@
     //add report user button
     UIButton *reportButton = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-40, 80, 40)];
     [reportButton setBackgroundImage:[UIImage imageNamed:@"report_btn.png"] forState:UIControlStateNormal];
-    [reportButton addTarget:self action:@selector(blockUser:) forControlEvents:UIControlEventTouchUpInside];
+    [reportButton addTarget:self action:@selector(showReportUserConfirmation) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:reportButton];
     
     //add feedback button
@@ -245,7 +245,7 @@
     
     //Assign Item to Labels
     BFTVideoPost *post = [self.videoPosts objectAtIndex:index];
-    mainView.usernameLabel.text = [post BUN];
+    mainView.usernameLabel.text = [NSString stringWithFormat:@"@%@", [post BUN]];
     mainView.postTimeLabel.text = [NSString stringWithFormat:@"%.0f hours ago", [[post timeStamp] timeIntervalSinceNow]/-3600.0];
     mainView.distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
     mainView.hashTagLabel.text = [NSString stringWithFormat:@"%@", [post hashTag]];
@@ -327,7 +327,23 @@
     
 }
 
--(IBAction)blockUser:(UIButton *)sender {
+#pragma mark - Action Sheet
+
+-(void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self blockUser];
+    }
+    return;
+}
+
+-(void)showReportUserConfirmation {
+    UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to report this user? You will no longer recieve any updates from them." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Report User" otherButtonTitles:nil];
+    [actSheet showInView:self.view];
+}
+
+#pragma mark - Buttons
+
+-(IBAction)blockUser {
     NSInteger index = [_carousel currentItemIndex];
     
     BFTVideoPost *post = [_videoPosts objectAtIndex:index];
