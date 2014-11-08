@@ -85,8 +85,7 @@
 #pragma mark -
 @implementation CaptureManager
 
-- (id) init
-{
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
 		__block id weakSelf = self;

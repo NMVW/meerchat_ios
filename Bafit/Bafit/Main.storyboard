@@ -306,7 +306,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ThW-XJ-q5g">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="15" width="320" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" placeholder="YES" id="Z27-Ig-Hvb"/>
                                 </constraints>
@@ -314,11 +314,11 @@
                                     <navigationItem id="4TI-TH-cxS"/>
                                 </items>
                                 <connections>
-                                    <outlet property="delegate" destination="J4A-kE-uG9" id="Kge-As-GXc"/>
+                                    <outlet property="delegate" destination="J4A-kE-uG9" id="d5s-kk-5zb"/>
                                 </connections>
                             </navigationBar>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NYt-WZ-7d1">
-                                <rect key="frame" x="40" y="110" width="240" height="406"/>
+                                <rect key="frame" x="40" y="118" width="240" height="406"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="trapezoid_menu_bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="R5h-d1-UOO">
                                         <rect key="frame" x="0.0" y="322" width="240" height="80"/>
@@ -348,7 +348,7 @@
                                         <color key="textColor" red="0.81176477670669556" green="0.81176477670669556" blue="0.81176477670669556" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="#hashtag" borderStyle="roundedRect" placeholder="#Hashtag" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="95U-Ot-blG">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#hashtag" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="95U-Ot-blG">
                                         <rect key="frame" x="22" y="50" width="194" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -363,8 +363,8 @@
                                 <rect key="frame" x="1" y="544" width="319" height="24"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJG-Mb-VQA">
-                                <rect key="frame" x="240" y="44" width="80" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJG-Mb-VQA">
+                                <rect key="frame" x="239" y="59" width="80" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="uK2-t2-aLi"/>
                                 </constraints>
@@ -377,8 +377,8 @@
                                     <action selector="studyClicked:" destination="J4A-kE-uG9" eventType="touchUpInside" id="Cjp-7Q-gd0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlA-el-eST">
-                                <rect key="frame" x="160" y="44" width="80" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlA-el-eST">
+                                <rect key="frame" x="159" y="59" width="80" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="9tJ-To-Rvw"/>
                                 </constraints>
@@ -391,8 +391,8 @@
                                     <action selector="loveClicked:" destination="J4A-kE-uG9" eventType="touchUpInside" id="JFr-af-lcE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oy2-qq-bKs">
-                                <rect key="frame" x="81" y="44" width="80" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oy2-qq-bKs">
+                                <rect key="frame" x="80" y="59" width="80" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="ik3-F4-DOT"/>
                                 </constraints>
@@ -405,8 +405,8 @@
                                     <action selector="grubClicked:" destination="J4A-kE-uG9" eventType="touchUpInside" id="LyB-Jr-pKE"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-S7-VwM">
-                                <rect key="frame" x="1" y="44" width="80" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-S7-VwM">
+                                <rect key="frame" x="0.0" y="59" width="80" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="VX6-3H-jJS"/>
                                 </constraints>
@@ -434,7 +434,7 @@
                             <constraint firstItem="Oy2-qq-bKs" firstAttribute="leading" secondItem="Xv6-S7-VwM" secondAttribute="trailing" id="bFU-xa-X7R"/>
                             <constraint firstItem="Oy2-qq-bKs" firstAttribute="top" secondItem="ThW-XJ-q5g" secondAttribute="bottom" id="d1K-m5-i4i"/>
                             <constraint firstItem="Xv6-S7-VwM" firstAttribute="leading" secondItem="yBh-fV-4nX" secondAttribute="leadingMargin" constant="-15" id="hmQ-Al-uX0"/>
-                            <constraint firstItem="ThW-XJ-q5g" firstAttribute="top" secondItem="yBh-fV-4nX" secondAttribute="topMargin" id="o4G-DY-g8j"/>
+                            <constraint firstItem="ThW-XJ-q5g" firstAttribute="top" secondItem="yBh-fV-4nX" secondAttribute="topMargin" constant="15" id="o4G-DY-g8j"/>
                             <constraint firstItem="ThW-XJ-q5g" firstAttribute="leading" secondItem="yBh-fV-4nX" secondAttribute="leadingMargin" constant="-16" id="ofY-hH-jhN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qJG-Mb-VQA" secondAttribute="trailing" constant="-16" id="x1n-P1-V9a"/>
                         </constraints>
@@ -448,7 +448,7 @@
                         <outlet property="locationLabel" destination="Z7V-4j-ol8" id="Bmd-Ty-ltf"/>
                         <outlet property="loveButton" destination="vlA-el-eST" id="bgB-6X-WBD"/>
                         <outlet property="moveButton" destination="Xv6-S7-VwM" id="NkY-lM-qSF"/>
-                        <outlet property="navigationBar" destination="ThW-XJ-q5g" id="ym8-m2-r3v"/>
+                        <outlet property="navigationBar" destination="ThW-XJ-q5g" id="wOm-Ak-LgC"/>
                         <outlet property="recordView" destination="DAz-2L-ROS" id="5pT-xX-nYM"/>
                         <outlet property="studyButton" destination="qJG-Mb-VQA" id="eeq-Y6-2kd"/>
                         <outlet property="userLabel" destination="QyQ-A4-zlX" id="VWE-Us-if6"/>
@@ -556,9 +556,9 @@
                                                     <segue destination="J4A-kE-uG9" kind="push" identifier="newpostview" id="jFL-Nb-kcp"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Meerchat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-Qd-rwy">
-                                                <rect key="frame" x="124" y="26" width="73" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="meerchat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-Qd-rwy">
+                                                <rect key="frame" x="113" y="26" width="94" height="21"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -590,6 +590,7 @@
                         <outlet property="loveCatButton" destination="iHl-1O-fxu" id="ZSL-Wr-qBI"/>
                         <outlet property="moveCatButton" destination="8aO-ff-r4J" id="zoP-KL-D1N"/>
                         <outlet property="studyCatButton" destination="9jf-Cr-ah8" id="xRT-yy-RO3"/>
+                        <outlet property="titleLabel" destination="YHP-Qd-rwy" id="1ii-3p-9x9"/>
                         <segue destination="RcN-Gc-fEK" kind="custom" identifier="backthread" customClass="BFTLeftRightSegue" id="ccd-J6-bWr"/>
                         <segue destination="VCp-Kg-1gI" kind="modal" identifier="tofeedback" id="4T2-eB-283"/>
                     </connections>

@@ -49,6 +49,8 @@
 @property (strong, nonatomic) UISwipeGestureRecognizer* swipeUpGestureRecognizer;
 @property (assign, nonatomic) NSInteger segment;
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
 @property (nonatomic, strong) NSCache *tempImageCache;
 @property (nonatomic, assign) BOOL notificationImageAssigned; //bool value to let me know whether or not the "you have new messages" image is on the back button or not
 

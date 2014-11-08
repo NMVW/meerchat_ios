@@ -47,7 +47,6 @@
 
 -(UIView *)mediaView
 {
-    //TODO:init with either mpmovieplayer or using avfoundation
     if (!self.videoView) {
         [self initMovieView];
     }

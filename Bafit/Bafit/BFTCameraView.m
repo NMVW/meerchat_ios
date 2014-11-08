@@ -39,7 +39,9 @@
 
 @end
 
-@implementation BFTCameraView
+@implementation BFTCameraView {
+    BOOL _recordingTimeFull;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -127,15 +129,7 @@
         {
             if ([[[self captureManager] recorder] isRecording])
             {
-                [self.durationTimer invalidate];
-                [[self captureManager] stopRecording];
-                self.videoPreviewView.layer.borderColor = [UIColor clearColor].CGColor;
-                UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(-10, 210, _videoPreviewView.frame.size.width, 30)];
-                [saveButton setTitle:@"Post" forState:UIControlStateNormal];
-                [saveButton addTarget:self action:@selector(saveVideo:) forControlEvents:UIControlEventTouchUpInside];
-                
-                [_videoPreviewView addSubview:saveButton];
-                //NSLog(@"END number of pieces %lu", (unsigned long)[self.captureManager.assets count]);
+                [self recordingFinished];
             }
             break;
         }
@@ -153,32 +147,13 @@
             [self.delegate videoSavedToDisk];
         }
         else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Error" message:@"video unable to be saved, please contact support" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"video unable to be saved, please contact support" delegate:self cancelButtonTitle:@"okay" otherButtonTitles: nil];
             [alert show];
         }
     }];
 }
 
--(void)updateDuration{
-    if ([[[self captureManager] recorder] isRecording])
-    {
-        self.duration = self.duration + 0.1;
-        self.durationProgressBar.progress = self.duration/self.maxDuration;
-        //NSLog(@"self.duration %f, self.progressBar %f", self.duration, self.durationProgressBar.progress);
-        if (self.durationProgressBar.progress > .99) {
-            [self.durationTimer invalidate];
-            self.durationTimer = nil;
-            [[self captureManager] stopRecording];
-            [self.delegate recordingTimeFull];
-        }
-    }
-    else {
-        [self.durationTimer invalidate];
-        self.durationTimer = nil;
-    }
-}
-
-- (void) removeTimeFromDuration:(float)removeTime; {
+- (void)removeTimeFromDuration:(float)removeTime; {
     self.duration = self.duration - removeTime;
     self.durationProgressBar.progress = self.duration/self.maxDuration;
 }
@@ -195,15 +170,20 @@
     self.durationTimer = nil;
 }
 
-
 #pragma mark - BFT Capture Manager Delegate
 
+-(BOOL) canStartRecording {
+    NSLog(@"Can Start Recording: %i", !_recordingTimeFull);
+    return !_recordingTimeFull;
+}
+
 -(void)updateProgress {
-    self.progressBar.hidden = NO;
-    self.progressBar.progress = self.captureManager.exportSession.progress;
-    if (self.progressBar.progress > .99) {
-        [self.captureManager.exportProgressBarTimer invalidate];
-        self.captureManager.exportProgressBarTimer = nil;
+    self.duration = self.duration + 0.1;
+    self.durationProgressBar.progress = self.duration/self.maxDuration;
+    //NSLog(@"self.duration %f, self.progressBar %f", self.duration, self.durationProgressBar.progress);
+    if (self.durationProgressBar.progress > .99) {
+        [self recordingTimeFull];
+        [self recordingFinished];
     }
 }
 
@@ -225,7 +205,7 @@
 -(void)captureManagerRecordingBegan:(CaptureManager *)captureManager {
     _videoPreviewView.layer.borderColor = [UIColor whiteColor].CGColor;
     _videoPreviewView.layer.borderWidth = 2.0;
-    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateDuration) userInfo:nil repeats:YES];
+    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
 }
 
 -(void)captureManagerRecordingFinished:(CaptureManager *)captureManager {
@@ -237,6 +217,14 @@
 }
 
 -(void)recordingFinished {
+    [self.durationTimer invalidate];
+    [[self captureManager] stopRecording];
+    self.videoPreviewView.layer.borderColor = [UIColor clearColor].CGColor;
+    UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(-10, 210, _videoPreviewView.frame.size.width, 30)];
+    [saveButton setTitle:@"Post" forState:UIControlStateNormal];
+    [saveButton addTarget:self action:@selector(saveVideo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_videoPreviewView addSubview:saveButton];
     [self.delegate recordingFinished];
 }
 
@@ -246,6 +234,7 @@
 
 -(void)recordingTimeFull {
     [self.delegate recordingTimeFull];
+    _recordingTimeFull = YES;
 }
 
 -(void)receivedVideoName:(NSString*)videoName {
