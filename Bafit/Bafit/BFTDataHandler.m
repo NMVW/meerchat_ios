@@ -57,6 +57,8 @@
     [coder encodeObject:self.UID forKey:@"UID"];
     [coder encodeObject:self.BUN forKey:@"BUN"];
     //[coder encodeObject:self.Password forKey:@"password"];
+    [coder encodeFloat:self.Latitude forKey:@"latitude"];
+    [coder encodeFloat:self.Longitude forKey:@"longitude"];
     [coder encodeBool:self.emailConfirmed forKey:@"emailConfirmed"];
     [coder encodeBool:self.initialLogin forKey:@"initialLogin"];
     [coder encodeBool:self.PPAccepted forKey:@"ppAccepted"];
@@ -74,6 +76,8 @@
     self.UID = [decoder decodeObjectForKey:@"UID"];
     self.BUN = [decoder decodeObjectForKey:@"BUN"];
     //self.Password = [decoder decodeObjectForKey:@"password"];
+    self.Latitude = [decoder decodeFloatForKey:@"latitude"];
+    self.Longitude = [decoder decodeFloatForKey:@"longitude"];
     self.emailConfirmed = [decoder decodeBoolForKey:@"emailConfirmed"];
     self.initialLogin = [decoder decodeBoolForKey:@"initialLogin"];
     self.PPAccepted = [decoder decodeBoolForKey:@"ppAccepted"];

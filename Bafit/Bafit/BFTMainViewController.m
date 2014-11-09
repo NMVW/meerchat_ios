@@ -19,6 +19,7 @@
 #import "BFTVideoPlaybackController.h"
 #import "BFTCarouselView.h"
 #import "BFTConstants.h"
+#import "NSDate+relativeTimeStamp.h"
 
 @interface BFTMainViewController ()
 
@@ -222,10 +223,7 @@
     return [_videoPosts count];
 }
 
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
-{
-    BFTDataHandler *handler = [BFTDataHandler sharedInstance];
-    
+- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
     BFTCarouselView *mainView;
     
     if (!view) {
@@ -248,7 +246,7 @@
     //Assign Item to Labels
     BFTVideoPost *post = [self.videoPosts objectAtIndex:index];
     mainView.usernameLabel.text = [NSString stringWithFormat:@"@%@", [post BUN]];
-    mainView.postTimeLabel.text = [NSString stringWithFormat:@"%.0f hours ago", [[post timeStamp] timeIntervalSinceNow]/-3600.0];
+    mainView.postTimeLabel.text = [[post timeStamp] relativeTimeStamp];
     mainView.distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
     mainView.hashTagLabel.text = [NSString stringWithFormat:@"%@", [post hashTag]];
     

@@ -33,19 +33,7 @@
     
     [[BFTDataHandler sharedInstance] loadData];
     
-    // Override point for customization after application launch.
-    //BFTDataHandler *handler = [[BFTDataHandler alloc]init];
-    if(self.locationManager == nil){
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = 500;
-        self.locationManager = _locationManager;
-    }
-    
-    if([CLLocationManager locationServicesEnabled]){
-        [_locationManager startUpdatingLocation];
-    }
+    [self startMonitoringLocation];
 
     [FBLoginView class];
     
@@ -103,11 +91,12 @@
 {
     [[BFTMessageThreads sharedInstance] saveThreads];
     [[BFTDataHandler sharedInstance] saveData];
+    [self stopMonitoringLocation];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    
+    [self startMonitoringLocation];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -316,28 +305,56 @@
 
 #pragma mark CLLocation Manager
 
--(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    
-    NSDate* eventDate = newLocation.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) <= 15.0)
-    {
-        //Location timestamp is within the last 15.0 seconds, let's use it!
-        if(newLocation.horizontalAccuracy <= 35.0){
-            //Location seems pretty accurate, let's use it!
-            NSLog(@"latitude %+.6f, longitude %+.6f\n",
-                  newLocation.coordinate.latitude,
-                  newLocation.coordinate.longitude);
-            NSLog(@"Horizontal Accuracy:%f", newLocation.horizontalAccuracy);
-            
-            [[BFTDataHandler sharedInstance] setLatitude:newLocation.coordinate.latitude];
-            [[BFTDataHandler sharedInstance] setLongitude:newLocation.coordinate.longitude];
-            
-            //Optional: turn off location services once we've gotten a good location
-            [manager stopUpdatingLocation];
-        }
+-(void)startMonitoringLocation {
+    if (!_locationManager) {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.distanceFilter = kCLDistanceFilterNone;
     }
     
+    NSInteger authorizationStatus = [CLLocationManager authorizationStatus];
+    if (authorizationStatus == kCLAuthorizationStatusAuthorizedAlways) {
+        [_locationManager startMonitoringSignificantLocationChanges];
+    }
+    else if (authorizationStatus == (kCLAuthorizationStatusNotDetermined | kCLAuthorizationStatusAuthorizedWhenInUse)) {
+        //Check for ios8, will crash otherwise
+        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [self.locationManager requestAlwaysAuthorization];
+        }
+    }
+}
+
+-(void)stopMonitoringLocation {
+    [_locationManager stopMonitoringSignificantLocationChanges];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *newLocation = [locations firstObject];
+    
+    NSLog(@"Accuracy: %.0f latitude %+.6f, longitude %+.6f\n", newLocation.horizontalAccuracy,
+          newLocation.coordinate.latitude,
+          newLocation.coordinate.longitude);
+    
+    [[BFTDataHandler sharedInstance] setLatitude:newLocation.coordinate.latitude];
+    [[BFTDataHandler sharedInstance] setLongitude:newLocation.coordinate.longitude];
+}
+
+-(void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {
+    NSLog(@"Location Manager Did Pause Location Updates");
+}
+
+-(void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager {
+    NSLog(@"Location Manager did Resume Location Updates");
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"Location manager failed with error: %@\n\n%@", error.localizedDescription);
+}
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    NSLog(@"CLAuthorization Status: %i", status);
+    [self startMonitoringLocation];
 }
 
 @end

@@ -83,25 +83,25 @@
     [self.locationIcon setContentMode:UIViewContentModeScaleAspectFit];
     [self.bottomTrapazoid addSubview:self.locationIcon];
     
-    self.distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bottomTrapazoid.frame.origin.x, self.bottomTrapazoid.frame.origin.y, self.bottomTrapazoid.frame.size.width/2 - (self.locationIcon.frame.size.width + self.locationIcon.frame.origin.x), self.bottomTrapazoid.frame.size.height/2)];
+    self.distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bottomTrapazoid.frame.origin.x + 2, self.bottomTrapazoid.frame.origin.y, self.bottomTrapazoid.frame.size.width/2 - (self.locationIcon.frame.size.width + self.locationIcon.frame.origin.x) - 8, self.bottomTrapazoid.frame.size.height/2)];
     self.distanceLabel.frame = CGRectOffset(self.distanceLabel.frame, self.locationIcon.frame.origin.x + self.locationIcon.frame.size.width, 0);
     self.distanceLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     self.distanceLabel.font = [self.distanceLabel.font fontWithSize:9];
-    self.distanceLabel.textAlignment = NSTextAlignmentLeft;
+    self.distanceLabel.textAlignment = NSTextAlignmentCenter;
     self.distanceLabel.tag = 15;
     [self addSubview:self.distanceLabel];
 }
 
 -(void)loadTimeItems {
     self.timeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clock_icon"]];
-    [self.timeIcon setFrame:CGRectMake(self.bottomTrapazoid.frame.size.width/2 + 5, 7, 17, 17)];
+    [self.timeIcon setFrame:CGRectMake(self.bottomTrapazoid.frame.size.width/2 + 5, 10, 17, 17)];
     [self.timeIcon setContentMode:UIViewContentModeScaleAspectFit];
     [self.bottomTrapazoid addSubview:self.timeIcon];
     
-    self.postTimeLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.distanceLabel.frame, self.distanceLabel.frame.origin.x + self.distanceLabel.frame.size.width, 0)];
+    self.postTimeLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.distanceLabel.frame, self.distanceLabel.frame.size.width + self.timeIcon.frame.size.width + 12, 0)];
     self.postTimeLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     self.postTimeLabel.font = [self.postTimeLabel.font fontWithSize:9];
-    self.postTimeLabel.textAlignment = NSTextAlignmentLeft;
+    self.postTimeLabel.textAlignment = NSTextAlignmentCenter;
     self.postTimeLabel.tag = 14;
     [self addSubview:self.postTimeLabel];
 }

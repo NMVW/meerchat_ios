@@ -117,6 +117,7 @@
 		7C8CCDCE19FF57DF00D27D24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C8CCDCD19FF57DF00D27D24 /* Main.storyboard */; };
 		7C8CCDD819FF5EA600D27D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C8CCDD719FF5EA600D27D24 /* Media.xcassets */; };
 		7C944B8219ED8DEA001164BB /* BFTPostHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C944B8119ED8DEA001164BB /* BFTPostHandler.m */; };
+		7CB0765A1A0F4FD500D597EA /* NSDate+relativeTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */; };
 		7CB7127E19F9A9A2008935E6 /* ExtendedNSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */; };
 		7CC2E77E19E6496C004EECC0 /* BFTVideoPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */; };
 		7CCB382219BED3C00057D2F1 /* BFTMessageThreads.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */; };
@@ -349,6 +350,8 @@
 		7C944B8519ED8E03001164BB /* ForgottenFuturistRg_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.ttf; sourceTree = "<group>"; };
 		7C944B8619ED8E0B001164BB /* ForgottenFuturistRg_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.otf; sourceTree = "<group>"; };
 		7C944B8719ED8E0B001164BB /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.otf; sourceTree = "<group>"; };
+		7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+relativeTimeStamp.h"; sourceTree = "<group>"; };
+		7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+relativeTimeStamp.m"; sourceTree = "<group>"; };
 		7CB7127C19F9A9A2008935E6 /* ExtendedNSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedNSLog.h; sourceTree = "<group>"; };
 		7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedNSLog.m; sourceTree = "<group>"; };
 		7CB7127F19F9A9D6008935E6 /* BFTConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTConstants.h; sourceTree = "<group>"; };
@@ -872,6 +875,8 @@
 				8040E9761978FD59000D66C7 /* BFTAppDelegate.m */,
 				7CB7127C19F9A9A2008935E6 /* ExtendedNSLog.h */,
 				7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */,
+				7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */,
+				7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1118,6 +1123,11 @@
 				TargetAttributes = {
 					8040E9621978FD59000D66C7 = {
 						DevelopmentTeam = 3433MRU2GC;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					8040E9831978FD59000D66C7 = {
 						TestTargetID = 8040E9621978FD59000D66C7;
@@ -1319,6 +1329,7 @@
 				7C6446F219BCE6440071D444 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				7C64470019BCE6440071D444 /* DDList.m in Sources */,
 				7C6446EF19BCE6440071D444 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
+				7CB0765A1A0F4FD500D597EA /* NSDate+relativeTimeStamp.m in Sources */,
 				7C64470219BCE6440071D444 /* RFImageToDataTransformer.m in Sources */,
 				7C425A901A0181F5004FBBC3 /* BFTVideoMessageViewController.m in Sources */,
 				8040E9771978FD59000D66C7 /* BFTAppDelegate.m in Sources */,

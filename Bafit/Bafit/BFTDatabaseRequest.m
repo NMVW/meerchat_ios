@@ -19,7 +19,7 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
         _url = [[NSURL alloc] initWithString:[URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:[[NSURL alloc] initWithString:kBaseURL]];
         _responseHandler = responseHandler;
         _logMessage = [[NSMutableString alloc] initWithString:@"\n"];
-        _timeoutInterval = 5;
+        _timeoutInterval = 10;
     }
     return self;
 }
@@ -43,7 +43,7 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
         _url = [[NSURL alloc] initWithString:[URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         _responseHandler = completionBlock;
         //_logMessage = [[NSMutableString alloc] initWithString:@"\n"];
-        _timeoutInterval = 10;
+        _timeoutInterval = 15;
     }
     return self;
 }
