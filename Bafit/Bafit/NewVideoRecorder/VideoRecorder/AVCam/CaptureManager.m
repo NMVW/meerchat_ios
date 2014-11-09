@@ -470,7 +470,6 @@
     BFTDataHandler *data = [BFTDataHandler sharedInstance];
     BFTPostHandler *post = [BFTPostHandler sharedInstance];
     
-    //TODO: Fix Category Stuff
     NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory] == 0 ? 1 : [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {

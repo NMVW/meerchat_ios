@@ -139,6 +139,10 @@
 }
 
 -(IBAction)saveVideo:(id)sender {
+    if (![self.delegate canUploadVideo]) {
+        return;
+    }
+    
     __block id weakSelf = self;
     [self.captureManager saveVideoWithCompletionBlock:^(BOOL success) {
         if (success) {
@@ -172,7 +176,7 @@
 
 #pragma mark - BFT Capture Manager Delegate
 
--(BOOL) canStartRecording {
+-(BOOL)canStartRecording {
     NSLog(@"Can Start Recording: %i", !_recordingTimeFull);
     return !_recordingTimeFull;
 }

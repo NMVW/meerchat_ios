@@ -336,18 +336,6 @@
                                         <color key="textColor" red="0.79442362882653061" green="0.79442362882653061" blue="0.79442362882653061" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QyQ-A4-zlX">
-                                        <rect key="frame" x="74" y="333" width="135" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.83529418706893921" green="0.83529418706893921" blue="0.83529418706893921" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7V-4j-ol8">
-                                        <rect key="frame" x="74" y="369" width="105" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.81176477670669556" green="0.81176477670669556" blue="0.81176477670669556" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#hashtag" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="95U-Ot-blG">
                                         <rect key="frame" x="22" y="50" width="194" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -445,13 +433,11 @@
                         <outlet property="categoryLabel" destination="UOS-Sz-dx9" id="RdK-Y7-KCF"/>
                         <outlet property="grubButton" destination="Oy2-qq-bKs" id="4CA-nN-fSQ"/>
                         <outlet property="hashtagEditText" destination="95U-Ot-blG" id="dhe-ue-ndu"/>
-                        <outlet property="locationLabel" destination="Z7V-4j-ol8" id="Bmd-Ty-ltf"/>
                         <outlet property="loveButton" destination="vlA-el-eST" id="bgB-6X-WBD"/>
                         <outlet property="moveButton" destination="Xv6-S7-VwM" id="NkY-lM-qSF"/>
                         <outlet property="navigationBar" destination="ThW-XJ-q5g" id="wOm-Ak-LgC"/>
                         <outlet property="recordView" destination="DAz-2L-ROS" id="5pT-xX-nYM"/>
                         <outlet property="studyButton" destination="qJG-Mb-VQA" id="eeq-Y6-2kd"/>
-                        <outlet property="userLabel" destination="QyQ-A4-zlX" id="VWE-Us-if6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oEx-uq-tZI" userLabel="First Responder" sceneMemberID="firstResponder"/>

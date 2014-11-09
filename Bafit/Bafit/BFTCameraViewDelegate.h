@@ -25,4 +25,7 @@
 
 -(void)postingFailedWithError:(NSError*)error;
 
+//Upload Available
+-(BOOL)canUploadVideo;
+
 @end

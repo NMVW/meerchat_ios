@@ -26,9 +26,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setPostToMainView];
+
     //Set Data Handler for Post View
     [[BFTDataHandler sharedInstance] setPostView:YES];
+    
+    [[BFTPostHandler sharedInstance] setPostCategory:0];
 
     [self getVideoName];
     
@@ -40,16 +42,6 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"milo_backtohome.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popVC)];
     navItem.leftBarButtonItem = backButton;
     [self.navigationBar setItems:@[navItem]];
-    
-    //Switch handler
-    [_locationSwitch addTarget:self action:@selector(stateChangedLocation) forControlEvents:UIControlEventValueChanged];
-    [_anonymousSwitch addTarget:self action:@selector(stateChangedUser) forControlEvents:UIControlEventValueChanged];
-    
-    //set state of lables
-    [_userLabel setText:@"post anonymously"];
-    [_locationLabel setText:@"hide location"];
-    [_userLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
-    [_locationLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
     
     //setup post view record
     //Setup reply record function
@@ -81,55 +73,10 @@
     NSLog(@"%@", [[BFTDataHandler sharedInstance] mp4Name]);
 }
 
--(void)stateChangedLocation {
-    if ([_locationSwitch isOn]) {
-        //handle on
-        _locationLabel.TextColor = [UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-        _locationLabel.Text = @"show location";
-        //        [self.view addSubview:_locationLabel];
-    }else{
-        //handle off
-        //color back to grey
-        [_locationLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
-        _locationLabel.text = @"hide location";
-    }
-}
-
--(void)stateChangedUser {
-    //Setup switches for privacy
-     _data = [BFTDataHandler sharedInstance];
-    if ([_anonymousSwitch isOn]) {
-        //handle on
-        _userLabel.TextColor = [UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-        _userLabel.Text = [NSString stringWithFormat:@"Post as %@", [_data BUN]];
-        //        [self.view addSubview:_userLabel];
-    }else{
-        //handle off
-        //color back to grey
-        [_userLabel setTextColor:[UIColor colorWithWhite:0.50 alpha:1]];
-        _userLabel.Text = @"post anonymously";
-    }
-
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)setPostToMainView {
-    _anonymousSwitch =[[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    _anonymousSwitch.transform = CGAffineTransformMakeScale(0.50f, 0.50f);
-    [_anonymousSwitch setOnTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    _anonymousSwitch.center = CGPointMake(95, 453);
-    [self.view addSubview:_anonymousSwitch];
-    
-    _locationSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    _locationSwitch.transform = CGAffineTransformMakeScale(0.50f, 0.50f);
-    [_locationSwitch setOnTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    _locationSwitch.center = CGPointMake(95, 490);
-    [self.view addSubview:_locationSwitch];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -146,6 +93,20 @@
 }
 
 #pragma mark - BFTCameraViewDelegate
+
+-(BOOL)canUploadVideo {
+    if ([[BFTPostHandler sharedInstance] postCategory] == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please select a category" message:@"you didn't select a category for your video." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+        return NO;
+    }
+    
+    return YES;
+}
 
 -(void)recordingFinished {
     NSLog(@"Recording Finished");
