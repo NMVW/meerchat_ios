@@ -15,6 +15,8 @@
     static NSString *baseThumbURL = @"http://bafit.mobi/userPosts/thumb";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSTimeZone *gmt = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+    [dateFormatter setTimeZone:gmt];
     
     self = [super init];
     if (self) {

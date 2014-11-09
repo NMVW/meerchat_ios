@@ -134,14 +134,19 @@
 }
 
 -(void)saveThreads {
-    NSDate *date = [NSDate date];
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-    [coder encodeObject:self.listOfThreads forKey:@"messageThreads"];
-    [coder finishEncoding];
-    
-    [data writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"] atomically:YES];
-    NSLog(@"Messages Saved in %.4f milliseconds", -1*[date timeIntervalSinceNow]*1000);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSDate *date = [NSDate date];
+        NSMutableData *data = [[NSMutableData alloc] init];
+        NSKeyedArchiver *coder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+        [coder encodeObject:self.listOfThreads forKey:@"messageThreads"];
+        [coder finishEncoding];
+        
+        [data writeToFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"] atomically:YES];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Messages Saved in background in %.4f milliseconds", -1*[date timeIntervalSinceNow]*1000);
+        });
+    });
 }
 
 -(void)clearThreads {
