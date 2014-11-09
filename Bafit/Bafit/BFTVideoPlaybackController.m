@@ -83,7 +83,7 @@
 }
 
 -(void)setupVideoPlayer {
-    //[_loadingIcon startAnimating];
+    [_loadingIcon startAnimating];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:self.videoURL];
@@ -98,6 +98,7 @@
             [self.view.layer addSublayer:avPlayerLayer];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(seekToBeginning) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayeritem];
             [avPlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+            [avPlayer addObserver:self forKeyPath:@"rate" options:0 context:nil];
             [avPlayer seekToTime:kCMTimeZero];
             _videoPlayer = avPlayer;
             _playerLayer = avPlayerLayer;
@@ -153,6 +154,7 @@
     }
     if (_videoPlayer) {
         [_videoPlayer removeObserver:self forKeyPath:@"status"];
+        [_videoPlayer removeObserver:self forKeyPath:@"rate"];
         _videoPlayer = nil;
     }
 }
@@ -170,13 +172,23 @@
                         change:(NSDictionary *)change context:(void *)context {
     if (object == _videoPlayer && [keyPath isEqualToString:@"status"]) {
         if (_videoPlayer.status == AVPlayerStatusReadyToPlay) {
-            [_loadingIcon stopAnimating];
+            NSLog(@"Ready To Play");
             if (_shouldPlayWhenReady) {
                 [self play];
                 _shouldPlayWhenReady = NO;
             }
         } else if (_videoPlayer.status == AVPlayerStatusFailed) {
-            [_loadingIcon stopAnimating];
+            NSLog(@"Stop Animating: Failed");
+            //[_loadingIcon stopAnimating];
+        }
+    }
+    else if (object == _videoPlayer && [keyPath isEqualToString:@"rate"]) {
+        NSLog(@"Rate: %.0f", _videoPlayer.rate)
+        if (_videoPlayer.rate == 0) {
+            [_loadingIcon startAnimating];
+        } else if (_videoPlayer.rate == 1) {
+            NSLog(@"Stop Animating: Playback is 1");
+            //[_loadingIcon stopAnimating];
         }
     }
 }
