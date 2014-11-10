@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need to be able to recieve location updates if you want to be able to meet up with people close to you!</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -23,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -38,13 +36,15 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>107</string>
+	<string>113</string>
 	<key>FacebookAppID</key>
 	<string>359513137551945</string>
 	<key>FacebookDisplayName</key>
 	<string>Meerchat</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need to be able to recieve location updates if you want to be able to meet up with people close to you!</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ForgottenFuturistRg_Bold.otf</string>

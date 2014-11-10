@@ -651,7 +651,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         NSProgress *progress = object;
-        [self.delegate videoUploadMadeProgress:progress.fractionCompleted];
+        [self.delegate videoUploadMadeProgress:progress.fractionCompleted*2];
     }];
 }
 
