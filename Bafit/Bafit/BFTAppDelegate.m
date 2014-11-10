@@ -317,12 +317,13 @@
     }
     
     NSInteger authorizationStatus = [CLLocationManager authorizationStatus];
-    if (authorizationStatus == kCLAuthorizationStatusAuthorizedAlways) {
+
+    if (authorizationStatus == (kCLAuthorizationStatusAuthorizedAlways | kCLAuthorizationStatusAuthorized)) {
         [_locationManager startMonitoringSignificantLocationChanges];
     }
-    else if (authorizationStatus == (kCLAuthorizationStatusNotDetermined | kCLAuthorizationStatusAuthorizedWhenInUse)) {
+    else if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
         //Check for ios8, will crash otherwise
-        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
             [self.locationManager requestAlwaysAuthorization];
         }
     }
@@ -352,7 +353,7 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"Location manager failed with error: %@\n\n%@", error.localizedDescription);
+    NSLog(@"Location manager failed with error: %@", error.localizedDescription);
 }
 
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
