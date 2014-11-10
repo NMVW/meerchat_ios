@@ -9,6 +9,7 @@
 #import "BFTVideoPlaybackController.h"
 #import "BFTDatabaseRequest.h"
 #import "BFTConstants.h"
+#import "SDImageCache.h"
 @import AVFoundation;
 
 @implementation BFTVideoPlaybackController {
@@ -57,16 +58,14 @@
     videoThumb.backgroundColor = [UIColor colorWithRed:123/255.0 green:123/255.0 blue:123/255.0 alpha:1.0];
     [videoThumb setContentMode:UIViewContentModeScaleAspectFit];
     
-    //TODO: Look into cache first
-    //[videoThumb setImage:Cache objectForKey:[[_videoPosts objectAtIndex:index] thumbURL]]];
+    [videoThumb setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:_thumbURL.absoluteString]];
     
     if (!videoThumb.image) {
         [[[BFTDatabaseRequest alloc] initWithFileURL:self.thumbURL.absoluteString completionBlock:^(NSMutableData *data, NSError *error) {
             if (!error) {
                 UIImage *image = [UIImage imageWithData:data];
                 
-                //TODO: Cache the image
-                //[_tempImageCache setObject:image forKey:[[_videoPosts objectAtIndex:index] thumbURL]];
+                [[SDImageCache sharedImageCache] storeImage:image forKey:_thumbURL.absoluteString];
                 [videoThumb setImage:image];
             }
             else {

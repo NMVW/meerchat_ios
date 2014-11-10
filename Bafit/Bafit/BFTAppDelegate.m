@@ -13,6 +13,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "BFTConstants.h"
 #import "Flurry.h"
+#import "SDImageCache.h"
 
 
 @implementation BFTAppDelegate
@@ -40,6 +41,8 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    [[SDImageCache sharedImageCache] setMaxCacheSize:20*1024*1024];
     
     UINavigationController *initialViewController;
     

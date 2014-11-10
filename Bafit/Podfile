@@ -5,6 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target "Bafit" do
 
+pod 'SDWebImage'
 pod 'JSQMessagesViewController'
 pod 'AFNetworking', '~> 2.0'
 pod 'Facebook-iOS-SDK'

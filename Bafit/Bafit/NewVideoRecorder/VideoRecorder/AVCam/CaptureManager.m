@@ -527,7 +527,7 @@
     AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
     AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
     generator.appliesPreferredTrackTransform = TRUE;
-    CMTime thumbTime = CMTimeMakeWithSeconds(1,1);
+    CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
     CGImageRef imageRef = [generator copyCGImageAtTime:thumbTime actualTime:nil error:nil];
     _thumbImg = [UIImage imageWithCGImage:imageRef];
 
@@ -539,8 +539,9 @@
     
     //write Jpeg to file
     NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@.jpg", docDir, [[BFTDataHandler sharedInstance] mp4Name]];
-    NSData *imageData = UIImageJPEGRepresentation(imageThumb, .8);
+    NSData *imageData = UIImageJPEGRepresentation(imageThumb, .1);
     [imageData writeToFile:jpegFilePath atomically:YES];
+    NSLog(@"Image Size: %.3f kb", [imageData length]/1024.0);
     
     NSString* thumbName = [NSString stringWithFormat:@"%@.jpg",[[BFTDataHandler sharedInstance] mp4Name]];
     
