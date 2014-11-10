@@ -31,6 +31,7 @@
     [[BFTDataHandler sharedInstance] setPostView:YES];
     
     [[BFTPostHandler sharedInstance] setPostCategory:0];
+    [[BFTPostHandler sharedInstance] setPostHash_tag:@"#nohashtag"];
 
     [self getVideoName];
     

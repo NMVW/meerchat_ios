@@ -1532,7 +1532,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d4dad78e-efec-422a-8427-ee8279b31b70";
+				PROVISIONING_PROFILE = "d34a0f90-378c-4387-a112-4acbec85f11b";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1577,7 +1577,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d4dad78e-efec-422a-8427-ee8279b31b70";
+				PROVISIONING_PROFILE = "d34a0f90-378c-4387-a112-4acbec85f11b";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

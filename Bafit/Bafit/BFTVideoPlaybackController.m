@@ -172,22 +172,22 @@
                         change:(NSDictionary *)change context:(void *)context {
     if (object == _videoPlayer && [keyPath isEqualToString:@"status"]) {
         if (_videoPlayer.status == AVPlayerStatusReadyToPlay) {
-            NSLog(@"Ready To Play");
+            //NSLog(@"Ready To Play");
             if (_shouldPlayWhenReady) {
                 [self play];
                 _shouldPlayWhenReady = NO;
             }
         } else if (_videoPlayer.status == AVPlayerStatusFailed) {
-            NSLog(@"Stop Animating: Failed");
+            //NSLog(@"Stop Animating: Failed");
             //[_loadingIcon stopAnimating];
         }
     }
     else if (object == _videoPlayer && [keyPath isEqualToString:@"rate"]) {
-        NSLog(@"Rate: %.0f", _videoPlayer.rate)
+        //NSLog(@"Rate: %.0f", _videoPlayer.rate)
         if (_videoPlayer.rate == 0) {
             [_loadingIcon startAnimating];
         } else if (_videoPlayer.rate == 1) {
-            NSLog(@"Stop Animating: Playback is 1");
+            //NSLog(@"Stop Animating: Playback is 1");
             //[_loadingIcon stopAnimating];
         }
     }
