@@ -315,8 +315,7 @@
             //swipe up to post
             [self setSwipeUp:NO];
             BFTVideoResponseViewController *postView = segue.destinationViewController;
-            postView.replyURL = [[_videoPosts objectAtIndex:_carousel.currentItemIndex] videoURL];
-            postView.userReply = [[_videoPosts objectAtIndex:_carousel.currentItemIndex] BUN];
+            postView.postResponse = [_videoPosts objectAtIndex:_carousel.currentItemIndex];
         }
     }
     

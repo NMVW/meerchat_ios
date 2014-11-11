@@ -42,7 +42,6 @@
     [_scrollView setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 504)];
     
     _FrontCamera = NO;
-    self.replyURL = self.replyURL;
     
     //set Data Handler for View
     [[BFTDataHandler sharedInstance] setPostView:NO];
@@ -62,7 +61,7 @@
     
     [_recordView addSubview:_embeddedrecordView];
     
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.replyURL] options:nil];
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:[self.postResponse videoURL]] options:nil];
         //AV Asset Player
         AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
         _player1 = [[AVPlayer alloc] initWithPlayerItem:playerItem];
@@ -74,8 +73,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification
 object:_player1];
-
-    
 }
 
 -(void)returnToMain {
@@ -115,14 +112,14 @@ object:_player1];
 }
 
 -(void)getVideoName {
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], self.userReply] completionBlock:^(NSMutableData *data, NSError *error) {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [self.postResponse UID]] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             for (NSDictionary *dict in responseJSON) {
                 [[BFTDataHandler sharedInstance] setMp4Name:[dict objectForKey:@"FName"]];
                 [[BFTPostHandler sharedInstance] setPostMC:[dict objectForKey:@"MC"]];
                 [[BFTPostHandler sharedInstance] setPostFName:[dict objectForKey:@"FName"]];
-                [[BFTPostHandler sharedInstance] setXmmpToUser:self.userReply];
+                [[BFTPostHandler sharedInstance] setXmmpToUser:[self.postResponse BUN]];
             }
         }else{
             NSLog(@"No Data recived for file type");

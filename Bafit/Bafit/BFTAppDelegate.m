@@ -313,13 +313,14 @@
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = kCLDistanceFilterNone;
+        _locationManager.distanceFilter = 50.0f;
     }
     
     NSInteger authorizationStatus = [CLLocationManager authorizationStatus];
 
     if (authorizationStatus == (kCLAuthorizationStatusAuthorizedAlways | kCLAuthorizationStatusAuthorized)) {
-        [_locationManager startMonitoringSignificantLocationChanges];
+        //[_locationManager startMonitoringSignificantLocationChanges];
+        [_locationManager startUpdatingLocation];
     }
     else if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
         //Check for ios8, will crash otherwise
@@ -330,7 +331,8 @@
 }
 
 -(void)stopMonitoringLocation {
-    [_locationManager stopMonitoringSignificantLocationChanges];
+    //[_locationManager stopMonitoringSignificantLocationChanges];
+    [_locationManager startUpdatingLocation];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {

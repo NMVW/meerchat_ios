@@ -12,6 +12,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "BFTCameraView.h"
 #import "BFTCameraViewDelegate.h"
+#import "BFTVideoPost.h"
 
 @interface BFTVideoResponseViewController : UIViewController <UIScrollViewDelegate, AVCaptureFileOutputRecordingDelegate, BFTCameraViewDelegate>
 @property (strong, nonatomic) MPMoviePlayerController *player;
@@ -20,8 +21,7 @@
 @property (strong, nonatomic) IBOutlet UIView *userVideoView;
 @property (strong, nonatomic) AVPlayer *player1;
 
-@property (weak, nonatomic) NSString *replyURL;
-@property (weak, nonatomic) NSString *userReply;
+@property (nonatomic, strong) BFTVideoPost *postResponse;
 
 @property (strong, nonatomic) IBOutlet UIView *customNavView;
 @property (strong, nonatomic) IBOutlet UIButton *customBackButton;
