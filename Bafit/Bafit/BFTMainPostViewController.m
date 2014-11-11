@@ -190,20 +190,22 @@
     }
 }
 
-- (IBAction)grubClicked:(id)sender {
-    if(![_grubButton isSelected]){
+- (IBAction)studyClicked:(id)sender {
+    if(![_studyButton isSelected]){
         [[BFTPostHandler sharedInstance] setPostCategory:2];
-        [_grubButton setSelected:YES];
-        [_studyButton setSelected:NO];
-        [_loveButton setSelected:NO];
+        [_studyButton setSelected:YES];
         [_moveButton setSelected:NO];
-        [_categoryLabel setText:@"Grub"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    }else{
+        [_loveButton setSelected:NO];
         [_grubButton setSelected:NO];
+        [_categoryLabel setText:@"Study"];
+        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        //        _categoryLabel.center = CGPointMake(0, 13);
+    }else{
+        [_studyButton setSelected:NO];
         [[BFTPostHandler sharedInstance] setPostCategory:0];
         [_categoryLabel setText:@"Choose Category"];
         [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        //        _categoryLabel.center = CGPointMake(55,12);
     }
 }
 
@@ -224,22 +226,20 @@
     }
 }
 
-- (IBAction)studyClicked:(id)sender {
-    if(![_studyButton isSelected]){
+- (IBAction)grubClicked:(id)sender {
+    if(![_grubButton isSelected]){
         [[BFTPostHandler sharedInstance] setPostCategory:4];
-        [_studyButton setSelected:YES];
-        [_moveButton setSelected:NO];
-        [_loveButton setSelected:NO];
-        [_grubButton setSelected:NO];
-        [_categoryLabel setText:@"Study"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-//        _categoryLabel.center = CGPointMake(0, 13);
-    }else{
+        [_grubButton setSelected:YES];
         [_studyButton setSelected:NO];
+        [_loveButton setSelected:NO];
+        [_moveButton setSelected:NO];
+        [_categoryLabel setText:@"Grub"];
+        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    }else{
+        [_grubButton setSelected:NO];
         [[BFTPostHandler sharedInstance] setPostCategory:0];
         [_categoryLabel setText:@"Choose Category"];
         [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
-//        _categoryLabel.center = CGPointMake(55,12);
     }
 }
 
