@@ -146,7 +146,6 @@
 		8040E9901978FD59000D66C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8040E98E1978FD59000D66C7 /* InfoPlist.strings */; };
 		8040E9921978FD59000D66C7 /* BafitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9911978FD59000D66C7 /* BafitTests.m */; };
 		8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */; };
-		80417BCD19DA075C0076ACD7 /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */; };
 		8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */; };
 		8053BDBB19A5CE54006E9D13 /* BFTMainPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */; };
 		8058E1AF1988436100DF2F4F /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8058E1AE1988436100DF2F4F /* iCarousel.m */; };
@@ -401,8 +400,6 @@
 		8040E9911978FD59000D66C7 /* BafitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BafitTests.m; sourceTree = "<group>"; };
 		8040E9B1197E34F6000D66C7 /* BFTDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTDataHandler.h; sourceTree = "<group>"; };
 		8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTDataHandler.m; sourceTree = "<group>"; };
-		80417BCB19DA075C0076ACD7 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTEmailConfirmationViewController.m; sourceTree = "<group>"; };
 		8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTEmailConfirmationViewController.h; sourceTree = "<group>"; };
 		8053BDB919A5CE54006E9D13 /* BFTMainPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMainPostViewController.h; sourceTree = "<group>"; };
@@ -453,7 +450,6 @@
 				80F650E51980815300443673 /* AVFoundation.framework in Frameworks */,
 				80F650E31980814B00443673 /* AssetsLibrary.framework in Frameworks */,
 				8040E9691978FD59000D66C7 /* CoreGraphics.framework in Frameworks */,
-				80417BCD19DA075C0076ACD7 /* libFlurry_5.4.0.a in Frameworks */,
 				8040E96B1978FD59000D66C7 /* UIKit.framework in Frameworks */,
 				8040E9671978FD59000D66C7 /* Foundation.framework in Frameworks */,
 				4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */,
@@ -884,7 +880,6 @@
 		7C8CCDD219FF5AC300D27D24 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				80417BCA19DA075C0076ACD7 /* Flurry */,
 				7C64466919BCE1AA0071D444 /* XMPPFramework */,
 				8058E1B01988436700DF2F4F /* ICarousel */,
 			);
@@ -1041,15 +1036,6 @@
 			);
 			name = Controller;
 			sourceTree = "<group>";
-		};
-		80417BCA19DA075C0076ACD7 /* Flurry */ = {
-			isa = PBXGroup;
-			children = (
-				80417BCB19DA075C0076ACD7 /* Flurry.h */,
-				80417BCC19DA075C0076ACD7 /* libFlurry_5.4.0.a */,
-			);
-			path = Flurry;
-			sourceTree = SOURCE_ROOT;
 		};
 		8058E1B01988436700DF2F4F /* ICarousel */ = {
 			isa = PBXGroup;

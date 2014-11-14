@@ -12,7 +12,6 @@
 #import "BFTDataHandler.h"
 #import <Crashlytics/Crashlytics.h>
 #import "BFTConstants.h"
-#import "Flurry.h"
 #import "SDImageCache.h"
 
 
@@ -20,11 +19,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Flurry Authentication
-    [Flurry setCrashReportingEnabled:YES];
-    
-    // Replace YOUR_API_KEY with the api key in the downloaded package
-    [Flurry startSession:@"H87STTM6HJF6CQC8Y49S"];
     [Crashlytics startWithAPIKey:@"79408de8296f5247d8a98cf57977f3ddc206c935"];
     
     //Set navigation color
