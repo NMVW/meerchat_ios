@@ -117,7 +117,9 @@
 
 - (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer {
     NSInteger index = [_carousel indexOfItemView:[_carousel itemViewAtPoint:[recognizer locationInView:self.view]]];
-    [self removeVideoPostAtIndex:index];
+    if (index < [_videoPosts count]) {
+        [self removeVideoPostAtIndex:index];
+    }
 }
 
 -(void)removeVideoPostAtIndex:(NSInteger)index {
@@ -315,7 +317,12 @@
             //swipe up to post
             [self setSwipeUp:NO];
             BFTVideoResponseViewController *postView = segue.destinationViewController;
-            postView.postResponse = [_videoPosts objectAtIndex:_carousel.currentItemIndex];
+            if (_carousel.currentItemIndex < [_videoPosts count]) {
+                postView.postResponse = [_videoPosts objectAtIndex:_carousel.currentItemIndex];
+            }
+            else {
+                NSLog(@"Could not respond to video");
+            }
         }
     }
     
