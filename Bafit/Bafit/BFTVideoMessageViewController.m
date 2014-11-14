@@ -78,6 +78,10 @@
 
 #pragma mark - BFTCameraViewDelegate
 
+-(BOOL)canUploadVideo {
+    return YES;
+}
+
 -(void)recordingFinished {
     NSLog(@"Recording Finished");
 }
