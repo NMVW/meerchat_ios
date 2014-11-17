@@ -12,7 +12,7 @@
 
 @import AVFoundation;
 
-@interface BFTVideoMessageViewController : UIViewController <AVCaptureFileOutputRecordingDelegate, BFTCameraViewDelegate>
+@interface BFTVideoMessageViewController : UIViewController <BFTCameraViewDelegate>
 
 @property (nonatomic, copy) NSString *otherPersonsUserID;
 @property (nonatomic, copy) NSString *otherPersonsUserName;

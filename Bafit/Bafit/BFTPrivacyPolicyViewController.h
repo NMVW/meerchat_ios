@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface BFTPrivacyPolicyViewController : UIViewController
+
 @property (strong, nonatomic) IBOutlet UIWebView *privacyWebView;
-@property (strong, nonatomic) IBOutlet UIToolbar *policyToolbar;
+
 - (IBAction)acceptButton:(id)sender;
 - (IBAction)declineButton:(id)sender;
-- (IBAction)ipadbypassButton:(id)sender;
 
 @end

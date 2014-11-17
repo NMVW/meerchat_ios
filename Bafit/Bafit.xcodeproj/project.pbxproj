@@ -1526,7 +1526,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Bafit/libidn/**",
 					"$(PROJECT_DIR)/Pods/**",
-					"$(PROJECT_DIR)/Flurry/**",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1571,7 +1570,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Bafit/libidn/**",
 					"$(PROJECT_DIR)/Pods/**",
-					"$(PROJECT_DIR)/Flurry/**",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

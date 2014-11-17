@@ -769,10 +769,10 @@
                                             <action selector="createUser:" destination="fdV-vP-xcf" eventType="touchUpInside" id="OM9-xm-j35"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Enter the code sent to your email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Cz-gj-dcw">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the code sent to your email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Cz-gj-dcw">
                                         <rect key="frame" x="4" y="86" width="312" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="zws-DG-2r9"/>
+                                            <constraint firstAttribute="height" constant="21" id="Vgu-YV-G47"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -785,15 +785,16 @@
                                 </accessibility>
                                 <constraints>
                                     <constraint firstItem="ban-aT-gSE" firstAttribute="leading" secondItem="cRR-9n-Jbj" secondAttribute="leading" constant="16" id="4TZ-0z-OSB"/>
+                                    <constraint firstItem="8Cz-gj-dcw" firstAttribute="leading" secondItem="cRR-9n-Jbj" secondAttribute="leading" constant="4" id="4rk-8L-7B8"/>
                                     <constraint firstAttribute="bottom" secondItem="CfU-wa-Xj8" secondAttribute="bottom" constant="28" id="GG0-Oz-ZG4"/>
-                                    <constraint firstItem="8Cz-gj-dcw" firstAttribute="leading" secondItem="cRR-9n-Jbj" secondAttribute="leading" constant="4" id="LIB-sZ-w3B"/>
                                     <constraint firstAttribute="trailing" secondItem="CfU-wa-Xj8" secondAttribute="trailing" constant="18" id="R4s-kf-nqG"/>
                                     <constraint firstItem="CfU-wa-Xj8" firstAttribute="leading" secondItem="ban-aT-gSE" secondAttribute="trailing" constant="16" id="Sg1-3u-RSw"/>
                                     <constraint firstItem="ZCd-Uh-Sb1" firstAttribute="leading" secondItem="cRR-9n-Jbj" secondAttribute="leading" id="UPX-8b-xQi"/>
                                     <constraint firstAttribute="bottom" secondItem="ban-aT-gSE" secondAttribute="bottom" constant="28" id="e2i-vJ-D31"/>
-                                    <constraint firstAttribute="trailing" secondItem="8Cz-gj-dcw" secondAttribute="trailing" constant="4" id="hpV-fv-jPx"/>
                                     <constraint firstAttribute="trailing" secondItem="ZCd-Uh-Sb1" secondAttribute="trailing" id="ht2-eM-Yyi"/>
+                                    <constraint firstItem="CfU-wa-Xj8" firstAttribute="top" secondItem="8Cz-gj-dcw" secondAttribute="bottom" constant="16" id="k8X-eR-YGe"/>
                                     <constraint firstItem="ZCd-Uh-Sb1" firstAttribute="top" secondItem="cRR-9n-Jbj" secondAttribute="top" constant="8" id="vq9-lw-Hvw"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Cz-gj-dcw" secondAttribute="trailing" constant="4" id="wAi-hD-t2t"/>
                                     <constraint firstAttribute="height" constant="181" id="zOD-Lm-Cve"/>
                                 </constraints>
                             </view>

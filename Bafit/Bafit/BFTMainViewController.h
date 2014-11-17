@@ -54,8 +54,6 @@
 @property (nonatomic, strong) NSCache *tempImageCache;
 @property (nonatomic, assign) BOOL notificationImageAssigned; //bool value to let me know whether or not the "you have new messages" image is on the back button or not
 
--(void)downloadVideo:(NSString *)videoUrl;
-
 - (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer;
 - (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer;
 - (IBAction)postThread:(id)sender;

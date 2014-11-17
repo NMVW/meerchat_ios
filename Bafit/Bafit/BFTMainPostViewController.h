@@ -30,7 +30,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *loveButton;
 @property (strong, nonatomic) IBOutlet UIButton *studyButton;
 
--(void)uploadToMain;
 -(void)popVC;
 
 - (IBAction)moveClicked:(id)sender;
