@@ -97,11 +97,15 @@
 
 -(BOOL)canUploadVideo {
     if ([[BFTPostHandler sharedInstance] postCategory] == 0) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please select a category" message:@"you didn't select a category for your video." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
-        [alert addAction:defaultAction];
-        
-        [self presentViewController:alert animated:YES completion:nil];
+        if (NSClassFromString(@"UIAlertController") != nil) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please select a category" message:@"you didn't select a category for your video." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"Please select a category" message:@"you didn't select a category for your video." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        }
         
         return NO;
     }

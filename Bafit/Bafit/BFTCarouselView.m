@@ -7,6 +7,7 @@
 //
 
 #import "BFTCarouselView.h"
+#import "BFTConstants.h"
 
 @implementation BFTCarouselView
 
@@ -43,7 +44,7 @@
 
 -(void)loadRespondLabel {
     self.responseLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.topTrapazoid.frame.origin.x, self.topTrapazoid.frame.origin.y, self.topTrapazoid.frame.size.width, self.topTrapazoid.frame.size.height/2)];
-    self.responseLabel.textColor = [UIColor colorWithRed:204/255.0f green:204/255.0f blue:204/255.0f alpha:1.0];
+    self.responseLabel.textColor = kOrangeColor;
     self.responseLabel.font = [self.responseLabel.font fontWithSize:16];
     self.responseLabel.textAlignment = NSTextAlignmentCenter;
     self.responseLabel.tag = 8;
@@ -78,7 +79,7 @@
 }
 
 -(void)loadLocationItems {
-    self.locationIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location_icon"]];
+    self.locationIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"locationpin"]];
     [self.locationIcon setFrame:CGRectMake(10, 7, 20, 20)];
     [self.locationIcon setContentMode:UIViewContentModeScaleAspectFit];
     [self.bottomTrapazoid addSubview:self.locationIcon];
@@ -93,7 +94,7 @@
 }
 
 -(void)loadTimeItems {
-    self.timeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clock_icon"]];
+    self.timeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"timeclock"]];
     [self.timeIcon setFrame:CGRectMake(self.bottomTrapazoid.frame.size.width/2 + 5, 10, 17, 17)];
     [self.timeIcon setContentMode:UIViewContentModeScaleAspectFit];
     [self.bottomTrapazoid addSubview:self.timeIcon];
@@ -108,7 +109,7 @@
 
 -(void)loadNotTodayLabel {
     self.notTodayLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bottomTrapazoid.frame.origin.x, self.bottomTrapazoid.frame.origin.y + self.bottomTrapazoid.frame.size.height/2, self.bottomTrapazoid.frame.size.width, self.bottomTrapazoid.frame.size.height/2)];
-    self.notTodayLabel.textColor = [UIColor colorWithRed:204/255.0f green:204/255.0f blue:204/255.0f alpha:1.0];
+    self.notTodayLabel.textColor = kOrangeColor;
     self.notTodayLabel.font = [self.notTodayLabel.font fontWithSize:15];
     self.notTodayLabel.textAlignment = NSTextAlignmentCenter;
     self.notTodayLabel.tag = 11;

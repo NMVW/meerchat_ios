@@ -72,7 +72,6 @@
     else {
         [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"fbVC"]]];
     }
-    
     self.window.rootViewController = initialViewController;
     [self.window makeKeyAndVisible];
     

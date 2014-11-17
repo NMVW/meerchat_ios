@@ -12,6 +12,8 @@
 #ifndef Bafit_BFTConstants_h
 #define Bafit_BFTConstants_h
 
+#define kOrangeColor [UIColor colorWithRed:255/255.0 green:161/255.0 blue:0/255.0 alpha:1]
+
 #ifdef DEBUG
 #define NSLog(args...) ExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 #else
