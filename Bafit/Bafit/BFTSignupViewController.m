@@ -24,20 +24,14 @@
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     _initialUsername.delegate = self;
     _schoolEmail.delegate = self;
-    
-    //Tap gesture recognizer to end editing of the textfields when the background is tapped
-    UITapGestureRecognizer *keyboardDismissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
-    [_scrollView addGestureRecognizer:keyboardDismissTap];
-    
+
     //Initialize username error label
-    _usernameErrorLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.initialUsername.frame, 0, 32)];
+    _usernameErrorLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.initialUsername.frame, 0, 30)];
     _usernameErrorLabel.textAlignment = NSTextAlignmentCenter;
     _usernameErrorLabel.textColor = [UIColor colorWithRed:255/255.0f green:50/255.0f blue:0 alpha:1];
     _usernameErrorLabel.font = [UIFont boldSystemFontOfSize:14];
-    [self.scrollView addSubview:_usernameErrorLabel];
     
     _initialUsername.layer.borderColor=[[UIColor redColor]CGColor];
-    _initialUsername.layer.cornerRadius = 7.0f;
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,6 +43,14 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (IBAction)checkUser:(id)sender {
@@ -61,15 +63,23 @@
             [self verifyUniqueUsername:YES];
         }
         if (self.usernameIsUnique) {
-            //passed username and email, focus on navigation
-            [handler setInitialLogin:false];
             [handler setBUN:self.initialUsername.text];
             [handler saveData];
+            
             //email and username are good, so we need to send them a verification email
             [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"verifyEmail.php?BAFemail=%@", self.schoolEmail.text] trueOrFalseBlock:^(BOOL successful, NSError *error) {
                 if (!error) {
-                    //go to email confirmation page
-                    [self performSegueWithIdentifier:@"privacyview" sender:self];
+                    if (!successful) {
+                        [[[UIAlertView alloc] initWithTitle:@"Unable To Send Verification Email" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+                    }
+                    else {
+                        //passed username and email, focus on navigation
+                        [handler setInitialLogin:false];
+                        [handler saveData];
+                        
+                        //go to email confirmation page
+                        [self performSegueWithIdentifier:@"privacyview" sender:self];
+                    }
                 }
                 else {
                     [[[UIAlertView alloc] initWithTitle:@"Unable To Send Verification Email" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
@@ -100,12 +110,10 @@
             if (!isUnique) {
                 self.initialUsername.layer.borderWidth= 2.0f;
                 [_usernameErrorLabel setText:@"Username Must Be Unique"];
-                [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusernameblue.png"] forState:UIControlStateNormal];
             }
             else {
                 [_usernameErrorLabel setText:@""];
                 self.initialUsername.layer.borderWidth = 0.0f;
-                [_checkMark setBackgroundImage:[UIImage imageNamed:@"checkmarkusername.png"] forState:UIControlStateNormal];
             }
         }
         else {
@@ -122,8 +130,12 @@
 
 #pragma mark TextField
 
+- (IBAction)backgroundTapped:(id)sender {
+    [self.view endEditing:YES];
+}
+
 -(void)dismissKeyboard {
-    [_scrollView endEditing:YES];
+    [self.view endEditing:YES];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -139,35 +151,39 @@
 //this is called when the username text field returns
 - (IBAction)editreturn:(id)sender {
     [sender resignFirstResponder];
-    [self.scrollView setContentOffset:CGPointZero animated:YES];
-    [self verifyUniqueUsername:NO];
-}
 
-//adjust view for keyabord to edit the username textfield
-- (IBAction)didBeginEdit:(id)sender {
-    
-    CGSize keyboardSize = CGSizeMake(320, 216);
-    
-    CGPoint buttonOrigin = _checkMark.frame.origin;
-    
-    CGFloat buttonHeight = _checkMark.frame.size.height;
-    
-    CGRect visibleRect = self.view.frame;
-    
-    visibleRect.size.height -= keyboardSize.height;
-    
-    if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
-        
-        CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
-        
-        [self.scrollView setContentOffset:scrollPoint animated:YES];
-        
-    }
+    [self verifyUniqueUsername:NO];
 }
 
 - (IBAction)usernameTextChanged:(id)sender {
     self.usernameNeedsUpdating = YES;
 }
+
+//show/hide the keyboard
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    CGSize kbSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect f = self.view.frame;
+        f.origin.y -= kbSize.height;
+        self.view.frame = f;
+    }];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    CGSize kbSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect f = self.view.frame;
+        f.origin.y += kbSize.height;
+        self.view.frame = f;
+    }];
+}
+
 
 /*
  #pragma mark - Navigation

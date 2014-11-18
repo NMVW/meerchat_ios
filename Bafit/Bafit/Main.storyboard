@@ -64,7 +64,7 @@
                         <viewControllerLayoutGuide type="top" id="g2P-dR-pNp"/>
                         <viewControllerLayoutGuide type="bottom" id="AEV-Wz-J5r"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ppa-Ja-c3v">
+                    <view key="view" contentMode="scaleToFill" id="ppa-Ja-c3v" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -98,7 +98,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="didBeginEdit:" destination="po8-c2-nTd" eventType="editingDidBegin" id="b13-CU-pdh"/>
                                     <action selector="editreturn:" destination="po8-c2-nTd" eventType="editingDidEnd" id="Et1-jL-7si"/>
                                     <action selector="usernameTextChanged:" destination="po8-c2-nTd" eventType="editingChanged" id="go9-bA-sgc"/>
                                 </connections>
@@ -176,6 +175,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="initialUsername" destination="2cu-eP-JAo" id="9Hp-Ax-Ois"/>
+                        <outlet property="schoolEmail" destination="jb6-6p-1go" id="wDz-J7-R4H"/>
                         <segue destination="fdV-vP-xcf" kind="modal" identifier="emailConfirm" id="hmw-A7-sAG"/>
                         <segue destination="SNs-GZ-6iS" kind="push" identifier="privacyview" id="yld-KG-eVC"/>
                     </connections>
@@ -228,27 +229,10 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZb-AI-k2u">
                                                 <rect key="frame" x="40" y="22" width="240" height="240"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynv-VR-HYu">
-                                                        <rect key="frame" x="85" y="85" width="70" height="70"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="70" id="NYb-wB-OOd"/>
-                                                            <constraint firstAttribute="width" constant="70" id="RVT-j8-bma"/>
-                                                        </constraints>
-                                                        <state key="normal" image="play-icon-grey.png">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="playButtonPress:" destination="JyZ-0a-e6Y" eventType="touchUpInside" id="pPk-m8-bNb"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="centerX" secondItem="ynv-VR-HYu" secondAttribute="centerX" id="1qw-Ij-a9j"/>
                                                     <constraint firstAttribute="width" secondItem="QZb-AI-k2u" secondAttribute="height" multiplier="1:1" id="51J-il-7JJ"/>
                                                     <constraint firstAttribute="width" constant="240" id="6B2-mQ-P2H"/>
-                                                    <constraint firstAttribute="centerY" secondItem="ynv-VR-HYu" secondAttribute="centerY" id="8SK-PK-a1D"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1NY-4N-8R3" customClass="BFTCameraView">
@@ -302,7 +286,6 @@
                     <connections>
                         <outlet property="customBackButton" destination="fj6-4R-ZOS" id="ChU-g0-YeU"/>
                         <outlet property="customNavView" destination="8u9-3h-QAr" id="ZAt-OH-M4F"/>
-                        <outlet property="playButton" destination="ynv-VR-HYu" id="Iyp-u1-iwM"/>
                         <outlet property="recordView" destination="1NY-4N-8R3" id="ghN-5P-yIx"/>
                         <outlet property="scrollView" destination="dUp-jy-XQV" id="q0f-nJ-QtO"/>
                         <outlet property="userVideoView" destination="QZb-AI-k2u" id="bRp-er-OAG"/>
@@ -1144,7 +1127,6 @@
         <image name="love_btn_inactive.png" width="80" height="36"/>
         <image name="move_btn_active.png" width="80" height="36"/>
         <image name="move_btn_inactive.png" width="80" height="36"/>
-        <image name="play-icon-grey.png" width="86" height="92"/>
         <image name="splash.png" width="320" height="360"/>
         <image name="study_btn_active.png" width="80" height="36"/>
         <image name="study_btn_inactive.png" width="80" height="36"/>
@@ -1158,6 +1140,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="OrP-gC-r7e"/>
-        <segue reference="5yH-kS-ND2"/>
+        <segue reference="hmw-A7-sAG"/>
     </inferredMetricsTieBreakers>
 </document>
