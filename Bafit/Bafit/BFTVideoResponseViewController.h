@@ -13,27 +13,20 @@
 #import "BFTCameraView.h"
 #import "BFTCameraViewDelegate.h"
 #import "BFTVideoPost.h"
+#import "BFTVideoPlaybackController.h"
 
-@interface BFTVideoResponseViewController : UIViewController <UIScrollViewDelegate, BFTCameraViewDelegate>
-@property (strong, nonatomic) MPMoviePlayerController *player;
-@property (strong, nonatomic) IBOutlet UIButton *playButton;
-@property (nonatomic) UIImagePickerController *picker;
+@interface BFTVideoResponseViewController : UIViewController <UIScrollViewDelegate, BFTCameraViewDelegate, UINavigationBarDelegate>
+
 @property (strong, nonatomic) IBOutlet UIView *userVideoView;
-@property (strong, nonatomic) AVPlayer *player1;
 
 @property (nonatomic, strong) BFTVideoPost *postResponse;
 
-@property (strong, nonatomic) IBOutlet UIView *customNavView;
-@property (strong, nonatomic) IBOutlet UIButton *customBackButton;
-@property (strong, nonatomic) IBOutlet UITextField *userInput;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+
 @property (strong, nonatomic) IBOutlet UIView *recordView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
-//AVFoundation Controls
-@property BOOL FrontCamera;
-@property (strong, nonatomic) AVCaptureMovieFileOutput *output;
 @property (strong, nonatomic) BFTCameraView *embeddedrecordView;
-
-- (IBAction)playButtonPress:(id)sender;
+@property (nonatomic, strong) BFTVideoPlaybackController *videoFromMain;
 
 @end

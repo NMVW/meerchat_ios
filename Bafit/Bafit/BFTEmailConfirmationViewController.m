@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     //set background color
-    //[self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+
     [_emailSentTextLabel setText:[NSString stringWithFormat:@"Please enter the verification number sent to %@", [[BFTDataHandler sharedInstance] EDEmail]]];
     
     UIColor *orangeButtonBorder = [UIColor colorWithRed:240/255.0f green:162/255.0f blue:44/255.0f alpha:1];

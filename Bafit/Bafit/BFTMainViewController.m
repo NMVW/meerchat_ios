@@ -57,7 +57,7 @@
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
-    [self.titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:17]];
+    [self.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:17]];
     
     //add report user button
     UIButton *reportButton = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-40, 80, 40)];
@@ -109,14 +109,26 @@
     [self stopPlayingLastVideo];
 }
 
-- (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer {
+-(void)respondToUser {
     [self setSwipeUp:YES];
     [self performSegueWithIdentifier:@"topostview" sender:self];
-
 }
 
-- (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer {
-    NSInteger index = [_carousel indexOfItemView:[_carousel itemViewAtPoint:[recognizer locationInView:self.view]]];
+-(void)notToday {
+    NSInteger index = [_carousel currentItemIndex];
+    if (index < [_videoPosts count]) {
+        [self removeVideoPostAtIndex:index];
+    }
+}
+
+- (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer __deprecated {
+    [self setSwipeUp:YES];
+    [self performSegueWithIdentifier:@"topostview" sender:self];
+}
+
+- (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer __deprecated {
+   //NSInteger index = [_carousel indexOfItemView:[_carousel itemViewAtPoint:[recognizer locationInView:self.view]]];
+    NSInteger index = [_carousel currentItemIndex];
     if (index < [_videoPosts count]) {
         [self removeVideoPostAtIndex:index];
     }
@@ -242,6 +254,9 @@
     BFTVideoPlaybackController* videoPlayer = [[BFTVideoPlaybackController alloc] initWithVideoURL:videoURL andThumbURL:thumbURL frame:CGRectMake(0, 72, 216, 216)];
     [_videoPlaybackControllers setObject:videoPlayer forKey:[NSNumber numberWithUnsignedInteger:index]];
     
+    UITapGestureRecognizer *tapToPlay = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(videoSelected:)];
+    
+    [videoPlayer.view addGestureRecognizer:tapToPlay];
     _videoView = videoPlayer.view;
     mainView.videoPlaybackView = videoPlayer.view;
     
@@ -251,17 +266,14 @@
     mainView.postTimeLabel.text = [[post timeStamp] relativeTimeStamp];
     mainView.distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
     mainView.hashTagLabel.text = [NSString stringWithFormat:@"%@", [post hashTag]];
+    [mainView.responseButton addTarget:self action:@selector(respondToUser) forControlEvents:UIControlEventTouchUpInside];
+    [mainView.notTodayButton addTarget:self action:@selector(notToday) forControlEvents:UIControlEventTouchUpInside];
     
     return mainView;
 }
 
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
-    BFTVideoPlaybackController* videoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:index]];
-    if (self.currentVideoPlaybackIndex != index) {
-        [self pauseLastVideo];
-    }
-    self.currentVideoPlaybackIndex = index;
-    [videoPlayer togglePlayback];
+    
 }
 
 -(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
@@ -290,6 +302,16 @@
     }
 }
 
+-(IBAction)videoSelected:(id)sender {
+    NSInteger index = [_carousel currentItemIndex];
+    BFTVideoPlaybackController* videoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:index]];
+    if (self.currentVideoPlaybackIndex != index) {
+        [self pauseLastVideo];
+    }
+    self.currentVideoPlaybackIndex = index;
+    [videoPlayer togglePlayback];
+}
+
 -(void)stopPlayingLastVideo {
     BFTVideoPlaybackController* lastVideoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:self.currentVideoPlaybackIndex]];
     [lastVideoPlayer stop];
@@ -313,7 +335,7 @@
     {
         if (!_swipeUp) {
             //Regularly handle post message
-        }else{
+        } else{
             //swipe up to post
             [self setSwipeUp:NO];
             BFTVideoResponseViewController *postView = segue.destinationViewController;

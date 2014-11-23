@@ -106,9 +106,12 @@
     
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
     if (indexOfOldObject == NSNotFound) {
-        newItem.lastMessageTime = [NSDate new];
+        //Since we are sending a video, and there is no thread found, that means that we haven't had a handshake yet
+        //They need to send us something back before it opens up a connection for me to start messaging them
+        
+        /*newItem.lastMessageTime = [NSDate new];
         [newItem.listOfMessages addObject:msg];
-        [self.listOfThreads addObject:newItem];
+        [self.listOfThreads addObject:newItem];*/
     }
     else {
         BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];

@@ -43,17 +43,21 @@
 }
 
 -(void)loadRespondLabel {
-    self.responseLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.topTrapazoid.frame.origin.x, self.topTrapazoid.frame.origin.y, self.topTrapazoid.frame.size.width, self.topTrapazoid.frame.size.height/2)];
-    self.responseLabel.textColor = kOrangeColor;
-    self.responseLabel.font = [self.responseLabel.font fontWithSize:16];
-    self.responseLabel.textAlignment = NSTextAlignmentCenter;
-    self.responseLabel.tag = 8;
-    self.responseLabel.text = @"respond";
-    [self addSubview:self.responseLabel];
+    self.responseButton = [[UIButton alloc] initWithFrame:CGRectMake(self.topTrapazoid.frame.origin.x, self.topTrapazoid.frame.origin.y, self.topTrapazoid.frame.size.width, self.topTrapazoid.frame.size.height/2)];
+    
+    [self.responseButton setTitle:@"respond" forState:UIControlStateNormal];
+    [self.responseButton setTitleColor:kOrangeColor forState:UIControlStateNormal];
+    [self.responseButton.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:16]];
+    self.responseButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    //I shouldnt need this?
+    self.responseButton.tag = 8;
+
+    [self addSubview:self.responseButton];
 }
 
 -(void)loadHastagLabel {
-    self.hashTagLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.responseLabel.frame, 0, self.topTrapazoid.frame.size.height/2)];
+    self.hashTagLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.responseButton.frame, 0, self.topTrapazoid.frame.size.height/2)];
     self.hashTagLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     self.hashTagLabel.font = [self.hashTagLabel.font fontWithSize:14];
     self.hashTagLabel.textAlignment = NSTextAlignmentCenter;
@@ -108,13 +112,17 @@
 }
 
 -(void)loadNotTodayLabel {
-    self.notTodayLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bottomTrapazoid.frame.origin.x, self.bottomTrapazoid.frame.origin.y + self.bottomTrapazoid.frame.size.height/2, self.bottomTrapazoid.frame.size.width, self.bottomTrapazoid.frame.size.height/2)];
-    self.notTodayLabel.textColor = kOrangeColor;
-    self.notTodayLabel.font = [self.notTodayLabel.font fontWithSize:15];
-    self.notTodayLabel.textAlignment = NSTextAlignmentCenter;
-    self.notTodayLabel.tag = 11;
-    self.notTodayLabel.text = @"not today";
-    [self addSubview:self.notTodayLabel];
+    self.notTodayButton = [[UIButton alloc] initWithFrame:CGRectMake(self.bottomTrapazoid.frame.origin.x, self.bottomTrapazoid.frame.origin.y + self.bottomTrapazoid.frame.size.height/2, self.bottomTrapazoid.frame.size.width, self.bottomTrapazoid.frame.size.height/2)];
+    
+    [self.notTodayButton setTitle:@"not today" forState:UIControlStateNormal];
+    [self.notTodayButton setTitleColor:kOrangeColor forState:UIControlStateNormal];
+    [self.notTodayButton.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:16]];
+    self.notTodayButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+
+    //Again, shouldnt need this?
+    self.notTodayButton.tag = 11;
+
+    [self addSubview:self.notTodayButton];
 }
 
 -(void)setVideoPlaybackView:(UIView *)videoPlaybackView {

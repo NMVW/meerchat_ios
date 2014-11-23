@@ -32,83 +32,50 @@
     [super viewDidLoad];
     [self getVideoName];
     
-    //Setup Navigation
-    _customNavView = [[UIView alloc] init];
-    [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    
     //enable scroll view
     [_scrollView setScrollEnabled:YES];
     [_scrollView setScrollsToTop:YES];
     [_scrollView setContentSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, 504)];
     
-    _FrontCamera = NO;
+    //set Naivagtion for View
+    [self.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    [self.navigationBar setTranslucent:NO];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+  
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"milo_backtohome.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popVC)];
+    navItem.leftBarButtonItem = backButton;
+    [self.navigationBar setItems:@[navItem]];
     
     //set Data Handler for View
     [[BFTDataHandler sharedInstance] setPostView:NO];
-    
-    //Create output.
-    _output = [[AVCaptureMovieFileOutput alloc] init];
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-    // Do any additional setup after loading the view.
-//    if(!_replyURL){
-//        //default video used incase URL is not sent
-//        [self setReplyURL:@"http://bafit.mobi/userPosts/v2.mp4"];
-//    }
     
     _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
     _embeddedrecordView.maxDuration = 10.0;
     _embeddedrecordView.delegate = self;
     
     [_recordView addSubview:_embeddedrecordView];
-    
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:[self.postResponse videoURL]] options:nil];
-        //AV Asset Player
-        AVPlayerItem * playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
-        _player1 = [[AVPlayer alloc] initWithPlayerItem:playerItem];
-        AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player1];
-    playerLayer.frame = _userVideoView.bounds;
-        [_userVideoView.layer addSublayer:playerLayer];
-        [_player1 seekToTime:kCMTimeZero];
-    [_userVideoView addSubview:_playButton];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerItemDidReachEnd:) name:AVPlayerItemDidPlayToEndTimeNotification
-object:_player1];
+
+    BFTVideoPlaybackController* videoPlayer = [[BFTVideoPlaybackController alloc] initWithVideoURL:[NSURL URLWithString:[self.postResponse videoURL]] andThumbURL:[NSURL URLWithString:[self.postResponse thumbURL]] frame:CGRectMake(0, 0, self.userVideoView.frame.size.width, self.userVideoView.frame.size.height)];
+    UITapGestureRecognizer *tapToPlay = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playUserVideo)];
+    [videoPlayer.view addGestureRecognizer:tapToPlay];
+    [self.userVideoView addSubview:videoPlayer.view];
+    self.videoFromMain = videoPlayer;
 }
 
--(void)returnToMain {
-    [self.navigationController popViewControllerAnimated:YES];
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:(BOOL)animated];
-    [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-}
-
-- (void)playerItemDidReachEnd:(NSNotification *)notification {
-    NSLog(@"In Finish");
-    [_player1 seekToTime:kCMTimeZero];
-    if ([_playButton isHidden]) {
-        [_playButton setHidden:NO];
-    }
-}
-
-- (IBAction)playButtonPress:(id)sender {
-    [_playButton setHidden:YES];
-    [_player1 play];
-}
-
--(void)popVC {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)playUserVideo {
+    [self.videoFromMain togglePlayback];
 }
 
 - (IBAction)backButtonPressed:(id)sender {
     [self popVC];
+}
+
+-(void)popVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)getVideoName {
