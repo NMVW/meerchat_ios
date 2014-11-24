@@ -173,14 +173,27 @@
                 [tempPosts minusOrderedSet:_videoPosts];
                 NSLog(@"New Set - Old Set: \n%@", tempPosts);
                 for (BFTVideoPost *post in tempPosts) {
+                    NSInteger previousCount = [_videoPosts count];
                     [_videoPosts addObject:post];
-                    [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                    if (previousCount == ([_videoPosts count] - 1)) {
+                        [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                    }
+                    else {
+                        NSLog(@"Duplicate Found | Not Added: %@", post);
+                    }
                 }
             }
             else {
                 for (NSDictionary *dict in jsonArray) {
-                    [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
-                    [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                    NSInteger previousCount = [_videoPosts count];
+                    BFTVideoPost *post = [[BFTVideoPost alloc] initWithDictionary:dict];
+                    [_videoPosts addObject:post];
+                    if (previousCount == ([_videoPosts count] - 1)) {
+                        [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                    }
+                    else {
+                        NSLog(@"Duplicate Found | Not Added: %@", post);
+                    }
                 }
             }
         }

@@ -53,7 +53,7 @@
 }
 
 -(NSString *)description {
-    return [NSString stringWithFormat:@"UID: %@\tMC: %zd", self.UID, self.MC];
+    return [NSString stringWithFormat:@"BUN: %@\tUID: %@\tMC: %zd\nURL: %@", self.BUN, self.UID, self.MC, self.videoURL];
 }
 
 @end
