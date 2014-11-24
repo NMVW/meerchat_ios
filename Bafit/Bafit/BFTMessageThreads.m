@@ -124,15 +124,23 @@
 }
 
 -(void)loadThreadsFromStorage {
-    NSData *data = [NSData dataWithContentsOfFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"]];
-    NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    self.listOfThreads = [decoder decodeObjectForKey:@"messageThreads"];
-    [decoder finishDecoding];
-    
-    if (!self.listOfThreads) {
-        self.listOfThreads = [[NSMutableOrderedSet alloc] init];
+    BOOL messagesReset = [[NSUserDefaults standardUserDefaults] boolForKey:@"messagesNeedReset"];
+    if (messagesReset) {
+        NSData *data = [NSData dataWithContentsOfFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"]];
+        NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        self.listOfThreads = [decoder decodeObjectForKey:@"messageThreads"];
+        [decoder finishDecoding];
+        
+        if (!self.listOfThreads) {
+            self.listOfThreads = [[NSMutableOrderedSet alloc] init];
+        }
+        NSLog(@"Messages Loaded");
     }
-    NSLog(@"Messages Loaded");
+    else {
+        NSLog(@"Messages Have Not Yet Been Reset: Save The Empty Threads");
+        [self saveThreads];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"messagesNeedReset"];
+    }
 }
 
 -(void)saveThreads {

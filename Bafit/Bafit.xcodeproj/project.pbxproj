@@ -123,6 +123,10 @@
 		7C8CCDD819FF5EA600D27D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C8CCDD719FF5EA600D27D24 /* Media.xcassets */; };
 		7C944B8219ED8DEA001164BB /* BFTPostHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C944B8119ED8DEA001164BB /* BFTPostHandler.m */; };
 		7CB0765A1A0F4FD500D597EA /* NSDate+relativeTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */; };
+		7CB1F4931A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB1F48F1A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf */; };
+		7CB1F4941A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB1F4901A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf */; };
+		7CB1F4951A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB1F4911A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf */; };
+		7CB1F4961A231EDE0061B94E /* ForgottenFuturistRg_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB1F4921A231EDE0061B94E /* ForgottenFuturistRg_Regular.ttf */; };
 		7CB33CEE1A22AB3A00C07BF7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB33CED1A22AB3A00C07BF7 /* AudioToolbox.framework */; };
 		7CB33CF01A22AB5100C07BF7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB33CEF1A22AB5100C07BF7 /* libz.dylib */; };
 		7CB33CF21A22AB7400C07BF7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB33CF11A22AB7400C07BF7 /* StoreKit.framework */; };
@@ -358,12 +362,12 @@
 		7C8CCDDB19FFDA4600D27D24 /* BFTCaptureManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTCaptureManagerDelegate.h; sourceTree = "<group>"; };
 		7C944B8019ED8DEA001164BB /* BFTPostHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPostHandler.h; sourceTree = "<group>"; };
 		7C944B8119ED8DEA001164BB /* BFTPostHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPostHandler.m; sourceTree = "<group>"; };
-		7C944B8419ED8E03001164BB /* ForgottenFuturistRg_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.ttf; sourceTree = "<group>"; };
-		7C944B8519ED8E03001164BB /* ForgottenFuturistRg_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.ttf; sourceTree = "<group>"; };
-		7C944B8619ED8E0B001164BB /* ForgottenFuturistRg_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.otf; sourceTree = "<group>"; };
-		7C944B8719ED8E0B001164BB /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.otf; sourceTree = "<group>"; };
 		7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+relativeTimeStamp.h"; sourceTree = "<group>"; };
 		7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+relativeTimeStamp.m"; sourceTree = "<group>"; };
+		7CB1F48F1A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.otf; sourceTree = "<group>"; };
+		7CB1F4901A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.ttf; sourceTree = "<group>"; };
+		7CB1F4911A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.otf; sourceTree = "<group>"; };
+		7CB1F4921A231EDE0061B94E /* ForgottenFuturistRg_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.ttf; sourceTree = "<group>"; };
 		7CB33CED1A22AB3A00C07BF7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		7CB33CEF1A22AB5100C07BF7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		7CB33CF11A22AB7400C07BF7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -910,15 +914,15 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
-		7C944B8319ED8DF1001164BB /* Fonts */ = {
+		7CB1F48E1A231EDE0061B94E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				7C944B8619ED8E0B001164BB /* ForgottenFuturistRg_Bold.otf */,
-				7C944B8719ED8E0B001164BB /* ForgottenFuturistRg_Regular.otf */,
-				7C944B8419ED8E03001164BB /* ForgottenFuturistRg_Bold.ttf */,
-				7C944B8519ED8E03001164BB /* ForgottenFuturistRg_Regular.ttf */,
+				7CB1F48F1A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf */,
+				7CB1F4901A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf */,
+				7CB1F4911A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf */,
+				7CB1F4921A231EDE0061B94E /* ForgottenFuturistRg_Regular.ttf */,
 			);
-			name = Fonts;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		7CF791EF19C250BF003EB61F /* VideoRecorder */ = {
@@ -1003,6 +1007,7 @@
 				8040E9AD197E080D000D66C7 /* Controller */,
 				8040E9AB197E07ED000D66C7 /* API Singletons */,
 				7C8CCD1219FF56CD00D27D24 /* Images */,
+				7CB1F48E1A231EDE0061B94E /* Fonts */,
 				8040E96D1978FD59000D66C7 /* Supporting Files */,
 			);
 			path = Bafit;
@@ -1011,7 +1016,6 @@
 		8040E96D1978FD59000D66C7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7C944B8319ED8DF1001164BB /* Fonts */,
 				8040E96E1978FD59000D66C7 /* Bafit-Info.plist */,
 				8040E96F1978FD59000D66C7 /* InfoPlist.strings */,
 				8040E9721978FD59000D66C7 /* main.m */,
@@ -1174,6 +1178,7 @@
 			files = (
 				7C8CCD9B19FF56CD00D27D24 /* milo_backtohome@2x.png in Resources */,
 				7C8CCDAE19FF56CD00D27D24 /* post_center@2x.png in Resources */,
+				7CB1F4931A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf in Resources */,
 				7C8CCDC219FF56CD00D27D24 /* study_btn_active.png in Resources */,
 				7C8CCD9519FF56CD00D27D24 /* love_btn_active.png in Resources */,
 				7C8CCD7019FF56CD00D27D24 /* baf_left_active.png in Resources */,
@@ -1205,6 +1210,7 @@
 				7C8CCDCC19FF56CD00D27D24 /* trapezoid_menu_top@2x.png in Resources */,
 				7C8CCD7219FF56CD00D27D24 /* baf_left_inactive.png in Resources */,
 				7C8CCD7519FF56CD00D27D24 /* baf_right_active@2x.png in Resources */,
+				7CB1F4961A231EDE0061B94E /* ForgottenFuturistRg_Regular.ttf in Resources */,
 				7C8CCD7F19FF56CD00D27D24 /* grub_btn_inactive.png in Resources */,
 				7C8CCD7C19FF56CD00D27D24 /* feedback_btn@2x.png in Resources */,
 				7C1F44771A19AF44000C06CE /* timeclock.png in Resources */,
@@ -1223,7 +1229,9 @@
 				7C8CCD9E19FF56CD00D27D24 /* Milo_Face_Navbar@2x.png in Resources */,
 				7C1F44741A19AF44000C06CE /* locationpin.png in Resources */,
 				7C8CCD7B19FF56CD00D27D24 /* feedback_btn.png in Resources */,
+				7CB1F4951A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf in Resources */,
 				7C8CCD9919FF56CD00D27D24 /* message_icon@2x.png in Resources */,
+				7CB1F4941A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf in Resources */,
 				7C8CCD7D19FF56CD00D27D24 /* grub_btn_active.png in Resources */,
 				7C8CCD9C19FF56CD00D27D24 /* Milo_Face_Full.png in Resources */,
 				7C8CCDAD19FF56CD00D27D24 /* post_center.png in Resources */,
@@ -1445,8 +1453,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1470,7 +1478,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
-				PROVISIONING_PROFILE = "d34a0f90-378c-4387-a112-4acbec85f11b";
+				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1491,8 +1499,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nick Vinson (3433MRU2GC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nick Vinson (3433MRU2GC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1509,7 +1517,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-lxml2";
-				PROVISIONING_PROFILE = "d34a0f90-378c-4387-a112-4acbec85f11b";
+				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1521,8 +1529,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1553,7 +1561,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d34a0f90-378c-4387-a112-4acbec85f11b";
+				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1565,8 +1573,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nick Vinson (3433MRU2GC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nick Vinson (3433MRU2GC)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1597,7 +1605,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d34a0f90-378c-4387-a112-4acbec85f11b";
+				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

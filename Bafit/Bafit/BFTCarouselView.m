@@ -47,7 +47,7 @@
     
     [self.responseButton setTitle:@"respond" forState:UIControlStateNormal];
     [self.responseButton setTitleColor:kOrangeColor forState:UIControlStateNormal];
-    [self.responseButton.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:16]];
+    [self.responseButton.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:15]];
     self.responseButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     //I shouldnt need this?
@@ -116,7 +116,7 @@
     
     [self.notTodayButton setTitle:@"not today" forState:UIControlStateNormal];
     [self.notTodayButton setTitleColor:kOrangeColor forState:UIControlStateNormal];
-    [self.notTodayButton.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:16]];
+    [self.notTodayButton.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:15]];
     self.notTodayButton.titleLabel.textAlignment = NSTextAlignmentCenter;
 
     //Again, shouldnt need this?

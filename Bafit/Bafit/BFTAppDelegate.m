@@ -11,6 +11,7 @@
 #import "BFTMessageThreads.h"
 #import "BFTDataHandler.h"
 #import <Crashlytics/Crashlytics.h>
+#import <Parse/Parse.h>
 #import "BFTConstants.h"
 #import "SDImageCache.h"
 
@@ -19,7 +20,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Parse setApplicationId:@"wrDBeyyvoetbewUYHqByWOfK1R5PhiTmZiGOJeYO"
+                  clientKey:@"09AYDgk4uYTbiFhNdxge5i2HyWQmeOTc85WivX41"];
     [Crashlytics startWithAPIKey:@"79408de8296f5247d8a98cf57977f3ddc206c935"];
+    
+    // Register for Push Notitications, if running iOS 8
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                        UIUserNotificationTypeBadge |
+                                                        UIUserNotificationTypeSound);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                                 categories:nil];
+        [application registerUserNotificationSettings:settings];
+        [application registerForRemoteNotifications];
+    } else {
+        // Register for Push Notifications before iOS 8
+        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                         UIRemoteNotificationTypeAlert |
+                                                         UIRemoteNotificationTypeSound)];
+    }
     
     //Set navigation color
 //    [[UINavigationBar appearance] setTranslucent:NO];
@@ -108,6 +127,17 @@
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    //[PFPush handlePush:userInfo];
 }
 
 #pragma Mark FB Stuff

@@ -57,7 +57,7 @@
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
-    [self.titleLabel setFont:[UIFont fontWithName:kFuturaFont size:17]];
+    [self.titleLabel setFont:[UIFont fontWithName:kFuturaBoldFont size:20]];
     
     //add report user button
     UIButton *reportButton = [[UIButton alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-40, 80, 40)];
