@@ -10,6 +10,7 @@ pod 'JSQMessagesViewController'
 pod 'AFNetworking', '~> 2.0'
 pod 'Facebook-iOS-SDK'
 pod 'SVProgressHUD', :head
+pod 'Parse'
 
 end
 

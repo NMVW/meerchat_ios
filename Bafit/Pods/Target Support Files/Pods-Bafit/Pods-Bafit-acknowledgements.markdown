@@ -303,6 +303,10 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTI
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
+## Parse
+
+See https://www.parse.com/about/terms
+
 ## SDWebImage
 
 Copyright (c) 2009 Olivier Poitrey <rs@dailymotion.com>

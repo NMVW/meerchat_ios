@@ -10,8 +10,7 @@
 #import "BFTBackThreadItem.h"
 #import "BFTVideoMediaItem.h"
 #import "BFTDataHandler.h"
-#import "JSQTextMessage.h"
-#import "JSQMediaMessage.h"
+#import "JSQMessage.h"
 #import "BFTConstants.h"
 
 @implementation BFTMessageThreads
@@ -38,7 +37,7 @@
 -(void)addMessageToThread:(NSString *)message from:(NSString *)sender date:(NSDate*)date {
     self.unreadMessages = YES;
     
-    JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date text:message];
+    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date text:message];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
@@ -57,7 +56,7 @@
 }
 
 -(void)messageSentWithMessage:(NSString *)message to:(NSString *)reciever {
-    JSQTextMessage *msg = [[JSQTextMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] text:message];
+    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] text:message];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = reciever;
@@ -79,7 +78,7 @@
     self.unreadMessages = YES;
     
     BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL];
-    JSQMediaMessage *msg = [[JSQMediaMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date media:videoItem];
+    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date media:videoItem];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
@@ -99,7 +98,7 @@
 
 -(void)videoSentWithURL:(NSString *)url thumbURL:(NSString *)thumbURL to:(NSString *)sender {
     BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL];
-    JSQMediaMessage *msg = [[JSQMediaMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] media:videoItem];
+    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] media:videoItem];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;

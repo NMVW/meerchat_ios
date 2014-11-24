@@ -87,7 +87,7 @@
     //TODO: Carlo wants us to use the database for messaging, and xmpp just to notify of when we need updates. This could then be modified to notify of something specific
     [self.appDelegate sendTextMessage:text toUser:self.otherPersonsUserName];
     
-    JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
+    JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
     [[self.messageThread listOfMessages] addObject:message];
     
     [self finishSendingMessage];
@@ -108,7 +108,7 @@
      *  Otherwise, return your previously created bubble image data objects.
      */
     
-    JSQTextMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+    JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
     
     if ([message.senderId isEqualToString:self.senderId]) {
         return self.outgoingBubbleImageData;
@@ -168,9 +168,7 @@
 -(void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
     id<JSQMessageData> messageItem = [collectionView.dataSource collectionView:collectionView messageDataForItemAtIndexPath:indexPath];
     
-    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
-    
-    if (isMediaMessage) {
+    if (messageItem.isMediaMessage) {
         if (!(self.indexOfLastPlayedVideo == indexPath.row)) {
             [self pauseLastVideo];
         }
@@ -236,9 +234,7 @@
 -(void)stopPlayingLastVideo {
     id<JSQMessageData> messageItem = [self.collectionView.dataSource collectionView:self.collectionView messageDataForItemAtIndexPath:[NSIndexPath indexPathForItem:self.indexOfLastPlayedVideo inSection:0]];
     
-    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
-    
-    if (isMediaMessage) {
+    if (messageItem.isMediaMessage) {
         BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
         [mediaItem endVideoPlayback];
     }
@@ -247,9 +243,7 @@
 -(void)pauseLastVideo {
     id<JSQMessageData> messageItem = [self.collectionView.dataSource collectionView:self.collectionView messageDataForItemAtIndexPath:[NSIndexPath indexPathForItem:self.indexOfLastPlayedVideo inSection:0]];
     
-    BOOL isMediaMessage = [messageItem respondsToSelector:@selector(media)];
-    
-    if (isMediaMessage) {
+    if (messageItem.isMediaMessage) {
         BFTVideoMediaItem *mediaItem = (BFTVideoMediaItem*)[messageItem media];
         [mediaItem pauseVideoPlayback];
     }

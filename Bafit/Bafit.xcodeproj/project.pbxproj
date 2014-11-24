@@ -123,6 +123,9 @@
 		7C8CCDD819FF5EA600D27D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C8CCDD719FF5EA600D27D24 /* Media.xcassets */; };
 		7C944B8219ED8DEA001164BB /* BFTPostHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C944B8119ED8DEA001164BB /* BFTPostHandler.m */; };
 		7CB0765A1A0F4FD500D597EA /* NSDate+relativeTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */; };
+		7CB33CEE1A22AB3A00C07BF7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB33CED1A22AB3A00C07BF7 /* AudioToolbox.framework */; };
+		7CB33CF01A22AB5100C07BF7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB33CEF1A22AB5100C07BF7 /* libz.dylib */; };
+		7CB33CF21A22AB7400C07BF7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CB33CF11A22AB7400C07BF7 /* StoreKit.framework */; };
 		7CB7127E19F9A9A2008935E6 /* ExtendedNSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */; };
 		7CC2E77E19E6496C004EECC0 /* BFTVideoPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */; };
 		7CCB382219BED3C00057D2F1 /* BFTMessageThreads.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */; };
@@ -361,6 +364,9 @@
 		7C944B8719ED8E0B001164BB /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.otf; sourceTree = "<group>"; };
 		7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+relativeTimeStamp.h"; sourceTree = "<group>"; };
 		7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+relativeTimeStamp.m"; sourceTree = "<group>"; };
+		7CB33CED1A22AB3A00C07BF7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		7CB33CEF1A22AB5100C07BF7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		7CB33CF11A22AB7400C07BF7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7CB7127C19F9A9A2008935E6 /* ExtendedNSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedNSLog.h; sourceTree = "<group>"; };
 		7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtendedNSLog.m; sourceTree = "<group>"; };
 		7CB7127F19F9A9D6008935E6 /* BFTConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTConstants.h; sourceTree = "<group>"; };
@@ -445,10 +451,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CB33CF21A22AB7400C07BF7 /* StoreKit.framework in Frameworks */,
+				7CB33CF01A22AB5100C07BF7 /* libz.dylib in Frameworks */,
+				7C64468D19BCE2500071D444 /* CFNetwork.framework in Frameworks */,
+				7CB33CEE1A22AB3A00C07BF7 /* AudioToolbox.framework in Frameworks */,
 				7C64470819BCEFF10071D444 /* libresolv.dylib in Frameworks */,
 				7C64468F19BCE26D0071D444 /* Security.framework in Frameworks */,
 				7C425A961A01B7E2004FBBC3 /* Crashlytics.framework in Frameworks */,
-				7C64468D19BCE2500071D444 /* CFNetwork.framework in Frameworks */,
 				7C6446A719BCE6130071D444 /* libidn.a in Frameworks */,
 				8021993819A91D2F0042597A /* CoreVideo.framework in Frameworks */,
 				8021993619A91D240042597A /* SystemConfiguration.framework in Frameworks */,
@@ -957,6 +966,9 @@
 		8040E9651978FD59000D66C7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7CB33CF11A22AB7400C07BF7 /* StoreKit.framework */,
+				7CB33CEF1A22AB5100C07BF7 /* libz.dylib */,
+				7CB33CED1A22AB3A00C07BF7 /* AudioToolbox.framework */,
 				7C425A951A01B7E2004FBBC3 /* Crashlytics.framework */,
 				7C82BF7419E13FCC000598FA /* FacebookSDK.framework */,
 				7C64470719BCEFF10071D444 /* libresolv.dylib */,
