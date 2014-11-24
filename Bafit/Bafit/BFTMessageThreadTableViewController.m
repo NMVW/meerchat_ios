@@ -84,7 +84,6 @@
     }] startConnection];
     
     //send the message to the xmpp server
-    //TODO: Carlo wants us to use the database for messaging, and xmpp just to notify of when we need updates. This could then be modified to notify of something specific
     [self.appDelegate sendTextMessage:text toUser:self.otherPersonsUserName];
     
     JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
@@ -147,7 +146,7 @@
         }
     }
 
-    return [[NSAttributedString alloc] initWithString:message.senderId];
+    return message.senderId ? [[NSAttributedString alloc] initWithString:message.senderId] : nil;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
