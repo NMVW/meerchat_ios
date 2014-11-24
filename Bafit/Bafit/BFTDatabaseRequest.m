@@ -109,7 +109,7 @@ static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
 
 -(void)completeConnection:(NSError*)error {
     if (self.logMessage) {
-        //NSLog(@"%@", self.logMessage);
+        NSLog(@"%@", self.logMessage);
     }
     
     if (_responseHandler) {

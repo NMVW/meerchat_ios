@@ -55,8 +55,12 @@
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"createUser.php?UIDr=%@&BUN=%@&BAFemail=%@&RVC=%@&FBemail=%@&GPSlat=%.8f&GPSlon=%.8f", UID, [data BUN], [data EDEmail], self.verificationNumberTextField.text, [data FBEmail], [data Latitude], [data Longitude]] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSString *tOrF = [response substringToIndex:1];
-            BOOL boolResult = ([tOrF caseInsensitiveCompare:@"T"] == NSOrderedSame) ? YES : NO;
+            BOOL boolResult = NO;
+            if ([response length] >= 1) {
+                NSString *tOrF = [response substringToIndex:1];
+                boolResult = ([tOrF caseInsensitiveCompare:@"T"] == NSOrderedSame) ? YES : NO;
+            }
+            
             NSArray *result = [response componentsSeparatedByString:@":"];
             
             //not sure what this returns if its successful
