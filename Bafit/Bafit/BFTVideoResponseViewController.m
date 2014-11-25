@@ -15,6 +15,7 @@
 #import "BFTPostHandler.h"
 #import "BFTConstants.h"
 #import "SVProgressHUD.h"
+#import "BFTAppDelegate.h"
 
 @interface BFTVideoResponseViewController ()
 
@@ -163,6 +164,8 @@
 -(void)everythingFinished {
     [SVProgressHUD dismiss];
     [self popVC];
+    
+    [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) registerForNotifications];
 }
 
 @end

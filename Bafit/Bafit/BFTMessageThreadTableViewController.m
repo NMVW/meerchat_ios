@@ -49,6 +49,7 @@
     self.outgoingBubbleImageData = [imageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     self.incomingBubbleImageData = [imageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     
+    
     [self.inputToolbar.contentView.rightBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     [self.inputToolbar.contentView.leftBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
     
@@ -65,7 +66,6 @@
     [super viewWillDisappear:animated];
     self.appDelegate.messageDelegate = nil;
     [self stopPlayingLastVideo];
-    [[BFTMessageThreads sharedInstance] saveThreads];
 }
 
 #pragma mark - JSQMessagesViewController
@@ -158,6 +158,8 @@
     
     cell.textView.textColor = [UIColor lightGrayColor];
     cell.textView.tintColor = [UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0];
+    
+    cell.backgroundColor = kGrayBackground;
     
     return cell;
 }

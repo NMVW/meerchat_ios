@@ -13,6 +13,7 @@
 #import "CaptureManager.h"
 #import "BFTConstants.h"
 #import "SVProgressHUD.h"
+#import "BFTAppDelegate.h"
 
 @interface BFTMainPostViewController ()
 
@@ -173,6 +174,8 @@
 -(void)everythingFinished {
     [SVProgressHUD dismiss];
     [self popVC];
+    
+    [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) registerForNotifications];
 }
 
 #pragma mark - Button Actions

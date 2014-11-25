@@ -77,7 +77,7 @@
 -(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender date:(NSDate*)date {
     self.unreadMessages = YES;
     
-    BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL];
+    BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL isOutgoing:NO];
     JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date media:videoItem];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
@@ -97,7 +97,7 @@
 }
 
 -(void)videoSentWithURL:(NSString *)url thumbURL:(NSString *)thumbURL to:(NSString *)sender {
-    BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL];
+    BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL isOutgoing:YES];
     JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] media:videoItem];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];

@@ -21,6 +21,7 @@
 @property (nonatomic, assign) id<BFTMessageDelegate> messageDelegate;
 @property (nonatomic, readonly) XMPPStream *xmppStream;
 
+-(void)registerForNotifications;
 
 -(BOOL)connectToJabber;
 -(void)setupStream;

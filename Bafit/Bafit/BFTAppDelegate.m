@@ -24,22 +24,6 @@
                   clientKey:@"09AYDgk4uYTbiFhNdxge5i2HyWQmeOTc85WivX41"];
     [Crashlytics startWithAPIKey:@"79408de8296f5247d8a98cf57977f3ddc206c935"];
     
-    // Register for Push Notitications, if running iOS 8
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
-                                                        UIUserNotificationTypeBadge |
-                                                        UIUserNotificationTypeSound);
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
-                                                                                 categories:nil];
-        [application registerUserNotificationSettings:settings];
-        [application registerForRemoteNotifications];
-    } else {
-        // Register for Push Notifications before iOS 8
-        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                         UIRemoteNotificationTypeAlert |
-                                                         UIRemoteNotificationTypeSound)];
-    }
-    
     //Set navigation color
 //    [[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -129,10 +113,32 @@
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 
+-(void)registerForNotifications {
+    NSLog(@"Registering For Push");
+    // Register for Push Notitications, if running iOS 8
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
+                                                        UIUserNotificationTypeBadge |
+                                                        UIUserNotificationTypeSound);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes
+                                                                                 categories:nil];
+        [[UIApplication sharedApplication]  registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication]  registerForRemoteNotifications];
+    } else {
+        // Register for Push Notifications before iOS 8
+        [[UIApplication sharedApplication]  registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                                                UIRemoteNotificationTypeAlert |
+                                                                                UIRemoteNotificationTypeSound)];
+    }
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"Push Accepted, save device token");
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation[@"BUN"] = [[BFTDataHandler sharedInstance] BUN];
+    currentInstallation[@"UID"] = [[BFTDataHandler sharedInstance] UID];
     [currentInstallation saveInBackground];
 }
 

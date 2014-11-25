@@ -7,6 +7,7 @@
 //
 
 #import "BFTVideoMediaItem.h"
+#import "JSQMessagesMediaViewBubbleImageMasker.h"
 
 @implementation BFTVideoMediaItem
 
@@ -29,11 +30,12 @@
     return self;
 }
 
--(instancetype)initWithVideoURL:(NSString *)url thumbURL:(NSString *)thumbURL {
+-(instancetype)initWithVideoURL:(NSString *)url thumbURL:(NSString *)thumbURL isOutgoing:(BOOL)isOutgoing {
     self = [super init];
     if (self) {
         self.videoURL = [NSURL URLWithString:url];
         self.thumbURL = [NSURL URLWithString:thumbURL];
+        self.isOutgoing = isOutgoing;
     }
     return self;
 }
@@ -50,6 +52,7 @@
     if (!self.videoView) {
         [self initMovieView];
     }
+    [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:self.videoView.view isOutgoing:self.isOutgoing];
     return self.videoView.view;
 }
 

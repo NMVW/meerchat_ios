@@ -68,8 +68,9 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    [[BFTMessageThreads sharedInstance] resetUnread];
     self.appDelegate.messageDelegate = self;
+    [[BFTMessageThreads sharedInstance] resetUnread];
+    [[BFTMessageThreads sharedInstance] saveThreads];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

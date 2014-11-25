@@ -14,12 +14,13 @@
 
 @property (strong, nonatomic) NSURL *videoURL;
 @property (strong, nonatomic) NSURL *thumbURL;
+@property (assign, nonatomic) BOOL isOutgoing;
 
 @property (nonatomic, strong) BFTVideoPlaybackController* videoView;
 
 -(instancetype)initWithURL:(NSURL*)url;
 -(instancetype)initWithURLString:(NSString*)url;
--(instancetype)initWithVideoURL:(NSString*)url thumbURL:(NSString*)thumbURL;
+-(instancetype)initWithVideoURL:(NSString*)url thumbURL:(NSString*)thumbURL isOutgoing:(BOOL)isOutgoing;
 
 -(void)togglePlayback;
 -(void)beginVideoPlayback;
