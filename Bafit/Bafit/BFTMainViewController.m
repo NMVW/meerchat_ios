@@ -210,16 +210,20 @@
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            
-            _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
-            [self.carousel reloadData];
-            
-            for (NSDictionary *dict in jsonArray) {
-                [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
-                //[self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            if (!error) {
+                _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+                [self.carousel reloadData];
+                
+                for (NSDictionary *dict in jsonArray) {
+                    [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
+                    //[self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                }
+                [self.carousel reloadData];
             }
-            [self.carousel reloadData];
+            else {
+                [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            }
         }
         else {
             [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
