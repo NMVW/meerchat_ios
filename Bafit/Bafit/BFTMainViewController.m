@@ -38,23 +38,21 @@
     //start PostHandler
     [[BFTPostHandler sharedInstance] setPostUID:[[BFTDataHandler sharedInstance]UID]];
     
-    //init array of temp hash tags
-    _tempHashTags = [[NSArray alloc] initWithObjects:@"#hookup",@"#cantina101",@"#tequila", nil];
-    
     //set background color
-    [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-    [_customNavView setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    [self.view setBackgroundColor:kOrangeColor];
+    [_customNavView setBackgroundColor:kOrangeColor];
     
     //set catagory
     _items = [NSMutableArray array];
     _catagory = 0;
-    [self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
+    //[self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
     
     //configure carousel
     _carousel.delegate = self;
     _carousel.dataSource = self;
     _carousel.type = iCarouselTypeLinear;
     
+    //TODO: Cleanup
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     [self.titleLabel setFont:[UIFont fontWithName:kFuturaBoldFont size:20]];
@@ -91,7 +89,7 @@
     //set us as the message delegate so we can change the backbutton image if we need to
     [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) setMessageDelegate:self];
     
-    [self.carousel reloadData];
+    [self refreshCarousel];
     
     if ([[BFTMessageThreads sharedInstance] unreadMessages]) {
         [self.backButton setImage:[UIImage imageNamed:@"baf_left_active.png"] forState:UIControlStateNormal];
@@ -158,43 +156,48 @@
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             
-            //create the lists if not already created 
-            if (!_videoPosts)
-                _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
-            
-            //If a video is removed, we need to get the post that we don't currently have form the segment we just reloaded. Note that this could be any of them due to videos being added, deleted, location changes, etc. 
-            if (videoRemoved) {
-                NSMutableOrderedSet *tempPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
-                for (NSDictionary *dict in jsonArray) {
-                    [tempPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
-                }
-                [tempPosts minusOrderedSet:_videoPosts];
-                NSLog(@"New Set - Old Set: \n%@", tempPosts);
-                for (BFTVideoPost *post in tempPosts) {
-                    NSInteger previousCount = [_videoPosts count];
-                    [_videoPosts addObject:post];
-                    if (previousCount == ([_videoPosts count] - 1)) {
-                        [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+            if (!error) {
+                //create the lists if not already created
+                if (!_videoPosts)
+                    _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+                
+                //If a video is removed, we need to get the post that we don't currently have form the segment we just reloaded. Note that this could be any of them due to videos being added, deleted, location changes, etc.
+                if (videoRemoved) {
+                    NSMutableOrderedSet *tempPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+                    for (NSDictionary *dict in jsonArray) {
+                        [tempPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
                     }
-                    else {
-                        NSLog(@"Duplicate Found | Not Added: %@", post);
+                    [tempPosts minusOrderedSet:_videoPosts];
+                    NSLog(@"New Set - Old Set: \n%@", tempPosts);
+                    for (BFTVideoPost *post in tempPosts) {
+                        NSInteger previousCount = [_videoPosts count];
+                        [_videoPosts addObject:post];
+                        if (previousCount == ([_videoPosts count] - 1)) {
+                            [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                        }
+                        else {
+                            NSLog(@"Duplicate Found | Not Added: %@", post);
+                        }
+                    }
+                }
+                else {
+                    for (NSDictionary *dict in jsonArray) {
+                        NSInteger previousCount = [_videoPosts count];
+                        BFTVideoPost *post = [[BFTVideoPost alloc] initWithDictionary:dict];
+                        [_videoPosts addObject:post];
+                        if (previousCount == ([_videoPosts count] - 1)) {
+                            [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                        }
+                        else {
+                            NSLog(@"Duplicate Found | Not Added: %@", post);
+                        }
                     }
                 }
             }
             else {
-                for (NSDictionary *dict in jsonArray) {
-                    NSInteger previousCount = [_videoPosts count];
-                    BFTVideoPost *post = [[BFTVideoPost alloc] initWithDictionary:dict];
-                    [_videoPosts addObject:post];
-                    if (previousCount == ([_videoPosts count] - 1)) {
-                        [self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
-                    }
-                    else {
-                        NSLog(@"Duplicate Found | Not Added: %@", post);
-                    }
-                }
+                [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
         }
         else {
@@ -222,6 +225,10 @@
             [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }] startConnection];
+}
+
+-(void)refreshCarousel {
+    [self updateCategory:_catagory];
 }
 
 - (void)didReceiveMemoryWarning
