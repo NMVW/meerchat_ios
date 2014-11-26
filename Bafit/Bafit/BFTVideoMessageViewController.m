@@ -28,7 +28,7 @@
     [super viewDidLoad];
     [self getVideoName];
     
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    [self.navigationController.navigationBar setBarTintColor:kOrangeColor];
     [self.navigationController.navigationBar setTranslucent:NO];
     
     self.navigationItem.title = [NSString stringWithFormat:@"@%@", self.otherPersonsUserName];

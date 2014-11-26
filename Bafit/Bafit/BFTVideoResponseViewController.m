@@ -45,7 +45,9 @@
   
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"milo_backtohome.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popVC)];
     navItem.leftBarButtonItem = backButton;
+    navItem.title = [NSString stringWithFormat:@"@%@", [self.postResponse BUN]];
     [self.navigationBar setItems:@[navItem]];
+    [self.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
     
     //set Data Handler for View
     [[BFTDataHandler sharedInstance] setPostView:NO];
