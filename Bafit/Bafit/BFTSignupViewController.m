@@ -54,7 +54,7 @@
 }
 
 - (IBAction)checkUser:(id)sender {
-    if ([[_schoolEmail text] length] >= 1) {
+    if ([self validateEmail:[_schoolEmail text]]) {
         //Passed School email
         BFTDataHandler *handler = [BFTDataHandler sharedInstance];
         [handler setEDEmail:self.schoolEmail.text];
@@ -96,7 +96,7 @@
             }
         }
     } else {
-        [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Please enter an email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Please enter a valid email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         NSLog(@"Email is incorrect");
     }
 }
@@ -126,6 +126,12 @@
     else {
         [request startConnection];
     }
+}
+
+-(BOOL)validateEmail:(NSString*)email {
+    NSString *regex = @"[^@]+@[A-Za-z0-9.-]+\\.[A-Za-z]+";
+    NSPredicate *emailPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    return [emailPredicate evaluateWithObject:email];
 }
 
 #pragma mark TextField

@@ -71,17 +71,6 @@
 #pragma mark - JSQMessagesViewController
 
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
-    //send the message to the database
-    [[[BFTDatabaseRequest alloc] initWithURLString:[[NSString alloc] initWithFormat:@"sendText.php?UIDr=%@&UIDp=%@&TEXT=%@", [[BFTDataHandler sharedInstance] UID], self.otherPersonsUserID, text] trueOrFalseBlock:^(BOOL success, NSError *error) {
-        if (!error) {
-            if (success) {
-                NSLog(@"Messages Succesfully Added to database");
-            }
-        }
-        else {
-            [[[UIAlertView alloc] initWithTitle:@"Could Not Send Message" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
-        }
-    }] startConnection];
     
     //send the message to the xmpp server
     [self.appDelegate sendTextMessage:text toUser:self.otherPersonsUserName];

@@ -1113,7 +1113,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="J4a-6v-v6f"/>
         <segue reference="hmw-A7-sAG"/>
+        <segue reference="J4a-6v-v6f"/>
     </inferredMetricsTieBreakers>
 </document>

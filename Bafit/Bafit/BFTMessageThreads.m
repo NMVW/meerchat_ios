@@ -12,6 +12,7 @@
 #import "BFTDataHandler.h"
 #import "JSQMessage.h"
 #import "BFTConstants.h"
+#import "BFTDatabaseRequest.h"
 
 @implementation BFTMessageThreads
 
@@ -56,6 +57,7 @@
 }
 
 -(void)messageSentWithMessage:(NSString *)message to:(NSString *)reciever {
+    [self sendMessageToDatabase:[NSString stringWithFormat:@"\%@", message] recipient:reciever];
     JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] text:message];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
@@ -97,6 +99,7 @@
 }
 
 -(void)videoSentWithURL:(NSString *)url thumbURL:(NSString *)thumbURL to:(NSString *)sender {
+    [self sendMessageToDatabase:[NSString stringWithFormat:@"Video Message\nvideoURL: %@\nthumbURL: %@", url, thumbURL] recipient:sender];
     BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL isOutgoing:YES];
     JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] media:videoItem];
     
@@ -119,11 +122,26 @@
     }
 }
 
+-(void)sendMessageToDatabase:(NSString*)body recipient:(NSString*)reciever {
+    //send the message to the database
+    [[[BFTDatabaseRequest alloc] initWithURLString:[[NSString alloc] initWithFormat:@"sendText.php?UIDr=%@&UIDp=%@&TEXT=%@", [[BFTDataHandler sharedInstance] UID], reciever, body] trueOrFalseBlock:^(BOOL success, NSError *error) {
+        if (!error) {
+            if (success) {
+                NSLog(@"Messages Succesfully Added to database");
+            }
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Could Not Send Message" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        }
+    }] startConnection];
+}
+
 -(void)removeThreadAtIndex:(NSInteger)index {
     [self.listOfThreads removeObjectAtIndex:index];
 }
 
 -(void)loadThreadsFromStorage {
+    //TODO: Don't reset the threads. We wont need this anymore pretty soon
     BOOL messagesReset = [[NSUserDefaults standardUserDefaults] boolForKey:@"messagesNeedReset"];
     if (messagesReset) {
         NSData *data = [NSData dataWithContentsOfFile:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"messageThreads.archive"]];

@@ -18,6 +18,8 @@
 
 @interface BFTMessagesListTableViewController ()
 
+@property (nonatomic, strong) UILabel *noMessagesLabel;
+
 @end
 
 @implementation BFTMessagesListTableViewController
@@ -34,6 +36,17 @@
     UIView *backView = [[UIView alloc] initWithFrame:self.tableView.frame];
     [backView setBackgroundColor:[UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1]];
     [self.tableView setBackgroundView:backView];
+    
+    _noMessagesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, [UIScreen mainScreen].bounds.size.width - 40, 150)];
+    [_noMessagesLabel setText:@"You have no conversations at this time. To start a conversation, reply to someone's video, and once they respond you will be able to message them."];
+    [_noMessagesLabel setNumberOfLines:5];
+    [_noMessagesLabel setTextAlignment:NSTextAlignmentCenter];
+    [_noMessagesLabel setFont:[UIFont systemFontOfSize:16]];
+    [_noMessagesLabel setTextColor:[UIColor lightGrayColor]];
+    
+    [self.tableView addSubview:_noMessagesLabel];
+    
+    [_noMessagesLabel setHidden:YES];
 
     //remove seperator lines from searchbar
     //TODO:Uncomment these lines when adding search bar to remove seperator lines
@@ -97,7 +110,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[_threadManager listOfThreads] count];
+    NSInteger numberOfItems = [[_threadManager listOfThreads] count];
+    if (numberOfItems == 0) {
+        [_noMessagesLabel setHidden:NO];
+    }
+    else {
+        [_noMessagesLabel setHidden:YES];
+    }
+    return numberOfItems;
 }
 
 

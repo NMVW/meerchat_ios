@@ -75,33 +75,32 @@
     else {
         [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"fbVC"]]];
     }
-
     self.window.rootViewController = initialViewController;
     [self.window makeKeyAndVisible];
     
     return YES;
 }
 							
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application {
     [self disconnectFromJabber];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
+- (void)applicationDidEnterBackground:(UIApplication *)application {
     [[BFTMessageThreads sharedInstance] saveThreads];
     [[BFTDataHandler sharedInstance] saveData];
     [self stopMonitoringLocation];
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
+- (void)applicationWillEnterForeground:(UIApplication *)application {
     [self startMonitoringLocation];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
     [self connectToJabber];
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [PFInstallation currentInstallation][@"badge"] = @(0);
+    [[PFInstallation currentInstallation] saveEventually];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -137,7 +136,7 @@
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
-    currentInstallation[@"BUN"] = [[BFTDataHandler sharedInstance] BUN];
+    currentInstallation[@"BUN"] = [[[BFTDataHandler sharedInstance] BUN] lowercaseString];
     currentInstallation[@"UID"] = [[BFTDataHandler sharedInstance] UID];
     [currentInstallation saveInBackground];
 }
