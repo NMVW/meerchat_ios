@@ -35,7 +35,7 @@
     return self;
 }
 
--(void)addMessageToThread:(NSString *)message from:(NSString *)sender date:(NSDate*)date {
+-(void)addMessageToThread:(NSString *)message from:(NSString *)sender date:(NSDate*)date facebookID:(NSString*)facebookID {
     self.unreadMessages = YES;
     
     JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date text:message];
@@ -46,6 +46,7 @@
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
     if (indexOfOldObject == NSNotFound) {
         newItem.lastMessageTime = date;
+        newItem.facebookID = facebookID;
         [newItem.listOfMessages addObject:msg];
         [self.listOfThreads addObject:newItem];
     }
@@ -76,7 +77,7 @@
     }
 }
 
--(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender date:(NSDate*)date {
+-(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender date:(NSDate*)date facebookID:(NSString*)facebookID {
     self.unreadMessages = YES;
     
     BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL isOutgoing:NO];
@@ -88,6 +89,7 @@
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
     if (indexOfOldObject == NSNotFound) {
         newItem.lastMessageTime = date;
+        newItem.facebookID = facebookID;
         [newItem.listOfMessages addObject:msg];
         [self.listOfThreads addObject:newItem];
     }

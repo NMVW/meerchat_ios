@@ -275,6 +275,7 @@
 -(void)textMessageRecieved:(XMPPMessage*)message {
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *from = [[message attributeForName:@"from"] stringValue];
+    NSString *fromFacebookID = [[message attributeForName:@"facebookID"] stringValue];
     NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
     double date = [message attributeDoubleValueForName:@"date"];
     
@@ -282,7 +283,7 @@
         return;
     }
     
-    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username date:[NSDate dateWithTimeIntervalSince1970:date]]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
+    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username date:[NSDate dateWithTimeIntervalSince1970:date] facebookID:fromFacebookID]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
     
     [self.messageDelegate recievedMessage]; //notify the current mesage delegate of recieved message
     
@@ -294,12 +295,13 @@
     NSString *videoURL = [[body attributeForName:@"videoURL"] stringValue];
     NSString *thumbURL = [[body attributeForName:@"thumbURL"] stringValue];
     
+    NSString *fromFacebookID = [[message attributeForName:@"facebookID"] stringValue];
     NSString *from = [[message attributeForName:@"from"] stringValue];
     NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
     double date = [message attributeDoubleValueForName:@"date"];
     
     
-    [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username date:[NSDate dateWithTimeIntervalSince1970:date]];
+    [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username date:[NSDate dateWithTimeIntervalSince1970:date] facebookID:fromFacebookID];
     
     [self.messageDelegate recievedMessage];
     NSLog(@"Video Message Recieved:\nFrom: %@\nMessage:\n%@", username, videoURL);
@@ -314,6 +316,7 @@
     
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
     [message addAttributeWithName:@"type" stringValue:@"chat"];
+    [message addAttributeWithName:@"facebookID" stringValue:[[BFTDataHandler sharedInstance] FBID]];
     [message addAttributeWithName:@"to" stringValue:user];
     [message addAttributeWithName:@"date" doubleValue:[[NSDate date] timeIntervalSince1970]];
     [message addChild:body];
@@ -333,6 +336,7 @@
     
     NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
     [message addAttributeWithName:@"type" stringValue:@"video"];
+    [message addAttributeWithName:@"facebookID" stringValue:[[BFTDataHandler sharedInstance] FBID]];
     [message addAttributeWithName:@"to" stringValue:user];
     [message addAttributeWithName:@"date" doubleValue:[[NSDate date] timeIntervalSince1970]];
     [message addChild:body];
