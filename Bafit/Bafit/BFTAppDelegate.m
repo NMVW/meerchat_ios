@@ -287,7 +287,7 @@
     
     [self.messageDelegate recievedMessage]; //notify the current mesage delegate of recieved message
     
-    NSLog(@"Message Recieved:\nFrom: %@\nMessage:\n%@", from, msg);
+    NSLog(@"Message Recieved:\nFrom: %@ID: %@\nMessage:\n%@", username, fromFacebookID, msg);
 }
 
 -(void)videoMessageRecieved:(XMPPMessage*)message {
@@ -304,7 +304,7 @@
     [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username date:[NSDate dateWithTimeIntervalSince1970:date] facebookID:fromFacebookID];
     
     [self.messageDelegate recievedMessage];
-    NSLog(@"Video Message Recieved:\nFrom: %@\nMessage:\n%@", username, videoURL);
+    NSLog(@"Video Message Recieved:\nFrom: %@\nID: %@\nMessage:\n%@", username, fromFacebookID, videoURL);
 }
 
 //sends a message through the xmpp stream.

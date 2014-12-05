@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdatedLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbnail;
 
+
 @end

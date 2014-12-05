@@ -131,9 +131,9 @@
     }
     
     //Bold fonts
-    [cell.usernameLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [cell.numberMessagesLabel setFont:[UIFont boldSystemFontOfSize:17]];
-    [cell.lastUpdatedLabel setFont:[UIFont boldSystemFontOfSize:17]];
+    [cell.usernameLabel setFont:[UIFont boldSystemFontOfSize:16]];
+    [cell.numberMessagesLabel setFont:[UIFont boldSystemFontOfSize:16]];
+    [cell.lastUpdatedLabel setFont:[UIFont boldSystemFontOfSize:14]];
     
     BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:indexPath.row];
     
@@ -142,7 +142,7 @@
     cell.lastUpdatedLabel.text = [self.dateFormatter stringFromDate:item.lastMessageTime];
     
     //Image
-    NSString* thumbURL = [[NSString alloc] initWithFormat:@"http://graph.facebook.com/%@/picture", item.facebookID];
+    NSString* thumbURL = [[NSString alloc] initWithFormat:@"http://graph.facebook.com/%@/picture?type=large", item.facebookID];
     [cell.thumbnail setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbURL]];
     
     if (!cell.thumbnail.image) {
