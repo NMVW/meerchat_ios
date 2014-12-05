@@ -10,7 +10,7 @@
 #import "BFTAppDelegate.h"
 #import "BFTMessageThreads.h"
 
-@interface BFTMessagesListTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, BFTMessageDelegate>
+@interface BFTConversationsListTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, BFTMessageDelegate>
 
 @property (nonatomic, weak) BFTAppDelegate *appDelegate;
 @property (nonatomic, weak) BFTMessageThreads *threadManager;

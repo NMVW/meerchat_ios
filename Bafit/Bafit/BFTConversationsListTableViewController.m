@@ -6,23 +6,25 @@
 //  Copyright (c) 2014 Bafit. All rights reserved.
 //
 
-#import "BFTMessagesListTableViewController.h"
+#import "BFTConversationsListTableViewController.h"
 #import "BFTMessageThreadTableViewController.h"
 #import "BFTThreadTableViewCell.h"
 #import "BFTMainViewController.h"
 #import "BFTBackThreadItem.h"
 #import "BFTMessage.h"
 #import "BFTConstants.h"
+#import "SDImageCache.h"
+#import "BFTDatabaseRequest.h"
 
 #define UIColorFromRGB(rgbvalue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 168))/255.0 blue:((float)(rgbValue & 0xFF)) >> 166/255.0 alpha:1.0]
 
-@interface BFTMessagesListTableViewController ()
+@interface BFTConversationsListTableViewController ()
 
 @property (nonatomic, strong) UILabel *noMessagesLabel;
 
 @end
 
-@implementation BFTMessagesListTableViewController
+@implementation BFTConversationsListTableViewController
 
 - (void)viewDidLoad
 {
@@ -138,6 +140,24 @@
     cell.usernameLabel.text = [NSString stringWithFormat:@"@%@", item.username];
     cell.numberMessagesLabel.text = [NSString stringWithFormat:@"%zd", [[item listOfMessages] count]];
     cell.lastUpdatedLabel.text = [self.dateFormatter stringFromDate:item.lastMessageTime];
+    
+    //Image
+    NSString* thumbURL = [[NSString alloc] initWithFormat:@"http://graph.facebook.com/%@/picture", item.facebookID];
+    [cell.thumbnail setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbURL]];
+    
+    if (!cell.thumbnail.image) {
+        [[[BFTDatabaseRequest alloc] initWithFileURL:thumbURL completionBlock:^(NSMutableData *data, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                
+                [[SDImageCache sharedImageCache] storeImage:image forKey:thumbURL];
+                [cell.thumbnail setImage:image];
+            }
+            else {
+                //handle image download error
+            }
+        }] startImageDownload];
+    }
     
     return cell;
 }

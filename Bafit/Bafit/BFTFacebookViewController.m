@@ -30,20 +30,7 @@
     
     //Facebook
     _loginButton.delegate = self;
-    _loginButton.readPermissions = @[@"public_profile", @"email"];
-    
-    _thumbURLS = [[NSMutableArray alloc] initWithObjects:@"http://bafit.mobi/userPosts/thumb/v1.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v2.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v3.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v4.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v5.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v6.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v7.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v8.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v9.jpeg",
-                  @"http://bafit.mobi/userPosts/thumb/v10.jpeg", nil];
-    
-//    [self saveImagesToArray];
+    _loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -61,22 +48,6 @@
     UIAlertView *policyAlert = [[UIAlertView alloc] initWithTitle:@"Privacy Policy" message:@"We never post anything to your Facebook \n\nWe never display any of your personal information besides the screen name you choose \n\nWe use Facebook to see friends, age, and interests" delegate:self cancelButtonTitle:@"Disagree" otherButtonTitles:@"Agree", nil];
     [policyAlert show];
 }
-
-//-(void)saveImagesToArray {
-//       for (int i = 0; i < [_thumbURLS count]; i++) {
-//            NSURL *imageURL = [NSURL URLWithString:[_thumbURLS objectAtIndex:i]];
-//          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-//                NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-//               dispatch_async(dispatch_get_main_queue(), ^{
-//                   UIImage *newImageObject = [[UIImage alloc] initWithData:imageData];
-//                   NSMutableArray *images = [[NSMutableArray alloc] init];
-//                   images = [[BFTDataHandler sharedInstance] images];
-//                   [images addObject:newImageObject];
-//                });
-//            });
-//        }
-//}
-
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {
@@ -108,7 +79,16 @@
     }
     fetchedInfoCounter++;
     
-    NSString *email = [user objectForKey:@"email"]; //@"poppyc@ufl.edu";
+    NSString *email = [user objectForKey:@"email"];
+    
+    //To cover the people who have already registered
+    if (![[BFTDataHandler sharedInstance] FBID]) {
+        [self sendFBInformation:user];
+        [[BFTDataHandler sharedInstance] setFBEmail:email];
+        [[BFTDataHandler sharedInstance] setFBID:[user objectID]];
+        [[BFTDataHandler sharedInstance] saveData];
+    }
+
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"userExists.php?FBemail=%@", email] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -131,8 +111,9 @@
                 [(BFTAppDelegate*)[[UIApplication sharedApplication] delegate] connectToJabber];
             }
             else {
-                [self sendFBDemographicInfo:user];
+                [self sendFBInformation:user];
                 [[BFTDataHandler sharedInstance] setFBEmail:email];
+                [[BFTDataHandler sharedInstance] setFBID:[user objectID]];
                 [[BFTDataHandler sharedInstance] saveData];
                 [self performSegueWithIdentifier:@"initiallogin" sender:self];
             }
@@ -185,25 +166,30 @@
     }
 }
 
--(void)sendFBDemographicInfo:(id<FBGraphUser>)user {
-    
+-(void)sendFBInformation:(id<FBGraphUser>)user {
+    //I'm pretty sure we have all this, so don't bother sending to database
     NSLog(@"BF Info: %@", user);
     [[BFTDataHandler sharedInstance] setUserInfo:user];
-    //upload friends list
-    [FBRequestConnection startWithGraphPath:@"/me/friendlists"
-                                 parameters:nil
-                                 HTTPMethod:@"GET"
-                          completionHandler:^(
-                                              FBRequestConnection *connection,
-                                              id result,
-                                              NSError *error
-                                              ) {
-                              [[BFTDataHandler sharedInstance] setFBFriends:result];
-                              NSLog(@"Friend Result: %@", result);
-                          }];
-    NSLog(@"Sending FB Demographics");
+    
+    //pull friends list
+    [FBRequestConnection startWithGraphPath:@"/me/friendlists" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        NSLog(@"Friend Result: %@ \n\nSize: %.4f kb", result, [result length]/1024.0);
+        
+        NSLog(@"Sending FB Friends List");
+        [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"sendFBdata.php?FBemail=%@Data=%@Flist=%@", [user objectForKey:@"email"], user, result] completionBlock:^(NSMutableData *data, NSError *error) {
+            if (!error) {
+                
+            }
+            else {
+                
+            }
+        }] startConnection];
+    }];
 }
 
+-(void)getProfilePicture {
+    
+}
 
 -(BOOL)checkPP {
    // NSLog(@"%s", [[BFTDataHandler sharedInstance] PPAccepted]);

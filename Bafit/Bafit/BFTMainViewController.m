@@ -70,7 +70,8 @@
     [self.view addSubview:feedbackButton];
     
     _videoPlaybackControllers = [[NSMutableDictionary alloc] init];
-    //Check Messages from Queue
+    
+    //Check Messages from Queue ... what is this doing exactly?
     [self checkMessages];
 }
 

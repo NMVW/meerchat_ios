@@ -138,7 +138,7 @@
 		7CF791FA19C250BF003EB61F /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791F419C250BF003EB61F /* AVCamUtilities.m */; };
 		7CF791FB19C250BF003EB61F /* CaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791F619C250BF003EB61F /* CaptureManager.m */; };
 		7CF791FF19C250FA003EB61F /* BFTCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF791FE19C250FA003EB61F /* BFTCameraView.m */; };
-		801AE87A1985C023006EA19B /* BFTMessagesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */; };
+		801AE87A1985C023006EA19B /* BFTConversationsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 801AE8791985C023006EA19B /* BFTConversationsListTableViewController.m */; };
 		801AE87D1985E082006EA19B /* BFTThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 801AE87C1985E082006EA19B /* BFTThreadTableViewCell.m */; };
 		8021993619A91D240042597A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8021993519A91D240042597A /* SystemConfiguration.framework */; };
 		8021993819A91D2F0042597A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8021993719A91D2F0042597A /* CoreVideo.framework */; };
@@ -388,8 +388,8 @@
 		7CF791F619C250BF003EB61F /* CaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureManager.m; sourceTree = "<group>"; };
 		7CF791FD19C250FA003EB61F /* BFTCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTCameraView.h; sourceTree = "<group>"; };
 		7CF791FE19C250FA003EB61F /* BFTCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTCameraView.m; sourceTree = "<group>"; };
-		801AE8781985C023006EA19B /* BFTMessagesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTMessagesListTableViewController.h; sourceTree = "<group>"; };
-		801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMessagesListTableViewController.m; sourceTree = "<group>"; };
+		801AE8781985C023006EA19B /* BFTConversationsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTConversationsListTableViewController.h; sourceTree = "<group>"; };
+		801AE8791985C023006EA19B /* BFTConversationsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTConversationsListTableViewController.m; sourceTree = "<group>"; };
 		801AE87B1985E082006EA19B /* BFTThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTThreadTableViewCell.h; sourceTree = "<group>"; };
 		801AE87C1985E082006EA19B /* BFTThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTThreadTableViewCell.m; sourceTree = "<group>"; };
 		8021993519A91D240042597A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -502,7 +502,7 @@
 				8053BDB919A5CE54006E9D13 /* BFTMainPostViewController.h */,
 				807F5B9A198F1D5000528829 /* BFTVideoResponseViewController.h */,
 				7C425A8E1A0181F5004FBBC3 /* BFTVideoMessageViewController.h */,
-				801AE8781985C023006EA19B /* BFTMessagesListTableViewController.h */,
+				801AE8781985C023006EA19B /* BFTConversationsListTableViewController.h */,
 				807F5B6D198DBF8E00528829 /* BFTMessageThreadTableViewController.h */,
 				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
 				7CC2E77C19E6496B004EECC0 /* BFTVideoPlaybackController.h */,
@@ -521,7 +521,7 @@
 				8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */,
 				807F5B9B198F1D5000528829 /* BFTVideoResponseViewController.m */,
 				7C425A8F1A0181F5004FBBC3 /* BFTVideoMessageViewController.m */,
-				801AE8791985C023006EA19B /* BFTMessagesListTableViewController.m */,
+				801AE8791985C023006EA19B /* BFTConversationsListTableViewController.m */,
 				807F5B6E198DBF8E00528829 /* BFTMessageThreadTableViewController.m */,
 				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
 				7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */,
@@ -1384,7 +1384,7 @@
 				7CB7127E19F9A9A2008935E6 /* ExtendedNSLog.m in Sources */,
 				7C64467F19BCE1E10071D444 /* DDAbstractDatabaseLogger.m in Sources */,
 				7C6446F019BCE6440071D444 /* XMPPDigestMD5Authentication.m in Sources */,
-				801AE87A1985C023006EA19B /* BFTMessagesListTableViewController.m in Sources */,
+				801AE87A1985C023006EA19B /* BFTConversationsListTableViewController.m in Sources */,
 				7C6446EE19BCE6440071D444 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				8021999C19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m in Sources */,
 				7C6446FD19BCE6440071D444 /* XMPPParser.m in Sources */,

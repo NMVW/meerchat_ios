@@ -12,24 +12,32 @@
 
 + (BFTDataHandler *)sharedInstance;
 
+//Initial Login Stuff
 @property (nonatomic) BOOL initialLogin;
 @property (nonatomic) BOOL PPAccepted;
 @property (nonatomic) BOOL emailConfirmed;
-@property(nonatomic, retain) NSMutableArray *Username;
+
+//Actual Account Information
 @property(nonatomic, copy) NSString *BUN;
 @property(nonatomic, copy) NSString *Password;
 @property(nonatomic, copy) NSString *EDEmail;
 @property(nonatomic, copy) NSString *FBEmail;
 @property(nonatomic, copy) NSString *UID;
+
 @property(assign) double Longitude;
 @property(assign) double Latitude;
+
+//FBStuff
+@property(nonatomic, copy) NSString *FBID;
+
+//Not really sure what most of this stuff is/why its here
 @property(nonatomic, retain) NSArray *numberMessages;
 @property (nonatomic, retain) NSMutableArray *images;
 @property(assign) BOOL postView;
 @property (nonatomic, copy) NSString *mp4Name;
 @property (nonatomic, retain) id userInfo;
-@property (nonatomic, retain) id FBFriends;
 
+//Methods
 -(void)saveData;
 -(void)loadData;
 

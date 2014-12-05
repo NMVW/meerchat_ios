@@ -15,8 +15,7 @@
 {
     self = [super init];
     if (self) {
-     //initlize dataMegan
-        _Username = [[NSMutableArray alloc] initWithObjects:@"@JohnB",@"@Mark",@"@Ashley",@"@JohnDoe",@"@Megan",@"@Chelsea",@"@AllenHope",@"@JeffOllen",@"@Trevor",@"@TinkerBell", nil];
+     //initlize data
         _EDEmail = @"";
         _UID = nil;
         _Password = @"Tester";
@@ -29,7 +28,6 @@
         _postView = false;
         _mp4Name = @"";
         _userInfo = nil;
-        _FBFriends = nil;
     }
     return self;
 }
@@ -57,6 +55,8 @@
     [coder encodeObject:self.UID forKey:@"UID"];
     [coder encodeObject:self.BUN forKey:@"BUN"];
     //[coder encodeObject:self.Password forKey:@"password"];
+    [coder encodeObject:self.FBID forKey:@"FBID"];
+    
     [coder encodeFloat:self.Latitude forKey:@"latitude"];
     [coder encodeFloat:self.Longitude forKey:@"longitude"];
     [coder encodeBool:self.emailConfirmed forKey:@"emailConfirmed"];
@@ -76,6 +76,8 @@
     self.UID = [decoder decodeObjectForKey:@"UID"];
     self.BUN = [decoder decodeObjectForKey:@"BUN"];
     //self.Password = [decoder decodeObjectForKey:@"password"];
+    self.FBID = [decoder decodeObjectForKey:@"FBID"];
+    
     self.Latitude = [decoder decodeFloatForKey:@"latitude"];
     self.Longitude = [decoder decodeFloatForKey:@"longitude"];
     self.emailConfirmed = [decoder decodeBoolForKey:@"emailConfirmed"];

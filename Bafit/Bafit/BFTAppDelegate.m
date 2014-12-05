@@ -75,6 +75,13 @@
     else {
         [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"fbVC"]]];
     }
+    
+    //So we can still get info from people who have registered before fb stuff
+    if (![[BFTDataHandler sharedInstance] FBID]) {
+        [[FBSession activeSession] closeAndClearTokenInformation];
+        [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"fbVC"]]];
+    }
+    
     self.window.rootViewController = initialViewController;
     [self.window makeKeyAndVisible];
     

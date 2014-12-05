@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *numberMessagesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdatedLabel;
-
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnail;
 
 @end

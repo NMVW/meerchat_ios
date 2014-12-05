@@ -26,6 +26,7 @@
     if (self) {
         self.username = [aDecoder decodeObjectForKey:@"username"];
         self.userID = [aDecoder decodeObjectForKey:@"userID"];
+        self.facebookID = [aDecoder decodeObjectForKey:@"facebookID"];
         self.lastMessageTime = [aDecoder decodeObjectForKey:@"mostRecentMessage"];
         self.listOfMessages = [aDecoder decodeObjectForKey:@"messages"];
     }
@@ -35,6 +36,7 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.username forKey:@"username"];
     [aCoder encodeObject:self.userID forKey:@"userID"];
+    [aCoder encodeObject:self.facebookID forKey:@"facebookID"];
     [aCoder encodeObject:self.lastMessageTime forKey:@"mostRecentMessage"];
     [aCoder encodeObject:self.listOfMessages forKey:@"messages"];
 }
