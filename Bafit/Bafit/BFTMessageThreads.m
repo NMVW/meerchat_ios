@@ -91,12 +91,16 @@
         newItem.lastMessageTime = date;
         newItem.facebookID = facebookID;
         [newItem.listOfMessages addObject:msg];
+        [newItem incrementUnread];
+        [newItem setMessagesUnseen:YES];
         [self.listOfThreads addObject:newItem];
     }
     else {
         BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
         item.lastMessageTime = date;
         [item.listOfMessages addObject:msg];
+        [item incrementUnread];
+        [item setMessagesUnseen:YES];
     }
 }
 
@@ -121,6 +125,8 @@
         BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
         item.lastMessageTime = [NSDate new];
         [item.listOfMessages addObject:msg];
+        [item incrementUnread];
+        [item setMessagesUnseen:YES];
     }
 }
 
@@ -186,6 +192,9 @@
 
 -(void)resetUnread {
     self.unreadMessages = NO;
+    for (BFTBackThreadItem *thread in self.listOfThreads) {
+        [thread clearUnseen];
+    }
 }
 
 @end

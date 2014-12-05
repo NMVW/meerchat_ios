@@ -60,6 +60,7 @@
     [super viewWillAppear:animated];
     self.appDelegate.messageDelegate = self;
     [self finishReceivingMessage];
+    [self.messageThread clearUnread];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -213,9 +214,8 @@
 #pragma mark - Message Delegate
 
 -(void)recievedMessage {
-    //this should already be handled in the BFTMessages class
-    //Note: TODO: Carlo wants us to actually pull the messages here, but Since I'm already getting the message from xmpp, I'm not going to at this time.
-    
+    [self.messageThread clearUnseen];
+    [self.messageThread clearUnread];
     [self finishReceivingMessage];
 }
 

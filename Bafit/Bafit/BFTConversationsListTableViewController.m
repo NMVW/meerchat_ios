@@ -84,7 +84,6 @@
     [super viewWillAppear:animated];
     [self.tableView reloadData];
     self.appDelegate.messageDelegate = self;
-    [[BFTMessageThreads sharedInstance] resetUnread];
     [[BFTMessageThreads sharedInstance] saveThreads];
 }
 
@@ -138,8 +137,19 @@
     BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:indexPath.row];
     
     cell.usernameLabel.text = [NSString stringWithFormat:@"@%@", item.username];
-    cell.numberMessagesLabel.text = [NSString stringWithFormat:@"%zd", [[item listOfMessages] count]];
+    cell.numberMessagesLabel.text = [item numberUnreadMessages] == 0 ? @"" : [NSString stringWithFormat:@"%zd", [item numberUnreadMessages]];
     cell.lastUpdatedLabel.text = [self.dateFormatter stringFromDate:item.lastMessageTime];
+    
+    if (item.messagesUnseen) {
+        [cell.usernameLabel setTextColor:kOrangeColor];
+        [cell.numberMessagesLabel setTextColor:kOrangeColor];
+        [cell.lastUpdatedLabel setTextColor:kOrangeColor];
+    }
+    else {
+        [cell.usernameLabel setTextColor:[UIColor lightGrayColor]];
+        [cell.numberMessagesLabel setTextColor:[UIColor lightGrayColor]];
+        [cell.lastUpdatedLabel setTextColor:[UIColor lightGrayColor]];
+    }
     
     //Image
     NSString* thumbURL = [[NSString alloc] initWithFormat:@"http://graph.facebook.com/%@/picture?type=large", item.facebookID];

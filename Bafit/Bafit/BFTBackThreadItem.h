@@ -17,4 +17,11 @@
 
 @property (nonatomic, strong) NSMutableArray *listOfMessages;
 
+@property (nonatomic, assign) NSInteger numberUnreadMessages;
+@property (nonatomic, assign) BOOL messagesUnseen;
+
+-(void)clearUnread;
+-(void)clearUnseen;
+-(void)incrementUnread;
+
 @end

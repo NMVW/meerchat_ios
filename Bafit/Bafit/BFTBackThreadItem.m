@@ -29,6 +29,9 @@
         self.facebookID = [aDecoder decodeObjectForKey:@"facebookID"];
         self.lastMessageTime = [aDecoder decodeObjectForKey:@"mostRecentMessage"];
         self.listOfMessages = [aDecoder decodeObjectForKey:@"messages"];
+        
+        self.numberUnreadMessages = [aDecoder decodeIntegerForKey:@"numUnread"];
+        self.messagesUnseen = [aDecoder decodeBoolForKey:@"unSeen"];
     }
     return self;
 }
@@ -39,6 +42,21 @@
     [aCoder encodeObject:self.facebookID forKey:@"facebookID"];
     [aCoder encodeObject:self.lastMessageTime forKey:@"mostRecentMessage"];
     [aCoder encodeObject:self.listOfMessages forKey:@"messages"];
+    
+    [aCoder encodeInteger:self.numberUnreadMessages forKey:@"numUnread"];
+    [aCoder encodeBool:self.messagesUnseen forKey:@"unSeen"];
+}
+
+-(void)incrementUnread {
+    self.numberUnreadMessages++;
+}
+
+-(void)clearUnread {
+    self.numberUnreadMessages = 0;
+}
+
+-(void)clearUnseen {
+    self.messagesUnseen = NO;
 }
 
 -(NSUInteger)hash {
