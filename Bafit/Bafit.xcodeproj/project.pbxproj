@@ -23,6 +23,7 @@
 		15086D1E1A408EC20086998B /* meerchat_connected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D151A408EC20086998B /* meerchat_connected@3x.png */; };
 		15086D211A408ECC0086998B /* trapezoid_menu_lower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */; };
 		15086D221A408ECC0086998B /* trapezoid_menu_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */; };
+		15ED573F1A40C41400B24CEB /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15ED573E1A40C41400B24CEB /* Fabric.framework */; };
 		4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */; };
 		7C13CDFB19E139BB00E54557 /* BFTVideoMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C13CDFA19E139BB00E54557 /* BFTVideoMediaItem.m */; };
 		7C14975919DF4D2E00DFAF7D /* BFTLeftRightSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14975819DF4D2E00DFAF7D /* BFTLeftRightSegue.m */; };
@@ -169,10 +170,6 @@
 		8040E9731978FD59000D66C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9721978FD59000D66C7 /* main.m */; };
 		8040E9771978FD59000D66C7 /* BFTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9761978FD59000D66C7 /* BFTAppDelegate.m */; };
 		8040E97D1978FD59000D66C7 /* BFTFacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */; };
-		8040E9871978FD59000D66C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8040E9661978FD59000D66C7 /* Foundation.framework */; };
-		8040E9881978FD59000D66C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8040E96A1978FD59000D66C7 /* UIKit.framework */; };
-		8040E9901978FD59000D66C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8040E98E1978FD59000D66C7 /* InfoPlist.strings */; };
-		8040E9921978FD59000D66C7 /* BafitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9911978FD59000D66C7 /* BafitTests.m */; };
 		8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */; };
 		8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */; };
 		8053BDBB19A5CE54006E9D13 /* BFTMainPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */; };
@@ -193,16 +190,6 @@
 		80F651001980A4DD00443673 /* BFTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F650FF1980A4DD00443673 /* BFTMainViewController.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		8040E9891978FD59000D66C7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8040E95B1978FD59000D66C7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8040E9621978FD59000D66C7;
-			remoteInfo = Bafit;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		15086D031A408D520086998B /* report_btn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report_btn@3x.png"; sourceTree = "<group>"; };
 		15086D051A408D8B0086998B /* feedback_btn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_btn@3x.png"; sourceTree = "<group>"; };
@@ -220,6 +207,7 @@
 		15086D151A408EC20086998B /* meerchat_connected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meerchat_connected@3x.png"; sourceTree = "<group>"; };
 		15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_lower@3x.png"; sourceTree = "<group>"; };
 		15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_top@3x.png"; sourceTree = "<group>"; };
+		15ED573E1A40C41400B24CEB /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		475A421E1B529C48EF2B0003 /* Pods-Bafit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.release.xcconfig"; sourceTree = "<group>"; };
 		4A6EDEE5837730F3B417D798 /* Pods-Bafit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.debug.xcconfig"; sourceTree = "<group>"; };
 		4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bafit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -332,7 +320,6 @@
 		7C6446EC19BCE6440071D444 /* XMPPTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPTimer.m; sourceTree = "<group>"; };
 		7C64470719BCEFF10071D444 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		7C64470919BD84BE0071D444 /* BFTMessageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTMessageDelegate.h; sourceTree = "<group>"; };
-		7C82BF7419E13FCC000598FA /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		7C8CCD1319FF56CD00D27D24 /* baf_left_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baf_left_active.png; sourceTree = "<group>"; };
 		7C8CCD1419FF56CD00D27D24 /* baf_left_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baf_left_active@2x.png"; sourceTree = "<group>"; };
 		7C8CCD1519FF56CD00D27D24 /* baf_left_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baf_left_inactive.png; sourceTree = "<group>"; };
@@ -446,10 +433,6 @@
 		8040E9761978FD59000D66C7 /* BFTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTAppDelegate.m; sourceTree = "<group>"; };
 		8040E97B1978FD59000D66C7 /* BFTFacebookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTFacebookViewController.h; sourceTree = "<group>"; };
 		8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BFTFacebookViewController.m; sourceTree = "<group>"; };
-		8040E9841978FD59000D66C7 /* BafitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BafitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8040E98D1978FD59000D66C7 /* BafitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BafitTests-Info.plist"; sourceTree = "<group>"; };
-		8040E98F1978FD59000D66C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8040E9911978FD59000D66C7 /* BafitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BafitTests.m; sourceTree = "<group>"; };
 		8040E9B1197E34F6000D66C7 /* BFTDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTDataHandler.h; sourceTree = "<group>"; };
 		8040E9B2197E34F6000D66C7 /* BFTDataHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTDataHandler.m; sourceTree = "<group>"; };
 		8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTEmailConfirmationViewController.m; sourceTree = "<group>"; };
@@ -508,15 +491,7 @@
 				8040E96B1978FD59000D66C7 /* UIKit.framework in Frameworks */,
 				8040E9671978FD59000D66C7 /* Foundation.framework in Frameworks */,
 				4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8040E9811978FD59000D66C7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8040E9881978FD59000D66C7 /* UIKit.framework in Frameworks */,
-				8040E9871978FD59000D66C7 /* Foundation.framework in Frameworks */,
+				15ED573F1A40C41400B24CEB /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,7 +974,6 @@
 			isa = PBXGroup;
 			children = (
 				8040E96C1978FD59000D66C7 /* Bafit */,
-				8040E98B1978FD59000D66C7 /* BafitTests */,
 				8040E9651978FD59000D66C7 /* Frameworks */,
 				8040E9641978FD59000D66C7 /* Products */,
 				EACA318D65A44084DB7D2412 /* Pods */,
@@ -1010,7 +984,6 @@
 			isa = PBXGroup;
 			children = (
 				8040E9631978FD59000D66C7 /* Bafit.app */,
-				8040E9841978FD59000D66C7 /* BafitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1018,11 +991,11 @@
 		8040E9651978FD59000D66C7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15ED573E1A40C41400B24CEB /* Fabric.framework */,
 				7CB33CF11A22AB7400C07BF7 /* StoreKit.framework */,
 				7CB33CEF1A22AB5100C07BF7 /* libz.dylib */,
 				7CB33CED1A22AB3A00C07BF7 /* AudioToolbox.framework */,
 				7C425A951A01B7E2004FBBC3 /* Crashlytics.framework */,
-				7C82BF7419E13FCC000598FA /* FacebookSDK.framework */,
 				7C64470719BCEFF10071D444 /* libresolv.dylib */,
 				7C64468E19BCE26D0071D444 /* Security.framework */,
 				7C64468C19BCE2500071D444 /* CFNetwork.framework */,
@@ -1068,24 +1041,6 @@
 				8040E96F1978FD59000D66C7 /* InfoPlist.strings */,
 				8040E9721978FD59000D66C7 /* main.m */,
 				8040E9741978FD59000D66C7 /* Bafit-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8040E98B1978FD59000D66C7 /* BafitTests */ = {
-			isa = PBXGroup;
-			children = (
-				8040E9911978FD59000D66C7 /* BafitTests.m */,
-				8040E98C1978FD59000D66C7 /* Supporting Files */,
-			);
-			path = BafitTests;
-			sourceTree = "<group>";
-		};
-		8040E98C1978FD59000D66C7 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8040E98D1978FD59000D66C7 /* BafitTests-Info.plist */,
-				8040E98E1978FD59000D66C7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1158,24 +1113,6 @@
 			productReference = 8040E9631978FD59000D66C7 /* Bafit.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8040E9831978FD59000D66C7 /* BafitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8040E9981978FD59000D66C7 /* Build configuration list for PBXNativeTarget "BafitTests" */;
-			buildPhases = (
-				8040E9801978FD59000D66C7 /* Sources */,
-				8040E9811978FD59000D66C7 /* Frameworks */,
-				8040E9821978FD59000D66C7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8040E98A1978FD59000D66C7 /* PBXTargetDependency */,
-			);
-			name = BafitTests;
-			productName = BafitTests;
-			productReference = 8040E9841978FD59000D66C7 /* BafitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1194,9 +1131,6 @@
 							};
 						};
 					};
-					8040E9831978FD59000D66C7 = {
-						TestTargetID = 8040E9621978FD59000D66C7;
-					};
 				};
 			};
 			buildConfigurationList = 8040E95E1978FD59000D66C7 /* Build configuration list for PBXProject "Bafit" */;
@@ -1214,7 +1148,6 @@
 			projectRoot = "";
 			targets = (
 				8040E9621978FD59000D66C7 /* Bafit */,
-				8040E9831978FD59000D66C7 /* BafitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1314,14 +1247,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8040E9821978FD59000D66C7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8040E9901978FD59000D66C7 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1364,7 +1289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 79408de8296f5247d8a98cf57977f3ddc206c935 62e9dc50934da444e1303f26a0e1b8a65c96e969af3ed39babd39fda702b3eb6";
+			shellScript = "./Fabric.framework/run 79408de8296f5247d8a98cf57977f3ddc206c935 62e9dc50934da444e1303f26a0e1b8a65c96e969af3ed39babd39fda702b3eb6";
 		};
 		F736FEC1851A437C8A6C6FDC /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1463,37 +1388,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8040E9801978FD59000D66C7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8040E9921978FD59000D66C7 /* BafitTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		8040E98A1978FD59000D66C7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8040E9621978FD59000D66C7 /* Bafit */;
-			targetProxy = 8040E9891978FD59000D66C7 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8040E96F1978FD59000D66C7 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8040E9701978FD59000D66C7 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		8040E98E1978FD59000D66C7 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8040E98F1978FD59000D66C7 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1675,46 +1576,6 @@
 			};
 			name = Release;
 		};
-		8040E9991978FD59000D66C7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Bafit.app/Bafit";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "BafitTests/BafitTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		8040E99A1978FD59000D66C7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Bafit.app/Bafit";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Bafit/Bafit-Prefix.pch";
-				INFOPLIST_FILE = "BafitTests/BafitTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1732,15 +1593,6 @@
 			buildConfigurations = (
 				8040E9961978FD59000D66C7 /* Debug */,
 				8040E9971978FD59000D66C7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8040E9981978FD59000D66C7 /* Build configuration list for PBXNativeTarget "BafitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8040E9991978FD59000D66C7 /* Debug */,
-				8040E99A1978FD59000D66C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

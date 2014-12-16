@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "BFTMessageThreads.h"
 #import "BFTDataHandler.h"
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Parse/Parse.h>
 #import "BFTConstants.h"
@@ -22,7 +23,7 @@
 {
     [Parse setApplicationId:@"wrDBeyyvoetbewUYHqByWOfK1R5PhiTmZiGOJeYO"
                   clientKey:@"09AYDgk4uYTbiFhNdxge5i2HyWQmeOTc85WivX41"];
-    [Crashlytics startWithAPIKey:@"79408de8296f5247d8a98cf57977f3ddc206c935"];
+    [Fabric with:@[CrashlyticsKit]];
     
     //Set navigation color
 //    [[UINavigationBar appearance] setTranslucent:NO];

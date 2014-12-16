@@ -37,6 +37,20 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>142</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>79408de8296f5247d8a98cf57977f3ddc206c935</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>359513137551945</string>
 	<key>FacebookDisplayName</key>
