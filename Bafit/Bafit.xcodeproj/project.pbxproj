@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15086D041A408D520086998B /* report_btn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D031A408D520086998B /* report_btn@3x.png */; };
+		15086D061A408D8B0086998B /* feedback_btn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D051A408D8B0086998B /* feedback_btn@3x.png */; };
+		15086D0A1A408EA80086998B /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D071A408EA80086998B /* close.png */; };
+		15086D0B1A408EA80086998B /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D081A408EA80086998B /* close@2x.png */; };
+		15086D0C1A408EA80086998B /* close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D091A408EA80086998B /* close@3x.png */; };
+		15086D161A408EC20086998B /* facebook_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D0D1A408EC20086998B /* facebook_friend.png */; };
+		15086D171A408EC20086998B /* facebook_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D0E1A408EC20086998B /* facebook_friend@2x.png */; };
+		15086D181A408EC20086998B /* facebook_friend@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D0F1A408EC20086998B /* facebook_friend@3x.png */; };
+		15086D191A408EC20086998B /* login_dropdown_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D101A408EC20086998B /* login_dropdown_bg.png */; };
+		15086D1A1A408EC20086998B /* login_dropdown_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D111A408EC20086998B /* login_dropdown_bg@2x.png */; };
+		15086D1B1A408EC20086998B /* login_dropdown_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D121A408EC20086998B /* login_dropdown_bg@3x.png */; };
+		15086D1C1A408EC20086998B /* meerchat_connected.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D131A408EC20086998B /* meerchat_connected.png */; };
+		15086D1D1A408EC20086998B /* meerchat_connected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D141A408EC20086998B /* meerchat_connected@2x.png */; };
+		15086D1E1A408EC20086998B /* meerchat_connected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D151A408EC20086998B /* meerchat_connected@3x.png */; };
+		15086D211A408ECC0086998B /* trapezoid_menu_lower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */; };
+		15086D221A408ECC0086998B /* trapezoid_menu_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */; };
 		4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */; };
 		7C13CDFB19E139BB00E54557 /* BFTVideoMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C13CDFA19E139BB00E54557 /* BFTVideoMediaItem.m */; };
 		7C14975919DF4D2E00DFAF7D /* BFTLeftRightSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14975819DF4D2E00DFAF7D /* BFTLeftRightSegue.m */; };
@@ -188,6 +204,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15086D031A408D520086998B /* report_btn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report_btn@3x.png"; sourceTree = "<group>"; };
+		15086D051A408D8B0086998B /* feedback_btn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback_btn@3x.png"; sourceTree = "<group>"; };
+		15086D071A408EA80086998B /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		15086D081A408EA80086998B /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
+		15086D091A408EA80086998B /* close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@3x.png"; sourceTree = "<group>"; };
+		15086D0D1A408EC20086998B /* facebook_friend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_friend.png; sourceTree = "<group>"; };
+		15086D0E1A408EC20086998B /* facebook_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook_friend@2x.png"; sourceTree = "<group>"; };
+		15086D0F1A408EC20086998B /* facebook_friend@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook_friend@3x.png"; sourceTree = "<group>"; };
+		15086D101A408EC20086998B /* login_dropdown_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_dropdown_bg.png; sourceTree = "<group>"; };
+		15086D111A408EC20086998B /* login_dropdown_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_dropdown_bg@2x.png"; sourceTree = "<group>"; };
+		15086D121A408EC20086998B /* login_dropdown_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_dropdown_bg@3x.png"; sourceTree = "<group>"; };
+		15086D131A408EC20086998B /* meerchat_connected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meerchat_connected.png; sourceTree = "<group>"; };
+		15086D141A408EC20086998B /* meerchat_connected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meerchat_connected@2x.png"; sourceTree = "<group>"; };
+		15086D151A408EC20086998B /* meerchat_connected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meerchat_connected@3x.png"; sourceTree = "<group>"; };
+		15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_lower@3x.png"; sourceTree = "<group>"; };
+		15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_top@3x.png"; sourceTree = "<group>"; };
 		475A421E1B529C48EF2B0003 /* Pods-Bafit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.release.xcconfig"; sourceTree = "<group>"; };
 		4A6EDEE5837730F3B417D798 /* Pods-Bafit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.debug.xcconfig"; sourceTree = "<group>"; };
 		4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bafit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -790,6 +822,21 @@
 		7C8CCD1219FF56CD00D27D24 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */,
+				15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */,
+				15086D0D1A408EC20086998B /* facebook_friend.png */,
+				15086D0E1A408EC20086998B /* facebook_friend@2x.png */,
+				15086D0F1A408EC20086998B /* facebook_friend@3x.png */,
+				15086D101A408EC20086998B /* login_dropdown_bg.png */,
+				15086D111A408EC20086998B /* login_dropdown_bg@2x.png */,
+				15086D121A408EC20086998B /* login_dropdown_bg@3x.png */,
+				15086D131A408EC20086998B /* meerchat_connected.png */,
+				15086D141A408EC20086998B /* meerchat_connected@2x.png */,
+				15086D151A408EC20086998B /* meerchat_connected@3x.png */,
+				15086D071A408EA80086998B /* close.png */,
+				15086D081A408EA80086998B /* close@2x.png */,
+				15086D091A408EA80086998B /* close@3x.png */,
+				15086D031A408D520086998B /* report_btn@3x.png */,
 				7C1F447B1A19B1D1000C06CE /* splash@2x.png */,
 				7C2C8A7F1A2481CF002204A3 /* locationpin.png */,
 				7C2C8A801A2481CF002204A3 /* locationpin@2x.png */,
@@ -809,6 +856,7 @@
 				7C8CCD1D19FF56CD00D27D24 /* Default.png */,
 				7C8CCD1E19FF56CD00D27D24 /* feedback_btn.png */,
 				7C8CCD1F19FF56CD00D27D24 /* feedback_btn@2x.png */,
+				15086D051A408D8B0086998B /* feedback_btn@3x.png */,
 				7C8CCD2019FF56CD00D27D24 /* grub_btn_active.png */,
 				7C8CCD2119FF56CD00D27D24 /* grub_btn_active@2x.png */,
 				7C8CCD2219FF56CD00D27D24 /* grub_btn_inactive.png */,
@@ -1176,6 +1224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15086D0B1A408EA80086998B /* close@2x.png in Resources */,
 				7C8CCD9B19FF56CD00D27D24 /* milo_backtohome@2x.png in Resources */,
 				7C8CCDAE19FF56CD00D27D24 /* post_center@2x.png in Resources */,
 				7CB1F4931A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf in Resources */,
@@ -1183,6 +1232,9 @@
 				7C8CCD9519FF56CD00D27D24 /* love_btn_active.png in Resources */,
 				7C2C8A821A2481CF002204A3 /* locationpin.png in Resources */,
 				7C8CCD7019FF56CD00D27D24 /* baf_left_active.png in Resources */,
+				15086D1A1A408EC20086998B /* login_dropdown_bg@2x.png in Resources */,
+				15086D211A408ECC0086998B /* trapezoid_menu_lower@3x.png in Resources */,
+				15086D1D1A408EC20086998B /* meerchat_connected@2x.png in Resources */,
 				7C8CCD7419FF56CD00D27D24 /* baf_right_active.png in Resources */,
 				7C64468719BCE1E10071D444 /* README.txt in Resources */,
 				7C8CCD9A19FF56CD00D27D24 /* milo_backtohome.png in Resources */,
@@ -1196,6 +1248,7 @@
 				7C8CCD7319FF56CD00D27D24 /* baf_left_inactive@2x.png in Resources */,
 				7C8CCD9D19FF56CD00D27D24 /* Milo_Face_Navbar.png in Resources */,
 				7C8CCDA319FF56CD00D27D24 /* move_btn_inactive.png in Resources */,
+				15086D221A408ECC0086998B /* trapezoid_menu_top@3x.png in Resources */,
 				7C8CCDA819FF56CD00D27D24 /* msg_new@2x.png in Resources */,
 				7C8CCDC719FF56CD00D27D24 /* trapezoid_menu_bottom.png in Resources */,
 				7C8CCD7A19FF56CD00D27D24 /* Default.png in Resources */,
@@ -1203,11 +1256,15 @@
 				7C8CCD9819FF56CD00D27D24 /* love_btn_inactive@2x.png in Resources */,
 				7C6446A619BCE6130071D444 /* build-libidn.sh in Resources */,
 				7C8CCDC919FF56CD00D27D24 /* trapezoid_menu_bottom_segmented.png in Resources */,
+				15086D0C1A408EA80086998B /* close@3x.png in Resources */,
 				7C8CCD8019FF56CD00D27D24 /* grub_btn_inactive@2x.png in Resources */,
 				7C8CCDC419FF56CD00D27D24 /* study_btn_inactive.png in Resources */,
 				8040E9711978FD59000D66C7 /* InfoPlist.strings in Resources */,
+				15086D041A408D520086998B /* report_btn@3x.png in Resources */,
+				15086D181A408EC20086998B /* facebook_friend@3x.png in Resources */,
 				7C8CCDA219FF56CD00D27D24 /* move_btn_active@2x.png in Resources */,
 				7C8CCDCC19FF56CD00D27D24 /* trapezoid_menu_top@2x.png in Resources */,
+				15086D161A408EC20086998B /* facebook_friend.png in Resources */,
 				7C8CCD7219FF56CD00D27D24 /* baf_left_inactive.png in Resources */,
 				7C2C8A841A2481CF002204A3 /* locationpin@3x.png in Resources */,
 				7C8CCD7519FF56CD00D27D24 /* baf_right_active@2x.png in Resources */,
@@ -1215,6 +1272,7 @@
 				7C8CCD7F19FF56CD00D27D24 /* grub_btn_inactive.png in Resources */,
 				7C8CCD7C19FF56CD00D27D24 /* feedback_btn@2x.png in Resources */,
 				7C1F44771A19AF44000C06CE /* timeclock.png in Resources */,
+				15086D061A408D8B0086998B /* feedback_btn@3x.png in Resources */,
 				7C1F44781A19AF44000C06CE /* timeclock@2x.png in Resources */,
 				7C8CCDAA19FF56CD00D27D24 /* msg_nonew@2x.png in Resources */,
 				7C8CCDC519FF56CD00D27D24 /* study_btn_inactive@2x.png in Resources */,
@@ -1223,6 +1281,7 @@
 				7C8CCDC319FF56CD00D27D24 /* study_btn_active@2x.png in Resources */,
 				7C8CCDAF19FF56CD00D27D24 /* report_btn.png in Resources */,
 				7C8CCDA519FF56CD00D27D24 /* msg_center.png in Resources */,
+				15086D191A408EC20086998B /* login_dropdown_bg.png in Resources */,
 				7C8CCD7619FF56CD00D27D24 /* baf_right_inactive.png in Resources */,
 				7C2C8A831A2481CF002204A3 /* locationpin@2x.png in Resources */,
 				7C8CCDC819FF56CD00D27D24 /* trapezoid_menu_bottom@2x.png in Resources */,
@@ -1231,21 +1290,26 @@
 				7C8CCD9E19FF56CD00D27D24 /* Milo_Face_Navbar@2x.png in Resources */,
 				7C8CCD7B19FF56CD00D27D24 /* feedback_btn.png in Resources */,
 				7CB1F4951A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf in Resources */,
+				15086D1E1A408EC20086998B /* meerchat_connected@3x.png in Resources */,
 				7C8CCD9919FF56CD00D27D24 /* message_icon@2x.png in Resources */,
 				7CB1F4941A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf in Resources */,
 				7C8CCD7D19FF56CD00D27D24 /* grub_btn_active.png in Resources */,
 				7C8CCD9C19FF56CD00D27D24 /* Milo_Face_Full.png in Resources */,
 				7C8CCDAD19FF56CD00D27D24 /* post_center.png in Resources */,
+				15086D0A1A408EA80086998B /* close.png in Resources */,
 				7C8CCD9F19FF56CD00D27D24 /* Milo_Face_Navbar_Transparent@2x.png in Resources */,
 				7C8CCDA019FF56CD00D27D24 /* Milo_final_8-20.png in Resources */,
 				7C8CCD9719FF56CD00D27D24 /* love_btn_inactive.png in Resources */,
 				7C8CCD7719FF56CD00D27D24 /* baf_right_inactive@2x.png in Resources */,
 				7C8CCDAB19FF56CD00D27D24 /* navbar.png in Resources */,
 				7C8CCD7119FF56CD00D27D24 /* baf_left_active@2x.png in Resources */,
+				15086D1B1A408EC20086998B /* login_dropdown_bg@3x.png in Resources */,
 				7C8CCD9619FF56CD00D27D24 /* love_btn_active@2x.png in Resources */,
 				7C8CCDA419FF56CD00D27D24 /* move_btn_inactive@2x.png in Resources */,
+				15086D1C1A408EC20086998B /* meerchat_connected.png in Resources */,
 				7C8CCDCA19FF56CD00D27D24 /* trapezoid_menu_bottom_segmented@2x.png in Resources */,
 				7C8CCD7919FF56CD00D27D24 /* Default-1.png in Resources */,
+				15086D171A408EC20086998B /* facebook_friend@2x.png in Resources */,
 				7C8CCDA719FF56CD00D27D24 /* msg_new.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1453,8 +1517,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1478,7 +1542,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
-				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
+				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1499,8 +1563,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1517,7 +1581,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-lxml2";
-				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
+				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1529,8 +1593,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1561,7 +1625,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
+				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1573,8 +1637,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Joseph Pecoraro (VQ98M7M9F6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1605,7 +1669,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "48945e55-78f4-45ba-90b0-b8108c7cc341";
+				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
