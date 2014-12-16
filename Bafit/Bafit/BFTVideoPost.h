@@ -21,6 +21,9 @@
 @property (nonatomic, copy) NSString *atTag;
 @property (nonatomic, copy) NSString *hashTag;
 
+@property (nonatomic, assign) BOOL isFacebookFriend;
+@property (nonatomic, assign) BOOL hasMeerchatConnection;
+
 -(instancetype)initWithDictionary:(NSDictionary *)jsonDictionary;
 
 @end

@@ -17,6 +17,9 @@
 @property (nonatomic, strong) UIView *videoPlaybackView;
 @property (nonatomic, strong) UILabel *usernameLabel;
 
+@property (nonatomic, strong) UIImageView *facebookFriends;
+@property (nonatomic, strong) UIImageView *meerchatConnection;
+
 @property (nonatomic, strong) UIImageView *bottomTrapazoid;
 
 @property (nonatomic, strong) UIImageView *locationIcon;

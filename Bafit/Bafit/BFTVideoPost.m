@@ -36,6 +36,11 @@
         self.atTag = [jsonDictionary objectForKey:@"at_tag"];
         self.hashTag = [jsonDictionary objectForKey:@"hash_tag"];
         self.timeStamp = [dateFormatter dateFromString:[jsonDictionary objectForKey:@"TS"]];
+        
+        self.isFacebookFriend = [[jsonDictionary objectForKey:@"FBFriend"] boolValue];
+        
+        //TODO: Make this pull from database
+        self.hasMeerchatConnection = NO;
     }
     return self;
 }

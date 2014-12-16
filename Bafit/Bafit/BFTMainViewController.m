@@ -294,6 +294,9 @@
     [mainView.responseButton addTarget:self action:@selector(respondToUser) forControlEvents:UIControlEventTouchUpInside];
     [mainView.notTodayButton addTarget:self action:@selector(notToday) forControlEvents:UIControlEventTouchUpInside];
     
+    mainView.facebookFriends.hidden = ![post isFacebookFriend];
+    mainView.meerchatConnection.hidden = ![post hasMeerchatConnection];
+    
     if ([[post UID] isEqual:[[BFTDataHandler sharedInstance] UID]]) {
         [mainView.notTodayButton setTitle:@"delete" forState:UIControlStateNormal];
     }

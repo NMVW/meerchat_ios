@@ -25,10 +25,24 @@
 }
 
 -(void)loadAllViewElements {
+    [self loadTopHalf];
+    [self loadMiddleStuff];
+    [self loadBottomHalf];
+}
+
+-(void)loadTopHalf {
     [self loadTopTrapezoid];
     [self loadRespondLabel];
     [self loadHastagLabel];
+}
+
+-(void)loadMiddleStuff {
+    [self loadFacebookConnectionImage];
+    [self loadMeerchatConnectionImage];
     [self loadUsernameLabel];
+}
+
+-(void)loadBottomHalf {
     [self loadBottomTrapezoid];
     [self loadLocationItems];
     [self loadTimeItems];
@@ -63,6 +77,22 @@
     self.hashTagLabel.textAlignment = NSTextAlignmentCenter;
     self.hashTagLabel.tag = 13;
     [self addSubview:self.hashTagLabel];
+}
+
+-(void)loadFacebookConnectionImage {
+    self.facebookFriends = [[UIImageView alloc] initWithFrame:CGRectMake(5, self.topTrapazoid.frame.size.height + 5, 25, 25)];
+    [self.facebookFriends setImage:[UIImage imageNamed:@"facebook_friend.png"]];
+    [self.facebookFriends setContentMode:UIViewContentModeScaleAspectFit];
+    [self addSubview:self.facebookFriends];
+    [self.facebookFriends setHidden:YES];
+}
+
+-(void)loadMeerchatConnectionImage {
+    self.meerchatConnection = [[UIImageView alloc] initWithFrame:CGRectMake(self.facebookFriends.frame.size.width + 5, self.topTrapazoid.frame.size.height + 5, 25, 25)];
+    [self.meerchatConnection setImage:[UIImage imageNamed:@"meerchat_connected.png"]];
+    [self.meerchatConnection setContentMode:UIViewContentModeScaleAspectFit];
+    [self addSubview:self.meerchatConnection];
+    [self.meerchatConnection setHidden:YES];
 }
 
 -(void)loadUsernameLabel {
@@ -132,6 +162,8 @@
     _videoPlaybackView = videoPlaybackView;
     [self addSubview:_videoPlaybackView];
     [self bringSubviewToFront:self.usernameLabel];
+    [self bringSubviewToFront:self.facebookFriends];
+    [self bringSubviewToFront:self.meerchatConnection];
 }
 
 @end
