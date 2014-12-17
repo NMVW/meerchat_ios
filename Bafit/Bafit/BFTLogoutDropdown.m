@@ -44,15 +44,15 @@
 }
 
 -(void)loadProfilePicture {
-    //self.profilePicture = [[UIImageView alloc] initWithFrame:CGRectMake(self.inviteFriendsButton.frame.origin.x + self.inviteFriendsButton.frame.size.width - 60, 14, 60, 60)];
-    self.profilePicture = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width/4-30, 14, 60, 60)];
+    self.profilePicture = [[UIImageView alloc] initWithFrame:CGRectMake(self.inviteFriendsButton.frame.origin.x + self.inviteFriendsButton.frame.size.width - 75, 14, 60, 60)];
+    //self.profilePicture = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width/4-30, 14, 60, 60)];
     [self.profilePicture setContentMode:UIViewContentModeScaleAspectFill];
     [self.profilePicture.layer setCornerRadius:5];
     [self.profilePicture setClipsToBounds:YES];
     
     NSString* thumbURL = [[NSString alloc] initWithFormat:@"http://graph.facebook.com/%@/picture?type=large", [[BFTDataHandler sharedInstance] FBID]];
     [self.profilePicture setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbURL]];
-    
+
     if (!self.profilePicture.image) {
         [[[BFTDatabaseRequest alloc] initWithFileURL:thumbURL completionBlock:^(NSMutableData *data, NSError *error) {
             if (!error) {
@@ -71,7 +71,7 @@
 }
 
 -(void)loadUsernameLabels {
-    self.loggedInLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width + 15, self.profilePicture.frame.origin.y + 5, [UIScreen mainScreen].bounds.size.width - self.profilePicture.frame.origin.x, 25)];
+    self.loggedInLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profilePicture.frame.origin.x + self.profilePicture.frame.size.width + 10, self.profilePicture.frame.origin.y + 5, [UIScreen mainScreen].bounds.size.width - self.profilePicture.frame.origin.x, 25)];
     [self.loggedInLabel setFont:[UIFont systemFontOfSize:16]];
     [self.loggedInLabel setTextColor:[UIColor lightGrayColor]];
     [self.loggedInLabel setText:@"Logged in as:"];
