@@ -124,7 +124,6 @@
      title:nil
      parameters:nil
      handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-         NSLog(@"%@\n%@\n%@", result, resultURL, error);
      }];
 }
 

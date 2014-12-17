@@ -44,7 +44,8 @@
 }
 
 -(void)loadProfilePicture {
-    self.profilePicture = [[UIImageView alloc] initWithFrame:CGRectMake(self.inviteFriendsButton.frame.origin.x + self.inviteFriendsButton.frame.size.width - 60, 14, 60, 60)];
+    //self.profilePicture = [[UIImageView alloc] initWithFrame:CGRectMake(self.inviteFriendsButton.frame.origin.x + self.inviteFriendsButton.frame.size.width - 60, 14, 60, 60)];
+    self.profilePicture = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width/4-30, 14, 60, 60)];
     [self.profilePicture setContentMode:UIViewContentModeScaleAspectFill];
     [self.profilePicture.layer setCornerRadius:5];
     [self.profilePicture setClipsToBounds:YES];
@@ -85,7 +86,7 @@
 }
 
 -(void)loadInviteFriendsButton {
-    self.inviteFriendsButton = [[UIButton alloc] initWithFrame:CGRectMake(20, self.frame.size.height-20-30, 120, 31)];
+    self.inviteFriendsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/4 - 60, self.frame.size.height-20-30, 120, 31)];
     [self.inviteFriendsButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [self.inviteFriendsButton setTitle:@"Invite Friends" forState:UIControlStateNormal];
     [self.inviteFriendsButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
@@ -99,7 +100,7 @@
 }
 
 -(void)loadLogoutButton {
-    self.logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-20-120, self.frame.size.height-20-30, 120, 31)];
+    self.logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/4*3-60, self.frame.size.height-20-30, 120, 31)];
     [self.logoutButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
     [self.logoutButton setTitle:@"Logout" forState:UIControlStateNormal];
     [self.logoutButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
