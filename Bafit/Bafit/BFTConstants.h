@@ -18,6 +18,8 @@
 #define kFuturaFont @"ForgottenFuturistRg-Regular"
 #define kFuturaBoldFont @"ForgottenFuturistRg-Bold"
 
+#define kAppLink @"http://meerchat.mobi"
+
 #ifdef DEBUG
 #define NSLog(args...) ExtendNSLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);
 #else

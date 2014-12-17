@@ -118,13 +118,69 @@
 }
 
 -(void)inviteFacebookFriends {
-    [FBWebDialogs
-     presentRequestsDialogModallyWithSession:[FBSession activeSession]
-     message:NSLocalizedString(@"Come join me on Meerchat! It's a great way to meet new friends!", nil)
-     title:nil
-     parameters:nil
-     handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-     }];
+    FBLinkShareParams *params = [[FBLinkShareParams alloc] init];
+    params.link = [NSURL URLWithString:kAppLink];
+    
+    if ([FBDialogs canPresentShareDialogWithParams:params] || [FBDialogs canPresentOSIntegratedShareDialog]) {
+        [FBDialogs presentShareDialogWithLink:params.link handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+            if(error) {
+                NSLog(@"Error: %@", error.description);
+            } else {
+                NSLog(@"Success: %@\n%@", call, results);
+            }
+        }];
+    }
+    else {
+        // Put together the dialog parameters
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       @"359513137551945", @"app_id",
+                                       @"Join Me on Meerchat", @"name",
+                                       @"Meet people in a new way.", @"caption",
+                                       kAppLink, @"link",
+                                       @"https://scontent-b-mia.xx.fbcdn.net/hphotos-xpf1/t31.0-8/10371180_313059045533978_5323915247316406367_o.png", @"picture",
+                                       nil];
+        
+        // Show the feed dialog
+        [FBWebDialogs presentFeedDialogModallyWithSession:[FBSession activeSession] parameters:params handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+            if (error) {
+                // An error occurred, we need to handle the error
+                // See: https://developers.facebook.com/docs/ios/errors
+                NSLog(@"Error publishing story: %@", error.description);
+            } else {
+                if (result == FBWebDialogResultDialogNotCompleted) {
+                    // User cancelled.
+                    NSLog(@"User cancelled.");
+                } else {
+                    // Handle the publish feed callback
+                    NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                    
+                    if (![urlParams valueForKey:@"post_id"]) {
+                        // User cancelled.
+                        NSLog(@"User cancelled.");
+                        
+                    } else {
+                        // User clicked the Share button
+                        NSString *result = [NSString stringWithFormat: @"Posted story, id: %@", [urlParams valueForKey:@"post_id"]];
+                        NSLog(@"result %@", result);
+                    }
+                }
+            }
+        }];
+
+    }
+}
+
+// A function for parsing URL parameters returned by the Feed Dialog.
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
 }
 
 - (void)didReceiveMemoryWarning

@@ -88,7 +88,7 @@
 -(void)loadInviteFriendsButton {
     self.inviteFriendsButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/4 - 60, self.frame.size.height-20-30, 120, 31)];
     [self.inviteFriendsButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-    [self.inviteFriendsButton setTitle:@"Invite Friends" forState:UIControlStateNormal];
+    [self.inviteFriendsButton setTitle:@"Share Meerchat" forState:UIControlStateNormal];
     [self.inviteFriendsButton setBackgroundImage:[UIImage imageWithColor:[UIColor lightGrayColor]] forState:UIControlStateNormal];
     [self.inviteFriendsButton setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateHighlighted];
     [self.inviteFriendsButton setBackgroundImage:[UIImage imageWithColor:[UIColor grayColor]] forState:UIControlStateSelected];
