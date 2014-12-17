@@ -120,7 +120,7 @@
 -(void)inviteFacebookFriends {
     [FBWebDialogs
      presentRequestsDialogModallyWithSession:[FBSession activeSession]
-     message:NSLocalizedString(@"Invite your facebook friends to join you on meerchat!", nil)
+     message:NSLocalizedString(@"Come join me on Meerchat! It's a great way to meet new friends!", nil)
      title:nil
      parameters:nil
      handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
