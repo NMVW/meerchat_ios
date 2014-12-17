@@ -118,7 +118,14 @@
 }
 
 -(void)inviteFacebookFriends {
-    
+    [FBWebDialogs
+     presentRequestsDialogModallyWithSession:[FBSession activeSession]
+     message:NSLocalizedString(@"Invite your facebook friends to join you on meerchat!", nil)
+     title:nil
+     parameters:nil
+     handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+         NSLog(@"%@\n%@\n%@", result, resultURL, error);
+     }];
 }
 
 - (void)didReceiveMemoryWarning
