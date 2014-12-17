@@ -10,6 +10,7 @@
 #import "BFTMessageThreadTableViewController.h"
 #import "BFTThreadTableViewCell.h"
 #import "BFTMainViewController.h"
+#import "BFTLogoutDropdown.h"
 #import "BFTBackThreadItem.h"
 #import "BFTMessage.h"
 #import "BFTConstants.h"
@@ -71,7 +72,16 @@
     UIBarButtonItem *miloFace = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"milo_backtohome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  style:UIBarButtonItemStylePlain target:self action:@selector(home:)];
     self.navigationItem.rightBarButtonItem = miloFace;
     
-    [self.navigationItem setHidesBackButton:YES animated:NO];
+    UIBarButtonItem *facebookLogout = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"facebook_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(showDropDown)];
+    
+    [self.navigationItem setLeftBarButtonItem:facebookLogout];
+    
+    self.logoutDropdown = [[BFTLogoutDropdown alloc] init];
+    //set facebook friends button stuff
+    [self.logoutDropdown.logoutButton addTarget:self action:@selector(logoutOfApp) forControlEvents:UIControlEventTouchUpInside];
+    [self.logoutDropdown.inviteFriendsButton addTarget:self action:@selector(inviteFacebookFriends) forControlEvents:UIControlEventTouchUpInside];
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:self.logoutDropdown];
+    self.logoutDropdown.hidden = YES;
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
     self.dateFormatter.dateStyle = NSDateFormatterShortStyle;
@@ -89,12 +99,26 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.logoutDropdown setHidden:YES];//should animate this
     [[BFTMessageThreads sharedInstance] resetUnread];
     self.appDelegate.messageDelegate = nil;
 }
 
 -(void)home:(UIBarButtonItem *)sender {
     [self performSegueWithIdentifier:@"backToMain" sender:self];
+}
+
+-(void)showDropDown {
+    [self.logoutDropdown setHidden:!self.logoutDropdown.hidden];
+}
+
+-(void)logoutOfApp {
+    [self.appDelegate logout];
+    [self performSegueWithIdentifier:@"logoutToFacebook" sender:self];
+}
+
+-(void)inviteFacebookFriends {
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -202,7 +226,8 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"loadThread"]) {
-        BFTMessageThreadTableViewController *destination = [segue destinationViewController];
+        UINavigationController *navController = [segue destinationViewController];
+        BFTMessageThreadTableViewController *destination = [navController.viewControllers objectAtIndex:0];
         
         BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:self.selectedIndex];
         destination.otherPersonsUserID = item.userID;
@@ -210,6 +235,5 @@
         destination.messageThread = item;
     }
 }
-
 
 @end

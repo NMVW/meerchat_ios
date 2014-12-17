@@ -14,6 +14,7 @@
 
 #define kOrangeColor [UIColor colorWithRed:255/255.0 green:161/255.0 blue:0/255.0 alpha:1]
 #define kGrayBackground [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1]
+#define kSlightlyDarkerGray [UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1]
 #define kFuturaFont @"ForgottenFuturistRg-Regular"
 #define kFuturaBoldFont @"ForgottenFuturistRg-Bold"
 

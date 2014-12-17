@@ -56,6 +56,8 @@
     [coder encodeObject:self.BUN forKey:@"BUN"];
     //[coder encodeObject:self.Password forKey:@"password"];
     [coder encodeObject:self.FBID forKey:@"FBID"];
+    [coder encodeObject:self.firstName forKey:@"firstName"];
+    [coder encodeObject:self.lastName forKey:@"lastName"];
     
     [coder encodeFloat:self.Latitude forKey:@"latitude"];
     [coder encodeFloat:self.Longitude forKey:@"longitude"];
@@ -77,6 +79,9 @@
     self.BUN = [decoder decodeObjectForKey:@"BUN"];
     //self.Password = [decoder decodeObjectForKey:@"password"];
     self.FBID = [decoder decodeObjectForKey:@"FBID"];
+    
+    self.firstName = [decoder decodeObjectForKey:@"firstName"];
+    self.lastName = [decoder decodeObjectForKey:@"lastName"];
     
     self.Latitude = [decoder decodeFloatForKey:@"latitude"];
     self.Longitude = [decoder decodeFloatForKey:@"longitude"];

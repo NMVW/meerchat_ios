@@ -29,8 +29,13 @@
     self.title = [NSString stringWithFormat:@"@%@", self.otherPersonsUserName];
     self.senderId = [[BFTDataHandler sharedInstance] BUN] ?: @"me";
     
-    //I don't know why I had to do this to change the title color.. ohh well
+    [self.navigationController.navigationBar setTranslucent:NO];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
+    [self.navigationController.navigationBar setBarTintColor:kOrangeColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    UIBarButtonItem *exit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissModally)];
+    [self.navigationItem setLeftBarButtonItem:exit];
     
     [self loadMessages];
     
@@ -50,8 +55,8 @@
     self.incomingBubbleImageData = [imageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     
     
-    [self.inputToolbar.contentView.rightBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
-    [self.inputToolbar.contentView.leftBarButtonItem setTintColor:[UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0]];
+    [self.inputToolbar.contentView.rightBarButtonItem setTintColor:kOrangeColor];
+    [self.inputToolbar.contentView.leftBarButtonItem setTintColor:kOrangeColor];
     
     [self.collectionView setBackgroundColor:[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1]];
 }
@@ -67,6 +72,10 @@
     [super viewWillDisappear:animated];
     self.appDelegate.messageDelegate = nil;
     [self stopPlayingLastVideo];
+}
+
+-(void)dismissModally {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - JSQMessagesViewController

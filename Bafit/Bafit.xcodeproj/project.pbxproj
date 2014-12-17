@@ -24,6 +24,8 @@
 		15086D211A408ECC0086998B /* trapezoid_menu_lower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */; };
 		15086D221A408ECC0086998B /* trapezoid_menu_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */; };
 		15ED573F1A40C41400B24CEB /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15ED573E1A40C41400B24CEB /* Fabric.framework */; };
+		15ED57421A40DD5100B24CEB /* BFTLogoutDropdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED57411A40DD5100B24CEB /* BFTLogoutDropdown.m */; };
+		15ED57471A40F37A00B24CEB /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED57461A40F37A00B24CEB /* UIImage+Color.m */; };
 		4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */; };
 		7C13CDFB19E139BB00E54557 /* BFTVideoMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C13CDFA19E139BB00E54557 /* BFTVideoMediaItem.m */; };
 		7C14975919DF4D2E00DFAF7D /* BFTLeftRightSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14975819DF4D2E00DFAF7D /* BFTLeftRightSegue.m */; };
@@ -208,6 +210,10 @@
 		15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_lower@3x.png"; sourceTree = "<group>"; };
 		15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_top@3x.png"; sourceTree = "<group>"; };
 		15ED573E1A40C41400B24CEB /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		15ED57401A40DD5100B24CEB /* BFTLogoutDropdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTLogoutDropdown.h; sourceTree = "<group>"; };
+		15ED57411A40DD5100B24CEB /* BFTLogoutDropdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTLogoutDropdown.m; sourceTree = "<group>"; };
+		15ED57451A40F37A00B24CEB /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		15ED57461A40F37A00B24CEB /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		475A421E1B529C48EF2B0003 /* Pods-Bafit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.release.xcconfig"; sourceTree = "<group>"; };
 		4A6EDEE5837730F3B417D798 /* Pods-Bafit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.debug.xcconfig"; sourceTree = "<group>"; };
 		4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bafit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -890,6 +896,8 @@
 				7CD38DF919F0B45B001DC8EF /* BFTCarouselView.m */,
 				801AE87B1985E082006EA19B /* BFTThreadTableViewCell.h */,
 				801AE87C1985E082006EA19B /* BFTThreadTableViewCell.m */,
+				15ED57401A40DD5100B24CEB /* BFTLogoutDropdown.h */,
+				15ED57411A40DD5100B24CEB /* BFTLogoutDropdown.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -922,6 +930,8 @@
 				8040E9761978FD59000D66C7 /* BFTAppDelegate.m */,
 				7CB7127C19F9A9A2008935E6 /* ExtendedNSLog.h */,
 				7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */,
+				15ED57451A40F37A00B24CEB /* UIImage+Color.h */,
+				15ED57461A40F37A00B24CEB /* UIImage+Color.m */,
 				7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */,
 				7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */,
 			);
@@ -1344,6 +1354,7 @@
 				7C6446F219BCE6440071D444 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				7C64470019BCE6440071D444 /* DDList.m in Sources */,
 				7C6446EF19BCE6440071D444 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
+				15ED57421A40DD5100B24CEB /* BFTLogoutDropdown.m in Sources */,
 				7CB0765A1A0F4FD500D597EA /* NSDate+relativeTimeStamp.m in Sources */,
 				7C64470219BCE6440071D444 /* RFImageToDataTransformer.m in Sources */,
 				7C425A901A0181F5004FBBC3 /* BFTVideoMessageViewController.m in Sources */,
@@ -1373,6 +1384,7 @@
 				7CB7127E19F9A9A2008935E6 /* ExtendedNSLog.m in Sources */,
 				7C64467F19BCE1E10071D444 /* DDAbstractDatabaseLogger.m in Sources */,
 				7C6446F019BCE6440071D444 /* XMPPDigestMD5Authentication.m in Sources */,
+				15ED57471A40F37A00B24CEB /* UIImage+Color.m in Sources */,
 				801AE87A1985C023006EA19B /* BFTConversationsListTableViewController.m in Sources */,
 				7C6446EE19BCE6440071D444 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				8021999C19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m in Sources */,

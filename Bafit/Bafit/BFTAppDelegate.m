@@ -155,6 +155,11 @@
 
 #pragma Mark FB Stuff
 
+-(void)logout {
+    [[FBSession activeSession] closeAndClearTokenInformation];
+    [self goOffline];
+}
+
 -(NSError*)openCachedFBSession {
     __block NSError *fbError;
     // If there's one, just open the session silently, without showing the user the login UI

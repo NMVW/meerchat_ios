@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gen-d0-YEF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gen-d0-YEF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -1007,13 +1007,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Back" id="1aK-bf-fNP"/>
                     <connections>
-                        <segue destination="o7d-dj-EKV" kind="push" identifier="loadThread" id="Ndn-dg-YUf"/>
                         <segue destination="2cd-to-cO3" kind="push" identifier="backToMain" id="J4a-6v-v6f"/>
+                        <segue destination="C9e-RL-op0" kind="modal" identifier="loadThread" id="Mx9-nJ-gg4"/>
+                        <segue destination="vXZ-lx-hvc" kind="push" identifier="logoutToFacebook" id="Lda-ed-wiM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4w-JH-xI2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-149" y="540"/>
+            <point key="canvasLocation" x="-195" y="546"/>
         </scene>
         <!--Message Thread Table View Controller-->
         <scene sceneID="GzM-Ej-dYh">
@@ -1035,7 +1036,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7wu-dJ-hlB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="301" y="540"/>
+            <point key="canvasLocation" x="736" y="540"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Cl7-7M-iRS">
+            <objects>
+                <navigationController id="C9e-RL-op0" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eav-NP-7Eg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="o7d-dj-EKV" kind="relationship" relationship="rootViewController" id="021-qI-eep"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xq4-Bk-pAf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="257" y="546"/>
         </scene>
         <!--Video Message View Controller-->
         <scene sceneID="wjG-HV-wGd">
@@ -1072,7 +1089,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adU-En-xXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="546"/>
+            <point key="canvasLocation" x="1228" y="540"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jcm-Lj-FRb">
@@ -1117,7 +1134,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hmw-A7-sAG"/>
         <segue reference="J4a-6v-v6f"/>
+        <segue reference="Lda-ed-wiM"/>
+        <segue reference="hmw-A7-sAG"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -84,10 +84,13 @@
     //To cover the people who have already registered
     if (![[BFTDataHandler sharedInstance] FBID]) {
         [self sendFBInformation:user];
-        [[BFTDataHandler sharedInstance] setFBEmail:email];
-        [[BFTDataHandler sharedInstance] setFBID:[user objectID]];
-        [[BFTDataHandler sharedInstance] saveData];
     }
+    //Update some stuff..
+    [[BFTDataHandler sharedInstance] setFBEmail:email];
+    [[BFTDataHandler sharedInstance] setFBID:[user objectID]];
+    [[BFTDataHandler sharedInstance] setFirstName:[user first_name]];
+    [[BFTDataHandler sharedInstance] setLastName:[user last_name]];
+    [[BFTDataHandler sharedInstance] saveData];
 
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"userExists.php?FBemail=%@", email] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
@@ -168,7 +171,7 @@
 
 -(void)sendFBInformation:(id<FBGraphUser>)user {
     //I'm pretty sure we have all this, so don't bother sending to database
-    NSLog(@"BF Info: %@", user);
+    NSLog(@"FB Info: %@", user);
     [[BFTDataHandler sharedInstance] setUserInfo:user];
     
     //pull friends list

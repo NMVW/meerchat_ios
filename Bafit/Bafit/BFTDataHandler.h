@@ -17,6 +17,9 @@
 @property (nonatomic) BOOL PPAccepted;
 @property (nonatomic) BOOL emailConfirmed;
 
+@property (nonatomic, copy) NSString* firstName;
+@property (nonatomic, copy) NSString* lastName;
+
 //Actual Account Information
 @property(nonatomic, copy) NSString *BUN;
 @property(nonatomic, copy) NSString *Password;

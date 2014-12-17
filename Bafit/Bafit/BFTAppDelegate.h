@@ -23,6 +23,8 @@
 
 -(void)registerForNotifications;
 
+-(void)logout;
+
 -(BOOL)connectToJabber;
 -(void)setupStream;
 -(void)goOnline;
