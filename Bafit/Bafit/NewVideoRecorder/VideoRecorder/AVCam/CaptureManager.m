@@ -470,7 +470,7 @@
     BFTDataHandler *data = [BFTDataHandler sharedInstance];
     BFTPostHandler *post = [BFTPostHandler sharedInstance];
     
-    NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC]];
+    NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC], [data FBID]];
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

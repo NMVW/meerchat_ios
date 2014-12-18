@@ -37,7 +37,7 @@
         self.hashTag = [jsonDictionary objectForKey:@"hash_tag"];
         self.timeStamp = [dateFormatter dateFromString:[jsonDictionary objectForKey:@"TS"]];
         
-        self.isFacebookFriend = [[jsonDictionary objectForKey:@"FBFriend"] boolValue];
+        self.FBID = [jsonDictionary objectForKey:@"FBID"];
         
         //TODO: Make this pull from database
         self.hasMeerchatConnection = NO;

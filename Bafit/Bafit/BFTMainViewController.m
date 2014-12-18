@@ -294,7 +294,16 @@
     [mainView.responseButton addTarget:self action:@selector(respondToUser) forControlEvents:UIControlEventTouchUpInside];
     [mainView.notTodayButton addTarget:self action:@selector(notToday) forControlEvents:UIControlEventTouchUpInside];
     
-    mainView.facebookFriends.hidden = ![post isFacebookFriend];
+    mainView.facebookFriends.hidden = YES;
+    
+    NSString* graphString = [NSString stringWithFormat:@"/%@/friends/%@", [[BFTDataHandler sharedInstance] FBID], post.FBID];
+    
+    [FBRequestConnection startWithGraphPath:graphString parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if ([[result objectForKey:@"data"] count] > 0) {
+            mainView.facebookFriends.hidden = NO;
+        }
+    }];
+    
     mainView.meerchatConnection.hidden = ![post hasMeerchatConnection];
     
     if ([[post UID] isEqual:[[BFTDataHandler sharedInstance] UID]]) {
