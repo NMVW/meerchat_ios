@@ -178,13 +178,14 @@
     [FBRequestConnection startWithGraphPath:@"/me/friendlists" parameters:nil HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         NSLog(@"Friend Result: %@ \n\nSize: %.4f kb", result, [result length]/1024.0);
         
+        NSString *postString = [NSString stringWithFormat:@"sendFBdata.php?FBemail=%@&Data=%@&Flist=%@", [user objectForKey:@"email"], user, result];
+        
         NSLog(@"Sending FB Friends List");
-        [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"sendFBdata.php?FBemail=%@Data=%@Flist=%@", [user objectForKey:@"email"], user, result] completionBlock:^(NSMutableData *data, NSError *error) {
+        [[[BFTDatabaseRequest alloc] initWithURLString:postString completionBlock:^(NSMutableData *data, NSError *error) {
             if (!error) {
-                
             }
             else {
-                
+                NSLog(@"%@", error.localizedDescription);
             }
         }] startConnection];
     }];

@@ -560,14 +560,12 @@
     [op start];
     
     //remove file form directory
-    [self removeImage:[NSString stringWithFormat:@"%@.jpeg", [[BFTDataHandler sharedInstance] mp4Name]]];
+    [self removeImage:jpegFilePath];
 }
 
-- (void)removeImage:(NSString *)fileName {
+- (void)removeImage:(NSString *)filePath {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:fileName];
+
     NSError *error;
     BOOL success = [fileManager removeItemAtPath:filePath error:&error];
     if (success) {

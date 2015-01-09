@@ -19,6 +19,8 @@
 
 @implementation BFTAppDelegate
 
+#pragma mark - Application Delegate
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Parse setApplicationId:@"wrDBeyyvoetbewUYHqByWOfK1R5PhiTmZiGOJeYO"
@@ -106,9 +108,12 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self connectToJabber];
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    [PFInstallation currentInstallation][@"badge"] = @(0);
-    [[PFInstallation currentInstallation] saveEventually];
+    PFInstallation *install = [PFInstallation currentInstallation];
+    if (install[@"UID"]) {
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        [PFInstallation currentInstallation][@"badge"] = @(0);
+        [[PFInstallation currentInstallation] saveEventually];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -119,6 +124,8 @@
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
+
+#pragma mark - Push
 
 -(void)registerForNotifications {
     NSLog(@"Registering For Push");
@@ -140,20 +147,20 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSLog(@"Push Accepted, save device token");
+    NSLog(@"Push Accepted, Save Device Token Using \nBUN: %@\nUID: %@", [[[BFTDataHandler sharedInstance] BUN] lowercaseString], [[BFTDataHandler sharedInstance] UID]);
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation[@"BUN"] = [[[BFTDataHandler sharedInstance] BUN] lowercaseString];
     currentInstallation[@"UID"] = [[BFTDataHandler sharedInstance] UID];
-    [currentInstallation saveInBackground];
+    [currentInstallation saveEventually];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     //[PFPush handlePush:userInfo];
 }
 
-#pragma Mark FB Stuff
+#pragma mark - FB Stuff
 
 -(void)logout {
     [[FBSession activeSession] closeAndClearTokenInformation];
@@ -176,7 +183,7 @@
     return fbError;
 }
 
-#pragma Mark XMPP Messaging Stuff
+#pragma mark - XMPP Messaging Stuff
 
 -(void)setupStream {
     _xmppStream = [[XMPPStream alloc] init];
@@ -352,7 +359,7 @@
     NSLog(@"Send Video Message to User: %@ with URL: %@", user, videoURL);
 }
 
-#pragma mark CLLocation Manager
+#pragma mark - CLLocation Manager
 
 -(void)startMonitoringLocation {
     if (!_locationManager) {
