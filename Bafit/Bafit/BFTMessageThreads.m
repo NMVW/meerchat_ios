@@ -132,7 +132,7 @@
 
 -(void)sendMessageToDatabase:(NSString*)body recipient:(NSString*)reciever {
     //send the message to the database
-    [[[BFTDatabaseRequest alloc] initWithURLString:[[NSString alloc] initWithFormat:@"sendText.php?UIDr=%@&UIDp=%@&TEXT=%@", [[BFTDataHandler sharedInstance] UID], reciever, body] trueOrFalseBlock:^(BOOL success, NSError *error) {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[[NSString alloc] initWithFormat:@"sendText.php?UIDr=%@&UIDp=%@&TEXT=%@", [[BFTDataHandler sharedInstance] UID], [reciever lowercaseString], body] trueOrFalseBlock:^(BOOL success, NSError *error) {
         if (!error) {
             if (success) {
                 NSLog(@"Messages Succesfully Added to database");

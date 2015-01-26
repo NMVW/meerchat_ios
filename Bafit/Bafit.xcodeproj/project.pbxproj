@@ -23,6 +23,8 @@
 		15086D1E1A408EC20086998B /* meerchat_connected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D151A408EC20086998B /* meerchat_connected@3x.png */; };
 		15086D211A408ECC0086998B /* trapezoid_menu_lower@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */; };
 		15086D221A408ECC0086998B /* trapezoid_menu_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */; };
+		157040521A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157040511A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.m */; };
+		157040551A66C6CF003FF99F /* BFTPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157040541A66C6CF003FF99F /* BFTPlaybackController.m */; };
 		15ED573F1A40C41400B24CEB /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15ED573E1A40C41400B24CEB /* Fabric.framework */; };
 		15ED57421A40DD5100B24CEB /* BFTLogoutDropdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED57411A40DD5100B24CEB /* BFTLogoutDropdown.m */; };
 		15ED57471A40F37A00B24CEB /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED57461A40F37A00B24CEB /* UIImage+Color.m */; };
@@ -209,6 +211,10 @@
 		15086D151A408EC20086998B /* meerchat_connected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meerchat_connected@3x.png"; sourceTree = "<group>"; };
 		15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_lower@3x.png"; sourceTree = "<group>"; };
 		15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_top@3x.png"; sourceTree = "<group>"; };
+		157040501A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTVideoAssetQueuePlayerController.h; sourceTree = "<group>"; };
+		157040511A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoAssetQueuePlayerController.m; sourceTree = "<group>"; };
+		157040531A66C6CF003FF99F /* BFTPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPlaybackController.h; sourceTree = "<group>"; };
+		157040541A66C6CF003FF99F /* BFTPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPlaybackController.m; sourceTree = "<group>"; };
 		15ED573E1A40C41400B24CEB /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		15ED57401A40DD5100B24CEB /* BFTLogoutDropdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTLogoutDropdown.h; sourceTree = "<group>"; };
 		15ED57411A40DD5100B24CEB /* BFTLogoutDropdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTLogoutDropdown.m; sourceTree = "<group>"; };
@@ -383,8 +389,8 @@
 		7C8CCD6F19FF56CD00D27D24 /* trapezoid_menu_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trapezoid_menu_top@2x.png"; sourceTree = "<group>"; };
 		7C8CCDCD19FF57DF00D27D24 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7C8CCDD719FF5EA600D27D24 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		7C8CCDDA19FF673A00D27D24 /* BFTCameraViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTCameraViewDelegate.h; sourceTree = "<group>"; };
-		7C8CCDDB19FFDA4600D27D24 /* BFTCaptureManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BFTCaptureManagerDelegate.h; sourceTree = "<group>"; };
+		7C8CCDDA19FF673A00D27D24 /* BFTCameraViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BFTCameraViewDelegate.h; path = ../../BFTCameraViewDelegate.h; sourceTree = "<group>"; };
+		7C8CCDDB19FFDA4600D27D24 /* BFTCaptureManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BFTCaptureManagerDelegate.h; path = ../../BFTCaptureManagerDelegate.h; sourceTree = "<group>"; };
 		7C944B8019ED8DEA001164BB /* BFTPostHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPostHandler.h; sourceTree = "<group>"; };
 		7C944B8119ED8DEA001164BB /* BFTPostHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPostHandler.m; sourceTree = "<group>"; };
 		7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+relativeTimeStamp.h"; sourceTree = "<group>"; };
@@ -405,14 +411,14 @@
 		7CCB382119BED3C00057D2F1 /* BFTMessageThreads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTMessageThreads.m; sourceTree = "<group>"; };
 		7CD38DF819F0B45B001DC8EF /* BFTCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTCarouselView.h; sourceTree = "<group>"; };
 		7CD38DF919F0B45B001DC8EF /* BFTCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTCarouselView.m; sourceTree = "<group>"; };
-		7CF791F119C250BF003EB61F /* AVCamRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamRecorder.h; sourceTree = "<group>"; };
-		7CF791F219C250BF003EB61F /* AVCamRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamRecorder.m; sourceTree = "<group>"; };
-		7CF791F319C250BF003EB61F /* AVCamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamUtilities.h; sourceTree = "<group>"; };
-		7CF791F419C250BF003EB61F /* AVCamUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamUtilities.m; sourceTree = "<group>"; };
-		7CF791F519C250BF003EB61F /* CaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureManager.h; sourceTree = "<group>"; };
-		7CF791F619C250BF003EB61F /* CaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureManager.m; sourceTree = "<group>"; };
-		7CF791FD19C250FA003EB61F /* BFTCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTCameraView.h; sourceTree = "<group>"; };
-		7CF791FE19C250FA003EB61F /* BFTCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTCameraView.m; sourceTree = "<group>"; };
+		7CF791F119C250BF003EB61F /* AVCamRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCamRecorder.h; path = AVCam/AVCamRecorder.h; sourceTree = "<group>"; };
+		7CF791F219C250BF003EB61F /* AVCamRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCamRecorder.m; path = AVCam/AVCamRecorder.m; sourceTree = "<group>"; };
+		7CF791F319C250BF003EB61F /* AVCamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCamUtilities.h; path = AVCam/AVCamUtilities.h; sourceTree = "<group>"; };
+		7CF791F419C250BF003EB61F /* AVCamUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCamUtilities.m; path = AVCam/AVCamUtilities.m; sourceTree = "<group>"; };
+		7CF791F519C250BF003EB61F /* CaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaptureManager.h; path = AVCam/CaptureManager.h; sourceTree = "<group>"; };
+		7CF791F619C250BF003EB61F /* CaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CaptureManager.m; path = AVCam/CaptureManager.m; sourceTree = "<group>"; };
+		7CF791FD19C250FA003EB61F /* BFTCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BFTCameraView.h; path = ../../BFTCameraView.h; sourceTree = "<group>"; };
+		7CF791FE19C250FA003EB61F /* BFTCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BFTCameraView.m; path = ../../BFTCameraView.m; sourceTree = "<group>"; };
 		801AE8781985C023006EA19B /* BFTConversationsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTConversationsListTableViewController.h; sourceTree = "<group>"; };
 		801AE8791985C023006EA19B /* BFTConversationsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTConversationsListTableViewController.m; sourceTree = "<group>"; };
 		801AE87B1985E082006EA19B /* BFTThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTThreadTableViewCell.h; sourceTree = "<group>"; };
@@ -504,6 +510,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1570404F1A66BE3C003FF99F /* Video Player */ = {
+			isa = PBXGroup;
+			children = (
+				157040531A66C6CF003FF99F /* BFTPlaybackController.h */,
+				157040541A66C6CF003FF99F /* BFTPlaybackController.m */,
+				7CC2E77C19E6496B004EECC0 /* BFTVideoPlaybackController.h */,
+				7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */,
+				157040501A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.h */,
+				157040511A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.m */,
+			);
+			name = "Video Player";
+			sourceTree = "<group>";
+		};
 		7C425A971A01DF86004FBBC3 /* Header */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,7 +537,6 @@
 				801AE8781985C023006EA19B /* BFTConversationsListTableViewController.h */,
 				807F5B6D198DBF8E00528829 /* BFTMessageThreadTableViewController.h */,
 				802199A219AFB6E90042597A /* BFTFeedbackViewController.h */,
-				7CC2E77C19E6496B004EECC0 /* BFTVideoPlaybackController.h */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -537,7 +555,6 @@
 				801AE8791985C023006EA19B /* BFTConversationsListTableViewController.m */,
 				807F5B6E198DBF8E00528829 /* BFTMessageThreadTableViewController.m */,
 				802199A119AFB6E80042597A /* BFTFeedbackViewController.m */,
-				7CC2E77D19E6496C004EECC0 /* BFTVideoPlaybackController.m */,
 			);
 			name = Implementation;
 			sourceTree = "<group>";
@@ -890,8 +907,6 @@
 			isa = PBXGroup;
 			children = (
 				7C8CCDCD19FF57DF00D27D24 /* Main.storyboard */,
-				7CF791FD19C250FA003EB61F /* BFTCameraView.h */,
-				7CF791FE19C250FA003EB61F /* BFTCameraView.m */,
 				7CD38DF819F0B45B001DC8EF /* BFTCarouselView.h */,
 				7CD38DF919F0B45B001DC8EF /* BFTCarouselView.m */,
 				801AE87B1985E082006EA19B /* BFTThreadTableViewCell.h */,
@@ -914,8 +929,6 @@
 				7C14975719DF4D2E00DFAF7D /* BFTLeftRightSegue.h */,
 				7C14975819DF4D2E00DFAF7D /* BFTLeftRightSegue.m */,
 				7C64470919BD84BE0071D444 /* BFTMessageDelegate.h */,
-				7C8CCDDA19FF673A00D27D24 /* BFTCameraViewDelegate.h */,
-				7C8CCDDB19FFDA4600D27D24 /* BFTCaptureManagerDelegate.h */,
 				7C13CDF919E139BB00E54557 /* BFTVideoMediaItem.h */,
 				7C13CDFA19E139BB00E54557 /* BFTVideoMediaItem.m */,
 			);
@@ -958,26 +971,22 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		7CF791EF19C250BF003EB61F /* VideoRecorder */ = {
+		7CF791EF19C250BF003EB61F /* Video Recorder */ = {
 			isa = PBXGroup;
 			children = (
-				7CF791F019C250BF003EB61F /* AVCam */,
-			);
-			name = VideoRecorder;
-			path = NewVideoRecorder/VideoRecorder;
-			sourceTree = "<group>";
-		};
-		7CF791F019C250BF003EB61F /* AVCam */ = {
-			isa = PBXGroup;
-			children = (
+				7CF791FD19C250FA003EB61F /* BFTCameraView.h */,
+				7CF791FE19C250FA003EB61F /* BFTCameraView.m */,
+				7C8CCDDA19FF673A00D27D24 /* BFTCameraViewDelegate.h */,
+				7CF791F519C250BF003EB61F /* CaptureManager.h */,
+				7CF791F619C250BF003EB61F /* CaptureManager.m */,
+				7C8CCDDB19FFDA4600D27D24 /* BFTCaptureManagerDelegate.h */,
 				7CF791F119C250BF003EB61F /* AVCamRecorder.h */,
 				7CF791F219C250BF003EB61F /* AVCamRecorder.m */,
 				7CF791F319C250BF003EB61F /* AVCamUtilities.h */,
 				7CF791F419C250BF003EB61F /* AVCamUtilities.m */,
-				7CF791F519C250BF003EB61F /* CaptureManager.h */,
-				7CF791F619C250BF003EB61F /* CaptureManager.m */,
 			);
-			path = AVCam;
+			name = "Video Recorder";
+			path = NewVideoRecorder/VideoRecorder;
 			sourceTree = "<group>";
 		};
 		8040E95A1978FD59000D66C7 = {
@@ -1031,8 +1040,9 @@
 			isa = PBXGroup;
 			children = (
 				7C8CCDD219FF5AC300D27D24 /* Libraries */,
-				7CF791EF19C250BF003EB61F /* VideoRecorder */,
 				7C8CCDD119FF58B500D27D24 /* Utilities */,
+				7CF791EF19C250BF003EB61F /* Video Recorder */,
+				1570404F1A66BE3C003FF99F /* Video Player */,
 				7C8CCDD019FF58B000D27D24 /* Model */,
 				7C8CCDCF19FF58A500D27D24 /* View */,
 				8040E9AD197E080D000D66C7 /* Controller */,
@@ -1340,6 +1350,7 @@
 				7C64468519BCE1E10071D444 /* DDDispatchQueueLogFormatter.m in Sources */,
 				8053BDBB19A5CE54006E9D13 /* BFTMainPostViewController.m in Sources */,
 				7C6446F719BCE6440071D444 /* NSXMLElement+XMPP.m in Sources */,
+				157040551A66C6CF003FF99F /* BFTPlaybackController.m in Sources */,
 				7C64468319BCE1E10071D444 /* DDTTYLogger.m in Sources */,
 				8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */,
 				7C6446A019BCE2B10071D444 /* DDXMLNode.m in Sources */,
@@ -1396,6 +1407,7 @@
 				7C6446FE19BCE6440071D444 /* XMPPPresence.m in Sources */,
 				7C64469F19BCE2B10071D444 /* DDXMLElement.m in Sources */,
 				8058E1AF1988436100DF2F4F /* iCarousel.m in Sources */,
+				157040521A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.m in Sources */,
 				80F650FC1980979700443673 /* BFTVideoPost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

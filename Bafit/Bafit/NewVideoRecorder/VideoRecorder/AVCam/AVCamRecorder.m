@@ -116,20 +116,13 @@
 
 @implementation AVCamRecorder (FileOutputDelegate)
 
-- (void)             captureOutput:(AVCaptureFileOutput *)captureOutput
-didStartRecordingToOutputFileAtURL:(NSURL *)fileURL
-                   fromConnections:(NSArray *)connections
-{
+- (void) captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
     if ([[self delegate] respondsToSelector:@selector(recorderRecordingDidBegin:)]) {
         [[self delegate] recorderRecordingDidBegin:self];
     }
 }
 
-- (void)              captureOutput:(AVCaptureFileOutput *)captureOutput
-didFinishRecordingToOutputFileAtURL:(NSURL *)anOutputFileURL
-                    fromConnections:(NSArray *)connections
-                              error:(NSError *)error
-{
+- (void) captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)anOutputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
     if ([[self delegate] respondsToSelector:@selector(recorder:recordingDidFinishToOutputFileURL:error:)]) {
         [[self delegate] recorder:self recordingDidFinishToOutputFileURL:anOutputFileURL error:error];
     }

@@ -9,7 +9,12 @@
 #import "BFTCarouselView.h"
 #import "BFTConstants.h"
 
-@implementation BFTCarouselView
+@implementation BFTCarouselView {
+    BOOL _isDragging;
+    CGPoint _oldPoint;
+    
+    CGRect _originalFrame;
+}
 
 -(instancetype)initWithFrame:(CGRect)frame {
     NSLog(@"initWithFrame is not currently implemented for this view");
@@ -165,5 +170,39 @@
     [self bringSubviewToFront:self.facebookFriends];
     [self bringSubviewToFront:self.meerchatConnection];
 }
+
+#pragma mark Touches
+/* Allows the view to move around
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView:touch.view];
+    
+    _isDragging = YES;
+    _oldPoint = location;
+    _originalFrame = self.frame;
+    NSLog(@"Touches Began");
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_isDragging) {
+        UITouch *touch = [[event allTouches] anyObject];
+        CGPoint newPoint = [touch locationInView:touch.view];
+        
+        self.frame = CGRectOffset(self.frame, newPoint.x - _oldPoint.x, newPoint.y - _oldPoint.y);
+    }
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    _isDragging = NO;
+    self.frame = _originalFrame;
+    NSLog(@"Touches Ended");
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    _isDragging = NO;
+    self.frame = _originalFrame;
+    NSLog(@"Touches Cancelled");
+}*/
+
 
 @end

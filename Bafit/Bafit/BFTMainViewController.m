@@ -214,6 +214,7 @@
             NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (!error) {
                 _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+                //TODO: Remove This?
                 [self.carousel reloadData];
                 
                 for (NSDictionary *dict in jsonArray) {

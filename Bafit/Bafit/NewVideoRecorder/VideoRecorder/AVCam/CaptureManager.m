@@ -238,8 +238,7 @@
     }
 }
 
-- (void) startRecording
-{
+- (void) startRecording {
 //    [self MP4NameGet];
     if ([[UIDevice currentDevice] isMultitaskingSupported]) {
         // Setup background task. This is needed because the captureOutput:didFinishRecordingToOutputFileAtURL: callback is not received until AVCam returns
@@ -712,8 +711,9 @@
     }
 }
 
-- (void) copyFileToDocuments:(NSURL *)fileURL
-{
+//Called when recording is finished - Adds the file to the assets
+-(void) copyFileToDocuments:(NSURL *)fileURL {
+    //Why are we copying the assset to a new directory?
 	NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"yyyy-MM-dd_HH-mm-ss"];
@@ -726,7 +726,7 @@
 		}
 	}
     
-    //add asset into the array or pieces
+    //Add the asset to the list of assets we have
     AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:destinationPath]];
     [self.assets addObject:asset];
 }

@@ -86,10 +86,12 @@
                 [_overlayButton setTitle:@"Hold to Record" forState:UIControlStateNormal];
                 [_overlayButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:1] forState:UIControlStateNormal];
                 [_videoPreviewView addSubview:_overlayButton];
+                
                 //add UILongPressGesture to UIButton
                 UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(startRecording:)];
                 [longPress setDelegate:self];
                 [_overlayButton addGestureRecognizer:longPress];
+                
                 //Camera Switch Button (top right corner)
                 _camerasSwitchBtn = [[UIButton alloc] initWithFrame:CGRectMake(200, 0, _videoPreviewView.frame.size.width - 200, 20)];
                 [_camerasSwitchBtn setBackgroundImage:[UIImage imageNamed:@"switchCamera.png"] forState:UIControlStateNormal];
@@ -108,27 +110,20 @@
 
 #pragma mark
 
-- (IBAction)startRecording:(UILongPressGestureRecognizer*)recognizer
-{
-    switch (recognizer.state)
-    {
-        case UIGestureRecognizerStateBegan:
-        {
+- (IBAction)startRecording:(UILongPressGestureRecognizer*)recognizer {
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan: {
             NSLog(@"Recording Started");
-            if (![[[self captureManager] recorder] isRecording])
-            {
-                if (self.duration < self.maxDuration)
-                {
+            if (![[[self captureManager] recorder] isRecording]) {
+                if (self.duration < self.maxDuration) {
                     [[self captureManager] startRecording];
                     [_overlayButton setTitle:@"" forState:UIControlStateNormal];
                 }
             }
             break;
         }
-        case UIGestureRecognizerStateEnded:
-        {
-            if ([[[self captureManager] recorder] isRecording])
-            {
+        case UIGestureRecognizerStateEnded: {
+            if ([[[self captureManager] recorder] isRecording]) {
                 [self recordingFinished];
             }
             break;
@@ -224,6 +219,7 @@
     [self.durationTimer invalidate];
     [[self captureManager] stopRecording];
     self.videoPreviewView.layer.borderColor = [UIColor clearColor].CGColor;
+    
     UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(-10, 210, _videoPreviewView.frame.size.width, 30)];
     [saveButton setTitle:@"Post" forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(saveVideo:) forControlEvents:UIControlEventTouchUpInside];
