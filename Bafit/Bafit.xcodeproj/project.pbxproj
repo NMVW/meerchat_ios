@@ -526,9 +526,9 @@
 		7C425A971A01DF86004FBBC3 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				8021999A19A9AC4E0042597A /* BFTPrivacyPolicyViewController.h */,
 				8040E97B1978FD59000D66C7 /* BFTFacebookViewController.h */,
 				803EE0F31984CD1600B86ACE /* BFTSignupViewController.h */,
-				8021999A19A9AC4E0042597A /* BFTPrivacyPolicyViewController.h */,
 				8053BDB619A17746006E9D13 /* BFTEmailConfirmationViewController.h */,
 				80F650FE1980A4DD00443673 /* BFTMainViewController.h */,
 				8053BDB919A5CE54006E9D13 /* BFTMainPostViewController.h */,
@@ -544,9 +544,9 @@
 		7C425A981A01DF8C004FBBC3 /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */,
 				8040E97C1978FD59000D66C7 /* BFTFacebookViewController.m */,
 				803EE0F41984CD1600B86ACE /* BFTSignupViewController.m */,
-				8021999B19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m */,
 				8053BDB519A17746006E9D13 /* BFTEmailConfirmationViewController.m */,
 				80F650FF1980A4DD00443673 /* BFTMainViewController.m */,
 				8053BDBA19A5CE54006E9D13 /* BFTMainPostViewController.m */,

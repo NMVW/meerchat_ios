@@ -58,13 +58,9 @@
             if ([[BFTDataHandler sharedInstance] initialLogin]) {
                 [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"initialLoginVC"]]];
             }
-            else if (![[BFTDataHandler sharedInstance] PPAccepted]) {
-                //PP not accepted? go to the pp page
-                [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"privacyPolicyVC"]]];
-            }
             else if (![[BFTDataHandler sharedInstance] emailConfirmed]) {
                 //email not confirmed? confirm email page
-                [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"confirmEmailVC"]]];
+                [initialViewController setViewControllers:@[[storyboard instantiateViewControllerWithIdentifier:@"initialLoginVC"], [storyboard instantiateViewControllerWithIdentifier:@"confirmEmailVC"]]];
             }
             else {
                 initialViewController = [storyboard instantiateViewControllerWithIdentifier:@"mainVC"];

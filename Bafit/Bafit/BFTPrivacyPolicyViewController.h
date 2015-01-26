@@ -10,9 +10,4 @@
 
 @interface BFTPrivacyPolicyViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIWebView *privacyWebView;
-
-- (IBAction)acceptButton:(id)sender;
-- (IBAction)declineButton:(id)sender;
-
 @end

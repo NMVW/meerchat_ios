@@ -121,15 +121,25 @@
 }
 
 - (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer __deprecated {
-    [self setSwipeUp:YES];
-    [self performSegueWithIdentifier:@"topostview" sender:self];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeUp"]) {
+        [self setSwipeUp:YES];
+        [self performSegueWithIdentifier:@"topostview" sender:self];
+    }
+    else {
+        [[[UIAlertView alloc] initWithTitle:@"Swiping Up" message:@"Swiping up on videos allows you to respond to the user and chat with them!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+    }
 }
 
 - (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer __deprecated {
    //NSInteger index = [_carousel indexOfItemView:[_carousel itemViewAtPoint:[recognizer locationInView:self.view]]];
-    NSInteger index = [_carousel currentItemIndex];
-    if (index < [_videoPosts count]) {
-        [self removeVideoPostAtIndex:index];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeDown"]) {
+        NSInteger index = [_carousel currentItemIndex];
+        if (index < [_videoPosts count]) {
+            [self removeVideoPostAtIndex:index];
+        }
+    }
+    else {
+        [[[UIAlertView alloc] initWithTitle:@"Swiping Down" message:@"Swipe down on videos you don't want to see. This will hide them from view, and you won't ever see them again!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
     }
 }
 
@@ -208,29 +218,34 @@
 }
 
 -(void)updateCategory:(NSInteger)category {
-    BFTDataHandler *userData = [BFTDataHandler sharedInstance];
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
-        if (!error) {
-            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
+        BFTDataHandler *userData = [BFTDataHandler sharedInstance];
+        [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
             if (!error) {
-                _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
-                //TODO: Remove This?
-                [self.carousel reloadData];
-                
-                for (NSDictionary *dict in jsonArray) {
-                    [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
-                    //[self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                if (!error) {
+                    _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+                    //TODO: Remove This?
+                    [self.carousel reloadData];
+                    
+                    for (NSDictionary *dict in jsonArray) {
+                        [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
+                        //[self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
+                    }
+                    [self.carousel reloadData];
                 }
-                [self.carousel reloadData];
+                else {
+                    [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
             }
             else {
                 [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
-        }
-        else {
-            [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-    }] startConnection];
+        }] startConnection];
+    }
+    else {
+        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Choose a category to filter the videos. Selecting no category allows you to see all the videos." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+    }
 }
 
 -(void)refreshCarousel {
@@ -257,8 +272,7 @@
 
 #pragma mark iCarousel methods
 
-- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
-{
+- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel {
     //return the total number of items in the carousel
     return [_videoPosts count];
 }
@@ -315,7 +329,7 @@
 }
 
 -(void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index {
-    
+
 }
 
 -(void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
@@ -345,6 +359,7 @@
 }
 
 -(IBAction)videoSelected:(id)sender {
+    
     NSInteger index = [_carousel currentItemIndex];
     BFTVideoPlaybackController* videoPlayer = [self.videoPlaybackControllers objectForKey:[NSNumber numberWithUnsignedInteger:index]];
     if (self.currentVideoPlaybackIndex != index) {

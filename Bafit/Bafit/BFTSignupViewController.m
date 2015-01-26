@@ -78,7 +78,7 @@
                         [handler saveData];
                         
                         //go to email confirmation page
-                        [self performSegueWithIdentifier:@"privacyview" sender:self];
+                        [self performSegueWithIdentifier:@"emailConfirm" sender:self];
                     }
                 }
                 else {
@@ -129,6 +129,9 @@
 }
 
 -(BOOL)validateEmail:(NSString*)email {
+    if ([email isEqualToString:@""]) {
+        return NO;
+    }
     NSString *regex = @"[^@]+@[A-Za-z0-9.-]+\\.[A-Za-z]+";
     NSPredicate *emailPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     return [emailPredicate evaluateWithObject:email];

@@ -30,16 +30,31 @@
     _submitVerificationButton.clipsToBounds = YES;
     [_submitVerificationButton setBackgroundImage:[BFTEmailConfirmationViewController imageWithColor:[UIColor whiteColor] size:_submitVerificationButton.frame.size] forState:UIControlStateHighlighted];
     [_submitVerificationButton setTitleColor:orangeButtonBorder forState:UIControlStateHighlighted];
+    
+    //Get rid of the nav bar line
+    
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    
+    [navigationBar setBackgroundImage:[UIImage new]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+    
+    [navigationBar setShadowImage:[UIImage new]];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.verificationNumberTextField becomeFirstResponder];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,6 +94,10 @@
             [[[UIAlertView alloc] initWithTitle:@"Could Not Create User" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         }
     }] startConnection];
+}
+
+-(IBAction)termsAndConditions:(id)sender {
+    [self performSegueWithIdentifier:@"termsAndConditions" sender:self];
 }
 
 //this is used to set the background color for the button when highlighted
