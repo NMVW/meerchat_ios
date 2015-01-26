@@ -109,37 +109,59 @@
 }
 
 -(void)respondToUser {
-    [self setSwipeUp:YES];
-    [self performSegueWithIdentifier:@"topostview" sender:self];
-}
-
--(void)notToday {
-    NSInteger index = [_carousel currentItemIndex];
-    if (index < [_videoPosts count]) {
-        [self removeVideoPostAtIndex:index];
-    }
-}
-
-- (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer __deprecated {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeUp"]) {
         [self setSwipeUp:YES];
         [self performSegueWithIdentifier:@"topostview" sender:self];
     }
     else {
         [[[UIAlertView alloc] initWithTitle:@"Swiping Up" message:@"Swiping up on videos allows you to respond to the user and chat with them!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeUp"];
+    }
+}
+
+-(void)notToday {
+    if ([self isModerator]) {
+        return;
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeDown"]) {
+        [self deleteCurrentVideo];
+    }
+    else {
+        [[[UIAlertView alloc] initWithTitle:@"Swiping Down" message:@"Swipe down on videos you don't want to see. This will hide them from view, and you won't ever see them again!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeDown"];
+    }
+}
+
+- (IBAction)handleSwipeUp:(UIGestureRecognizer *)recognizer __deprecated {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeUp"]) {
+        [self setSwipeUp:YES];
+        [self performSegueWithIdentifier:@"topostview" sender:self];
+    }
+    else {
+        [[[UIAlertView alloc] initWithTitle:@"Swiping Up" message:@"Swiping up on videos allows you to respond to the user and chat with them!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeUp"];
     }
 }
 
 - (IBAction)SwipeDown:(UIGestureRecognizer *)recognizer __deprecated {
-   //NSInteger index = [_carousel indexOfItemView:[_carousel itemViewAtPoint:[recognizer locationInView:self.view]]];
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeDown"]) {
-        NSInteger index = [_carousel currentItemIndex];
-        if (index < [_videoPosts count]) {
-            [self removeVideoPostAtIndex:index];
-        }
+    if ([self isModerator]) {
+        return;
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeDown"]) {
+        [self deleteCurrentVideo];
     }
     else {
         [[[UIAlertView alloc] initWithTitle:@"Swiping Down" message:@"Swipe down on videos you don't want to see. This will hide them from view, and you won't ever see them again!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeDown"];
+    }
+}
+
+-(void)deleteCurrentVideo {
+    NSInteger index = [_carousel currentItemIndex];
+    if (index < [_videoPosts count]) {
+        [self removeVideoPostAtIndex:index];
     }
 }
 
@@ -218,34 +240,30 @@
 }
 
 -(void)updateCategory:(NSInteger)category {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
-        BFTDataHandler *userData = [BFTDataHandler sharedInstance];
-        [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
+    BFTDataHandler *userData = [BFTDataHandler sharedInstance];
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory] completionBlock:^(NSMutableData *data, NSError *error) {
+        if (!error) {
+            NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
             if (!error) {
-                NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                if (!error) {
-                    _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
-                    //TODO: Remove This?
-                    [self.carousel reloadData];
-                    
-                    for (NSDictionary *dict in jsonArray) {
-                        [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
-                        //[self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
-                    }
-                    [self.carousel reloadData];
+                _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+                //TODO: Remove This?
+                [self.carousel reloadData];
+                
+                for (NSDictionary *dict in jsonArray) {
+                    [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
+                    //[self.carousel insertItemAtIndex:[_videoPosts count] animated:YES];
                 }
-                else {
-                    [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                }
+                [self.carousel reloadData];
             }
             else {
                 [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             }
-        }] startConnection];
-    }
-    else {
-        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Choose a category to filter the videos. Selecting no category allows you to see all the videos." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
-    }
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Unable To Load Video Feed" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }] startConnection];
+
 }
 
 -(void)refreshCarousel {
@@ -486,6 +504,11 @@
 #pragma mark Catagory Selection
 
 - (IBAction)moveCatTouched:(id)sender {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
+        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Choose a category to filter the videos. Selecting no category allows you to see all the videos." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
+    }
+
     if (![_moveCatButton isSelected]) {
         _catagory = 1;
         [self updateCategory:_catagory];
@@ -504,6 +527,11 @@
 }
 
 - (IBAction)studyCatTouched:(id)sender {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
+        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Choose a category to filter the videos. Selecting no category allows you to see all the videos." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
+    }
+    
     if (![_studyCatButton isSelected]) {
         _catagory = 2;
         [self updateCategory:_catagory];
@@ -522,6 +550,11 @@
 }
 
 - (IBAction)loveCatTouched:(id)sender {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
+        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Choose a category to filter the videos. Selecting no category allows you to see all the videos." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
+    }
+    
     if (![_loveCatButton isSelected]) {
         _catagory = 3;
         [self updateCategory:_catagory];
@@ -540,6 +573,11 @@
 }
 
 - (IBAction)grubCatTouched:(id)sender {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
+        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Choose a category to filter the videos. Selecting no category allows you to see all the videos." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
+    }
+    
     if (![_grubCatButton isSelected]) {
         _catagory = 4;
         [self updateCategory:_catagory];
@@ -557,5 +595,39 @@
     }
 }
 
+#pragma mark -other/temp
+
+- (BOOL)isModerator {
+    static NSArray *listOfFounders;
+    if (!listOfFounders) {
+        listOfFounders = @[@"nv", @"cp", @"jpecoraro", @"jbtt", @"bigcherry"];
+    }
+    
+    NSString *username = [[[BFTDataHandler sharedInstance] BUN] lowercaseString];
+    
+    BOOL isModerator = 0;
+    
+    for (NSString *founder in listOfFounders) {
+        if ([username isEqualToString:founder]) {
+            isModerator = YES;
+        }
+    }
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Since you are a moderator, swiping down deletes the video. are you sure you want to continue?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        return;
+    }];
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [self deleteCurrentVideo];
+    }];
+    
+    [controller addAction:cancel];
+    [controller addAction:delete];
+    
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    return isModerator;
+}
 
 @end
