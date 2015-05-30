@@ -29,6 +29,29 @@
 		15ED57421A40DD5100B24CEB /* BFTLogoutDropdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED57411A40DD5100B24CEB /* BFTLogoutDropdown.m */; };
 		15ED57471A40F37A00B24CEB /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 15ED57461A40F37A00B24CEB /* UIImage+Color.m */; };
 		4935D6FDFF3F403EB240404A /* libPods-Bafit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */; };
+		4BF44D6F1AA6DADB00FAC3AA /* DateTools.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44D601AA6DADB00FAC3AA /* DateTools.bundle */; };
+		4BF44D701AA6DADB00FAC3AA /* DTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44D641AA6DADB00FAC3AA /* DTError.m */; };
+		4BF44D711AA6DADB00FAC3AA /* DTTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44D661AA6DADB00FAC3AA /* DTTimePeriod.m */; };
+		4BF44D721AA6DADB00FAC3AA /* DTTimePeriodChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44D681AA6DADB00FAC3AA /* DTTimePeriodChain.m */; };
+		4BF44D731AA6DADB00FAC3AA /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44D6A1AA6DADB00FAC3AA /* DTTimePeriodCollection.m */; };
+		4BF44D741AA6DADB00FAC3AA /* DTTimePeriodGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44D6C1AA6DADB00FAC3AA /* DTTimePeriodGroup.m */; };
+		4BF44D751AA6DADB00FAC3AA /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44D6E1AA6DADB00FAC3AA /* NSDate+DateTools.m */; };
+		4BF44DAB1AA8244600FAC3AA /* pull.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DA91AA8244600FAC3AA /* pull.png */; };
+		4BF44DAC1AA8244600FAC3AA /* pull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DAA1AA8244600FAC3AA /* pull@2x.png */; };
+		4BF44DB11AA8D4F100FAC3AA /* vidIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DAE1AA8D4F100FAC3AA /* vidIcon.png */; };
+		4BF44DB21AA8D4F100FAC3AA /* vidIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DAF1AA8D4F100FAC3AA /* vidIcon@2x.png */; };
+		4BF44DB31AA8D4F100FAC3AA /* vidIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DB01AA8D4F100FAC3AA /* vidIcon@3x.png */; };
+		4BF44DC11AA8E96000FAC3AA /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44DB61AA8E96000FAC3AA /* NSMutableArray+SWUtilityButtons.m */; };
+		4BF44DC21AA8E96000FAC3AA /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44DB81AA8E96000FAC3AA /* SWCellScrollView.m */; };
+		4BF44DC31AA8E96000FAC3AA /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44DBA1AA8E96000FAC3AA /* SWLongPressGestureRecognizer.m */; };
+		4BF44DC41AA8E96000FAC3AA /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44DBC1AA8E96000FAC3AA /* SWTableViewCell.m */; };
+		4BF44DC51AA8E96000FAC3AA /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44DBE1AA8E96000FAC3AA /* SWUtilityButtonTapGestureRecognizer.m */; };
+		4BF44DC61AA8E96000FAC3AA /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BF44DC01AA8E96000FAC3AA /* SWUtilityButtonView.m */; };
+		4BF44DC81AAA81DA00FAC3AA /* switchCameraNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DC71AAA81DA00FAC3AA /* switchCameraNew.png */; };
+		4BF44DCC1AAAA0E400FAC3AA /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DCA1AAAA0E400FAC3AA /* pause.png */; };
+		4BF44DCD1AAAA0E400FAC3AA /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DCB1AAAA0E400FAC3AA /* play.png */; };
+		4BF44DCF1AAD2B6800FAC3AA /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DCE1AAD2B6800FAC3AA /* record.png */; };
+		4BF44DD11AAECF8800FAC3AA /* record1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BF44DD01AAECF8800FAC3AA /* record1.png */; };
 		7C13CDFB19E139BB00E54557 /* BFTVideoMediaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C13CDFA19E139BB00E54557 /* BFTVideoMediaItem.m */; };
 		7C14975919DF4D2E00DFAF7D /* BFTLeftRightSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C14975819DF4D2E00DFAF7D /* BFTLeftRightSegue.m */; };
 		7C1F44771A19AF44000C06CE /* timeclock.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C1F44711A19AF44000C06CE /* timeclock.png */; };
@@ -143,7 +166,6 @@
 		7C8CCDCE19FF57DF00D27D24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C8CCDCD19FF57DF00D27D24 /* Main.storyboard */; };
 		7C8CCDD819FF5EA600D27D24 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C8CCDD719FF5EA600D27D24 /* Media.xcassets */; };
 		7C944B8219ED8DEA001164BB /* BFTPostHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C944B8119ED8DEA001164BB /* BFTPostHandler.m */; };
-		7CB0765A1A0F4FD500D597EA /* NSDate+relativeTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */; };
 		7CB1F4931A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB1F48F1A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf */; };
 		7CB1F4941A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB1F4901A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf */; };
 		7CB1F4951A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7CB1F4911A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf */; };
@@ -223,6 +245,43 @@
 		475A421E1B529C48EF2B0003 /* Pods-Bafit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.release.xcconfig"; sourceTree = "<group>"; };
 		4A6EDEE5837730F3B417D798 /* Pods-Bafit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bafit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bafit/Pods-Bafit.debug.xcconfig"; sourceTree = "<group>"; };
 		4BD4D47E78164A8A85A82B58 /* libPods-Bafit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bafit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BF44D601AA6DADB00FAC3AA /* DateTools.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DateTools.bundle; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DateTools.bundle"; sourceTree = "<group>"; };
+		4BF44D611AA6DADB00FAC3AA /* DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateTools.h; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DateTools.h"; sourceTree = "<group>"; };
+		4BF44D621AA6DADB00FAC3AA /* DTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTConstants.h; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTConstants.h"; sourceTree = "<group>"; };
+		4BF44D631AA6DADB00FAC3AA /* DTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTError.h; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTError.h"; sourceTree = "<group>"; };
+		4BF44D641AA6DADB00FAC3AA /* DTError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTError.m; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTError.m"; sourceTree = "<group>"; };
+		4BF44D651AA6DADB00FAC3AA /* DTTimePeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTTimePeriod.h; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriod.h"; sourceTree = "<group>"; };
+		4BF44D661AA6DADB00FAC3AA /* DTTimePeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriod.m; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriod.m"; sourceTree = "<group>"; };
+		4BF44D671AA6DADB00FAC3AA /* DTTimePeriodChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodChain.h; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriodChain.h"; sourceTree = "<group>"; };
+		4BF44D681AA6DADB00FAC3AA /* DTTimePeriodChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodChain.m; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriodChain.m"; sourceTree = "<group>"; };
+		4BF44D691AA6DADB00FAC3AA /* DTTimePeriodCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodCollection.h; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriodCollection.h"; sourceTree = "<group>"; };
+		4BF44D6A1AA6DADB00FAC3AA /* DTTimePeriodCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodCollection.m; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriodCollection.m"; sourceTree = "<group>"; };
+		4BF44D6B1AA6DADB00FAC3AA /* DTTimePeriodGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodGroup.h; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriodGroup.h"; sourceTree = "<group>"; };
+		4BF44D6C1AA6DADB00FAC3AA /* DTTimePeriodGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodGroup.m; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/DTTimePeriodGroup.m"; sourceTree = "<group>"; };
+		4BF44D6D1AA6DADB00FAC3AA /* NSDate+DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+DateTools.h"; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/NSDate+DateTools.h"; sourceTree = "<group>"; };
+		4BF44D6E1AA6DADB00FAC3AA /* NSDate+DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+DateTools.m"; path = "Utilities/Date Tools Lib/DateTools-master/DateTools/NSDate+DateTools.m"; sourceTree = "<group>"; };
+		4BF44DA91AA8244600FAC3AA /* pull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pull.png; path = "refresh gif/pull.png"; sourceTree = "<group>"; };
+		4BF44DAA1AA8244600FAC3AA /* pull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pull@2x.png"; path = "refresh gif/pull@2x.png"; sourceTree = "<group>"; };
+		4BF44DAE1AA8D4F100FAC3AA /* vidIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vidIcon.png; path = "video icon/vidIcon.png"; sourceTree = "<group>"; };
+		4BF44DAF1AA8D4F100FAC3AA /* vidIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vidIcon@2x.png"; path = "video icon/vidIcon@2x.png"; sourceTree = "<group>"; };
+		4BF44DB01AA8D4F100FAC3AA /* vidIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vidIcon@3x.png"; path = "video icon/vidIcon@3x.png"; sourceTree = "<group>"; };
+		4BF44DB51AA8E96000FAC3AA /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+SWUtilityButtons.h"; path = "Utilities/SWTableViewCell/NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		4BF44DB61AA8E96000FAC3AA /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+SWUtilityButtons.m"; path = "Utilities/SWTableViewCell/NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		4BF44DB71AA8E96000FAC3AA /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWCellScrollView.h; path = Utilities/SWTableViewCell/SWCellScrollView.h; sourceTree = "<group>"; };
+		4BF44DB81AA8E96000FAC3AA /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWCellScrollView.m; path = Utilities/SWTableViewCell/SWCellScrollView.m; sourceTree = "<group>"; };
+		4BF44DB91AA8E96000FAC3AA /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWLongPressGestureRecognizer.h; path = Utilities/SWTableViewCell/SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		4BF44DBA1AA8E96000FAC3AA /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWLongPressGestureRecognizer.m; path = Utilities/SWTableViewCell/SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		4BF44DBB1AA8E96000FAC3AA /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWTableViewCell.h; path = Utilities/SWTableViewCell/SWTableViewCell.h; sourceTree = "<group>"; };
+		4BF44DBC1AA8E96000FAC3AA /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWTableViewCell.m; path = Utilities/SWTableViewCell/SWTableViewCell.m; sourceTree = "<group>"; };
+		4BF44DBD1AA8E96000FAC3AA /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonTapGestureRecognizer.h; path = Utilities/SWTableViewCell/SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		4BF44DBE1AA8E96000FAC3AA /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonTapGestureRecognizer.m; path = Utilities/SWTableViewCell/SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		4BF44DBF1AA8E96000FAC3AA /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonView.h; path = Utilities/SWTableViewCell/SWUtilityButtonView.h; sourceTree = "<group>"; };
+		4BF44DC01AA8E96000FAC3AA /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonView.m; path = Utilities/SWTableViewCell/SWUtilityButtonView.m; sourceTree = "<group>"; };
+		4BF44DC71AAA81DA00FAC3AA /* switchCameraNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCameraNew.png; sourceTree = "<group>"; };
+		4BF44DCA1AAAA0E400FAC3AA /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = "play and pause for upload preview/pause.png"; sourceTree = "<group>"; };
+		4BF44DCB1AAAA0E400FAC3AA /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = "play and pause for upload preview/play.png"; sourceTree = "<group>"; };
+		4BF44DCE1AAD2B6800FAC3AA /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record.png; path = "play and pause for upload preview/record.png"; sourceTree = "<group>"; };
+		4BF44DD01AAECF8800FAC3AA /* record1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = record1.png; path = "play and pause for upload preview/record1.png"; sourceTree = "<group>"; };
 		7C13CDF919E139BB00E54557 /* BFTVideoMediaItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTVideoMediaItem.h; sourceTree = "<group>"; };
 		7C13CDFA19E139BB00E54557 /* BFTVideoMediaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTVideoMediaItem.m; sourceTree = "<group>"; };
 		7C14975719DF4D2E00DFAF7D /* BFTLeftRightSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTLeftRightSegue.h; sourceTree = "<group>"; };
@@ -393,8 +452,6 @@
 		7C8CCDDB19FFDA4600D27D24 /* BFTCaptureManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BFTCaptureManagerDelegate.h; path = ../../BFTCaptureManagerDelegate.h; sourceTree = "<group>"; };
 		7C944B8019ED8DEA001164BB /* BFTPostHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BFTPostHandler.h; sourceTree = "<group>"; };
 		7C944B8119ED8DEA001164BB /* BFTPostHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BFTPostHandler.m; sourceTree = "<group>"; };
-		7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+relativeTimeStamp.h"; sourceTree = "<group>"; };
-		7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+relativeTimeStamp.m"; sourceTree = "<group>"; };
 		7CB1F48F1A231EDE0061B94E /* ForgottenFuturistRg_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.otf; sourceTree = "<group>"; };
 		7CB1F4901A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Bold.ttf; sourceTree = "<group>"; };
 		7CB1F4911A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ForgottenFuturistRg_Regular.otf; sourceTree = "<group>"; };
@@ -521,6 +578,77 @@
 				157040511A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.m */,
 			);
 			name = "Video Player";
+			sourceTree = "<group>";
+		};
+		4BF44D5F1AA6DA3E00FAC3AA /* DateTools Lib */ = {
+			isa = PBXGroup;
+			children = (
+				4BF44D601AA6DADB00FAC3AA /* DateTools.bundle */,
+				4BF44D611AA6DADB00FAC3AA /* DateTools.h */,
+				4BF44D621AA6DADB00FAC3AA /* DTConstants.h */,
+				4BF44D631AA6DADB00FAC3AA /* DTError.h */,
+				4BF44D641AA6DADB00FAC3AA /* DTError.m */,
+				4BF44D651AA6DADB00FAC3AA /* DTTimePeriod.h */,
+				4BF44D661AA6DADB00FAC3AA /* DTTimePeriod.m */,
+				4BF44D671AA6DADB00FAC3AA /* DTTimePeriodChain.h */,
+				4BF44D681AA6DADB00FAC3AA /* DTTimePeriodChain.m */,
+				4BF44D691AA6DADB00FAC3AA /* DTTimePeriodCollection.h */,
+				4BF44D6A1AA6DADB00FAC3AA /* DTTimePeriodCollection.m */,
+				4BF44D6B1AA6DADB00FAC3AA /* DTTimePeriodGroup.h */,
+				4BF44D6C1AA6DADB00FAC3AA /* DTTimePeriodGroup.m */,
+				4BF44D6D1AA6DADB00FAC3AA /* NSDate+DateTools.h */,
+				4BF44D6E1AA6DADB00FAC3AA /* NSDate+DateTools.m */,
+			);
+			name = "DateTools Lib";
+			sourceTree = "<group>";
+		};
+		4BF44DA81AA8243B00FAC3AA /* pull to refresh */ = {
+			isa = PBXGroup;
+			children = (
+				4BF44DA91AA8244600FAC3AA /* pull.png */,
+				4BF44DAA1AA8244600FAC3AA /* pull@2x.png */,
+			);
+			name = "pull to refresh";
+			sourceTree = "<group>";
+		};
+		4BF44DAD1AA8D4E500FAC3AA /* video icon */ = {
+			isa = PBXGroup;
+			children = (
+				4BF44DAE1AA8D4F100FAC3AA /* vidIcon.png */,
+				4BF44DAF1AA8D4F100FAC3AA /* vidIcon@2x.png */,
+				4BF44DB01AA8D4F100FAC3AA /* vidIcon@3x.png */,
+			);
+			name = "video icon";
+			sourceTree = "<group>";
+		};
+		4BF44DB41AA8E95400FAC3AA /* SWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				4BF44DB51AA8E96000FAC3AA /* NSMutableArray+SWUtilityButtons.h */,
+				4BF44DB61AA8E96000FAC3AA /* NSMutableArray+SWUtilityButtons.m */,
+				4BF44DB71AA8E96000FAC3AA /* SWCellScrollView.h */,
+				4BF44DB81AA8E96000FAC3AA /* SWCellScrollView.m */,
+				4BF44DB91AA8E96000FAC3AA /* SWLongPressGestureRecognizer.h */,
+				4BF44DBA1AA8E96000FAC3AA /* SWLongPressGestureRecognizer.m */,
+				4BF44DBB1AA8E96000FAC3AA /* SWTableViewCell.h */,
+				4BF44DBC1AA8E96000FAC3AA /* SWTableViewCell.m */,
+				4BF44DBD1AA8E96000FAC3AA /* SWUtilityButtonTapGestureRecognizer.h */,
+				4BF44DBE1AA8E96000FAC3AA /* SWUtilityButtonTapGestureRecognizer.m */,
+				4BF44DBF1AA8E96000FAC3AA /* SWUtilityButtonView.h */,
+				4BF44DC01AA8E96000FAC3AA /* SWUtilityButtonView.m */,
+			);
+			name = SWTableViewCell;
+			sourceTree = "<group>";
+		};
+		4BF44DC91AAAA0D300FAC3AA /* preview vid play/pause btns */ = {
+			isa = PBXGroup;
+			children = (
+				4BF44DD01AAECF8800FAC3AA /* record1.png */,
+				4BF44DCE1AAD2B6800FAC3AA /* record.png */,
+				4BF44DCA1AAAA0E400FAC3AA /* pause.png */,
+				4BF44DCB1AAAA0E400FAC3AA /* play.png */,
+			);
+			name = "preview vid play/pause btns";
 			sourceTree = "<group>";
 		};
 		7C425A971A01DF86004FBBC3 /* Header */ = {
@@ -820,6 +948,9 @@
 		7C8CCD1219FF56CD00D27D24 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4BF44DC91AAAA0D300FAC3AA /* preview vid play/pause btns */,
+				4BF44DAD1AA8D4E500FAC3AA /* video icon */,
+				4BF44DA81AA8243B00FAC3AA /* pull to refresh */,
 				15086D1F1A408ECC0086998B /* trapezoid_menu_lower@3x.png */,
 				15086D201A408ECC0086998B /* trapezoid_menu_top@3x.png */,
 				15086D0D1A408EC20086998B /* facebook_friend.png */,
@@ -892,6 +1023,7 @@
 				7C8CCD6719FF56CD00D27D24 /* study_btn_inactive.png */,
 				7C8CCD6819FF56CD00D27D24 /* study_btn_inactive@2x.png */,
 				7C8CCD6919FF56CD00D27D24 /* switchCamera.png */,
+				4BF44DC71AAA81DA00FAC3AA /* switchCameraNew.png */,
 				7C8CCD6A19FF56CD00D27D24 /* trapezoid_menu_bottom.png */,
 				7C8CCD6B19FF56CD00D27D24 /* trapezoid_menu_bottom@2x.png */,
 				7C8CCD6C19FF56CD00D27D24 /* trapezoid_menu_bottom_segmented.png */,
@@ -938,6 +1070,8 @@
 		7C8CCDD119FF58B500D27D24 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				4BF44DB41AA8E95400FAC3AA /* SWTableViewCell */,
+				4BF44D5F1AA6DA3E00FAC3AA /* DateTools Lib */,
 				7CB7127F19F9A9D6008935E6 /* BFTConstants.h */,
 				8040E9751978FD59000D66C7 /* BFTAppDelegate.h */,
 				8040E9761978FD59000D66C7 /* BFTAppDelegate.m */,
@@ -945,8 +1079,6 @@
 				7CB7127D19F9A9A2008935E6 /* ExtendedNSLog.m */,
 				15ED57451A40F37A00B24CEB /* UIImage+Color.h */,
 				15ED57461A40F37A00B24CEB /* UIImage+Color.m */,
-				7CB076581A0F4FD500D597EA /* NSDate+relativeTimeStamp.h */,
-				7CB076591A0F4FD500D597EA /* NSDate+relativeTimeStamp.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1194,6 +1326,7 @@
 				7C1F447D1A19B1D1000C06CE /* splash@2x.png in Resources */,
 				7C8CCDD819FF5EA600D27D24 /* Media.xcassets in Resources */,
 				7C8CCDAC19FF56CD00D27D24 /* navbar@2x.png in Resources */,
+				4BF44DCD1AAAA0E400FAC3AA /* play.png in Resources */,
 				7C8CCDA619FF56CD00D27D24 /* msg_center@2x.png in Resources */,
 				7C8CCDB019FF56CD00D27D24 /* report_btn@2x.png in Resources */,
 				7C8CCDCE19FF57DF00D27D24 /* Main.storyboard in Resources */,
@@ -1206,8 +1339,11 @@
 				7C8CCDC719FF56CD00D27D24 /* trapezoid_menu_bottom.png in Resources */,
 				7C8CCD7A19FF56CD00D27D24 /* Default.png in Resources */,
 				7C8CCDCB19FF56CD00D27D24 /* trapezoid_menu_top.png in Resources */,
+				4BF44DAB1AA8244600FAC3AA /* pull.png in Resources */,
 				7C8CCD9819FF56CD00D27D24 /* love_btn_inactive@2x.png in Resources */,
 				7C6446A619BCE6130071D444 /* build-libidn.sh in Resources */,
+				4BF44DCC1AAAA0E400FAC3AA /* pause.png in Resources */,
+				4BF44D6F1AA6DADB00FAC3AA /* DateTools.bundle in Resources */,
 				7C8CCDC919FF56CD00D27D24 /* trapezoid_menu_bottom_segmented.png in Resources */,
 				15086D0C1A408EA80086998B /* close@3x.png in Resources */,
 				7C8CCD8019FF56CD00D27D24 /* grub_btn_inactive@2x.png in Resources */,
@@ -1231,19 +1367,25 @@
 				7C8CCDC519FF56CD00D27D24 /* study_btn_inactive@2x.png in Resources */,
 				7C8CCDC619FF56CD00D27D24 /* switchCamera.png in Resources */,
 				7C8CCDA119FF56CD00D27D24 /* move_btn_active.png in Resources */,
+				4BF44DD11AAECF8800FAC3AA /* record1.png in Resources */,
 				7C8CCDC319FF56CD00D27D24 /* study_btn_active@2x.png in Resources */,
 				7C8CCDAF19FF56CD00D27D24 /* report_btn.png in Resources */,
 				7C8CCDA519FF56CD00D27D24 /* msg_center.png in Resources */,
 				15086D191A408EC20086998B /* login_dropdown_bg.png in Resources */,
+				4BF44DB11AA8D4F100FAC3AA /* vidIcon.png in Resources */,
 				7C8CCD7619FF56CD00D27D24 /* baf_right_inactive.png in Resources */,
 				7C2C8A831A2481CF002204A3 /* locationpin@2x.png in Resources */,
+				4BF44DB21AA8D4F100FAC3AA /* vidIcon@2x.png in Resources */,
 				7C8CCDC819FF56CD00D27D24 /* trapezoid_menu_bottom@2x.png in Resources */,
+				4BF44DCF1AAD2B6800FAC3AA /* record.png in Resources */,
+				4BF44DC81AAA81DA00FAC3AA /* switchCameraNew.png in Resources */,
 				7C8CCDA919FF56CD00D27D24 /* msg_nonew.png in Resources */,
 				7C8CCD7E19FF56CD00D27D24 /* grub_btn_active@2x.png in Resources */,
 				7C8CCD9E19FF56CD00D27D24 /* Milo_Face_Navbar@2x.png in Resources */,
 				7C8CCD7B19FF56CD00D27D24 /* feedback_btn.png in Resources */,
 				7CB1F4951A231EDE0061B94E /* ForgottenFuturistRg_Regular.otf in Resources */,
 				15086D1E1A408EC20086998B /* meerchat_connected@3x.png in Resources */,
+				4BF44DAC1AA8244600FAC3AA /* pull@2x.png in Resources */,
 				7C8CCD9919FF56CD00D27D24 /* message_icon@2x.png in Resources */,
 				7CB1F4941A231EDE0061B94E /* ForgottenFuturistRg_Bold.ttf in Resources */,
 				7C8CCD7D19FF56CD00D27D24 /* grub_btn_active.png in Resources */,
@@ -1264,6 +1406,7 @@
 				7C8CCD7919FF56CD00D27D24 /* Default-1.png in Resources */,
 				15086D171A408EC20086998B /* facebook_friend@2x.png in Resources */,
 				7C8CCDA719FF56CD00D27D24 /* msg_new.png in Resources */,
+				4BF44DB31AA8D4F100FAC3AA /* vidIcon@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1340,6 +1483,7 @@
 				7C64470419BCE6440071D444 /* XMPPSRVResolver.m in Sources */,
 				7C64470319BCE6440071D444 /* XMPPIDTracker.m in Sources */,
 				7C64470119BCE6440071D444 /* GCDMulticastDelegate.m in Sources */,
+				4BF44DC61AA8E96000FAC3AA /* SWUtilityButtonView.m in Sources */,
 				7C6446F119BCE6440071D444 /* XMPPPlainAuthentication.m in Sources */,
 				7C6446F619BCE6440071D444 /* NSNumber+XMPP.m in Sources */,
 				7CD38DFA19F0B45B001DC8EF /* BFTCarouselView.m in Sources */,
@@ -1350,6 +1494,7 @@
 				7C64468519BCE1E10071D444 /* DDDispatchQueueLogFormatter.m in Sources */,
 				8053BDBB19A5CE54006E9D13 /* BFTMainPostViewController.m in Sources */,
 				7C6446F719BCE6440071D444 /* NSXMLElement+XMPP.m in Sources */,
+				4BF44D701AA6DADB00FAC3AA /* DTError.m in Sources */,
 				157040551A66C6CF003FF99F /* BFTPlaybackController.m in Sources */,
 				7C64468319BCE1E10071D444 /* DDTTYLogger.m in Sources */,
 				8053BDB719A17746006E9D13 /* BFTEmailConfirmationViewController.m in Sources */,
@@ -1358,17 +1503,19 @@
 				7C6446FC19BCE6440071D444 /* XMPPModule.m in Sources */,
 				7C64468B19BCE2350071D444 /* GCDAsyncSocket.m in Sources */,
 				7C64469E19BCE2B10071D444 /* DDXMLDocument.m in Sources */,
+				4BF44DC41AA8E96000FAC3AA /* SWTableViewCell.m in Sources */,
 				8040E9731978FD59000D66C7 /* main.m in Sources */,
 				7C64468119BCE1E10071D444 /* DDFileLogger.m in Sources */,
 				801AE87D1985E082006EA19B /* BFTThreadTableViewCell.m in Sources */,
+				4BF44DC21AA8E96000FAC3AA /* SWCellScrollView.m in Sources */,
 				7CCB382219BED3C00057D2F1 /* BFTMessageThreads.m in Sources */,
 				7C6446F219BCE6440071D444 /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				7C64470019BCE6440071D444 /* DDList.m in Sources */,
 				7C6446EF19BCE6440071D444 /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				15ED57421A40DD5100B24CEB /* BFTLogoutDropdown.m in Sources */,
-				7CB0765A1A0F4FD500D597EA /* NSDate+relativeTimeStamp.m in Sources */,
 				7C64470219BCE6440071D444 /* RFImageToDataTransformer.m in Sources */,
 				7C425A901A0181F5004FBBC3 /* BFTVideoMessageViewController.m in Sources */,
+				4BF44D741AA6DADB00FAC3AA /* DTTimePeriodGroup.m in Sources */,
 				8040E9771978FD59000D66C7 /* BFTAppDelegate.m in Sources */,
 				7C6446F319BCE6440071D444 /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				7CF791FB19C250BF003EB61F /* CaptureManager.m in Sources */,
@@ -1376,18 +1523,23 @@
 				7C6446F419BCE6440071D444 /* XMPPXOAuth2Google.m in Sources */,
 				7C64468019BCE1E10071D444 /* DDASLLogger.m in Sources */,
 				7CC2E77E19E6496C004EECC0 /* BFTVideoPlaybackController.m in Sources */,
+				4BF44DC11AA8E96000FAC3AA /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				7C944B8219ED8DEA001164BB /* BFTPostHandler.m in Sources */,
 				802199A619AFB6E90042597A /* BFTBackThreadItem.m in Sources */,
 				7C14975919DF4D2E00DFAF7D /* BFTLeftRightSegue.m in Sources */,
 				7C6446FA19BCE6440071D444 /* XMPPJID.m in Sources */,
 				7C64468419BCE1E10071D444 /* DDContextFilterLogFormatter.m in Sources */,
+				4BF44D751AA6DADB00FAC3AA /* NSDate+DateTools.m in Sources */,
 				7C13CDFB19E139BB00E54557 /* BFTVideoMediaItem.m in Sources */,
 				7CF791FA19C250BF003EB61F /* AVCamUtilities.m in Sources */,
+				4BF44D711AA6DADB00FAC3AA /* DTTimePeriod.m in Sources */,
 				7C6446FB19BCE6440071D444 /* XMPPMessage.m in Sources */,
 				8058E1B91988722400DF2F4F /* BFTLocationHandler.m in Sources */,
 				7CF791FF19C250FA003EB61F /* BFTCameraView.m in Sources */,
 				80F651001980A4DD00443673 /* BFTMainViewController.m in Sources */,
 				803EE0F51984CD1600B86ACE /* BFTSignupViewController.m in Sources */,
+				4BF44D731AA6DADB00FAC3AA /* DTTimePeriodCollection.m in Sources */,
+				4BF44DC51AA8E96000FAC3AA /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				7C6446ED19BCE6440071D444 /* XMPPAnonymousAuthentication.m in Sources */,
 				7CF791F919C250BF003EB61F /* AVCamRecorder.m in Sources */,
 				7C64468619BCE1E10071D444 /* DDMultiFormatter.m in Sources */,
@@ -1398,6 +1550,7 @@
 				15ED57471A40F37A00B24CEB /* UIImage+Color.m in Sources */,
 				801AE87A1985C023006EA19B /* BFTConversationsListTableViewController.m in Sources */,
 				7C6446EE19BCE6440071D444 /* XMPPDeprecatedDigestAuthentication.m in Sources */,
+				4BF44DC31AA8E96000FAC3AA /* SWLongPressGestureRecognizer.m in Sources */,
 				8021999C19A9AC4E0042597A /* BFTPrivacyPolicyViewController.m in Sources */,
 				7C6446FD19BCE6440071D444 /* XMPPParser.m in Sources */,
 				807F5B6F198DBF8E00528829 /* BFTMessageThreadTableViewController.m in Sources */,
@@ -1406,6 +1559,7 @@
 				8040E9B3197E34F6000D66C7 /* BFTDataHandler.m in Sources */,
 				7C6446FE19BCE6440071D444 /* XMPPPresence.m in Sources */,
 				7C64469F19BCE2B10071D444 /* DDXMLElement.m in Sources */,
+				4BF44D721AA6DADB00FAC3AA /* DTTimePeriodChain.m in Sources */,
 				8058E1AF1988436100DF2F4F /* iCarousel.m in Sources */,
 				157040521A66C6A1003FF99F /* BFTVideoAssetQueuePlayerController.m in Sources */,
 				80F650FC1980979700443673 /* BFTVideoPost.m in Sources */,
@@ -1467,7 +1621,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
-				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
+				PROVISIONING_PROFILE = "d628cf44-35ee-42fd-ad1f-36c16b3ea146";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1488,8 +1642,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Bafit LLC (3433MRU2GC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bafit LLC (3433MRU2GC)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1506,7 +1660,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-lxml2";
-				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
+				PROVISIONING_PROFILE = "d628cf44-35ee-42fd-ad1f-36c16b3ea146";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1518,8 +1672,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sam Gregory (CLL6A4T32M)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1550,7 +1704,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
+				PROVISIONING_PROFILE = "1fec92a3-24a5-4d5b-81d8-32ac6b1eff4c";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1562,8 +1716,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nick Vinson (M9DZBSBUG5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Bafit LLC (3433MRU2GC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Bafit LLC (3433MRU2GC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1594,7 +1748,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2732483a-dc3e-47dc-b547-eb590b29f617";
+				PROVISIONING_PROFILE = "1fec92a3-24a5-4d5b-81d8-32ac6b1eff4c";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1610,7 +1764,7 @@
 				8040E9941978FD59000D66C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8040E9951978FD59000D66C7 /* Build configuration list for PBXNativeTarget "Bafit" */ = {
 			isa = XCConfigurationList;
@@ -1619,7 +1773,7 @@
 				8040E9971978FD59000D66C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

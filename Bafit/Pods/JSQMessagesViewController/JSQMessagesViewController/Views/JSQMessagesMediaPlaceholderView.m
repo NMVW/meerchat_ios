@@ -42,7 +42,9 @@
 {
     UIColor *lightGrayColor = [UIColor jsq_messageBubbleLightGrayColor];
     UIImage *paperclip = [[UIImage jsq_defaultAccessoryImage] jsq_imageMaskedWithColor:[lightGrayColor jsq_colorByDarkeningColorWithValue:0.4f]];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:paperclip];
+    
+    UIImage *vidIcon = [UIImage imageNamed:@"vidIcon.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:vidIcon];
     
     JSQMessagesMediaPlaceholderView *view =[[JSQMessagesMediaPlaceholderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 120.0f)
                                                                                   backgroundColor:lightGrayColor

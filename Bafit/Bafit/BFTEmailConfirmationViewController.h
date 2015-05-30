@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BFTEmailConfirmationViewController : UIViewController
+@interface BFTEmailConfirmationViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *emailSentTextLabel;
 @property (weak, nonatomic) IBOutlet UITextField *verificationNumberTextField;
 @property (weak, nonatomic) IBOutlet UIButton *submitVerificationButton;
 
+@property (strong, nonatomic) IBOutlet UIButton *termsButton;
 
 @end

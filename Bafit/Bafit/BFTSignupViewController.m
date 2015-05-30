@@ -22,9 +22,19 @@
     [super viewDidLoad];
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+    self.view.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer* tapper = [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = NO;
+    [self.bgControl addGestureRecognizer:tapper];
+    
+    _initialUsername.autocorrectionType = UITextAutocorrectionTypeNo;
+    _schoolEmail.autocorrectionType = UITextAutocorrectionTypeNo;
+    
     _initialUsername.delegate = self;
     _schoolEmail.delegate = self;
-
+    
     //Initialize username error label
     _usernameErrorLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.initialUsername.frame, 0, 30)];
     _usernameErrorLabel.textAlignment = NSTextAlignmentCenter;
@@ -48,12 +58,25 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+    
+    self.nextBtn.userInteractionEnabled = YES;
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    [super viewWillDisappear:animated];
+}
+
+//hide keyboard when view is touched
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
 }
 
 - (IBAction)checkUser:(id)sender {
+    
+    self.nextBtn.userInteractionEnabled = NO;
+    
     if ([self validateEmail:[_schoolEmail text]]) {
         //Passed School email
         BFTDataHandler *handler = [BFTDataHandler sharedInstance];
@@ -63,6 +86,9 @@
             [self verifyUniqueUsername:YES];
         }
         if (self.usernameIsUnique) {
+            
+            self.nextBtn.userInteractionEnabled = NO;
+            
             [handler setBUN:self.initialUsername.text];
             [handler saveData];
             
@@ -74,8 +100,6 @@
                     }
                     else {
                         //passed username and email, focus on navigation
-                        [handler setInitialLogin:false];
-                        [handler saveData];
                         
                         //go to email confirmation page
                         [self performSegueWithIdentifier:@"emailConfirm" sender:self];
@@ -86,6 +110,9 @@
                 }
             }] startConnection];
         } else{
+            
+            self.nextBtn.userInteractionEnabled = YES;
+            
             if (self.couldNotConnect) {
                 NSLog(@"Connection Error");
                 [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Unable to Connect to Database" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
@@ -96,6 +123,9 @@
             }
         }
     } else {
+        
+        self.nextBtn.userInteractionEnabled = YES;
+        
         [[[UIAlertView alloc] initWithTitle:@"Could not Register" message:@"Please enter a valid email address" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil] show];
         NSLog(@"Email is incorrect");
     }
@@ -137,6 +167,10 @@
     return [emailPredicate evaluateWithObject:email];
 }
 
+- (IBAction)goBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark TextField
 
 - (IBAction)backgroundTapped:(id)sender {
@@ -148,8 +182,17 @@
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return NO;
+    if (textField.tag == 1)
+    {
+        [self.initialUsername becomeFirstResponder];
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+    
+    return YES;
 }
 
 //this is called when the email text field returns

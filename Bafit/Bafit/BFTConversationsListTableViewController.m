@@ -16,6 +16,7 @@
 #import "BFTConstants.h"
 #import "SDImageCache.h"
 #import "BFTDatabaseRequest.h"
+#import "BFTDataHandler.h"
 
 #define UIColorFromRGB(rgbvalue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 168))/255.0 blue:((float)(rgbValue & 0xFF)) >> 166/255.0 alpha:1.0]
 
@@ -41,7 +42,7 @@
     [self.tableView setBackgroundView:backView];
     
     _noMessagesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, [UIScreen mainScreen].bounds.size.width - 40, 150)];
-    [_noMessagesLabel setText:@"You have no conversations at this time. To start a conversation, reply to someone's video, and once they respond you will be able to message them."];
+    [_noMessagesLabel setText:@"You haven’t started talking to anyone! Respond to a public post or create a public post to get things started. Once you have exchanged video messages, you will be able to chat here."];
     [_noMessagesLabel setNumberOfLines:5];
     [_noMessagesLabel setTextAlignment:NSTextAlignmentCenter];
     [_noMessagesLabel setFont:[UIFont systemFontOfSize:16]];
@@ -88,10 +89,17 @@
     self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
     
     [self.dateFormatter setDoesRelativeDateFormatting:YES];
+    
+    UIView *footerView  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320.0, 0)];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = footerView;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    // order conversations by time/date - just need to reverse the "listOfThreads" set
+    self.reverseOrder = [_threadManager listOfThreads].reversedOrderedSet;
     [self.tableView reloadData];
     self.appDelegate.messageDelegate = self;
     [[BFTMessageThreads sharedInstance] saveThreads];
@@ -207,6 +215,9 @@
     return numberOfItems;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 52;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BFTThreadTableViewCell *cell = (BFTThreadTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"backThreadCell"];
@@ -215,12 +226,17 @@
         cell = [[BFTThreadTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"backThreadCell"];
     }
     
+    // set Delete and Block slide out buttons
+    [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:78.0f];
+    cell.delegate = self;
+    
     //Bold fonts
     [cell.usernameLabel setFont:[UIFont boldSystemFontOfSize:16]];
     [cell.numberMessagesLabel setFont:[UIFont boldSystemFontOfSize:16]];
     [cell.lastUpdatedLabel setFont:[UIFont boldSystemFontOfSize:14]];
     
-    BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:indexPath.row];
+    
+    BFTBackThreadItem *item = [self.reverseOrder objectAtIndex:indexPath.row];
     
     cell.usernameLabel.text = [NSString stringWithFormat:@"@%@", item.username];
     cell.numberMessagesLabel.text = [item numberUnreadMessages] == 0 ? @"" : [NSString stringWithFormat:@"%zd", [item numberUnreadMessages]];
@@ -268,7 +284,6 @@
     return YES;
 }
 
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_threadManager removeThreadAtIndex:indexPath.row];
@@ -276,11 +291,155 @@
     }
 }
 
+//remove tableview seperator inset
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)])
+    {
+        if (indexPath.section == 0)
+        {
+            [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        }
+        else
+        {
+            [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        }
+    }
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)])
+    {
+        [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+}
+
+//remove tableview seperator inset
+-(void)viewDidLayoutSubviews
+{
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)])
+    {
+        [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+    
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])
+    {
+        [self.tableView setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }
+}
+
+#pragma mark - SWTableViewDelegate
+// table cell edit buttons
+- (NSArray *)rightButtons
+{
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
+                                                title:@"Block"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
+                                                title:@"Delete"];
+    
+    return rightUtilityButtons;
+}
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
+    switch (index) {
+        case 0:
+        {
+            NSLog(@"More button was pressed");
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            
+            UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to report this user? You will no longer recieve any updates from them." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Block User" otherButtonTitles:nil];
+            [actSheet setTag:cellIndexPath.row];
+            [actSheet showInView:self.view];
+            
+            //[cell hideUtilityButtonsAnimated:YES];
+            break;
+        }
+        case 1:
+        {
+            // Delete button was pressed
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            
+            BFTBackThreadItem *item = [self.reverseOrder objectAtIndex:cellIndexPath.row];
+            
+            NSUInteger itemIndex = [_threadManager.listOfThreads indexOfObject:item];
+            
+            [_threadManager removeThreadAtIndex:itemIndex];
+            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
+{
+    // allow just one cell's utility button to be open at once
+    return YES;
+}
+
+- (BOOL)swipeableTableViewCell:(SWTableViewCell *)cell canSwipeToState:(SWCellState)state
+{
+    switch (state) {
+        case 1:
+            // set to NO to disable all left utility buttons appearing
+            return NO;
+            break;
+        case 2:
+            // set to NO to disable all right utility buttons appearing
+            return YES;
+            break;
+        default:
+            break;
+    }
+    
+    return YES;
+}
+
 #pragma mark Messaging Delegate
 
 -(void)recievedMessage {
     //the actual recieving of the message is handled in the singleton, which we are getting are information from. we just need to reload the table data
+    self.reverseOrder = [_threadManager listOfThreads].reversedOrderedSet;
     [self.tableView reloadData];
+}
+
+#pragma mark - Action Sheet
+
+-(void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self performSelectorOnMainThread:@selector(blockUser:) withObject:[NSNumber numberWithInteger:actionSheet.tag] waitUntilDone:NO];
+    }
+    return;
+}
+
+#pragma mark - Buttons
+
+-(void)blockUser:(NSNumber *)rowIndex {
+    NSInteger index = [rowIndex integerValue];
+    
+    BFTBackThreadItem *user = [self.reverseOrder objectAtIndex:index];
+    
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"blockUser.php?UIDr=%@&UIDp=%@&GPSlat=%.4f&GPSlon=%.4f", [[BFTDataHandler sharedInstance] FBID], user.facebookID, [[BFTDataHandler sharedInstance] Latitude], [[BFTDataHandler sharedInstance] Longitude]] trueOrFalseBlock:^(BOOL success, NSError *error) {
+        if (!error) {
+            // remove user message from thread manager and reload table
+            BFTBackThreadItem *user = [self.reverseOrder objectAtIndex:index];
+            [[_threadManager listOfThreads] removeObject:user];
+            
+            //self.reverseOrder = nil;
+            self.reverseOrder = [_threadManager listOfThreads].reversedOrderedSet;
+            
+            [self.tableView reloadData];
+            
+            // add remove table cell code
+        }
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Could not block user" message:error.localizedDescription delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        }
+    }] startConnection];
 }
 
 #pragma mark - Navigation
@@ -291,7 +450,7 @@
         UINavigationController *navController = [segue destinationViewController];
         BFTMessageThreadTableViewController *destination = [navController.viewControllers objectAtIndex:0];
         
-        BFTBackThreadItem *item = [[_threadManager listOfThreads] objectAtIndex:self.selectedIndex];
+        BFTBackThreadItem *item = [self.reverseOrder objectAtIndex:self.selectedIndex];
         destination.otherPersonsUserID = item.userID;
         destination.otherPersonsUserName = item.username;
         destination.messageThread = item;

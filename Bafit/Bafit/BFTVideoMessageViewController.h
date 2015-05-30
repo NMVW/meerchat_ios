@@ -11,6 +11,7 @@
 #import "BFTCameraViewDelegate.h"
 
 @import AVFoundation;
+@protocol BFTCameraViewDelegate;
 
 @interface BFTVideoMessageViewController : UIViewController <BFTCameraViewDelegate>
 
@@ -19,5 +20,11 @@
 @property (strong, nonatomic) IBOutlet UIView *recordView;
 
 @property (strong, nonatomic) BFTCameraView *embeddedrecordView;
+
+@property (strong, nonatomic) IBOutlet UIView *postBtnView;
+@property (strong, nonatomic) IBOutlet UIButton *postBtn;
+@property (strong, nonatomic) IBOutlet UIButton *clearBtn;
+
+@property (nonatomic) BOOL canPost;
 
 @end

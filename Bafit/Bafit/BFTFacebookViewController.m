@@ -23,6 +23,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //BOOL to tell whether loginViewFetchedUserInfo method was called -- it's not called if you logout and then login again in sequence. If YES(true) perform segue in loginViewShowingLoggedInUser method
+    self.facebook = NO;
+    
     //set background color
     [self.view setBackgroundColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     
@@ -31,17 +35,34 @@
     //Facebook
     _loginButton.delegate = self;
     _loginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
+    
+    if (FBSession.activeSession.isOpen) {
+        self.nextBtn.hidden = NO;
+    } else {
+        self.nextBtn.hidden = YES;
+    }
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
+    
+    if (FBSession.activeSession.isOpen) {
+        self.nextBtn.hidden = NO;
+    } else {
+        self.nextBtn.hidden = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)nextBtn:(id)sender {
+    [self performSegueWithIdentifier:@"initiallogin" sender:self];
 }
 
 - (IBAction)PolicyAlert:(id)sender {
@@ -67,8 +88,21 @@
 
 #pragma mark FBLoginView Delegate
 
--(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
+    self.nextBtn.hidden = YES;
+    
+    [[BFTDataHandler sharedInstance] setUID:@""];
+    [[BFTDataHandler sharedInstance] setBUN:@""];
+    [[BFTDataHandler sharedInstance] setFBEmail:@""];
+    [[BFTDataHandler sharedInstance] saveData];
+}
 
+-(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
+    
+    if (self.facebook)
+    {
+        [self performSegueWithIdentifier:@"initiallogin" sender:self];
+    }
 }
 
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
@@ -85,6 +119,9 @@
     if (![[BFTDataHandler sharedInstance] FBID]) {
         [self sendFBInformation:user];
     }
+    
+    self.facebook = YES;
+    
     //Update some stuff..
     [[BFTDataHandler sharedInstance] setFBEmail:email];
     [[BFTDataHandler sharedInstance] setFBID:[user objectID]];
@@ -97,6 +134,7 @@
             NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"Facebook Data: %@", response);
             NSArray *values = [response componentsSeparatedByString:@","];
+            
             if (![values[0] isEqualToString:@""]) {
                 //if the response is successful, we set the uid to the datahandler, and go to mainview, otherwise, we go to the loginview
                 NSString *uid = values[0];
@@ -108,12 +146,15 @@
                 [[BFTDataHandler sharedInstance] setPPAccepted:YES];
                 [[BFTDataHandler sharedInstance] setEmailConfirmed:YES];
                 [[BFTDataHandler sharedInstance] saveData];
+                
+                //[self performSegueWithIdentifier:@"initiallogin" sender:self];
                 [self performSegueWithIdentifier:@"mainview" sender:self];
                 
                 //log the user into jabber
                 [(BFTAppDelegate*)[[UIApplication sharedApplication] delegate] connectToJabber];
             }
             else {
+                
                 [self sendFBInformation:user];
                 [[BFTDataHandler sharedInstance] setFBEmail:email];
                 [[BFTDataHandler sharedInstance] setFBID:[user objectID]];
@@ -199,6 +240,13 @@
    // NSLog(@"%s", [[BFTDataHandler sharedInstance] PPAccepted]);
     //return *[[BFTDataHandler sharedInstance]PPAccepted];
     return false;
+}
+
+- (BOOL)canPerformUnwindSegueAction:(SEL)action
+                 fromViewController:(UIViewController *)fromViewController
+                         withSender:(id)sender
+{
+    return YES; // Or NO if something went wrong and you want to abort
 }
 
 @end

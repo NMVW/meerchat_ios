@@ -25,6 +25,11 @@
 
 -(void)postingFailedWithError:(NSError*)error;
 
+//methods for post screen ui changes
+-(void)recordingIsThreeSeconds;
+-(void)changePostBtnColor;
+-(void)showClearButton;
+
 //Upload Available
 -(BOOL)canUploadVideo;
 

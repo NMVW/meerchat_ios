@@ -23,16 +23,28 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
+    [application setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [Parse setApplicationId:@"wrDBeyyvoetbewUYHqByWOfK1R5PhiTmZiGOJeYO"
                   clientKey:@"09AYDgk4uYTbiFhNdxge5i2HyWQmeOTc85WivX41"];
     [Fabric with:@[CrashlyticsKit]];
     
     //Set navigation color
-//    [[UINavigationBar appearance] setTranslucent:NO];
+    //[[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     
+    //Set status bar to white
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [[BFTDataHandler sharedInstance] loadData];
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = 50.0f;
     
     [self startMonitoringLocation];
 
@@ -86,8 +98,16 @@
     
     return YES;
 }
-							
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
+    // removes instance of AVCaptureSession
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    NSLog(@"applicationWillResignActive removeSession");
     [self disconnectFromJabber];
 }
 
@@ -102,6 +122,9 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    // removes instance of AVCaptureSession
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    
     [self connectToJabber];
     
     PFInstallation *install = [PFInstallation currentInstallation];
@@ -115,6 +138,9 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    // removes instance of AVCaptureSession
+    NSLog(@"applicationWillTerminate removeSession");
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -285,6 +311,7 @@
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *from = [[message attributeForName:@"from"] stringValue];
     NSString *fromFacebookID = [[message attributeForName:@"facebookID"] stringValue];
+    NSString *showTimeLabel = [[message attributeForName:@"showTime"] stringValue];
     NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
     double date = [message attributeDoubleValueForName:@"date"];
     
@@ -292,7 +319,7 @@
         return;
     }
     
-    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username date:[NSDate dateWithTimeIntervalSince1970:date] facebookID:fromFacebookID]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
+    [[BFTMessageThreads sharedInstance] addMessageToThread:msg from:username date:[NSDate dateWithTimeIntervalSince1970:date] facebookID:fromFacebookID showTime:showTimeLabel]; //this makes sure that the message gets delivered if we arent on the messaging screen at the time
     
     [self.messageDelegate recievedMessage]; //notify the current mesage delegate of recieved message
     
@@ -306,11 +333,12 @@
     
     NSString *fromFacebookID = [[message attributeForName:@"facebookID"] stringValue];
     NSString *from = [[message attributeForName:@"from"] stringValue];
+    NSString *showTimeLabel = [[message attributeForName:@"showTime"] stringValue];
     NSString *username = [[from componentsSeparatedByString:@"@meerchat.mobi"] objectAtIndex:0];
     double date = [message attributeDoubleValueForName:@"date"];
     
     
-    [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username date:[NSDate dateWithTimeIntervalSince1970:date] facebookID:fromFacebookID];
+    [[BFTMessageThreads sharedInstance] addVideoToThreadWithURL:videoURL thumbURL:thumbURL from:username date:[NSDate dateWithTimeIntervalSince1970:date] facebookID:fromFacebookID showTime:showTimeLabel];
     
     [self.messageDelegate recievedMessage];
     NSLog(@"Video Message Recieved:\nFrom: %@\nID: %@\nMessage:\n%@", username, fromFacebookID, videoURL);
@@ -358,30 +386,28 @@
 #pragma mark - CLLocation Manager
 
 -(void)startMonitoringLocation {
-    if (!_locationManager) {
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        _locationManager.distanceFilter = 50.0f;
-    }
-    
+
     NSInteger authorizationStatus = [CLLocationManager authorizationStatus];
 
-    if (authorizationStatus == (kCLAuthorizationStatusAuthorizedAlways | kCLAuthorizationStatusAuthorized)) {
-        //[_locationManager startMonitoringSignificantLocationChanges];
-        [_locationManager startUpdatingLocation];
+    if (authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse || authorizationStatus == kCLAuthorizationStatusAuthorized)
+    {
+        [self.locationManager startUpdatingLocation];
     }
-    else if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+    else
+    {
         //Check for ios8, will crash otherwise
-        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-            [self.locationManager requestAlwaysAuthorization];
+        if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+        {
+            [self.locationManager requestWhenInUseAuthorization];
         }
+        
+        [self.locationManager startUpdatingLocation];
     }
 }
 
 -(void)stopMonitoringLocation {
     //[_locationManager stopMonitoringSignificantLocationChanges];
-    [_locationManager startUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -393,6 +419,8 @@
     
     [[BFTDataHandler sharedInstance] setLatitude:newLocation.coordinate.latitude];
     [[BFTDataHandler sharedInstance] setLongitude:newLocation.coordinate.longitude];
+    
+    [self.locationManager stopUpdatingLocation];
 }
 
 -(void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager {

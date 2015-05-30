@@ -14,6 +14,8 @@
 @property (nonatomic, copy) NSURL* thumbURL;
 @property (nonatomic, strong) UIView *view;
 
+@property BOOL videoIsPlaying;
+
 @property (nonatomic, strong) UIActivityIndicatorView *loadingIcon;
 
 -(instancetype)initWithVideoURL:(NSURL *)videoURL;

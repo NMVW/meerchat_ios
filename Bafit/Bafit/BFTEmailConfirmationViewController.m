@@ -10,6 +10,7 @@
 #import "BFTDatabaseRequest.h"
 #import "BFTDataHandler.h"
 #import "BFTConstants.h"
+#import "BFTAppDelegate.h"
 
 @interface BFTEmailConfirmationViewController () <UITextFieldDelegate>
 
@@ -21,7 +22,19 @@
 {
     [super viewDidLoad];
     //set background color
-
+    
+    [self.verificationNumberTextField becomeFirstResponder];
+    
+    NSString *terms = @"by clicking accept you are agreeing to our Terms & Conditions";
+    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:terms];
+    
+    NSRange foundRange = [terms rangeOfString:@"Terms & Conditions"];
+    [attString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:1] range:foundRange];
+    [attString addAttribute:NSUnderlineColorAttributeName value:[UIColor whiteColor] range:foundRange];
+    [attString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Medium" size:15] range:foundRange];
+    
+    [self.termsButton setAttributedTitle:attString forState:UIControlStateNormal];
+    
     [_emailSentTextLabel setText:[NSString stringWithFormat:@"Please enter the verification number sent to %@", [[BFTDataHandler sharedInstance] EDEmail]]];
     
     UIColor *orangeButtonBorder = [UIColor colorWithRed:240/255.0f green:162/255.0f blue:44/255.0f alpha:1];
@@ -40,6 +53,9 @@
                            barMetrics:UIBarMetricsDefault];
     
     [navigationBar setShadowImage:[UIImage new]];
+    
+    UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.backBarButtonItem = backBarBtn;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -49,12 +65,20 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.verificationNumberTextField becomeFirstResponder];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
     [self.view endEditing:YES];
+    [self.view.window endEditing:YES];
+    [self.verificationNumberTextField resignFirstResponder];
+    [super viewWillDisappear:YES];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [self.view endEditing:YES];
+    [self.view.window endEditing:YES];
+    [self.verificationNumberTextField resignFirstResponder];
+    [super viewDidDisappear:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,6 +105,9 @@
             //not sure what this returns if its successful
             if (boolResult) {
                 NSLog(@"User Succesfully Created");
+                
+                [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) registerForNotifications];
+                
                 [[BFTDataHandler sharedInstance] setEmailConfirmed:YES];
                 [[BFTDataHandler sharedInstance] saveData];
                 [self performSegueWithIdentifier:@"tomain" sender:self];
@@ -116,6 +143,11 @@
     return image;
 }
 
+-(void)back
+{
+    [self.view.window endEditing:YES];
+    [self.verificationNumberTextField resignFirstResponder];
+}
 
 /*
 #pragma mark - Navigation

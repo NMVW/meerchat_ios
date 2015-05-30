@@ -14,7 +14,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate, BFTMessageDelegate, UIActionSheetDelegate>
+@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate, BFTMessageDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) UIView *videoPlayback;
 
@@ -34,14 +34,16 @@
 @property (nonatomic) BOOL swipeUp;
 @property (nonatomic, strong) NSArray *tempHashTags;
 
+@property (nonatomic) BOOL isRefreshing;
+
 @property (nonatomic, strong) NSMutableDictionary *videoPlaybackControllers;
 @property (nonatomic, assign) NSUInteger currentVideoPlaybackIndex;
 
 @property (retain, nonatomic) IBOutlet iCarousel *carousel;
 @property (retain, nonatomic) NSMutableArray *items;
-@property(retain, nonatomic) NSMutableOrderedSet *videoPosts;
+@property(retain, nonatomic)  NSMutableOrderedSet *videoPosts;
 @property (retain, nonatomic) NSMutableArray *imageObjects;
-@property (weak, nonatomic) NSMutableArray *filePaths;
+@property (weak, nonatomic)   NSMutableArray *filePaths;
 @property (strong, nonatomic) NSMutableArray *mutableArray;
 @property (strong, nonatomic) UILabel *usernameLabel;
 @property (strong, nonatomic) NSArray *images;
@@ -50,6 +52,13 @@
 @property (assign, nonatomic) NSInteger segment;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+// pull to refresh elements
+@property (strong, nonatomic) UIImageView *refresh;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *refreshGif;
+@property (strong, nonatomic) IBOutlet UILabel *refreshingLbl;
+
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loadingGif;
 
 @property (nonatomic, strong) NSCache *tempImageCache;
 @property (nonatomic, assign) BOOL notificationImageAssigned; //bool value to let me know whether or not the "you have new messages" image is on the back button or not

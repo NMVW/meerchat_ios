@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -36,7 +36,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>157</string>
+	<string>2</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -57,8 +57,10 @@
 	<string>Meerchat</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to be able to recieve location updates if you want to be able to meet up with people close to you!</string>
+	<key>Status Bar Style</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ForgottenFuturistRg_Bold.otf</string>
@@ -72,9 +74,13 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

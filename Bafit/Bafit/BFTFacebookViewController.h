@@ -12,10 +12,16 @@
 
 @interface BFTFacebookViewController : UIViewController<UIAlertViewDelegate, FBLoginViewDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *PolicyButton;
+@property (strong, nonatomic) IBOutlet UIButton *nextBtn;
 @property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
 @property (strong, nonatomic) BFTDataHandler *data;
 @property (strong, nonatomic) NSMutableArray *thumbURLS;
 @property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 
+- (IBAction)nextBtn:(id)sender;
+
 - (IBAction)PolicyAlert:(id)sender;
+
+@property BOOL facebook;
+
 @end

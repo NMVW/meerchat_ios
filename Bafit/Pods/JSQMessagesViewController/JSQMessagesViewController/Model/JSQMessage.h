@@ -52,10 +52,24 @@
 @property (assign, nonatomic, readonly) BOOL isMediaMessage;
 
 /**
+ *  Returns a boolean value specifying whether or not the message contains media.
+ *  If `NO`, the message contains text. If `YES`, the message contains media.
+ *  The value of this property depends on how the object was initialized.
+ */
+@property (assign, nonatomic) BOOL showTimeStamp;
+
+/**
  *  Returns the body text of the message, or `nil` if the message is a media message.
  *  That is, if `isMediaMessage` is equal to `YES` then this value will be `nil`.
  */
 @property (copy, nonatomic, readonly) NSString *text;
+
+/**
+ *  Returns the body text of the message, or `nil` if the message is a media message.
+ *  That is, if `isMediaMessage` is equal to `YES` then this value will be `nil`.
+ */
+@property (copy, nonatomic) NSString *showTime;
+
 
 /**
  *  Returns the media item attachment of the message, or `nil` if the message is not a media message.
@@ -73,6 +87,7 @@
  *  @param senderId    The unique identifier for the user who sent the message. This value must not be `nil`.
  *  @param displayName The display name for the user who sent the message. This value must not be `nil`.
  *  @param text        The body text of the message. This value must not be `nil`.
+ *  @param showTime          Whether to show time stamp label above message. This value must not be `nil`.
  *
  *  @discussion Initializing a `JSQMessage` with this method will set `isMediaMessage` to `NO`.
  *
@@ -80,7 +95,8 @@
  */
 + (instancetype)messageWithSenderId:(NSString *)senderId
                         displayName:(NSString *)displayName
-                               text:(NSString *)text;
+                               text:(NSString *)text
+                           showTime:(NSString *)showTime;
 
 /**
  *  Initializes and returns a message object having the given senderId, senderDisplayName, date, and text.
@@ -97,7 +113,10 @@
 - (instancetype)initWithSenderId:(NSString *)senderId
                senderDisplayName:(NSString *)senderDisplayName
                             date:(NSDate *)date
-                            text:(NSString *)text;
+                            text:(NSString *)text
+                        showTime:(NSString *)showTime;
+
+
 /**
  *  Initializes and returns a message object having the given senderId, displayName, media,
  *  and current system date.
@@ -112,7 +131,8 @@
  */
 + (instancetype)messageWithSenderId:(NSString *)senderId
                         displayName:(NSString *)displayName
-                              media:(id<JSQMessageMediaData>)media;
+                              media:(id<JSQMessageMediaData>)media
+                           showTime:(NSString *)showTime;
 
 /**
  *  Initializes and returns a message object having the given senderId, displayName, date, and media.
@@ -129,6 +149,7 @@
 - (instancetype)initWithSenderId:(NSString *)senderId
                senderDisplayName:(NSString *)senderDisplayName
                             date:(NSDate *)date
-                           media:(id<JSQMessageMediaData>)media;
+                           media:(id<JSQMessageMediaData>)media
+                        showTime:(NSString *)showTime;
 
 @end

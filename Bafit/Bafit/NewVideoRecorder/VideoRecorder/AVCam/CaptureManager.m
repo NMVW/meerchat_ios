@@ -67,6 +67,7 @@
 #define MAX_DURATION 0.25
 
 @interface CaptureManager (RecorderDelegate) <AVCamRecorderDelegate>
+
 @end
 
 
@@ -89,6 +90,7 @@
     self = [super init];
     if (self != nil) {
 		__block id weakSelf = self;
+        NSLog(@"CaptureManager init CALlED!!!!!!");
         void (^deviceConnectedBlock)(NSNotification *) = ^(NSNotification *notification) {
 			AVCaptureDevice *device = [notification object];
 			
@@ -151,58 +153,86 @@
 
 - (void) dealloc
 {
+    NSLog(@"dealloc CALLED");
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter removeObserver:[self deviceConnectedObserver]];
     [notificationCenter removeObserver:[self deviceDisconnectedObserver]];
 	[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    
+    [self.session beginConfiguration];
+    
+    NSArray* inputs = self.session.inputs;
+    for (AVCaptureDeviceInput* input in inputs)
+    {
+        //Remove existing inputs
+        [self.session removeInput:input];
+        NSLog(@"self.session removeInput CALLED");
+    }
+    [self.session commitConfiguration];
     
     [[self session] stopRunning];
 }
 
 - (BOOL) setupSession {
     BOOL success = NO;
-	
+    
+    // Add listener to show Clear Button after recording stops
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(removeSession)
+                                                 name:@"removeSession"
+                                               object:nil];
+    
+    NSLog(@"setupSession CALLED session = %@", self.session);
+    
+    self.frontCamera = NO;
+    
+    AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+    
     // Init the device inputs
-    AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:nil];
-    AVCaptureDeviceInput *newAudioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
+    self.captureDeviceInputBack = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:nil];
+    self.captureDeviceInputFront = [[AVCaptureDeviceInput alloc] initWithDevice:[self frontFacingCamera] error:nil];
+    self.captureDeviceInputAudio = [[AVCaptureDeviceInput alloc] initWithDevice:audioDevice error:nil];
     
     // Create session (use default AVCaptureSessionPresetHigh)
     AVCaptureSession *newCaptureSession = [[AVCaptureSession alloc] init];
-    
+    [newCaptureSession beginConfiguration];
+    newCaptureSession.sessionPreset = AVCaptureSessionPresetHigh;
     
     // Add inputs and output to the capture session
-    if ([newCaptureSession canAddInput:newVideoInput]) {
-        [newCaptureSession addInput:newVideoInput];
+    if ([newCaptureSession canAddInput:self.captureDeviceInputBack]) {
+        [newCaptureSession addInput:self.captureDeviceInputBack];
     }
-    if ([newCaptureSession canAddInput:newAudioInput]) {
-        [newCaptureSession addInput:newAudioInput];
+    if ([newCaptureSession canAddInput:self.captureDeviceInputAudio]) {
+        [newCaptureSession addInput:self.captureDeviceInputAudio];
     }
-
-    [self setVideoInput:newVideoInput];
-    [self setAudioInput:newAudioInput];
+    
+    [self setVideoInput:self.captureDeviceInputBack];
+    [self setAudioInput:self.captureDeviceInputAudio];
     [self setSession:newCaptureSession];
     
-	// Set up the movie file output
+    // Set up the movie file output
     NSURL *outputFileURL = [self tempFileURL];
     AVCamRecorder *newRecorder = [[AVCamRecorder alloc] initWithSession:[self session] outputFileURL:outputFileURL];
     [newRecorder setDelegate:self];
-	
-	// Send an error to the delegate if video recording is unavailable
-	if (![newRecorder recordsVideo] && [newRecorder recordsAudio]) {
-		NSString *localizedDescription = NSLocalizedString(@"Video recording unavailable", @"Video recording unavailable description");
-		NSString *localizedFailureReason = NSLocalizedString(@"Movies recorded on this device will only contain audio. They will be accessible through iTunes file sharing.", @"Video recording unavailable failure reason");
-		NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:
-								   localizedDescription, NSLocalizedDescriptionKey, 
-								   localizedFailureReason, NSLocalizedFailureReasonErrorKey, 
-								   nil];
-		NSError *noVideoError = [NSError errorWithDomain:@"AVCam" code:0 userInfo:errorDict];
-		if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
-			[[self delegate] captureManager:self didFailWithError:noVideoError];
-		}
-	}
-	
-	[self setRecorder:newRecorder];
-	
+    
+    // Send an error to the delegate if video recording is unavailable
+    if (![newRecorder recordsVideo] && [newRecorder recordsAudio]) {
+        NSString *localizedDescription = NSLocalizedString(@"Video recording unavailable", @"Video recording unavailable description");
+        NSString *localizedFailureReason = NSLocalizedString(@"Movies recorded on this device will only contain audio. They will be accessible through iTunes file sharing.", @"Video recording unavailable failure reason");
+        NSDictionary *errorDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   localizedDescription, NSLocalizedDescriptionKey,
+                                   localizedFailureReason, NSLocalizedFailureReasonErrorKey,
+                                   nil];
+        NSError *noVideoError = [NSError errorWithDomain:@"AVCam" code:0 userInfo:errorDict];
+        if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
+            [[self delegate] captureManager:self didFailWithError:noVideoError];
+        }
+    }
+    
+    [self setRecorder:newRecorder];
+    
+    [newCaptureSession commitConfiguration];
+    
     success = YES;
     
     return success;
@@ -210,36 +240,76 @@
 
 - (void)switchCamera
 {
-    NSArray* inputs = self.session.inputs;
-    for (AVCaptureDeviceInput* input in inputs) {
-        AVCaptureDevice* device = input.device;
-        if ([device hasMediaType: AVMediaTypeVideo]) {
-            AVCaptureDevicePosition position = device.position;
-            AVCaptureDevice* newCamera = nil;
-            AVCaptureDeviceInput* newInput = nil;
-            
-            if (position == AVCaptureDevicePositionFront)
-                newCamera = [self cameraWithPosition: AVCaptureDevicePositionBack];
-            else
-                newCamera = [self cameraWithPosition: AVCaptureDevicePositionFront];
-            
-            newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error: nil] ;
-            
-            // beginConfiguration ensures that pending changes are not applied immediately
-            [self.session beginConfiguration] ;
-            
-            [self.session removeInput :input] ;
-            [self.session addInput : newInput] ;
-            
-            //Changes take effect once the outermost commitConfiguration is invoked.
-            [self.session commitConfiguration] ;
-            break ;
+    //Change camera source
+    if(self.session)
+    {
+        NSLog(@"switchCamera CALLED session = %@", self.session);
+        
+        //Indicate that some changes will be made to the session
+        
+        [self.session beginConfiguration];
+        
+        NSArray* inputs = self.session.inputs;
+        for (AVCaptureDeviceInput* input in inputs)
+        {
+            //Remove existing inputs
+            [self.session removeInput:input];
+            NSLog(@"self.session removeInput CALLED");
         }
+        
+        
+        //Add new video input to AVCaptureSession
+        AVCaptureDevice* newCamera = nil;
+        AVCaptureDeviceInput* newInput = nil;
+        if (!self.frontCamera)
+        {
+            self.frontCamera = YES;
+            //[self.session addInput:self.captureDeviceInputFront];
+            [self setVideoInput:self.captureDeviceInputFront];
+            newCamera = [self cameraWithPosition:AVCaptureDevicePositionFront];
+        }
+        else
+        {
+            self.frontCamera = NO;
+            //[self.session addInput:self.captureDeviceInputBack];
+            [self setVideoInput:self.captureDeviceInputBack];
+            newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
+        }
+        
+        newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error: nil];
+        
+        [self.session addInput:newInput];
+        
+        //Add new audio input to AVCaptureSession
+        [self.session addInput:self.captureDeviceInputAudio];
+        [self setAudioInput:self.captureDeviceInputAudio];
+        
+        //Commit all the configuration changes at once
+        [self.session commitConfiguration];
     }
+}
+
+// removes instance of AVCaptureSession -- caused the audio bug in version 1
+- (void)removeSession
+{
+    NSLog(@"removeSession CALLED");
+    [self.session beginConfiguration];
+    
+    NSArray* inputs = self.session.inputs;
+    for (AVCaptureDeviceInput* input in inputs)
+    {
+        //Remove existing inputs
+        [self.session removeInput:input];
+    }
+    [self.session commitConfiguration];
+    
+    [[self session] stopRunning];
 }
 
 - (void) startRecording {
 //    [self MP4NameGet];
+    NSLog(@"[[self recorder] outputFileURL] == %@", [[self recorder] outputFileURL]);
+    
     if ([[UIDevice currentDevice] isMultitaskingSupported]) {
         // Setup background task. This is needed because the captureOutput:didFinishRecordingToOutputFileAtURL: callback is not received until AVCam returns
 		// to the foreground unless you request background execution time. This also ensures that there will be time to write the file to the assets library
@@ -257,6 +327,9 @@
 }
 
 - (void) saveVideoWithCompletionBlock:(void (^)(BOOL))completion {
+    
+    NSLog(@"saveVideoWithCompletionBlock");
+    
     //Should really be video began saving
     [self.delegate videoUploadBegan];
     
@@ -279,8 +352,9 @@
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, asset.duration)
                                 ofTrack:[[asset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:time error:nil];
             
-            if(idx == 0)
-            {
+            // not needed (I think) -- was causing the aspect ratio bug on Vine-like recordings
+            //if(idx == 0) {
+            
                 // Set your desired output aspect ratio here. 1.0 for square, 16/9.0 for widescreen, etc.
                 CGFloat desiredAspectRatio = 1.0;
                 CGSize naturalSize = CGSizeMake(videoAssetTrack.naturalSize.width, videoAssetTrack.naturalSize.height);
@@ -303,7 +377,7 @@
                     NSLog(@"NOTE: The video output width %0.1f is not a multiple of 4, which may cause a green line to appear at the edge of the video", size.width);
                 if (fmod(size.height, 4.0) != 0)
                     NSLog(@"NOTE: The video output height %0.1f is not a multiple of 4, which may cause a green line to appear at the edge of the video", size.height);
-            }
+            //}
             
             time = CMTimeAdd(time, asset.duration);
         }];
@@ -315,7 +389,6 @@
         AVMutableVideoCompositionLayerInstruction *vLayerInstruction = [AVMutableVideoCompositionLayerInstruction
                                                                         videoCompositionLayerInstructionWithAssetTrack:videoTrack];
         
-
         [vLayerInstruction setTransform:videoTrack.preferredTransform atTime:kCMTimeZero];
         vtemp.layerInstructions = @[vLayerInstruction];
         
@@ -330,6 +403,7 @@
         NSString *path =  [documentsDirectory stringByAppendingPathComponent:
                                  [NSString stringWithFormat:@"%@.mp4", [[BFTDataHandler sharedInstance] mp4Name]]];
         NSURL *url = [NSURL fileURLWithPath:path];
+        
         
         self.exportSession = [[AVAssetExportSession alloc] initWithAsset:mixComposition
                                                                presetName:AVAssetExportPresetMediumQuality];
@@ -387,7 +461,6 @@
     
     //Upload service
     completion(YES);
-    
     
     [self.assets removeAllObjects];
 }
@@ -470,6 +543,8 @@
     BFTPostHandler *post = [BFTPostHandler sharedInstance];
     
     NSString *urlString = [NSString stringWithFormat:@"postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC], [data FBID]];
+    NSLog(@"PostVideoToMain urlString = %@", urlString);
+    
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -624,7 +699,6 @@
 	}
 }
 
-
 -(void) deleteLastAsset
 {
     AVAsset *asset = [self.assets lastObject];
@@ -688,7 +762,9 @@
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
     if ([devices count] > 0) {
         return [devices objectAtIndex:0];
+        NSLog(@"audioDevice [devices objectAtIndex:0]!!!! MAYBE SAMPLE FUCK UP????");
     }
+    NSLog(@"audioDevice return nil!!!! MAYBE SAMPLE FUCK UP????");
     return nil;
 }
 

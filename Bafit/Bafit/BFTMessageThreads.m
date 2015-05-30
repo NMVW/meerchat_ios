@@ -35,10 +35,10 @@
     return self;
 }
 
--(void)addMessageToThread:(NSString *)message from:(NSString *)sender date:(NSDate*)date facebookID:(NSString*)facebookID {
+-(void)addMessageToThread:(NSString *)message from:(NSString *)sender date:(NSDate*)date facebookID:(NSString*)facebookID showTime:(NSString*)showTime{
     self.unreadMessages = YES;
     
-    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date text:message];
+    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date text:message showTime:showTime];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
@@ -59,9 +59,43 @@
 
 -(void)messageSentWithMessage:(NSString *)message to:(NSString *)reciever {
     [self sendMessageToDatabase:[NSString stringWithFormat:@"\%@", message] recipient:reciever];
-    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] text:message];
+    
+    
+    NSDate *prevDate;
+    
+    if ([_listOfThreads count] > 0) {
+        BFTBackThreadItem *lastObj = [_listOfThreads lastObject];
+        
+        prevDate = lastObj.lastMessageTime;
+    }
+    else
+    {
+        prevDate = [NSDate new];
+    }
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSMinuteCalendarUnit | NSDayCalendarUnit;
+    NSDateComponents *components = [gregorian components:unitFlags
+                                                fromDate:prevDate
+                                                  toDate:[NSDate new]
+                                                 options:0];
+    NSInteger mins = [components minute];
+    
+    // add a flag to JSQMessage object for when to show the label. Chronilogical messages must be greater than 10 mins apart to show ts label
+    NSString* showTimeLabel;
+    if (mins > 10)
+    {
+        showTimeLabel = @"yes";
+    }
+    else
+    {
+        showTimeLabel = @"no";
+    }
+    
+    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] text:message showTime:showTimeLabel];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
+    
     newItem.username = reciever;
     
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
@@ -77,11 +111,11 @@
     }
 }
 
--(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender date:(NSDate*)date facebookID:(NSString*)facebookID {
+-(void)addVideoToThreadWithURL:(NSString *)url thumbURL:(NSString *)thumbURL from:(NSString *)sender date:(NSDate*)date facebookID:(NSString*)facebookID showTime:(NSString *)showTime {
     self.unreadMessages = YES;
     
     BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL isOutgoing:NO];
-    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date media:videoItem];
+    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:sender senderDisplayName:sender date:date media:videoItem showTime:showTime];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
@@ -106,13 +140,45 @@
 
 -(void)videoSentWithURL:(NSString *)url thumbURL:(NSString *)thumbURL to:(NSString *)sender {
     [self sendMessageToDatabase:[NSString stringWithFormat:@"Video Message\nvideoURL: %@\nthumbURL: %@", url, thumbURL] recipient:sender];
+    
     BFTVideoMediaItem *videoItem = [[BFTVideoMediaItem alloc] initWithVideoURL:url thumbURL:thumbURL isOutgoing:YES];
-    JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] media:videoItem];
     
     BFTBackThreadItem *newItem = [[BFTBackThreadItem alloc] init];
     newItem.username = sender;
     
     NSInteger indexOfOldObject = [_listOfThreads indexOfObject:newItem];
+    
+    JSQMessage *msg;
+    //JSQMessage *msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] media:videoItem showTime:@""];
+    
+    //determine if should show timestamp label for message - compare date of previous message
+    if (indexOfOldObject != NSNotFound) {
+        
+        BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
+        NSDate *prevDate = item.lastMessageTime;
+        
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSUInteger unitFlags = NSMinuteCalendarUnit | NSDayCalendarUnit;
+        NSDateComponents *components = [gregorian components:unitFlags
+                                                    fromDate:prevDate
+                                                      toDate:[NSDate new]
+                                                     options:0];
+        NSInteger mins = [components minute];
+        
+        // add a flag "showTimeLabel" to JSQMessage object for when to show the label. Chronilogical messages must be greater than 10 mins apart to show ts label
+        NSString* showTimeLabel;
+        if (mins > 10)
+        {
+            showTimeLabel = @"yes";
+        }
+        else
+        {
+            showTimeLabel = @"no";
+        }
+        
+        msg = [[JSQMessage alloc] initWithSenderId:[[BFTDataHandler sharedInstance] BUN] senderDisplayName:[[BFTDataHandler sharedInstance] BUN] date:[NSDate new] media:videoItem showTime:showTimeLabel];
+    }
+    
     if (indexOfOldObject == NSNotFound) {
         //Since we are sending a video, and there is no thread found, that means that we haven't had a handshake yet
         //They need to send us something back before it opens up a connection for me to start messaging them
@@ -123,6 +189,7 @@
     }
     else {
         BFTBackThreadItem *item = [_listOfThreads objectAtIndex:indexOfOldObject];
+        
         item.lastMessageTime = [NSDate new];
         [item.listOfMessages addObject:msg];
         [item incrementUnread];

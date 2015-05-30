@@ -57,8 +57,7 @@
 @class AVCamRecorder;
 @protocol BFTCaptureManagerDelegate;
 
-@interface CaptureManager : NSObject {
-}
+@interface CaptureManager : NSObject 
 
 @property (nonatomic,strong) AVCaptureSession *session;
 @property (nonatomic,assign) AVCaptureVideoOrientation orientation;
@@ -78,6 +77,12 @@
 @property (nonatomic, assign) NSString *mp4Name;
 @property (nonatomic, strong) UIImage *thumbImg;
 @property (nonatomic, weak) BFTAppDelegate *appDelegate;
+
+@property (nonatomic) BOOL frontCamera;
+
+@property (nonatomic,strong) AVCaptureDeviceInput *captureDeviceInputFront;
+@property (nonatomic,strong) AVCaptureDeviceInput *captureDeviceInputBack;
+@property (nonatomic,strong) AVCaptureDeviceInput *captureDeviceInputAudio;
 
 
 - (BOOL) setupSession;

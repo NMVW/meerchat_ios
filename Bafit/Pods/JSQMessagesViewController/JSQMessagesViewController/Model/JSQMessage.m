@@ -24,7 +24,8 @@
 - (instancetype)initWithSenderId:(NSString *)senderId
                senderDisplayName:(NSString *)senderDisplayName
                             date:(NSDate *)date
-                         isMedia:(BOOL)isMedia;
+                         isMedia:(BOOL)isMedia
+                        showTime:showTime;
 
 @end
 
@@ -37,21 +38,37 @@
 + (instancetype)messageWithSenderId:(NSString *)senderId
                         displayName:(NSString *)displayName
                                text:(NSString *)text
+                           showTime:(NSString *)showTime
 {
     return [[JSQMessage alloc] initWithSenderId:senderId
                               senderDisplayName:displayName
                                            date:[NSDate date]
-                                           text:text];
+                                           text:text
+                                       showTime:showTime];
+}
+
+
+- (instancetype)initWithSenderId:(NSString *)senderId
+                        displayName:(NSString *)displayName
+                               text:(NSString *)text
+                           showTime:(NSString *)showTime
+{
+    return [[JSQMessage alloc] initWithSenderId:senderId
+                              senderDisplayName:displayName
+                                           date:[NSDate date]
+                                           text:text
+                                       showTime:showTime];
 }
 
 - (instancetype)initWithSenderId:(NSString *)senderId
                senderDisplayName:(NSString *)senderDisplayName
                             date:(NSDate *)date
                             text:(NSString *)text
+                        showTime:(NSString *)showTime
 {
     NSParameterAssert(text != nil);
     
-    self = [self initWithSenderId:senderId senderDisplayName:senderDisplayName date:date isMedia:NO];
+    self = [self initWithSenderId:senderId senderDisplayName:senderDisplayName date:date isMedia:NO showTime:showTime];
     if (self) {
         _text = [text copy];
     }
@@ -61,21 +78,24 @@
 + (instancetype)messageWithSenderId:(NSString *)senderId
                         displayName:(NSString *)displayName
                               media:(id<JSQMessageMediaData>)media
+                           showTime:showTime
 {
     return [[JSQMessage alloc] initWithSenderId:senderId
                               senderDisplayName:displayName
                                            date:[NSDate date]
-                                          media:media];
+                                          media:media
+                                       showTime:showTime];
 }
 
 - (instancetype)initWithSenderId:(NSString *)senderId
                senderDisplayName:(NSString *)senderDisplayName
                             date:(NSDate *)date
                            media:(id<JSQMessageMediaData>)media
+                        showTime:showTime
 {
     NSParameterAssert(media != nil);
     
-    self = [self initWithSenderId:senderId senderDisplayName:senderDisplayName date:date isMedia:YES];
+    self = [self initWithSenderId:senderId senderDisplayName:senderDisplayName date:date isMedia:YES showTime:showTime];
     if (self) {
         _media = media;
     }
@@ -86,6 +106,7 @@
                senderDisplayName:(NSString *)senderDisplayName
                             date:(NSDate *)date
                          isMedia:(BOOL)isMedia
+                        showTime:(NSString *)showTime
 {
     NSParameterAssert(senderId != nil);
     NSParameterAssert(senderDisplayName != nil);
@@ -97,6 +118,7 @@
         _senderDisplayName = [senderDisplayName copy];
         _date = [date copy];
         _isMediaMessage = isMedia;
+        _showTime = [showTime copy];
     }
     return self;
 }
@@ -114,6 +136,7 @@
     _date = nil;
     _text = nil;
     _media = nil;
+    _showTime = nil;
 }
 
 #pragma mark - NSObject
@@ -151,8 +174,8 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: senderId=%@, senderDisplayName=%@, date=%@, isMediaMessage=%@, text=%@, media=%@>",
-            [self class], self.senderId, self.senderDisplayName, self.date, @(self.isMediaMessage), self.text, self.media];
+    return [NSString stringWithFormat:@"<%@: senderId=%@, senderDisplayName=%@, date=%@, isMediaMessage=%@, text=%@, media=%@, showTime=%@>",
+            [self class], self.senderId, self.senderDisplayName, self.date, @(self.isMediaMessage), self.text, self.media, self.showTime];
 }
 
 - (id)debugQuickLookObject
@@ -172,6 +195,7 @@
         _isMediaMessage = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isMediaMessage))];
         _text = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(text))];
         _media = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(media))];
+        _showTime = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(showTime))];
     }
     return self;
 }
@@ -183,6 +207,7 @@
     [aCoder encodeObject:self.date forKey:NSStringFromSelector(@selector(date))];
     [aCoder encodeBool:self.isMediaMessage forKey:NSStringFromSelector(@selector(isMediaMessage))];
     [aCoder encodeObject:self.text forKey:NSStringFromSelector(@selector(text))];
+    [aCoder encodeObject:self.showTime forKey:NSStringFromSelector(@selector(showTime))];
     
     if ([self.media conformsToProtocol:@protocol(NSCoding)]) {
         [aCoder encodeObject:self.media forKey:NSStringFromSelector(@selector(media))];
@@ -197,13 +222,15 @@
         return [[[self class] allocWithZone:zone] initWithSenderId:self.senderId
                                                  senderDisplayName:self.senderDisplayName
                                                               date:self.date
-                                                             media:self.media];
+                                                             media:self.media
+                                                          showTime:self.showTime];
     }
     
     return [[[self class] allocWithZone:zone] initWithSenderId:self.senderId
                                              senderDisplayName:self.senderDisplayName
                                                           date:self.date
-                                                          text:self.text];
+                                                          text:self.text
+                                                      showTime:self.showTime];
 }
 
 @end

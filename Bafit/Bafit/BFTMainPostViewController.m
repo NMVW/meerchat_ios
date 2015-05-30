@@ -14,6 +14,7 @@
 #import "BFTConstants.h"
 #import "SVProgressHUD.h"
 #import "BFTAppDelegate.h"
+#import "BFTVideoPlaybackController.h"
 
 @interface BFTMainPostViewController ()
 
@@ -27,7 +28,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.canPost = NO;
+    self.postBtnColorOrange = YES;
+    
+    self.hashtagEditText.delegate = self;
+    
     //Set Data Handler for Post View
     [[BFTDataHandler sharedInstance] setPostView:YES];
     
@@ -39,24 +45,56 @@
     //set Naivagtion for View
     [self.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [self.navigationBar setTranslucent:NO];
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"post_center.png"]];
+    self.navItem = [[UINavigationItem alloc] init];
+    self.navItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"post_center.png"]];
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"milo_backtohome.png"] style:UIBarButtonItemStylePlain target:self action:@selector(popVC)];
-    navItem.leftBarButtonItem = backButton;
-    [self.navigationBar setItems:@[navItem]];
+    self.navItem.leftBarButtonItem = backButton;
+    
+    [self.navigationBar setItems:@[self.navItem]];
     
     //setup post view record
     //Setup reply record function
-    _embeddedRecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
+    _embeddedRecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width) fromView:@"postView"];
     _embeddedRecordView.maxDuration = 10.0;
     _embeddedRecordView.delegate = self;
     [_recordView addSubview:_embeddedRecordView];
+    
+    [self.view addSubview:_embeddedRecordView.durationProgressBar];
+    [self.view bringSubviewToFront:_embeddedRecordView.durationProgressBar];
+    
+    [self.view bringSubviewToFront:self.postBtnView];
+    [self.view bringSubviewToFront:self.clearBtn];
+    self.clearBtn.hidden = YES;
+    
+    
+    // Add listener to show Clear Button after recording stops
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showClearButton)
+                                                 name:@"showClearButton"
+                                               object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
+    
+    
+    //fixes hidden elements on iphone 4 (480 screens) - poorly designed for the small screen when I (sam) started... this is a patch
+    int height =  [[UIScreen mainScreen] bounds].size.height;
+    if(height == 480)
+    {
+        [self.view bringSubviewToFront:self.postBtnView];
+        self.postBtnView.frame = CGRectMake(0, 400, 320, 44);
+        self.cardView.frame = CGRectMake(40, 0, 240, 406);
+    }
 }
 
 - (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
     return UIBarPositionTopAttached;
 }
-
+    
 -(void)getVideoName {
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
@@ -91,13 +129,17 @@
 }
 
 -(void)popVC {
+    // post notification to clear AVCaptureSession in CaptureManager class
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - BFTCameraViewDelegate
 
 -(BOOL)canUploadVideo {
-    if ([[BFTPostHandler sharedInstance] postCategory] == 0) {
+    //if ([[BFTPostHandler sharedInstance] postCategory] == 0) {
+    //check the category label text, BFTPostHandler was inconsistent in some scenarios
+    if ([_categoryLabel.text isEqualToString:@"Choose a category"]) {
         if (NSClassFromString(@"UIAlertController") != nil) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please select a category" message:@"you didn't select a category for your video." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
@@ -174,11 +216,135 @@
 -(void)everythingFinished {
     [SVProgressHUD dismiss];
     [self popVC];
+}
+
+//notification to show clear button after recording complete
+-(void)showClearButton {
+    self.clearBtn.hidden = NO;
+}
+
+//notification BTCameraViewDelegate to change the post buttons color if recording progress is greater than 88%
+-(void)changePostBtnColor {
+    self.postBtnColorOrange = NO;
     
-    [((BFTAppDelegate*)[[UIApplication sharedApplication] delegate]) registerForNotifications];
+    if (![_categoryLabel.text isEqualToString:@"Choose a category"])
+    {
+        [self.postBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+}
+
+//notification from BTCameraViewDelegate to change the post buttons color after 3 secs of recording if canUploadVideo
+-(void)recordingIsThreeSeconds {
+    NSLog(@"recordingIsThreeSeconds");
+    self.canPost = YES;
+    self.postBtnColorOrange = YES;
+    
+    if (![_categoryLabel.text isEqualToString:@"Choose a category"])
+    {
+        [self.postBtn setTitleColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+    }
+}
+
+//method to set the Post button to the right color upon toggling category buttons
+-(void)decidePostBtnColor {
+    if (self.canPost)
+    {
+        if (self.postBtnColorOrange)
+        {
+            [self.postBtn setTitleColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [self.postBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+    }
+    else
+    {
+        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - Button Actions
+- (IBAction)postBtnClicked:(id)sender {
+    if ([self canUploadVideo])
+    {
+        if (self.canPost)
+        {
+            [self.postBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            _embeddedRecordView.durationProgressBar.hidden = YES;
+            [_embeddedRecordView postBtnClicked];
+        }
+        else
+        {
+            _embeddedRecordView.durationProgressBar.hidden = NO;
+            if (NSClassFromString(@"UIAlertController") != nil) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please record a longer video" message:@"Video posts must be at least 3 seconds long." preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+                [alert addAction:defaultAction];
+                
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                [[[UIAlertView alloc] initWithTitle:@"Please record a longer video" message:@"Video posts must be at least 3 seconds long." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+            }
+        }
+    }
+    else
+    {
+        _embeddedRecordView.durationProgressBar.hidden = NO;
+    }
+}
+
+//refresh record video view -- delete & re-add b/c AVCaptureSession is wiped out
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)applicationDidBecomeActive:(NSNotification*) notification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    self.canPost = NO;
+    self.postBtnColorOrange = YES;
+    
+    [_embeddedRecordView removeFromSuperview];
+    [_embeddedRecordView.durationProgressBar removeFromSuperview];
+    _embeddedRecordView = nil;
+    
+    _embeddedRecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width) fromView:@"postView"];
+    _embeddedRecordView.maxDuration = 10.0;
+    _embeddedRecordView.delegate = self;
+    [_recordView addSubview:_embeddedRecordView];
+    
+    [self.view addSubview:_embeddedRecordView.durationProgressBar];
+    [self.view bringSubviewToFront:_embeddedRecordView.durationProgressBar];
+    
+    [self.view bringSubviewToFront:self.postBtnView];
+    [self.view bringSubviewToFront:self.clearBtn];
+    self.clearBtn.hidden = YES;
+    
+    [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+}
+
+//refresh entire view, delete & re-add record video view
+- (IBAction)clearBtnClicked:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    self.canPost = NO;
+    self.postBtnColorOrange = YES;
+    
+    [_embeddedRecordView removeFromSuperview];
+    [_embeddedRecordView.durationProgressBar removeFromSuperview];
+    _embeddedRecordView = nil;
+    
+    _embeddedRecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width) fromView:@"postView"];
+    _embeddedRecordView.maxDuration = 10.0;
+    _embeddedRecordView.delegate = self;
+    [_recordView addSubview:_embeddedRecordView];
+    
+    [self.view addSubview:_embeddedRecordView.durationProgressBar];
+    [self.view bringSubviewToFront:_embeddedRecordView.durationProgressBar];
+    
+    [self.view bringSubviewToFront:self.postBtnView];
+    [self.view bringSubviewToFront:self.clearBtn];
+    self.clearBtn.hidden = YES;
+    
+    [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+}
 
 - (IBAction)moveClicked:(id)sender {
     if(![_moveButton isSelected]){
@@ -188,12 +354,18 @@
         [_loveButton setSelected:NO];
         [_grubButton setSelected:NO];
         [_categoryLabel setText:@"Move"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        
+        [self decidePostBtnColor];
+        
     }else{
         [_moveButton setSelected:NO];
         [[BFTPostHandler sharedInstance] setPostCategory:0];
-        [_categoryLabel setText:@"Choose Category"];
-        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        [_categoryLabel setText:@"Choose a category"];
+        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        
+        //deselected category - no selected categories set post button gray
+        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
 
@@ -205,14 +377,19 @@
         [_loveButton setSelected:NO];
         [_grubButton setSelected:NO];
         [_categoryLabel setText:@"Study"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        
+        [self decidePostBtnColor];
+        
         //        _categoryLabel.center = CGPointMake(0, 13);
     }else{
         [_studyButton setSelected:NO];
         [[BFTPostHandler sharedInstance] setPostCategory:0];
-        [_categoryLabel setText:@"Choose Category"];
-        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
-        //        _categoryLabel.center = CGPointMake(55,12);
+        [_categoryLabel setText:@"Choose a category"];
+        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        
+        //deselected category - no selected categories set post button gray
+        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
 
@@ -224,12 +401,18 @@
         [_moveButton setSelected:NO];
         [_grubButton setSelected:NO];
         [_categoryLabel setText:@"Love"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        
+        [self decidePostBtnColor];
+        
     }else{
         [_loveButton setSelected:NO];
         [[BFTPostHandler sharedInstance] setPostCategory:0];
-          [_categoryLabel setText:@"Choose Category"];
-        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        [_categoryLabel setText:@"Choose a category"];
+        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        
+        //deselected category - no selected categories set post button gray
+        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
 
@@ -241,17 +424,53 @@
         [_loveButton setSelected:NO];
         [_moveButton setSelected:NO];
         [_categoryLabel setText:@"Grub"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        
+        [self decidePostBtnColor];
+        
     }else{
         [_grubButton setSelected:NO];
         [[BFTPostHandler sharedInstance] setPostCategory:0];
-        [_categoryLabel setText:@"Choose Category"];
-        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
+        [_categoryLabel setText:@"Choose a category"];
+        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
+        
+        //deselected category - no selected categories set post button gray
+        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
 }
 
 - (IBAction)updateHashtag:(id)sender {
     [[BFTPostHandler sharedInstance] setPostHash_tag:[_hashtagEditText text]];
+}
+
+#pragma mark - UITextField delegat
+
+//add dismiss keyboard bar button item when entering hashtags
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    NSLog(@"textFieldDidBeginEditing");
+    //self.dismiss;
+    self.navItem.rightBarButtonItem = self.dismiss;
+    [self.navigationBar setItems:@[self.navItem]];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    self.navItem.rightBarButtonItem = nil;
+    [self.navigationBar setItems:@[self.navItem]];
+}
+
+- (IBAction)hideKey:(id)sender {
+    self.navItem.rightBarButtonItem = nil;
+    [self.navigationBar setItems:@[self.navItem]];
+    [_hashtagEditText resignFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    // hide and close preview player -- otherwise would continue playing in background on next screen
+    [_embeddedRecordView closePreview];
+    
+    //wipe out AVCaptureSession
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    [super viewWillDisappear:animated];
 }
 
 /*

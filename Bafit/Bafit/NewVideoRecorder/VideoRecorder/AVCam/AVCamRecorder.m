@@ -65,12 +65,13 @@
     self = [super init];
     if (self != nil) {
         AVCaptureMovieFileOutput *aMovieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+        
         if ([aSession canAddOutput:aMovieFileOutput])
             [aSession addOutput:aMovieFileOutput];
         [self setMovieFileOutput:aMovieFileOutput];
-		
+        
 		[self setSession:aSession];
-		[self setOutputFileURL:anOutputFileURL];
+        [self setOutputFileURL:anOutputFileURL];
     }
 
 	return self;

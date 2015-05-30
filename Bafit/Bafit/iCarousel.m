@@ -2230,6 +2230,13 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 }
 
 
+-(void)didPan:(UIPanGestureRecognizer *)panGesture{
+    // check direction here using values for super didPan method
+    
+    [super didPan:panGesture]; // do not call if you dont want to scroll the view
+}
+
+
 #pragma mark -
 #pragma mark Keyboard control
 

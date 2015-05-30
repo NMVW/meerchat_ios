@@ -76,9 +76,12 @@
 }
 
 -(void)loadHastagLabel {
-    self.hashTagLabel = [[UILabel alloc] initWithFrame:CGRectOffset(self.responseButton.frame, 0, self.topTrapazoid.frame.size.height/2)];
+    
+    CGRect frame = CGRectMake(self.topTrapazoid.frame.origin.x+14, self.topTrapazoid.frame.origin.y+36, self.topTrapazoid.frame.size.width-25, self.topTrapazoid.frame.size.height/2);
+    
+    self.hashTagLabel = [[UILabel alloc] initWithFrame:frame];
     self.hashTagLabel.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
-    self.hashTagLabel.font = [self.hashTagLabel.font fontWithSize:14];
+    self.hashTagLabel.font = [self.hashTagLabel.font fontWithSize:13];
     self.hashTagLabel.textAlignment = NSTextAlignmentCenter;
     self.hashTagLabel.tag = 13;
     [self addSubview:self.hashTagLabel];

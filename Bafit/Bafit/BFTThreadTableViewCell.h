@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWTableViewCell.h"
 
-@interface BFTThreadTableViewCell : UITableViewCell
+// SWTableViewCell allows for a custom edit view with multiple button... UITableViewCell only allows 1 edit button "legally" (w/o using a private API)
+
+@interface BFTThreadTableViewCell : SWTableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *numberMessagesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;

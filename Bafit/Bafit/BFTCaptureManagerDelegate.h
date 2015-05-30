@@ -31,6 +31,10 @@
 
 -(void)postingFailedWithError:(NSError*)error;
 
+//remove capture session
+-(void)removeSession;
+
+
 @optional
 -(void)removeTimeFromDuration:(float)removeTime;
 -(void)updateProgress;

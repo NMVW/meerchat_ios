@@ -23,8 +23,9 @@
     
     navController.navigationBar.translucent = NO;
     
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissModally)];
-    [self.navigationItem setLeftBarButtonItem:back];
+    
+    UIBarButtonItem *exit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(dismissModally)];
+    [self.navigationItem setLeftBarButtonItem:exit];
 }
 
 -(void)dismissModally {

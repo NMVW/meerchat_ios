@@ -152,6 +152,9 @@ typedef NS_ENUM(NSUInteger, iCarouselOption)
 
 - (void)reloadData;
 
+// hack to try and add pull to refresh
+- (void)didPan:(UIPanGestureRecognizer *)panGesture;
+
 @end
 
 

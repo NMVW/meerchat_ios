@@ -83,7 +83,7 @@
 
 -(void)setupVideoPlayer {
     [_loadingIcon startAnimating];
-    
+    NSLog(@"setupVideoPlayer");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         AVPlayerItem *avPlayeritem = [[AVPlayerItem alloc] initWithURL:self.videoURL];
         AVPlayer *avPlayer = [[AVPlayer alloc] initWithPlayerItem:avPlayeritem];

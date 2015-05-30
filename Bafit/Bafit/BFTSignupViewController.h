@@ -14,9 +14,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *checkMark;
 @property (strong, nonatomic) UILabel *usernameErrorLabel;
 
+@property (strong, nonatomic) IBOutlet UIControl *bgControl;
+
 @property (assign) BOOL usernameIsUnique;
 @property (assign) BOOL usernameNeedsUpdating;
 @property (assign) BOOL couldNotConnect;
+
+@property (strong, nonatomic) IBOutlet UIButton *nextBtn;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField;
 
@@ -24,5 +28,6 @@
 - (IBAction)editr:(id)sender;
 - (IBAction)editreturn:(id)sender;
 - (IBAction)backgroundTapped:(id)sender;
+- (IBAction)goBack:(id)sender;
 
 @end

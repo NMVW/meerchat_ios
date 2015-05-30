@@ -28,7 +28,10 @@
     [super viewDidLoad];
     [self getVideoName];
     
+    self.canPost = NO;
+    
     [self.navigationController.navigationBar setBarTintColor:kOrangeColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTranslucent:NO];
     
     self.navigationItem.title = [NSString stringWithFormat:@"@%@", self.otherPersonsUserName];
@@ -36,11 +39,30 @@
     //set Data Handler for View
     [[BFTDataHandler sharedInstance] setPostView:NO];
     
-    _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width)];
+    _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width) fromView:@"chatView"];
     _embeddedrecordView.maxDuration = 10.0;
     _embeddedrecordView.delegate = self;
     
     [_recordView addSubview:_embeddedrecordView];
+    
+    [self.view addSubview:_embeddedrecordView.durationProgressBar];
+    [self.view bringSubviewToFront:_embeddedrecordView.durationProgressBar];
+    
+    [self.view bringSubviewToFront:self.postBtnView];
+    [self.view bringSubviewToFront:self.clearBtn];
+    self.clearBtn.hidden = YES;
+    
+    UIBarButtonItem *backBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(popVC)];
+    self.navigationItem.backBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.backBarButtonItem = backBarBtn;
+    
+    self.navigationController.navigationBar.topItem.backBarButtonItem = backBarBtn;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
 -(void)returnToMain {
@@ -48,6 +70,7 @@
 }
 
 -(void)popVC {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -142,6 +165,113 @@
 -(void)everythingFinished {
     [SVProgressHUD dismiss];
     [self popVC];
+}
+
+//notification to show clear button after recording complete
+-(void)showClearButton {
+    self.clearBtn.hidden = NO;
+}
+
+//notification to change the post buttons color if recording progress is greater than 88%
+-(void)changePostBtnColor {
+    
+    [self.postBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+//notification to change the post buttons color after 3 secs of recording if canUploadVideo
+-(void)recordingIsThreeSeconds {
+    self.canPost = YES;
+    
+    [self.postBtn setTitleColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0] forState:UIControlStateNormal];
+}
+
+#pragma mark - Button Actions
+- (IBAction)postBtnClicked:(id)sender {
+    if ([self canUploadVideo])
+    {
+        if (self.canPost)
+        {
+            [self.postBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            _embeddedrecordView.durationProgressBar.hidden = YES;
+            [_embeddedrecordView postBtnClicked];
+        }
+        else
+        {
+            _embeddedrecordView.durationProgressBar.hidden = NO;
+            if (NSClassFromString(@"UIAlertController") != nil) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please record a longer video" message:@"Video posts must be at least 3 seconds long." preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+                [alert addAction:defaultAction];
+                
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                [[[UIAlertView alloc] initWithTitle:@"Please record a longer video" message:@"Video posts must be at least 3 seconds long." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+            }
+        }
+    }
+    else
+    {
+        _embeddedrecordView.durationProgressBar.hidden = NO;
+    }
+}
+
+//refresh entire view delete recorded video
+- (IBAction)clearBtnClicked:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    self.canPost = NO;
+    
+    [_embeddedrecordView removeFromSuperview];
+    [_embeddedrecordView.durationProgressBar removeFromSuperview];
+    
+    _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width) fromView:@"postView"];
+    _embeddedrecordView.maxDuration = 10.0;
+    _embeddedrecordView.delegate = self;
+    [_recordView addSubview:_embeddedrecordView];
+    
+    [self.view addSubview:_embeddedrecordView.durationProgressBar];
+    [self.view bringSubviewToFront:_embeddedrecordView.durationProgressBar];
+    
+    [self.view bringSubviewToFront:self.postBtnView];
+    [self.view bringSubviewToFront:self.clearBtn];
+    self.clearBtn.hidden = YES;
+    
+    [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+}
+
+//refresh record video view -- delete & re-add b/c AVCaptureSession is wiped out
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)applicationDidBecomeActive:(NSNotification*) notification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    self.canPost = NO;
+    
+    [_embeddedrecordView removeFromSuperview];
+    [_embeddedrecordView.durationProgressBar removeFromSuperview];
+    _embeddedrecordView = nil;
+    
+    _embeddedrecordView = [[BFTCameraView alloc] initWithFrame:CGRectMake(0, 0, _recordView.frame.size.width, _recordView.frame.size.width) fromView:@"postView"];
+    _embeddedrecordView.maxDuration = 10.0;
+    _embeddedrecordView.delegate = self;
+    [_recordView addSubview:_embeddedrecordView];
+    
+    [self.view addSubview:_embeddedrecordView.durationProgressBar];
+    [self.view bringSubviewToFront:_embeddedrecordView.durationProgressBar];
+    
+    [self.view bringSubviewToFront:self.postBtnView];
+    [self.view bringSubviewToFront:self.clearBtn];
+    self.clearBtn.hidden = YES;
+    
+    [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    // hide and close preview player -- otherwise would continue playing in background on next screen
+    [_embeddedrecordView closePreview];
+    
+    //wipe out AVCaptureSession
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"removeSession" object:nil];
+    [super viewWillDisappear:animated];
 }
 
 @end

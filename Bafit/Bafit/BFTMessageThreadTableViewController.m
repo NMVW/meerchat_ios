@@ -54,7 +54,6 @@
     self.outgoingBubbleImageData = [imageFactory outgoingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     self.incomingBubbleImageData = [imageFactory incomingMessagesBubbleImageWithColor:[UIColor whiteColor]];
     
-    
     [self.inputToolbar.contentView.rightBarButtonItem setTintColor:kOrangeColor];
     [self.inputToolbar.contentView.leftBarButtonItem setTintColor:kOrangeColor];
     
@@ -74,6 +73,35 @@
     [self stopPlayingLastVideo];
 }
 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    NSLog(@"textViewDidBeginEditing");
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    
+    if ([[self.messageThread listOfMessages] count] < 2)
+    {
+        NSLog(@"textViewShouldBeginEditing < 2");
+        if (NSClassFromString(@"UIAlertController") != nil) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please respond with a video" message:@"A video response is required to enable text messaging." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"Please record a longer video" message:@"A video response is required to enable text messaging." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        }
+        
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+    
+    return YES;
+}
+
 -(void)dismissModally {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -85,7 +113,38 @@
     //send the message to the xmpp server
     [self.appDelegate sendTextMessage:text toUser:self.otherPersonsUserName];
     
-    JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
+    JSQMessage *prevMessage;
+    NSDate *prevDate;
+    
+    if ([[self.messageThread listOfMessages] count] > 0) {
+        prevMessage = [[self.messageThread listOfMessages] lastObject];
+        prevDate = prevMessage.date;
+    }
+    else
+    {
+        prevDate = date;
+    }
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSUInteger unitFlags = NSMinuteCalendarUnit | NSDayCalendarUnit;
+    NSDateComponents *components = [gregorian components:unitFlags
+                                                fromDate:prevDate
+                                                  toDate:date
+                                                 options:0];
+    NSInteger mins = [components minute];
+    
+    // add a flag to JSQMessage object for when to show the label. Chronilogical messages must be greater than 10 mins apart to show ts label
+    NSString* showTimeLabel;
+    if (mins > 10)
+    {
+        showTimeLabel = @"yes";
+    }
+    else
+    {
+        showTimeLabel = @"no";
+    }
+    
+    JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text showTime:showTimeLabel];
     [[self.messageThread listOfMessages] addObject:message];
     
     [self finishSendingMessage];
@@ -120,9 +179,22 @@
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
-    //show a timestamp for every third message
-    if (indexPath.item % 3 == 0) {
+    
+    JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+    
+    //show time stamp label flag -- only id previous message is greater than 10 mins older
+    if ([message.showTime isEqualToString:@"yes"])
+    {
         JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+        return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
+    }
+    
+    //if ([[self.messageThread listOfMessages] count] == 1)
+    
+    if (indexPath.row == 0)
+    {
+        JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+        message.showTime = @"yes";
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
     
@@ -145,7 +217,8 @@
         }
     }
 
-    return message.senderId ? [[NSAttributedString alloc] initWithString:message.senderId] : nil;
+    //return message.senderId ? [[NSAttributedString alloc] initWithString:message.senderId] : nil;
+    return nil;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -153,10 +226,14 @@
 }
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
     
+    cell.textView.font = [UIFont systemFontOfSize:17];
     cell.textView.textColor = [UIColor lightGrayColor];
     cell.textView.tintColor = [UIColor colorWithRed: 255/255.0 green:161/255.0 blue:0/255.0 alpha:1.0];
+    
+    //cell.messageBubbleTopLabel.text = @"";
     
     cell.backgroundColor = kGrayBackground;
     
@@ -183,16 +260,23 @@
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath {
     //timestamp cell height
-    if (indexPath.item % 3 == 0) {
+    JSQMessage *message = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
+    
+    if ([message.showTime isEqualToString:@"yes"]) {
         return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
-    
-    return 0.0f;
+    else
+    {
+        return 0.0f;
+    }
 }
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
 {
+    return 0.0f;
+    
+    /*
     //no label for sender
     JSQMessage *currentMessage = [[self.messageThread listOfMessages] objectAtIndex:indexPath.item];
     if ([[currentMessage senderId] isEqualToString:self.senderId]) {
@@ -207,6 +291,7 @@
     }
     
     return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    */
 }
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
@@ -219,6 +304,11 @@
 -(void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressLeftBarButton:(UIButton *)sender {
     [self performSegueWithIdentifier:@"messagesToVideoMessage" sender:self];
 }
+
+/*
+- (void)messagesInputToolbar:(JSQMessagesInputToolbar *)toolbar didPressRightBarButton:(UIButton *)sender {
+}
+*/
 
 #pragma mark - Message Delegate
 
