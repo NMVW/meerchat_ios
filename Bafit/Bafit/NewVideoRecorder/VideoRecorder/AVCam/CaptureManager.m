@@ -199,8 +199,9 @@
     newCaptureSession.sessionPreset = AVCaptureSessionPresetHigh;
     
     // Add inputs and output to the capture session
-    if ([newCaptureSession canAddInput:self.captureDeviceInputBack]) {
-        [newCaptureSession addInput:self.captureDeviceInputBack];
+    // Preview begins with front camera
+    if ([newCaptureSession canAddInput:self.captureDeviceInputFront]) {
+        [newCaptureSession addInput:self.captureDeviceInputFront];
     }
     if ([newCaptureSession canAddInput:self.captureDeviceInputAudio]) {
         [newCaptureSession addInput:self.captureDeviceInputAudio];

@@ -50,7 +50,7 @@
     self.refresh.hidden = YES;
     self.refreshingLbl.hidden = YES;
     
-    //init temp image cahce with max size of 100 mb
+    //init temp image cache with max size of 100 mb
     _tempImageCache = [[NSCache alloc] init];
     [_tempImageCache setTotalCostLimit:100*1024*1024];
     
@@ -61,7 +61,7 @@
     [self.view setBackgroundColor:kOrangeColor];
     [_customNavView setBackgroundColor:kOrangeColor];
     
-    //set catagory
+    //set category
     _items = [NSMutableArray array];
     _catagory = 0;
     //[self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
@@ -234,7 +234,7 @@
             [viewToAnimate addGestureRecognizer:pgr];
         }
         
-        [[[UIAlertView alloc] initWithTitle:@"Swiping Down" message:@"Swipe down on videos you don't want to see. This will hide them from view, and you won't ever see them again!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Swiping Down" message:@"Swipe down on videos you don't want to see. This will hide them from view, and you won't ever see them again." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeDown"];
     }
 }
@@ -249,7 +249,7 @@
         //*** if is user's own post disable swipe up functionality
         if ([handler.BUN isEqualToString:[post BUN]])
         {
-            [[[UIAlertView alloc] initWithTitle:@"Notice" message:@"Can't reply to your own posts" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"Notice" message:@"Come on, let's be social and avoid talking to ourself..." delegate:self cancelButtonTitle:@"I agree" otherButtonTitles:nil] show];
         }
         else
         {

@@ -149,11 +149,11 @@
 }
 
 -(void)videoUploadBegan {
-    [SVProgressHUD showWithStatus:@"Saving Video" maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Saving" maskType:SVProgressHUDMaskTypeGradient];
 }
 
 -(void)videoUploadMadeProgress:(CGFloat)progress {
-    [SVProgressHUD showProgress:progress status:@"Uploading Video to Server..." maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showProgress:progress status:@"Sharing with the mob ..." maskType:SVProgressHUDMaskTypeGradient];
 }
 
 -(void)postingFailedWithError:(NSError *)error {
@@ -199,13 +199,13 @@
         {
             _embeddedrecordView.durationProgressBar.hidden = NO;
             if (NSClassFromString(@"UIAlertController") != nil) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please record a longer video" message:@"Video posts must be at least 3 seconds long." preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please share more with the mob!" message:@"Posts need to be 3 or more seconds" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Got it" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
                 [alert addAction:defaultAction];
                 
                 [self presentViewController:alert animated:YES completion:nil];
             } else {
-                [[[UIAlertView alloc] initWithTitle:@"Please record a longer video" message:@"Video posts must be at least 3 seconds long." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+                [[[UIAlertView alloc] initWithTitle:@"Please share more with the mob!" message:@"Posts need to be 3 or more seconds" delegate:nil cancelButtonTitle:@"Got it" otherButtonTitles:nil] show];
             }
         }
     }

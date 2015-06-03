@@ -42,7 +42,7 @@
 
     [self getVideoName];
     
-    //set Naivagtion for View
+    //set Navigation for View
     [self.navigationBar setBarTintColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
     [self.navigationBar setTranslucent:NO];
     self.navItem = [[UINavigationItem alloc] init];
