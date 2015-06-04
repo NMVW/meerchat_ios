@@ -69,9 +69,7 @@
 - (IBAction)backToThread:(id)sender;
 - (IBAction)forthToPost:(id)sender;
 - (IBAction)moveCatTouched:(id)sender;
-- (IBAction)studyCatTouched:(id)sender;
-- (IBAction)loveCatTouched:(id)sender;
-- (IBAction)grubCatTouched:(id)sender;
+- (IBAction)searchbtnListener:(id)sender;
 
 
 

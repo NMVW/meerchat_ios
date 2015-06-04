@@ -33,7 +33,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b7j-eo-Vuc" customClass="FBLoginView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b7j-eo-Vuc" customClass="FBLoginView">
                                 <rect key="frame" x="59" y="398" width="202" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -41,7 +41,7 @@
                                     <constraint firstAttribute="height" constant="50" id="vjm-az-bPb"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Milo_Face_Full.png" translatesAutoresizingMaskIntoConstraints="NO" id="bOm-Je-dz7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Milo_Face_Full.png" translatesAutoresizingMaskIntoConstraints="NO" id="bOm-Je-dz7">
                                 <rect key="frame" x="0.0" y="68" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="fWb-qf-hUE"/>
@@ -396,7 +396,7 @@
                                         <color key="textColor" red="1" green="0.63137254901960782" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter #hashtags" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="95U-Ot-blG">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="#MiloMonday" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="95U-Ot-blG">
                                         <rect key="frame" x="22" y="50" width="194" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="twitter"/>
@@ -578,6 +578,10 @@
                                         <color key="textColor" red="0.37254901960784315" green="0.37254901960784315" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="#music #TSwift" backgroundImage="Milo_Face_Full.png" translatesAutoresizingMaskIntoConstraints="NO" id="TnW-Ca-hpk">
+                                        <rect key="frame" x="0.0" y="57" width="320" height="44"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
+                                    </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -605,6 +609,7 @@
                         <outlet property="loadingGif" destination="ACa-N7-GSf" id="40I-o2-bIj"/>
                         <outlet property="refreshGif" destination="Wsn-0E-fea" id="rGa-ov-zuB"/>
                         <outlet property="refreshingLbl" destination="Axa-I0-fsc" id="Kub-4i-Kqm"/>
+                        <outlet property="searchDisplayController" destination="3Ag-hM-GgA" id="0QF-zM-VJg"/>
                         <outlet property="titleLabel" destination="YHP-Qd-rwy" id="1ii-3p-9x9"/>
                         <segue destination="RcN-Gc-fEK" kind="custom" identifier="backthread" customClass="BFTLeftRightSegue" id="ccd-J6-bWr"/>
                         <segue destination="VCp-Kg-1gI" kind="modal" identifier="tofeedback" id="4T2-eB-283"/>
@@ -622,6 +627,14 @@
                         <action selector="SwipeDown:" destination="2cd-to-cO3" id="mNh-TU-UPA"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <searchDisplayController id="3Ag-hM-GgA">
+                    <connections>
+                        <outlet property="delegate" destination="2cd-to-cO3" id="3ib-if-Y2f"/>
+                        <outlet property="searchContentsController" destination="2cd-to-cO3" id="uWO-32-ozn"/>
+                        <outlet property="searchResultsDataSource" destination="2cd-to-cO3" id="KPK-GL-2Rz"/>
+                        <outlet property="searchResultsDelegate" destination="2cd-to-cO3" id="A2Y-jT-4jQ"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-603" y="-179"/>
         </scene>
@@ -637,7 +650,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBy-UM-lTK">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBy-UM-lTK">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <attributedString key="attributedText">
@@ -10350,7 +10363,7 @@ CgoKCgo
             <objects>
                 <tableViewController id="pXb-OP-ekb" customClass="BFTFeedbackViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TkN-qc-QVa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
@@ -10779,7 +10792,7 @@ CgoKCgo
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rOk-Tp-tyI"/>
         <segue reference="J4a-6v-v6f"/>
+        <segue reference="Lda-ed-wiM"/>
     </inferredMetricsTieBreakers>
 </document>
