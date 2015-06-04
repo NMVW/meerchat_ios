@@ -34,10 +34,11 @@
     
     self.hashtagEditText.delegate = self;
     
-    //Set Data Handler for Post View
+    //Set Default Data Handler for Post View
     [[BFTDataHandler sharedInstance] setPostView:YES];
     
-    [[BFTPostHandler sharedInstance] setPostCategory:0];
+    // set to 1 to bypass category requirement
+    [[BFTPostHandler sharedInstance] setPostCategory:1];
     [[BFTPostHandler sharedInstance] setPostHash_tag:@"#nohashtag"];
 
     [self getVideoName];
@@ -143,7 +144,7 @@
     if ([_categoryLabel.text isEqualToString:@""]) {
         if (NSClassFromString(@"UIAlertController") != nil) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please select a category" message:@"you didn't select a category for your video." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
             [alert addAction:defaultAction];
             
             [self presentViewController:alert animated:YES completion:nil];
