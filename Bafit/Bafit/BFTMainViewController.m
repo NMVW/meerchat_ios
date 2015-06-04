@@ -142,7 +142,7 @@
     else {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeUp"];
         
-        [[[UIAlertView alloc] initWithTitle:@"Swiping Up" message:@"Tap respond or swipe up to send a private video. If they send one back, you’ll be able to chat!" delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Swiping Up" message:@"Tap respond or swipe up to send a private Meerchat." delegate:nil cancelButtonTitle:@"Milo, I'm game." otherButtonTitles:nil] show];
     }
 }
 
@@ -177,7 +177,7 @@
         //if it's users own video confirm everytime before deleting
         if ([handler.BUN isEqualToString:[post BUN]])
         {
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Are you sure you want to delete your post?" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Are you sure you want to delete your groovy post?" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 return;
@@ -234,7 +234,7 @@
             [viewToAnimate addGestureRecognizer:pgr];
         }
         
-        [[[UIAlertView alloc] initWithTitle:@"Swiping Down" message:@"Swipe down on videos you don't want to see. This will hide them from view, and you won't ever see them again." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Swipe Down" message:@"Swipe down posts that lack grooviness so we can keep the mob happy!" delegate:nil cancelButtonTitle:@"Thanks, Milo." otherButtonTitles:nil] show];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeDown"];
     }
 }
@@ -249,7 +249,7 @@
         //*** if is user's own post disable swipe up functionality
         if ([handler.BUN isEqualToString:[post BUN]])
         {
-            [[[UIAlertView alloc] initWithTitle:@"Notice" message:@"Come on, let's be social and avoid talking to ourself..." delegate:self cancelButtonTitle:@"I agree" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"Notice" message:@"Come on, let's be social and avoid talking to ourselves..." delegate:self cancelButtonTitle:@"Milo, you're right." otherButtonTitles:nil] show];
         }
         else
         {
@@ -945,7 +945,7 @@
 -(void)showReportUserConfirmation {
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ReportUserConfirmation"]) {
-        UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to report this user? You will no longer recieve any updates from them." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Report User" otherButtonTitles:nil];
+        UIActionSheet *actSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to report this Meerkat to? I will personally take care of it - Milo" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Report User" otherButtonTitles:nil];
         actSheet.tag = 0;
         [actSheet showInView:self.view];
     }
@@ -953,7 +953,7 @@
     {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ReportUserConfirmation"];
         
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"Reporting a peer hides all current and future posts by this user." delegate:self cancelButtonTitle:@"Got It!" otherButtonTitles:nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"Reporting a peer hides all current and future posts by this user." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         alert.tag = 1;
         [alert show];
     }
@@ -1024,100 +1024,6 @@
     if (!self.notificationImageAssigned) {
         [self.backButton setImage:[UIImage imageNamed:@"baf_left_active.png"] forState:UIControlStateNormal];
         self.notificationImageAssigned = YES;
-    }
-}
-
-#pragma mark Catagory Selection
-
-- (IBAction)moveCatTouched:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
-        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Select one of these tabs to filter posts by category. While no tab is selected, you will see all posts." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
-    }
-
-    if (![_moveCatButton isSelected]) {
-        _catagory = 1;
-        [self updateCategory:_catagory];
-        
-        [_moveCatButton setSelected:YES];
-        //otherButtons are not active
-        [_studyCatButton setSelected:NO];
-        [_loveCatButton setSelected:NO];
-        [_grubCatButton setSelected:NO];
-    }
-    else {
-        [_moveCatButton setSelected:NO];
-        _catagory = 0;
-        [self updateCategory:_catagory];
-    }
-}
-
-- (IBAction)studyCatTouched:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
-        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Select one of these tabs to filter posts by category. While no tab is selected, you will see all posts." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
-    }
-    
-    if (![_studyCatButton isSelected]) {
-        _catagory = 2;
-        [self updateCategory:_catagory];
-        
-        [_studyCatButton setSelected:YES];
-        //otherButtons are not active
-        [_moveCatButton setSelected:NO];
-        [_loveCatButton setSelected:NO];
-        [_grubCatButton setSelected:NO];
-    }
-    else {
-        [_studyCatButton setSelected:NO];
-        _catagory = 0;
-        [self updateCategory:_catagory];
-    }
-}
-
-- (IBAction)loveCatTouched:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
-        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Select one of these tabs to filter posts by category. While no tab is selected, you will see all posts." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
-    }
-    
-    if (![_loveCatButton isSelected]) {
-        _catagory = 3;
-        [self updateCategory:_catagory];
-        
-        [_loveCatButton setSelected:YES];
-        //otherButtons are not active
-        [_studyCatButton setSelected:NO];
-        [_moveCatButton setSelected:NO];
-        [_grubCatButton setSelected:NO];
-    }
-    else {
-        [_loveCatButton setSelected:NO];
-        _catagory = 0;
-        [self updateCategory:_catagory];
-    }
-}
-
-- (IBAction)grubCatTouched:(id)sender {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeCategorySelect"]) {
-        [[[UIAlertView alloc] initWithTitle:@"Selecting Categories" message:@"Select one of these tabs to filter posts by category. While no tab is selected, you will see all posts." delegate:nil cancelButtonTitle:@"Got It!" otherButtonTitles:nil] show];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeCategorySelect"];
-    }
-    
-    if (![_grubCatButton isSelected]) {
-        _catagory = 4;
-        [self updateCategory:_catagory];
-        
-        [_grubCatButton setSelected:YES];
-        //otherButtons are not active
-        [_studyCatButton setSelected:NO];
-        [_loveCatButton setSelected:NO];
-        [_moveCatButton setSelected:NO];
-    }
-    else {
-        [_grubCatButton setSelected:NO];
-        _catagory = 0;
-        [self updateCategory:_catagory];
     }
 }
 

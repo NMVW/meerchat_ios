@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gen-d0-YEF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gen-d0-YEF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -414,50 +413,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qJG-Mb-VQA">
-                                <rect key="frame" x="79" y="59" width="80" height="36"/>
-                                <state key="normal" image="study_btn_inactive.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="study_btn_active.png"/>
-                                <state key="highlighted" image="study_btn_active.png"/>
-                                <connections>
-                                    <action selector="studyClicked:" destination="J4A-kE-uG9" eventType="touchUpInside" id="Cjp-7Q-gd0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlA-el-eST">
-                                <rect key="frame" x="159" y="59" width="80" height="36"/>
-                                <state key="normal" image="love_btn_inactive.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="love_btn_active.png"/>
-                                <state key="highlighted" image="love_btn_active.png"/>
-                                <connections>
-                                    <action selector="loveClicked:" destination="J4A-kE-uG9" eventType="touchUpInside" id="JFr-af-lcE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-S7-VwM">
-                                <rect key="frame" x="0.0" y="59" width="80" height="36"/>
-                                <state key="normal" image="move_btn_inactive.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="move_btn_active.png"/>
-                                <state key="highlighted" image="move_btn_active.png"/>
-                                <connections>
-                                    <action selector="moveClicked:" destination="J4A-kE-uG9" eventType="touchUpInside" id="8he-xo-f4D"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oy2-qq-bKs">
-                                <rect key="frame" x="240" y="59" width="80" height="36"/>
-                                <state key="normal" image="grub_btn_inactive.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="grub_btn_active.png"/>
-                                <state key="highlighted" image="grub_btn_active.png"/>
-                                <connections>
-                                    <action selector="grubClicked:" destination="J4A-kE-uG9" eventType="touchUpInside" id="LyB-Jr-pKE"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bS-Hx-Fh9">
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <subviews>
@@ -517,15 +472,11 @@
                         <outlet property="categoryLabel" destination="UOS-Sz-dx9" id="RdK-Y7-KCF"/>
                         <outlet property="clearBtn" destination="HG7-YS-YJn" id="R0A-ah-yS7"/>
                         <outlet property="dismiss" destination="K8l-8R-Vv2" id="qpN-73-j1a"/>
-                        <outlet property="grubButton" destination="Oy2-qq-bKs" id="4CA-nN-fSQ"/>
                         <outlet property="hashtagEditText" destination="95U-Ot-blG" id="dhe-ue-ndu"/>
-                        <outlet property="loveButton" destination="vlA-el-eST" id="bgB-6X-WBD"/>
-                        <outlet property="moveButton" destination="Xv6-S7-VwM" id="NkY-lM-qSF"/>
                         <outlet property="navigationBar" destination="ThW-XJ-q5g" id="wOm-Ak-LgC"/>
                         <outlet property="postBtn" destination="xwh-rL-Ugv" id="FQN-dA-fkX"/>
                         <outlet property="postBtnView" destination="6bS-Hx-Fh9" id="JnF-8b-wp0"/>
                         <outlet property="recordView" destination="DAz-2L-ROS" id="5pT-xX-nYM"/>
-                        <outlet property="studyButton" destination="qJG-Mb-VQA" id="eeq-Y6-2kd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oEx-uq-tZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -559,42 +510,6 @@
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ACa-N7-GSf">
                                         <rect key="frame" x="150" y="318" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9jf-Cr-ah8">
-                                        <rect key="frame" x="80" y="56" width="80" height="36"/>
-                                        <state key="normal" backgroundImage="study_btn_inactive.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" backgroundImage="study_btn_active.png"/>
-                                        <state key="highlighted" backgroundImage="study_btn_active.png"/>
-                                        <connections>
-                                            <action selector="studyCatTouched:" destination="2cd-to-cO3" eventType="touchUpInside" id="7ge-Uq-vIv"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHl-1O-fxu">
-                                        <rect key="frame" x="160" y="56" width="80" height="36"/>
-                                        <state key="normal" backgroundImage="love_btn_inactive.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" backgroundImage="love_btn_active.png"/>
-                                        <state key="highlighted" backgroundImage="love_btn_active.png"/>
-                                        <connections>
-                                            <action selector="loveCatTouched:" destination="2cd-to-cO3" eventType="touchUpInside" id="Pug-dB-T9Z"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BzA-t7-hoc">
-                                        <rect key="frame" x="240" y="56" width="80" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="BzA-t7-hoc" secondAttribute="height" multiplier="20:9" id="CPP-ud-jEf"/>
-                                        </constraints>
-                                        <state key="normal" backgroundImage="grub_btn_inactive.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" backgroundImage="grub_btn_active.png"/>
-                                        <state key="highlighted" backgroundImage="grub_btn_active.png"/>
-                                        <connections>
-                                            <action selector="grubCatTouched:" destination="2cd-to-cO3" eventType="touchUpInside" id="eya-08-6hJ"/>
-                                        </connections>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vED-Jy-1wG">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="57"/>
                                         <subviews>
@@ -654,17 +569,6 @@
                                             <constraint firstAttribute="height" constant="57" id="xxI-ja-WHc"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8aO-ff-r4J">
-                                        <rect key="frame" x="0.0" y="56" width="80" height="36"/>
-                                        <state key="normal" backgroundImage="move_btn_inactive.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" backgroundImage="move_btn_active.png"/>
-                                        <state key="highlighted" backgroundImage="move_btn_active.png"/>
-                                        <connections>
-                                            <action selector="moveCatTouched:" destination="2cd-to-cO3" eventType="touchUpInside" id="8nU-8h-0vx"/>
-                                        </connections>
-                                    </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Wsn-0E-fea">
                                         <rect key="frame" x="45" y="275" width="20" height="20"/>
                                     </activityIndicatorView>
@@ -677,25 +581,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="8aO-ff-r4J" firstAttribute="width" secondItem="BzA-t7-hoc" secondAttribute="width" id="0UT-AP-Yzo"/>
-                                    <constraint firstItem="iHl-1O-fxu" firstAttribute="top" secondItem="ZxD-fJ-xKX" secondAttribute="top" constant="56" id="0VT-Wd-3uJ"/>
                                     <constraint firstItem="vED-Jy-1wG" firstAttribute="leading" secondItem="ZxD-fJ-xKX" secondAttribute="leading" id="1iZ-Au-sdP"/>
-                                    <constraint firstItem="9jf-Cr-ah8" firstAttribute="leading" secondItem="8aO-ff-r4J" secondAttribute="trailing" id="2f9-nk-YpC"/>
-                                    <constraint firstItem="BzA-t7-hoc" firstAttribute="height" secondItem="9jf-Cr-ah8" secondAttribute="height" id="4Kn-kR-vQz"/>
                                     <constraint firstAttribute="trailing" secondItem="vED-Jy-1wG" secondAttribute="trailing" id="6iA-fb-c9Z"/>
-                                    <constraint firstItem="iHl-1O-fxu" firstAttribute="leading" secondItem="9jf-Cr-ah8" secondAttribute="trailing" id="BgH-m6-J0B"/>
                                     <constraint firstItem="vED-Jy-1wG" firstAttribute="top" secondItem="ZxD-fJ-xKX" secondAttribute="top" id="FT4-z0-FBG"/>
-                                    <constraint firstItem="8aO-ff-r4J" firstAttribute="width" secondItem="iHl-1O-fxu" secondAttribute="width" id="Pef-9k-3yg"/>
-                                    <constraint firstItem="8aO-ff-r4J" firstAttribute="width" secondItem="9jf-Cr-ah8" secondAttribute="width" id="TMl-np-jgi"/>
-                                    <constraint firstItem="BzA-t7-hoc" firstAttribute="top" secondItem="ZxD-fJ-xKX" secondAttribute="top" constant="56" id="bWL-17-sYc"/>
-                                    <constraint firstAttribute="trailing" secondItem="BzA-t7-hoc" secondAttribute="trailing" id="cBW-NV-knG"/>
-                                    <constraint firstItem="BzA-t7-hoc" firstAttribute="height" secondItem="iHl-1O-fxu" secondAttribute="height" id="eW8-nC-w7M"/>
-                                    <constraint firstItem="9jf-Cr-ah8" firstAttribute="top" secondItem="ZxD-fJ-xKX" secondAttribute="top" constant="56" id="fWh-2A-gBS"/>
-                                    <constraint firstItem="8aO-ff-r4J" firstAttribute="top" secondItem="ZxD-fJ-xKX" secondAttribute="top" constant="56" id="m22-ru-Kkr"/>
-                                    <constraint firstItem="BzA-t7-hoc" firstAttribute="leading" secondItem="iHl-1O-fxu" secondAttribute="trailing" id="tgL-UW-jNB"/>
-                                    <constraint firstItem="BzA-t7-hoc" firstAttribute="height" secondItem="8aO-ff-r4J" secondAttribute="height" id="ufj-9k-1B1"/>
-                                    <constraint firstItem="8aO-ff-r4J" firstAttribute="leading" secondItem="ZxD-fJ-xKX" secondAttribute="leading" id="usp-Bu-1PT"/>
-                                    <constraint firstItem="iHl-1O-fxu" firstAttribute="leading" secondItem="9jf-Cr-ah8" secondAttribute="trailing" id="xvc-ta-NqQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -714,13 +602,9 @@
                         <outlet property="carousel" destination="8gj-Cb-ydK" id="nGX-7W-kww"/>
                         <outlet property="customNavView" destination="vED-Jy-1wG" id="y4g-ji-4Eq"/>
                         <outlet property="forthButton" destination="wzt-2o-T03" id="ntJ-La-xWH"/>
-                        <outlet property="grubCatButton" destination="BzA-t7-hoc" id="8lF-UW-j8i"/>
                         <outlet property="loadingGif" destination="ACa-N7-GSf" id="40I-o2-bIj"/>
-                        <outlet property="loveCatButton" destination="iHl-1O-fxu" id="ZSL-Wr-qBI"/>
-                        <outlet property="moveCatButton" destination="8aO-ff-r4J" id="zoP-KL-D1N"/>
                         <outlet property="refreshGif" destination="Wsn-0E-fea" id="rGa-ov-zuB"/>
                         <outlet property="refreshingLbl" destination="Axa-I0-fsc" id="Kub-4i-Kqm"/>
-                        <outlet property="studyCatButton" destination="9jf-Cr-ah8" id="xRT-yy-RO3"/>
                         <outlet property="titleLabel" destination="YHP-Qd-rwy" id="1ii-3p-9x9"/>
                         <segue destination="RcN-Gc-fEK" kind="custom" identifier="backthread" customClass="BFTLeftRightSegue" id="ccd-J6-bWr"/>
                         <segue destination="VCp-Kg-1gI" kind="modal" identifier="tofeedback" id="4T2-eB-283"/>
@@ -10885,15 +10769,7 @@ CgoKCgo
         <image name="baf_left_inactive.png" width="36" height="36"/>
         <image name="baf_right_active.png" width="36" height="36"/>
         <image name="baf_right_inactive.png" width="36" height="36"/>
-        <image name="grub_btn_active.png" width="80" height="36"/>
-        <image name="grub_btn_inactive.png" width="80" height="36"/>
-        <image name="love_btn_active.png" width="80" height="36"/>
-        <image name="love_btn_inactive.png" width="80" height="36"/>
-        <image name="move_btn_active.png" width="80" height="36"/>
-        <image name="move_btn_inactive.png" width="80" height="36"/>
         <image name="splash.png" width="320" height="360"/>
-        <image name="study_btn_active.png" width="80" height="36"/>
-        <image name="study_btn_inactive.png" width="80" height="36"/>
         <image name="trapezoid_menu_bottom.png" width="240" height="80"/>
         <image name="trapezoid_menu_top.png" width="240" height="80"/>
     </resources>

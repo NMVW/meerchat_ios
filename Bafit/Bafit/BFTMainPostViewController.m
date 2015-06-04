@@ -139,7 +139,8 @@
 -(BOOL)canUploadVideo {
     //if ([[BFTPostHandler sharedInstance] postCategory] == 0) {
     //check the category label text, BFTPostHandler was inconsistent in some scenarios
-    if ([_categoryLabel.text isEqualToString:@"Choose a category"]) {
+    // Changed condition to "" instead of "Choose a category" to bypass this method -- may reuse for hashtag conditions
+    if ([_categoryLabel.text isEqualToString:@""]) {
         if (NSClassFromString(@"UIAlertController") != nil) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please select a category" message:@"you didn't select a category for your video." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
@@ -200,11 +201,11 @@
 }
 
 -(void)videoUploadBegan {
-    [SVProgressHUD showWithStatus:@"Saving Video" maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Saving" maskType:SVProgressHUDMaskTypeGradient];
 }
 
 -(void)videoUploadMadeProgress:(CGFloat)progress {
-    [SVProgressHUD showProgress:progress status:@"Uploading Video to Server..." maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showProgress:progress status:@"Sharing with the mob..." maskType:SVProgressHUDMaskTypeGradient];
 }
 
 -(void)postingFailedWithError:(NSError *)error {
@@ -278,7 +279,7 @@
         {
             _embeddedRecordView.durationProgressBar.hidden = NO;
             if (NSClassFromString(@"UIAlertController") != nil) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Please record a longer video" message:@"Video posts must be at least 3 seconds long." preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Share more with the mob!" message:@"Posts must more than 3 seconds." preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {}];
                 [alert addAction:defaultAction];
                 
@@ -346,6 +347,7 @@
     [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 }
 
+// Detached the categories from the MainPostViewController
 - (IBAction)moveClicked:(id)sender {
     if(![_moveButton isSelected]){
         [[BFTPostHandler sharedInstance] setPostCategory:1];
