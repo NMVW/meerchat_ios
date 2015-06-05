@@ -345,6 +345,21 @@
     self.carousel.userInteractionEnabled = YES;
 }
 
+#pragma Search Bar Calls
+
+// Get searchText for hashtag sort request to filter vids
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSString *hashtagLabel = searchText;
+}
+
+// Remove keyboard once search btn clicked OR when clicked outside search bar
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    // conditional statement for this
+    [searchBar resignFirstResponder];
+}
+
 -(void)deleteCurrentVideo {
     NSInteger index = [_carousel currentItemIndex];
     if (index < [_videoPosts count]) {
@@ -384,8 +399,8 @@
     
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d&FBID=%@", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory, [userData FBID]];
-    NSLog(@"updateCategory url = %@", url);
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID]];
+    NSLog(@"updateUserVideos url = %@", url);
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -442,6 +457,7 @@
      }];
 }
 
+// METHOD to implement update feed by hashtag sort (return set joined with keyword searched)
 -(void)updateCategory:(NSInteger)category {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -462,8 +478,9 @@
     
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&Filter=%d&FilterValue=%d&FBID=%@", [userData UID], [userData Latitude], [userData Longitude], 1, _catagory, [userData FBID]];
-    NSLog(@"updateCategory url = %@", url);
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], @"water"];
+    
+    NSLog(@"updateVideoFeed url = %@", url);
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];

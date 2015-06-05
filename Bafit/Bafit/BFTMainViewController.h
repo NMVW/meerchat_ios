@@ -14,7 +14,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate, BFTMessageDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate>
+@interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate, BFTMessageDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) UIView *videoPlayback;
 
@@ -33,6 +33,7 @@
 @property (weak, nonatomic) NSArray *messages;
 @property (nonatomic) BOOL swipeUp;
 @property (nonatomic, strong) NSArray *tempHashTags;
+@property (nonatomic, strong) NSString *hashSearch;
 
 @property (nonatomic) BOOL isRefreshing;
 
@@ -69,8 +70,12 @@
 - (IBAction)backToThread:(id)sender;
 - (IBAction)forthToPost:(id)sender;
 - (IBAction)moveCatTouched:(id)sender;
-- (IBAction)searchbtnListener:(id)sender;
 
+// Get searchText for hashtag sort request to filter vids
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
+
+// Remove keyboard and take string input
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
 
 
 

@@ -580,7 +580,10 @@
                                     </label>
                                     <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="#music #TSwift" backgroundImage="Milo_Face_Full.png" translatesAutoresizingMaskIntoConstraints="NO" id="TnW-Ca-hpk">
                                         <rect key="frame" x="0.0" y="57" width="320" height="44"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="2cd-to-cO3" id="yc3-af-5Z0"/>
+                                        </connections>
                                     </searchBar>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
