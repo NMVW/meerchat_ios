@@ -251,15 +251,17 @@
         //*** if is user's own post disable swipe up functionality
         if ([handler.BUN isEqualToString:[post BUN]])
         {
-            [[[UIAlertView alloc] initWithTitle:@"Notice" message:@"Come on, let's be social and avoid talking to ourselves..." delegate:self cancelButtonTitle:@"Milo, you're right." otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"A Social No-No" message:@"Come on, let's be social and avoid talking to ourselves..." delegate:self cancelButtonTitle:@"Milo, you're right." otherButtonTitles:nil] show];
         }
         else
         {
             [self setSwipeUp:YES];
             //[self performSegueWithIdentifier:@"topostview" sender:self];
         }
+        
     }
-    else {
+    else
+    {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeUp"];
         
         UIView* viewToAnimate = [_carousel itemViewAtIndex:_carousel.currentItemIndex];
@@ -349,15 +351,16 @@
 
 #pragma Search Bar Calls
 
-// Get searchText for hashtag sort request to filter vids - store in temp variable so it is independnet of Refreshing... action
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     self.hTagSearchTemp = searchText;
+    NSLog(@"htagSearchTemp = %@", self.hTagSearchTemp);
     
     // Only refresh if previously searched for a hashtag
     if ([self.hTagSearchTemp isEqualToString:@""] && ![self.hTagSearch isEqualToString:@""])
     {
         self.hTagSearch = self.hTagSearchTemp;
+        NSLog(@"htagSearch = %@", self.hTagSearch);
         
         // Call the hTagSearch unfiltered list
         [self updateCategory:1];
@@ -365,10 +368,20 @@
     
 }
 
-// Remove keyboard once search btn clicked
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    // Parse string for HTTP URL send
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"'" withString:@"-"];
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"\"" withString:@"-"];
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"´" withString:@"-"];
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"`" withString:@"-"];
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"ˆ" withString:@"-"];
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"¨" withString:@"-"];
+    
+    
     self.hTagSearch = self.hTagSearchTemp;
+    NSLog(@"The hTagSearch");
     // Drop the keyboard
     [searchBar resignFirstResponder];
     
@@ -386,6 +399,7 @@
     [super touchesBegan:touches withEvent:event];
 }
 
+#pragma Delete
 -(void)deleteCurrentVideo {
     NSInteger index = [_carousel currentItemIndex];
     if (index < [_videoPosts count]) {

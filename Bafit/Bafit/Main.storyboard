@@ -578,7 +578,7 @@
                                         <color key="textColor" red="0.37254901960784315" green="0.37254901960784315" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="#music #TSwift" backgroundImage="Milo_Face_Full.png" translatesAutoresizingMaskIntoConstraints="NO" id="TnW-Ca-hpk">
+                                    <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="#Search" backgroundImage="Milo_Face_Full.png" translatesAutoresizingMaskIntoConstraints="NO" id="TnW-Ca-hpk">
                                         <rect key="frame" x="0.0" y="57" width="320" height="44"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
