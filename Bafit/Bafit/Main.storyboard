@@ -612,6 +612,7 @@
                         <outlet property="loadingGif" destination="ACa-N7-GSf" id="40I-o2-bIj"/>
                         <outlet property="refreshGif" destination="Wsn-0E-fea" id="rGa-ov-zuB"/>
                         <outlet property="refreshingLbl" destination="Axa-I0-fsc" id="Kub-4i-Kqm"/>
+                        <outlet property="searchBar" destination="TnW-Ca-hpk" id="5tY-DU-AKL"/>
                         <outlet property="searchDisplayController" destination="3Ag-hM-GgA" id="0QF-zM-VJg"/>
                         <outlet property="titleLabel" destination="YHP-Qd-rwy" id="1ii-3p-9x9"/>
                         <segue destination="RcN-Gc-fEK" kind="custom" identifier="backthread" customClass="BFTLeftRightSegue" id="ccd-J6-bWr"/>

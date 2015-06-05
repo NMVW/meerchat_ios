@@ -29,7 +29,7 @@
 @end
 
 @implementation BFTMainViewController
-
+@synthesize searchBar;
 
 - (void)viewDidLoad
 {
@@ -61,9 +61,11 @@
     [self.view setBackgroundColor:kOrangeColor];
     [_customNavView setBackgroundColor:kOrangeColor];
     
-    //set category
+    //set hTagSearch to default
     _items = [NSMutableArray array];
     _catagory = 0;
+    _hTagSearch = @"";
+    
     //[self loadURLsFromCatagory:_catagory replacingRemovedVideo:NO];
     
     //configure carousel
@@ -347,17 +349,41 @@
 
 #pragma Search Bar Calls
 
-// Get searchText for hashtag sort request to filter vids
+// Get searchText for hashtag sort request to filter vids - store in temp variable so it is independnet of Refreshing... action
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    NSString *hashtagLabel = searchText;
+    self.hTagSearchTemp = searchText;
+    
+    // Only refresh if previously searched for a hashtag
+    if ([self.hTagSearchTemp isEqualToString:@""] && ![self.hTagSearch isEqualToString:@""])
+    {
+        self.hTagSearch = self.hTagSearchTemp;
+        
+        // Call the hTagSearch unfiltered list
+        [self updateCategory:1];
+    }
+    
 }
 
-// Remove keyboard once search btn clicked OR when clicked outside search bar
+// Remove keyboard once search btn clicked
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    // conditional statement for this
+    self.hTagSearch = self.hTagSearchTemp;
+    // Drop the keyboard
     [searchBar resignFirstResponder];
+    
+    // Call the hTagSearch filtered list
+    [self updateCategory:1];
+}
+
+// Remove keyboard if view != searchBar is touched
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([searchBar isFirstResponder] && [touch view] != searchBar) {
+        [searchBar resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
 }
 
 -(void)deleteCurrentVideo {
@@ -478,7 +504,9 @@
     
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], @"water"];
+    // Defining the HTTP request for video feed
+    // Make sure to set HashtagSearch default to empty string @"" for unfiltered news feed
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], [self hTagSearch]];
     
     NSLog(@"updateVideoFeed url = %@", url);
     
@@ -511,7 +539,7 @@
 }
 
 -(void)refreshCarousel {
-    [self updateCategory:_catagory];
+    [self updateCategory: 1];
 }
 
 - (void)didReceiveMemoryWarning

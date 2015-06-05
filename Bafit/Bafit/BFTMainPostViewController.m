@@ -372,76 +372,6 @@
     }
 }
 
-- (IBAction)studyClicked:(id)sender {
-    if(![_studyButton isSelected]){
-        [[BFTPostHandler sharedInstance] setPostCategory:2];
-        [_studyButton setSelected:YES];
-        [_moveButton setSelected:NO];
-        [_loveButton setSelected:NO];
-        [_grubButton setSelected:NO];
-        [_categoryLabel setText:@"Study"];
-        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
-        
-        [self decidePostBtnColor];
-        
-        //        _categoryLabel.center = CGPointMake(0, 13);
-    }else{
-        [_studyButton setSelected:NO];
-        [[BFTPostHandler sharedInstance] setPostCategory:0];
-        [_categoryLabel setText:@"Choose a category"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-        
-        //deselected category - no selected categories set post button gray
-        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    }
-}
-
-- (IBAction)loveClicked:(id)sender {
-    if(![_loveButton isSelected]){
-        [[BFTPostHandler sharedInstance] setPostCategory:3];
-        [_loveButton setSelected:YES];
-        [_studyButton setSelected:NO];
-        [_moveButton setSelected:NO];
-        [_grubButton setSelected:NO];
-        [_categoryLabel setText:@"Love"];
-        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
-        
-        [self decidePostBtnColor];
-        
-    }else{
-        [_loveButton setSelected:NO];
-        [[BFTPostHandler sharedInstance] setPostCategory:0];
-        [_categoryLabel setText:@"Choose a category"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-        
-        //deselected category - no selected categories set post button gray
-        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    }
-}
-
-- (IBAction)grubClicked:(id)sender {
-    if(![_grubButton isSelected]){
-        [[BFTPostHandler sharedInstance] setPostCategory:4];
-        [_grubButton setSelected:YES];
-        [_studyButton setSelected:NO];
-        [_loveButton setSelected:NO];
-        [_moveButton setSelected:NO];
-        [_categoryLabel setText:@"Grub"];
-        [_categoryLabel setTextColor:[UIColor colorWithWhite:0.5 alpha:1]];
-        
-        [self decidePostBtnColor];
-        
-    }else{
-        [_grubButton setSelected:NO];
-        [[BFTPostHandler sharedInstance] setPostCategory:0];
-        [_categoryLabel setText:@"Choose a category"];
-        [_categoryLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:161.0f/255.0f blue:0.0f/255.0f alpha:1.0]];
-        
-        //deselected category - no selected categories set post button gray
-        [self.postBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    }
-}
-
 - (IBAction)updateHashtag:(id)sender {
     [[BFTPostHandler sharedInstance] setPostHash_tag:[_hashtagEditText text]];
 }
@@ -457,11 +387,13 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
+    NSLog(@"textFieldDidEndEditing");
     self.navItem.rightBarButtonItem = nil;
     [self.navigationBar setItems:@[self.navItem]];
 }
 
 - (IBAction)hideKey:(id)sender {
+    NSLog(@"hideKey action");
     self.navItem.rightBarButtonItem = nil;
     [self.navigationBar setItems:@[self.navItem]];
     [_hashtagEditText resignFirstResponder];

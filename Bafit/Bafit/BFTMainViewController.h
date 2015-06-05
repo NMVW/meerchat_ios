@@ -17,23 +17,23 @@
 @interface BFTMainViewController : UIViewController <iCarouselDataSource, iCarouselDelegate, UINavigationControllerDelegate, BFTMessageDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate>
 
 @property (strong, nonatomic) UIView *videoPlayback;
-
 @property (strong, nonatomic) IBOutlet UIView *customNavView;
-
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *forthButton;
 @property (weak, nonatomic) IBOutlet UIButton *moveCatButton;
-@property (weak, nonatomic) IBOutlet UIButton *studyCatButton;
-@property (weak, nonatomic) IBOutlet UIButton *loveCatButton;
-@property (weak, nonatomic) IBOutlet UIButton *grubCatButton;
-@property (weak, nonatomic) IBOutlet UIButton *MessageCountLabel;
 @property (strong, nonatomic) IBOutlet UIView *videoView;
+
+// Not sure if playButton is being used anymore
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *MessageCountLabel;
+
+
 @property (nonatomic) int catagory;
 @property (weak, nonatomic) NSArray *messages;
 @property (nonatomic) BOOL swipeUp;
 @property (nonatomic, strong) NSArray *tempHashTags;
-@property (nonatomic, strong) NSString *hashSearch;
+@property (nonatomic, strong) NSString *hTagSearch;
 
 @property (nonatomic) BOOL isRefreshing;
 
@@ -53,6 +53,7 @@
 @property (assign, nonatomic) NSInteger segment;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 // pull to refresh elements
 @property (strong, nonatomic) UIImageView *refresh;
@@ -69,10 +70,12 @@
 - (IBAction)postThread:(id)sender;
 - (IBAction)backToThread:(id)sender;
 - (IBAction)forthToPost:(id)sender;
-- (IBAction)moveCatTouched:(id)sender;
 
 // Get searchText for hashtag sort request to filter vids
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
+
+// Temp variable to hold search while other activities happen
+@property (nonatomic) NSString *hTagSearchTemp;
 
 // Remove keyboard and take string input
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;
