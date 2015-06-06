@@ -93,8 +93,8 @@
         
         //UI stuff on main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            [avPlayerLayer setNeedsLayout];
             [self.view.layer addSublayer:avPlayerLayer];
+            [avPlayerLayer setNeedsLayout];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(seekToBeginning) name:AVPlayerItemDidPlayToEndTimeNotification object:avPlayeritem];
             [avPlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
             [avPlayer addObserver:self forKeyPath:@"rate" options:0 context:nil];

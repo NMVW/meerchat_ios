@@ -390,6 +390,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         {
             newItemViews[number] = _itemViews[number];
         }
+        //possible problem location
         else if (i > index)
         {
             newItemViews[@(i - 1)] = _itemViews[number];
@@ -1466,6 +1467,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         _numberOfItems --;
         _wrapEnabled = !![self valueForOption:iCarouselOptionWrap withDefault:_wrapEnabled];
         [self updateNumberOfVisibleItems];
+        NSLog(@"currentItemIndex = %li", (long)self.currentItemIndex);
         _scrollOffset = self.currentItemIndex;
         [self didScroll];
         [UIView commitAnimations];

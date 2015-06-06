@@ -42,7 +42,7 @@
     [self.tableView setBackgroundView:backView];
     
     _noMessagesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, [UIScreen mainScreen].bounds.size.width - 40, 150)];
-    [_noMessagesLabel setText:@"You haven’t started talking to anyone! Respond to a public post or create a public post to get things started. Once you have exchanged video messages, you will be able to chat here."];
+    [_noMessagesLabel setText:@"Empty Inbox:\n\n Share a post with the local mob!"];
     [_noMessagesLabel setNumberOfLines:5];
     [_noMessagesLabel setTextAlignment:NSTextAlignmentCenter];
     [_noMessagesLabel setFont:[UIFont systemFontOfSize:16]];

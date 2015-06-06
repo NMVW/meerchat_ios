@@ -385,21 +385,34 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    // Parse string for HTTP URL send
+    // Parse string for HTTP URL send (backend configured for '-' insertion)
     self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@" " withString:@"-"];
     self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"'" withString:@"-"];
     self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"\"" withString:@"-"];
+    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"#" withString:@"-"];
+    
+    // French language compatible
     self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"´" withString:@"-"];
     self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"`" withString:@"-"];
     self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"ˆ" withString:@"-"];
     self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"¨" withString:@"-"];
     
-    
     self.hTagSearch = self.hTagSearchTemp;
-    NSLog(@"The hTagSearch");
+    NSLog(@"The hTagSearch prior to encoding for HTTP", self.hTagSearch);
+    
+    if (self.hTagSearch == self.hTagSearchTemp)
+    {
+        // Escape encode the hashtag string for passing URL through HTTP
+        self.hTagSearch = [NSString stringWithCString:[self.hTagSearch cStringUsingEncoding:NSNonLossyASCIIStringEncoding] encoding:NSUTF8StringEncoding];
+        
+        NSLog(@"The hTagSearch ready to send as URL:\n%@", self.hTagSearch);
+    }
+    
     // Drop the keyboard
     [searchBar resignFirstResponder];
     
+    // Refresh Carousel
+    [self setCarouselBackToNormal];
     // Call the hTagSearch filtered list
     [self updateCategory:1];
 }
@@ -434,6 +447,7 @@
         }
         else {
             //handle connection error
+            NSLog(@"Database request failed");
         }
     }] startConnection];
     
@@ -455,7 +469,7 @@
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     
     NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
-    NSLog(@"updateUserVideos url = %@", url);
+    NSLog(@"-(void)loadURLsFromCatagory:(NSInteger)replacingRemovedVideo:(BOOL) -> url = %@", url);
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -1132,6 +1146,7 @@
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self deleteCurrentVideo];
+        [self updateCategory:1];
     }];
     
     [controller addAction:cancel];

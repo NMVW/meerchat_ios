@@ -27,5 +27,6 @@
 -(void)play;
 -(void)stop;
 -(void)pause;
+-(void)setupVideoPlayer;
 
 @end

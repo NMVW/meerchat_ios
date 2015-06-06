@@ -11,7 +11,7 @@
 
 @implementation BFTDatabaseRequest
 
-static NSString *kBaseURL = @"http://bafit.mobi/cScripts/v1/";
+static NSString *kBaseURL = @"http://bafit.mobi/cScripts/test/";
 
 -(instancetype)initWithURLString:(NSString *)URL completionBlock:(void (^)(NSMutableData *, NSError *))responseHandler {
     self = [super init];
