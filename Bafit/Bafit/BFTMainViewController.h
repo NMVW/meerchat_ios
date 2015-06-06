@@ -33,7 +33,6 @@
 @property (weak, nonatomic) NSArray *messages;
 @property (nonatomic) BOOL swipeUp;
 @property (nonatomic, strong) NSArray *tempHashTags;
-@property (nonatomic, strong) NSString *hTagSearch;
 
 @property (nonatomic) BOOL isRefreshing;
 
@@ -74,8 +73,10 @@
 // Get searchText for hashtag sort request to filter vids
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
 
-// Temp variable to hold search while other activities happen
+// Temp variable to hold string while other activities happen
 @property (nonatomic) NSString *hTagSearchTemp;
+// Actual searched hashtag string
+@property (nonatomic, strong) NSString *hTagSearch;
 
 // Remove keyboard and take string input
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar;

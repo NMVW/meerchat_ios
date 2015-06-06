@@ -148,14 +148,24 @@
     }
 }
 
--(void)notTodayOwnPost {
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Are you sure you want to delete your post?" preferredStyle:UIAlertControllerStyleAlert];
+-(void)deleteSelfPost
+{
+    [self setAlertType:@"Self" withMessage:@"Are you sure you want to delete your groovy post?"];
+}
+
+-(void)setAlertType:(NSString *)title withMessage:(NSString *)message
+{
+    NSString *newTitle = [title stringByAppendingString:@" Deletion"];
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:newTitle
+                                                                        message:message
+                                                                 preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         return;
     }];
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
         [self deleteCurrentVideo];
+        [self updateCategory:1];
     }];
     
     [controller addAction:cancel];
@@ -164,7 +174,37 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
--(void)notToday {
+-(void)deleteByModerator
+{
+    //[self deleteCurrentVideo];
+    [self setAlertType:@"Moderator" withMessage:@"Swiping down deletes the post from the mob. Are you sure you want to continue?"];
+}
+
+-(void)deleteByIdentity:(BFTDataHandler *)handler whichPost:(BFTVideoPost *)post
+{
+    // User swipes down on self post
+    if ([handler.BUN isEqualToString:[post BUN]])
+    {
+        [self deleteSelfPost];
+    }
+    else
+        // User is a Moderator
+    {
+        if ([self isModerator])
+        {
+            // Delete post from server
+            [self deleteByModerator];
+        }
+        else
+        {
+            // Delete post locally only
+            [self deleteCurrentVideo];
+        }
+    }
+}
+
+-(void)notToday
+{
     
     BFTVideoPost *post = [self.videoPosts objectAtIndex:self.carousel.currentItemIndex];
     
@@ -174,70 +214,31 @@
     [self enableCarousel];
     
     //if is user's own post disable buttons and gray text
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeDown"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"firstTimeSwipeDown"])
+    {
+        [self deleteByIdentity:handler whichPost:post];
         
-        //if it's users own video confirm everytime before deleting
-        if ([handler.BUN isEqualToString:[post BUN]])
-        {
-            UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Are you sure you want to delete your groovy post?" preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                return;
-            }];
-            UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-                [self deleteCurrentVideo];
-                [self updateCategory:1];
-            }];
-            
-            [controller addAction:cancel];
-            [controller addAction:delete];
-            
-            [self presentViewController:controller animated:YES completion:nil];
-        }
-        else
-        {
-            if ([self isModerator]) {
-                
-                //[self deleteCurrentVideo];
-                
-                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Since you are a moderator, swiping down deletes the video. are you sure you want to continue?" preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    return;
-                }];
-                UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-                    [self deleteCurrentVideo];
-                }];
-                
-                [controller addAction:cancel];
-                [controller addAction:delete];
-                
-                [self presentViewController:controller animated:YES completion:nil];
-                
-            }
-            else
-            {
-                [self deleteCurrentVideo];
-            }
-        }
     }
     else {
         
         UIView *viewToAnimate = [_carousel itemViewAtIndex:_carousel.currentItemIndex];
         
-        if ([[viewToAnimate.gestureRecognizers description] length] > 0)
-        {
-        }
-        else
-        {
-            UIPanGestureRecognizer *pgr = [[UIPanGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(handlePan:)];
-            [pgr setDelegate:self];
-            [viewToAnimate addGestureRecognizer:pgr];
-        }
+        // Following snippet doesn't do anything??
+        if ([[viewToAnimate.gestureRecognizers description] length] > 0){}
+        //else
         
-        [[[UIAlertView alloc] initWithTitle:@"Swipe Down" message:@"Swipe down posts that lack grooviness so we can keep the mob happy!" delegate:nil cancelButtonTitle:@"Thanks, Milo." otherButtonTitles:nil] show];
+        UIPanGestureRecognizer *pgr = [[UIPanGestureRecognizer alloc]
+                                       initWithTarget:self
+                                               action:@selector(handlePan:)];
+        [pgr setDelegate:self];
+        [viewToAnimate addGestureRecognizer:pgr];
+        
+        [[[UIAlertView alloc] initWithTitle:@"Swipe Down"
+                                    message:@"Swipe down posts to clear your feed so you don't miss out."
+                                   delegate:nil
+                          cancelButtonTitle:@"Thanks, Milo."
+                          otherButtonTitles:nil] show];
+        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstTimeSwipeDown"];
     }
 }
@@ -252,11 +253,11 @@
         //*** if is user's own post disable swipe up functionality
         if ([handler.BUN isEqualToString:[post BUN]])
         {
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"A Social No-No"
-                                 message:@"This is an alert."
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"A Social No-No"
+                                 message:@"Talking to yourself?"
                           preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Milo, you're right."
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Milo, I'm embarrassed"
                           style:UIAlertActionStyleDefault
                         handler:^(UIAlertAction *action) {}];
             
@@ -385,28 +386,13 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    // Parse string for HTTP URL send (backend configured for '-' insertion)
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@" " withString:@"-"];
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"'" withString:@"-"];
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"\"" withString:@"-"];
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"#" withString:@"-"];
-    
-    // French language compatible
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"´" withString:@"-"];
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"`" withString:@"-"];
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"ˆ" withString:@"-"];
-    self.hTagSearchTemp = [self.hTagSearchTemp stringByReplacingOccurrencesOfString:@"¨" withString:@"-"];
-    
     self.hTagSearch = self.hTagSearchTemp;
     NSLog(@"The hTagSearch prior to encoding for HTTP", self.hTagSearch);
     
-    if (self.hTagSearch == self.hTagSearchTemp)
-    {
-        // Escape encode the hashtag string for passing URL through HTTP
-        self.hTagSearch = [NSString stringWithCString:[self.hTagSearch cStringUsingEncoding:NSNonLossyASCIIStringEncoding] encoding:NSUTF8StringEncoding];
-        
-        NSLog(@"The hTagSearch ready to send as URL:\n%@", self.hTagSearch);
-    }
+    // UTF-8 encode the hashtag string for passing URL through HTTP
+    self.hTagSearch = [self.hTagSearchTemp stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSLog(@"The hTagSearch ready to send as URL:\n%@", self.hTagSearch);
     
     // Drop the keyboard
     [searchBar resignFirstResponder];
@@ -550,7 +536,7 @@
     
     // Defining the HTTP request for video feed
     // Make sure to set HashtagSearch default to empty string @"" for unfiltered news feed
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], [self hTagSearch]];
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
     
     NSLog(@"updateVideoFeed url = %@", url);
     
@@ -641,15 +627,28 @@
     mainView.postTimeLabel.text = [post.timeStamp timeAgoSinceNow];
     mainView.distanceLabel.text = [NSString stringWithFormat:@"%.1f miles away", [post distance]];
     
-    //if no # symbol add it to each word
-    NSRange whiteSpaceRange = [[post hashTag] rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    // Backend is taking care of all the hash tag string manipulations in requestUserList.php
+    //  (see PARSING INCOMING HASHTAGS)
+    
+    
+    // Decode UFT-8 raw string (post.hashTag) from received json key= hash_tag
+    NSString *decodedPostHashTag = [post.hashTag stringByRemovingPercentEncoding];
+    
+    // Set mainview hashtag label to decodedHashtag
+    mainView.hashTagLabel.text = decodedPostHashTag;
+    
+    //
+    // PARSING INCOMING HASHTAGS
+    /*
+     NSRange whiteSpaceRange = [[post hashTag] rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
     if (whiteSpaceRange.location != NSNotFound)
     {
         NSArray *allHashTags = [[post hashTag] componentsSeparatedByString:@" "];
         
-        NSMutableString* concatHashTags = [NSMutableString string];
+        NSMutableString *concatHashTags = [NSMutableString string];
         
-        for (NSString* hash in allHashTags)
+        for (NSString *hash in allHashTags)
         {
             if([hash hasPrefix:@"#"])
             {
@@ -681,6 +680,7 @@
         
         mainView.hashTagLabel.text = hashTagStr;
     }
+     */
     
     [mainView.responseButton addTarget:self action:@selector(respondToUser) forControlEvents:UIControlEventTouchUpInside];
     [mainView.notTodayButton addTarget:self action:@selector(notToday) forControlEvents:UIControlEventTouchUpInside];

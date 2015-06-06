@@ -543,7 +543,11 @@
     BFTDataHandler *data = [BFTDataHandler sharedInstance];
     BFTPostHandler *post = [BFTPostHandler sharedInstance];
     
-    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/test/postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@",[post postUID], [data BUN], [post postHash_tag], [post postCategory], [post postGPSLat], [post postGPSLon], [post postFName], [post postMC], [data FBID]];
+    // Encode hash tag on posting video to send in URL
+    NSString *postHashTagEncoded = [post.postHash_tag stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"postHash_tag UTF-8 encoded = %@", postHashTagEncoded);
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/test/postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@",post.postUID, data.BUN, postHashTagEncoded, post.postCategory, post.postGPSLat, post.postGPSLon, post.postFName, post.postMC, data.FBID];
     NSLog(@"PostVideoToMain urlString = %@", urlString);
     
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
