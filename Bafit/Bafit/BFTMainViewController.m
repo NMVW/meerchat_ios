@@ -186,6 +186,7 @@
             }];
             UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
                 [self deleteCurrentVideo];
+                [self updateCategory:1];
             }];
             
             [controller addAction:cancel];
@@ -222,14 +223,14 @@
     }
     else {
         
-        UIView* viewToAnimate = [_carousel itemViewAtIndex:_carousel.currentItemIndex];
+        UIView *viewToAnimate = [_carousel itemViewAtIndex:_carousel.currentItemIndex];
         
         if ([[viewToAnimate.gestureRecognizers description] length] > 0)
         {
         }
         else
         {
-            UIPanGestureRecognizer* pgr = [[UIPanGestureRecognizer alloc]
+            UIPanGestureRecognizer *pgr = [[UIPanGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(handlePan:)];
             [pgr setDelegate:self];
@@ -251,7 +252,21 @@
         //*** if is user's own post disable swipe up functionality
         if ([handler.BUN isEqualToString:[post BUN]])
         {
-            [[[UIAlertView alloc] initWithTitle:@"A Social No-No" message:@"Come on, let's be social and avoid talking to ourselves..." delegate:self cancelButtonTitle:@"Milo, you're right." otherButtonTitles:nil] show];
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"A Social No-No"
+                                 message:@"This is an alert."
+                          preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Milo, you're right."
+                          style:UIAlertActionStyleDefault
+                        handler:^(UIAlertAction *action) {}];
+            
+            [alert addAction:defaultAction];
+            
+            [self presentViewController:alert
+                               animated:YES
+                             completion:nil];
+            
+             /*[[[UIAlertView alloc] initWithTitle:@"A Social No-No" message:@"Come on, let's be social and avoid talking to ourselves..." delegate:self cancelButtonTitle:@"Milo, you're right." otherButtonTitles:nil] show];*/
         }
         else
         {
@@ -414,7 +429,7 @@
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"notToday.php?UIDr=%@&UIDp=%@&MC=%zd", [BFTDataHandler sharedInstance].UID, post.UID, post.MC] trueOrFalseBlock:^(BOOL succes, NSError *error) {
         if (!error) {
             if (succes) {
-                [self loadURLsFromCatagory:_catagory replacingRemovedVideo:YES];
+                [self loadURLsFromCatagory:1 replacingRemovedVideo:YES];
             }
         }
         else {
@@ -439,7 +454,7 @@
     
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID]];
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
     NSLog(@"updateUserVideos url = %@", url);
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -458,12 +473,13 @@
              _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
          
          //If a video is removed, we need to get the post that we don't currently have form the segment we just reloaded. Note that this could be any of them due to videos being added, deleted, location changes, etc.
-         if (videoRemoved) {
+         /*if (videoRemoved) {
              NSMutableOrderedSet *tempPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
              for (NSDictionary *dict in jsonArray) {
                  [tempPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];
              }
              [tempPosts minusOrderedSet:_videoPosts];
+             
              NSLog(@"New Set - Old Set: \n%@", tempPosts);
              for (BFTVideoPost *post in tempPosts) {
                  NSInteger previousCount = [_videoPosts count];
@@ -488,7 +504,7 @@
                      NSLog(@"Duplicate Found | Not Added: %@", post);
                  }
              }
-         }
+         }*/
      }
          failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -880,7 +896,7 @@
         CGFloat slideMult = magnitude / 200;
         NSLog(@"magnitude: %f, slideMult: %f", magnitude, slideMult);
         
-        float slideFactor = 18.01 * slideMult; // Increase for more of a slide
+        float slideFactor = 15.0 * slideMult; // Increase for more of a slide
         CGPoint finalPoint = CGPointMake(recognizer.view.center.x + (velocity.x * slideFactor),
                                          recognizer.view.center.y + (velocity.y * slideFactor));
         finalPoint.x = MIN(MAX(finalPoint.x, 0), self.view.bounds.size.width);
