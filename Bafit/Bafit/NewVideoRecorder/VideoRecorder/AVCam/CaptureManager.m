@@ -196,7 +196,7 @@
     // Create session (use default AVCaptureSessionPresetHigh)
     AVCaptureSession *newCaptureSession = [[AVCaptureSession alloc] init];
     [newCaptureSession beginConfiguration];
-    newCaptureSession.sessionPreset = AVCaptureSessionPresetHigh;
+    newCaptureSession.sessionPreset = AVCaptureSessionPresetiFrame1280x720;
     
     // Add inputs and output to the capture session
     // Preview begins with front camera
@@ -762,6 +762,7 @@
 }
 
 // Find and return an audio device, returning nil if one is not found
+// audioDevice never called ? Is this normal???
 - (AVCaptureDevice *) audioDevice
 {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
