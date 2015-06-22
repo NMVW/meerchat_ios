@@ -158,6 +158,7 @@
     }
 }
 
+// String compare user email to regex for ANY valid email address
 -(BOOL)validateEmail:(NSString*)email {
     if ([email isEqualToString:@""]) {
         return NO;

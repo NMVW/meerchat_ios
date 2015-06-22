@@ -323,6 +323,7 @@
             break;
         }
         case UIGestureRecognizerStateEnded: {
+            NSLog(@"Recording Stopped");
             if ([[[self captureManager] recorder] isRecording]) {
                 [self recordingFinished];
                 [self.delegate showClearButton];
@@ -419,7 +420,7 @@
     }
     
     //NSLog(@"self.duration %f, self.progressBar %f", self.duration, self.durationProgressBar.progress);
-    if (self.durationProgressBar.progress == 1) {
+    if (self.duration >= self.maxDuration) {
         [self recordingTimeFull];
         [self recordingFinished];
         
@@ -450,6 +451,7 @@
 -(void)captureManagerRecordingBegan:(CaptureManager *)captureManager {
     _videoPreviewView.layer.borderColor = [UIColor whiteColor].CGColor;
     _videoPreviewView.layer.borderWidth = 2.0;
+    //progress bar timer
     self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
 }
 

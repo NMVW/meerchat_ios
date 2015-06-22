@@ -37,6 +37,7 @@
 
 -(void)postBtnClicked;
 -(void)closePreview;
+- (IBAction)startRecording:(UILongPressGestureRecognizer*)recognizer;
 
 // control the rate of blinking for record button
 @property (nonatomic) BOOL hasShownRecordBtn;
