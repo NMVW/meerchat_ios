@@ -193,10 +193,20 @@
     self.captureDeviceInputFront = [[AVCaptureDeviceInput alloc] initWithDevice:[self frontFacingCamera] error:nil];
     self.captureDeviceInputAudio = [[AVCaptureDeviceInput alloc] initWithDevice:audioDevice error:nil];
     
-    // Create session (use default AVCaptureSessionPresetHigh)
+    // Create session for preview and video capture
     AVCaptureSession *newCaptureSession = [[AVCaptureSession alloc] init];
     [newCaptureSession beginConfiguration];
-    newCaptureSession.sessionPreset = AVCaptureSessionPresetiFrame1280x720;
+    
+    // Check to see if height is at least that of iPhone 5S to bump up res
+    // iPhone 5S front = 1.2 MP, back = 8 MP
+    if ([[UIScreen mainScreen] bounds].size.height >= 568)
+    {
+        newCaptureSession.sessionPreset = AVCaptureSessionPresetiFrame1280x720;
+    }
+    // iPhone 4S front = .3 MP, back = 8 MP
+    else {
+        newCaptureSession.sessionPreset = AVCaptureSessionPreset352x288;
+    }
     
     // Add inputs and output to the capture session
     // Preview begins with front camera
