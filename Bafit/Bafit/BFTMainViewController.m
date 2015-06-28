@@ -454,7 +454,7 @@
     
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/v2/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
     NSLog(@"-(void)loadURLsFromCatagory:(NSInteger)replacingRemovedVideo:(BOOL) -> url = %@", url);
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -536,7 +536,7 @@
     
     // Defining the HTTP request for video feed
     // Make sure to set HashtagSearch default to empty string @"" for unfiltered news feed
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/v2/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
     
     NSLog(@"updateVideoFeed url = %@", url);
     

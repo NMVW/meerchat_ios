@@ -81,7 +81,7 @@
                                                  options:0];
     NSInteger mins = [components minute];
     
-    // add a flag to JSQMessage object for when to show the label. Chronilogical messages must be greater than 10 mins apart to show ts label
+    // add a flag to JSQMessage object for when to show the label. Chronological messages must be greater than 10 mins apart to show ts label
     NSString* showTimeLabel;
     if (mins > 10)
     {

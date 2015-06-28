@@ -481,7 +481,7 @@
     NSString* videoName = [NSString stringWithFormat:@"%@.mp4",[[BFTDataHandler sharedInstance] mp4Name]];
     
     //NSData *imageData = UIImagePNGRepresentation(uploadThumb);
-    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadVid.php"];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v2/uploadVid.php"];
 
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileURL:URL name:@"file" fileName:videoName mimeType:@"video/mp4" error:nil];
@@ -514,7 +514,7 @@
 -(void)uploadToUserWithURL:(NSURL *)URL {
     NSString* videoName = [NSString stringWithFormat:@"%@.mp4", [[BFTDataHandler sharedInstance] mp4Name]];
     NSString *thumbName = [NSString stringWithFormat:@"%@.jpg", [[BFTDataHandler sharedInstance] mp4Name]];
-    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v1/uploadVid.php"];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v2/uploadVid.php"];
     NSString *videoSaveString = [NSString stringWithFormat:@"http://www.bafit.mobi/userPosts/%@", videoName];
     NSString *thumbSaveString = [NSString stringWithFormat:@"http://bafit.mobi/userPosts/thumb/%@",thumbName];
     [[BFTPostHandler sharedInstance] setXmppVideoURL:videoSaveString];
@@ -557,7 +557,7 @@
     NSString *postHashTagEncoded = [post.postHash_tag stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"postHash_tag UTF-8 encoded = %@", postHashTagEncoded);
     
-    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/test/postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@",post.postUID, data.BUN, postHashTagEncoded, post.postCategory, post.postGPSLat, post.postGPSLon, post.postFName, post.postMC, data.FBID];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v2/postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@",post.postUID, data.BUN, postHashTagEncoded, post.postCategory, post.postGPSLat, post.postGPSLon, post.postFName, post.postMC, data.FBID];
     NSLog(@"PostVideoToMain urlString = %@", urlString);
     
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
@@ -592,7 +592,7 @@
 }
 
 -(NSString *)MP4NameGet {
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v1/registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v2/registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
         
         if (!error) {
             NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -636,7 +636,7 @@
     
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:@"http://www.bafit.mobi/"]];
     
-    AFHTTPRequestOperation *op = [manager POST:@"cScripts/v1/uploadThumb.php" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPRequestOperation *op = [manager POST:@"cScripts/v2/uploadThumb.php" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"file" fileName:thumbName mimeType:@"image/jpeg"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success: %@", operation.responseString);

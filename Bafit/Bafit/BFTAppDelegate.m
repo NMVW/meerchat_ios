@@ -29,6 +29,7 @@
     
     [Parse setApplicationId:@"wrDBeyyvoetbewUYHqByWOfK1R5PhiTmZiGOJeYO"
                   clientKey:@"09AYDgk4uYTbiFhNdxge5i2HyWQmeOTc85WivX41"];
+    
     [Fabric with:@[CrashlyticsKit]];
     
     //Set navigation color
@@ -171,11 +172,13 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"Push Accepted, Save Device Token Using \nBUN: %@\nUID: %@", [[[BFTDataHandler sharedInstance] BUN] lowercaseString], [[BFTDataHandler sharedInstance] UID]);
     // Store the deviceToken in the current installation and save it to Parse.
+    
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation[@"BUN"] = [[[BFTDataHandler sharedInstance] BUN] lowercaseString];
     currentInstallation[@"UID"] = [[BFTDataHandler sharedInstance] UID];
     [currentInstallation saveEventually];
+    NSLog(@"Badge for Push set to %@", currentInstallation.badge);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
