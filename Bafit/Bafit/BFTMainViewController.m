@@ -259,7 +259,7 @@
             
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Milo, I'm embarrassed"
                           style:UIAlertActionStyleDefault
-                        handler:^(UIAlertAction *action) {}];
+                                                                  handler:^(UIAlertAction *action) {[self updateCategory:1];}];
             
             [alert addAction:defaultAction];
             
@@ -316,7 +316,7 @@
             UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Are you sure you want to delete your post?" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                return;
+                [self updateCategory:1];
             }];
             UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
                 [self deleteCurrentVideo];
@@ -336,7 +336,7 @@
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Since you are a moderator, swiping down deletes the video. are you sure you want to continue?" preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    return;
+                    [self updateCategory:1];
                 }];
                 UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
                     [self deleteCurrentVideo];
@@ -549,6 +549,21 @@
          NSArray* jsonArray = responseObject;
          
          _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+         
+         // The following attempts to insert a notice for the user to know that there are no posts matching their search criteria
+         
+         if ([jsonArray count] == 0) {
+             NSLog(@"We got to no videos on the screen, pal");}/*
+             UIImage *noResults = [UIImage imageNamed:@"splash.png"];
+             UIImageView *noResultsView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+             noResultsView.image = noResults;
+             [self.view insertSubview:noResultsView atIndex:0];
+             
+             [self.view bringSubviewToFront:noResultsView];
+         }
+         else if (noResultsView) {
+             [self.view sendSubviewToBack:noResultsView];
+         }*/
          
          for (NSDictionary *dict in jsonArray) {
              [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];

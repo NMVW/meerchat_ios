@@ -128,6 +128,7 @@
     
     [self connectToJabber];
     
+    // When doing testing, it seems that badges only accumulate
     PFInstallation *install = [PFInstallation currentInstallation];
     if (install[@"UID"]) {
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
