@@ -70,6 +70,13 @@
 
 @end
 
+#ifdef DEBUG
+// Development mode
+int d = 1;
+#else
+// Release version
+int d = 0;
+#endif
 
 #pragma mark -
 @interface CaptureManager (InternalUtilityMethods)
@@ -557,7 +564,7 @@
     NSString *postHashTagEncoded = [post.postHash_tag stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"postHash_tag UTF-8 encoded = %@", postHashTagEncoded);
     
-    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v2/postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@",post.postUID, data.BUN, postHashTagEncoded, post.postCategory, post.postGPSLat, post.postGPSLon, post.postFName, post.postMC, data.FBID];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.bafit.mobi/cScripts/v2/postVideo.php?UIDr=%@&BUN=%@&hash_tag=%@&category=%zd&GPSLat=%f&GPSLon=%f&FName=%@&MC=%@&FBID=%@&d=%i",post.postUID, data.BUN, postHashTagEncoded, post.postCategory, post.postGPSLat, post.postGPSLon, post.postFName, post.postMC, data.FBID, d];
     NSLog(@"PostVideoToMain urlString = %@", urlString);
     
     [[[BFTDatabaseRequest alloc] initWithURLString:urlString completionBlock:^(NSMutableData *data, NSError *error) {
@@ -592,7 +599,7 @@
 }
 
 -(NSString *)MP4NameGet {
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v2/registerVid.php?UIDr=%@&UIDp=%@", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID]] completionBlock:^(NSMutableData *data, NSError *error) {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"http://bafit.mobi/cScripts/v2/registerVid.php?UIDr=%@&UIDp=%@&d=%i", [[BFTDataHandler sharedInstance] UID], [[BFTDataHandler sharedInstance] UID], d] completionBlock:^(NSMutableData *data, NSError *error) {
         
         if (!error) {
             NSArray *responseJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
