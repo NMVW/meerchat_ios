@@ -24,14 +24,6 @@
 
 #import "NSDate+DateTools.h"
 
-#ifdef DEBUG
-// Development mode
-int d = 1;
-#else
-// Release version
-int d = 0;
-#endif
-
 @interface BFTMainViewController ()
 
 @end

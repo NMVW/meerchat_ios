@@ -39,6 +39,12 @@ int d = 0;
     
     [Fabric with:@[CrashlyticsKit]];
     
+    if (DEBUG) {
+        NSLog(@"App in Dev mode");
+    }
+    else {
+        NSLog(@"App in Release mode");
+    }
     //Set navigation color
     //[[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];

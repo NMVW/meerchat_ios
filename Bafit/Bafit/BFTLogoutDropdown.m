@@ -50,8 +50,10 @@
     [self.profilePicture.layer setCornerRadius:5];
     [self.profilePicture setClipsToBounds:YES];
     
+    // If FBLogin
     NSString* thumbURL = [[NSString alloc] initWithFormat:@"http://graph.facebook.com/%@/picture?type=large", [[BFTDataHandler sharedInstance] FBID]];
     [self.profilePicture setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbURL]];
+    // If MCLogin
 
     if (!self.profilePicture.image) {
         [[[BFTDatabaseRequest alloc] initWithFileURL:thumbURL completionBlock:^(NSMutableData *data, NSError *error) {

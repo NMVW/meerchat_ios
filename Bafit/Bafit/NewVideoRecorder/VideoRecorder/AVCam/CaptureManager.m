@@ -70,14 +70,6 @@
 
 @end
 
-#ifdef DEBUG
-// Development mode
-int d = 1;
-#else
-// Release version
-int d = 0;
-#endif
-
 #pragma mark -
 @interface CaptureManager (InternalUtilityMethods)
 - (AVCaptureDevice *) cameraWithPosition:(AVCaptureDevicePosition)position;

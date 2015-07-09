@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "BFTMessageDelegate.h"
 #import "XMPP.h"
+extern int d;
 
 @interface BFTAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
