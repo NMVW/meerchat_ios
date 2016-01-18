@@ -259,7 +259,7 @@
             
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Milo, I'm embarrassed"
                           style:UIAlertActionStyleDefault
-                        handler:^(UIAlertAction *action) {}];
+                                                                  handler:^(UIAlertAction *action) {[self updateCategory:1];}];
             
             [alert addAction:defaultAction];
             
@@ -316,7 +316,7 @@
             UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Are you sure you want to delete your post?" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                return;
+                [self updateCategory:1];
             }];
             UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
                 [self deleteCurrentVideo];
@@ -336,7 +336,7 @@
                 UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Confirm Deletion" message:@"Since you are a moderator, swiping down deletes the video. are you sure you want to continue?" preferredStyle:UIAlertControllerStyleAlert];
                 
                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    return;
+                    [self updateCategory:1];
                 }];
                 UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
                     [self deleteCurrentVideo];
@@ -387,7 +387,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     self.hTagSearch = self.hTagSearchTemp;
-    NSLog(@"The hTagSearch prior to encoding for HTTP", self.hTagSearch);
+    NSLog(@"The hTagSearch prior to encoding for HTTP: %@", self.hTagSearch);
     
     // UTF-8 encode the hashtag string for passing URL through HTTP
     self.hTagSearch = [self.hTagSearchTemp stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -425,7 +425,7 @@
     BFTVideoPost *post = [_videoPosts objectAtIndex:index];
     [_videoPosts removeObjectAtIndex:index];
     [self.carousel removeItemAtIndex:index animated:YES];
-    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"notToday.php?UIDr=%@&UIDp=%@&MC=%zd", [BFTDataHandler sharedInstance].UID, post.UID, post.MC] trueOrFalseBlock:^(BOOL succes, NSError *error) {
+    [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"notToday.php?UIDr=%@&UIDp=%@&MC=%zd&d=%i", [BFTDataHandler sharedInstance].UID, post.UID, post.MC, d] trueOrFalseBlock:^(BOOL succes, NSError *error) {
         if (!error) {
             if (succes) {
                 [self loadURLsFromCatagory:1 replacingRemovedVideo:YES];
@@ -454,7 +454,7 @@
     
     BFTDataHandler *userData = [BFTDataHandler sharedInstance];
     
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/v2/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@&d=%i", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch, d];
     NSLog(@"-(void)loadURLsFromCatagory:(NSInteger)replacingRemovedVideo:(BOOL) -> url = %@", url);
     
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -536,7 +536,7 @@
     
     // Defining the HTTP request for video feed
     // Make sure to set HashtagSearch default to empty string @"" for unfiltered news feed
-    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/test/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch];
+    NSString* url = [NSString stringWithFormat:@"http://bafit.mobi/cScripts/v2/requestUserList.php?UIDr=%@&GPSlat=%f&GPSlon=%f&FBID=%@&HashtagSearch=%@&d=%i", [userData UID], [userData Latitude], [userData Longitude], [userData FBID], self.hTagSearch, d];
     
     NSLog(@"updateVideoFeed url = %@", url);
     
@@ -549,6 +549,21 @@
          NSArray* jsonArray = responseObject;
          
          _videoPosts = [[NSMutableOrderedSet alloc] initWithCapacity:[jsonArray count]];
+         
+         // The following attempts to insert a notice for the user to know that there are no posts matching their search criteria
+         
+         if ([jsonArray count] == 0) {
+             NSLog(@"We got to no videos on the screen, pal");}/*
+             UIImage *noResults = [UIImage imageNamed:@"splash.png"];
+             UIImageView *noResultsView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+             noResultsView.image = noResults;
+             [self.view insertSubview:noResultsView atIndex:0];
+             
+             [self.view bringSubviewToFront:noResultsView];
+         }
+         else if (noResultsView) {
+             [self.view sendSubviewToBack:noResultsView];
+         }*/
          
          for (NSDictionary *dict in jsonArray) {
              [_videoPosts addObject:[[BFTVideoPost alloc] initWithDictionary:dict]];

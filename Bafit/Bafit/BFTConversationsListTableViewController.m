@@ -73,14 +73,23 @@
     UIBarButtonItem *miloFace = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"milo_backtohome.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]  style:UIBarButtonItemStylePlain target:self action:@selector(home:)];
     self.navigationItem.rightBarButtonItem = miloFace;
     
+    self.logoutDropdown = [[BFTLogoutDropdown alloc] init];
+    
+    // Define whether FBLogin or MCLogin should take over:
+    
+    // If FBLogin start:
+    //set facebook friends button stuff
     UIBarButtonItem *facebookLogout = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"facebook_friend"] style:UIBarButtonItemStylePlain target:self action:@selector(showDropDown)];
     
     [self.navigationItem setLeftBarButtonItem:facebookLogout];
     
-    self.logoutDropdown = [[BFTLogoutDropdown alloc] init];
-    //set facebook friends button stuff
     [self.logoutDropdown.logoutButton addTarget:self action:@selector(logoutOfApp) forControlEvents:UIControlEventTouchUpInside];
     [self.logoutDropdown.inviteFriendsButton addTarget:self action:@selector(inviteFacebookFriends) forControlEvents:UIControlEventTouchUpInside];
+    // FBLogin End
+    
+    // If MCLogin start:
+    // same as FBLogin - Meerchat icons
+    
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self.logoutDropdown];
     self.logoutDropdown.hidden = YES;
     
@@ -122,6 +131,8 @@
 
 -(void)logoutOfApp {
     [self.appDelegate logout];
+    
+    // If FBLogin
     [self performSegueWithIdentifier:@"logoutToFacebook" sender:self];
 }
 
@@ -254,8 +265,11 @@
     }
     
     //Image
+    // If FBLogin
     NSString* thumbURL = [[NSString alloc] initWithFormat:@"http://graph.facebook.com/%@/picture?type=large", item.facebookID];
     [cell.thumbnail setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbURL]];
+    // If MCLogin
+    // same as FBLogin - Meerchat icons
     
     if (!cell.thumbnail.image) {
         [[[BFTDatabaseRequest alloc] initWithFileURL:thumbURL completionBlock:^(NSMutableData *data, NSError *error) {
@@ -423,6 +437,7 @@
     
     BFTBackThreadItem *user = [self.reverseOrder objectAtIndex:index];
     
+    // If FBLogin
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"blockUser.php?UIDr=%@&UIDp=%@&GPSlat=%.4f&GPSlon=%.4f", [[BFTDataHandler sharedInstance] FBID], user.facebookID, [[BFTDataHandler sharedInstance] Latitude], [[BFTDataHandler sharedInstance] Longitude]] trueOrFalseBlock:^(BOOL success, NSError *error) {
         if (!error) {
             // remove user message from thread manager and reload table

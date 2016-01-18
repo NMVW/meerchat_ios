@@ -25,6 +25,8 @@
     [super viewDidLoad];
     
     //BOOL to tell whether loginViewFetchedUserInfo method was called -- it's not called if you logout and then login again in sequence. If YES(true) perform segue in loginViewShowingLoggedInUser method
+    
+    // If FBLogin
     self.facebook = NO;
     
     //set background color
@@ -99,14 +101,16 @@
 
 -(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView {
     
+    // If FBLogin
     if (self.facebook)
     {
         [self performSegueWithIdentifier:@"initiallogin" sender:self];
     }
+    // If MCLogin
 }
 
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
-    //this is getting called more than once for some reason, which was casuing multiple segues and issues with navigation
+    //this is getting called more than once for some reason, which was causing multiple segues and issues with navigation
     static int fetchedInfoCounter = 0;
     if (fetchedInfoCounter > 0) {
         return;
@@ -115,6 +119,8 @@
     
     NSString *email = [user objectForKey:@"email"];
     
+    
+    // If FBLogin
     //To cover the people who have already registered
     if (![[BFTDataHandler sharedInstance] FBID]) {
         [self sendFBInformation:user];
@@ -129,6 +135,7 @@
     [[BFTDataHandler sharedInstance] setLastName:[user last_name]];
     [[BFTDataHandler sharedInstance] saveData];
 
+    // If FBLogin
     [[[BFTDatabaseRequest alloc] initWithURLString:[NSString stringWithFormat:@"userExists.php?FBemail=%@", email] completionBlock:^(NSMutableData *data, NSError *error) {
         if (!error) {
             NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -191,6 +198,8 @@
         // (like accessing FB-stored information or posting to Facebook)
     } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled) {
         NSLog(@"user cancelled login");
+        alertTitle = @"Canceling Facebook login");
+        alertMessage = @"Please try again.";
         
         // For simplicity, this sample handles other errors with a generic message
         // You can checkout our error handling guide for more detailed information
@@ -210,6 +219,7 @@
     }
 }
 
+// If FBLogin
 -(void)sendFBInformation:(id<FBGraphUser>)user {
     //I'm pretty sure we have all this, so don't bother sending to database
     NSLog(@"FB Info: %@", user);

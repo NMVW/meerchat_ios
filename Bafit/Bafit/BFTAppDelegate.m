@@ -16,6 +16,13 @@
 #import "BFTConstants.h"
 #import "SDImageCache.h"
 
+#ifdef DEBUG
+// Development mode
+int d = 1;
+#else
+// Release version
+int d = 0;
+#endif
 
 @implementation BFTAppDelegate
 
@@ -29,8 +36,15 @@
     
     [Parse setApplicationId:@"wrDBeyyvoetbewUYHqByWOfK1R5PhiTmZiGOJeYO"
                   clientKey:@"09AYDgk4uYTbiFhNdxge5i2HyWQmeOTc85WivX41"];
+    
     [Fabric with:@[CrashlyticsKit]];
     
+    if (DEBUG) {
+        NSLog(@"App in Dev mode");
+    }
+    else {
+        NSLog(@"App in Release mode");
+    }
     //Set navigation color
     //[[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -127,6 +141,7 @@
     
     [self connectToJabber];
     
+    // When doing testing, it seems that badges only accumulate
     PFInstallation *install = [PFInstallation currentInstallation];
     if (install[@"UID"]) {
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -171,11 +186,13 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"Push Accepted, Save Device Token Using \nBUN: %@\nUID: %@", [[[BFTDataHandler sharedInstance] BUN] lowercaseString], [[BFTDataHandler sharedInstance] UID]);
     // Store the deviceToken in the current installation and save it to Parse.
+    
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation[@"BUN"] = [[[BFTDataHandler sharedInstance] BUN] lowercaseString];
     currentInstallation[@"UID"] = [[BFTDataHandler sharedInstance] UID];
     [currentInstallation saveEventually];
+    NSLog(@"Badge for Push set to %@", currentInstallation.badge);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
