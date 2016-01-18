@@ -23,7 +23,8 @@ This README would normally document whatever steps are necessary to get your app
 * Code review
 * Other guidelines
 
-### Who do I talk to? ###
+### Who owns this code? ###
 
-* Repo owner or admin
-* Other community or team contact
+Nick Vinson's disclosure of Bafit LLC frontend sourcecode
+
+Inquiries regarding the rights to reuse and distribute commercially any derivative work of this code base, please seek full permission from Augapitus Lye at augiaudio@gmail.com.
